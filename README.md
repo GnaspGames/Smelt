@@ -21,7 +21,7 @@ Input Syntax
 There are 3 different types of lines used in the input syntax.
 
 1. The "#" line, which depicts a new line of command blocks. You can also use this to write a comment about what is going on here.
-2. The JSON tags line (e.g. `{"type":"repeating","auto":"true"}`) which is used to set the properties of all commands following until a tag is changed.
+2. The JSON tags line (e.g. `{"type":"repeating","auto":"true"}`) which is used to set the properties of all command blocks following until a tag is changed.
 3. The command lines, which need to always start with a "/". Each of these commands is converted into the game, and the command-blocks executing them will use the properties from the previous JSON tags.
 
 Example:
