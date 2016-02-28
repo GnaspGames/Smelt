@@ -88,7 +88,7 @@ if(filePath)
 			for(i=0; i < commands.length; i++)
 			{
 				var command = commands[i];
-				var minecart = util.format("{id:MinecartCommandBlock,Command:%s}", JSON.stringify(command));
+				var minecart = util.format("{id:MinecartCommandBlock,Command:%s}", command); 
 				minecarts.push(minecart);
 				if(debug) console.log(minecart);
 			}
