@@ -2,13 +2,20 @@ one-command (beta)
 ==================
 A Minecraft one-command combiner for map makers.
 
+Install
+-------
+* Install Node and `npm`.
+* Download the ZIP and unzip, or clone with git.
+* Use a console to navigate to the directory you clones/unzipped into.
+* Run `npm install -g` so that `one-command` can be used anywhere.
+
 Demonstration
 -------------
 
-* Install Node.
-* Download the ZIP and unzip, or clone with git.
-* Use a console to navigate to the directory you clones/unzipped into.
-* Run `node index.js demo/demo.mcc` and then see the `demo/demo.oc` file that is created.
+* Use a console to navigate to the `demo` directory included.
+* Run `one-command demo.mcc` and then see the `demo.oc` file that is created.
+	* `one-command demo.mcc **debug**` outputs extra data into the console.
+	* `one-command demo.mcc **output-command**` outputs the compacted command the console.
 * Go into Minecraft 1.9^
     * Put down a command block in most north-west corner of a spawn chunk.
 	* Enter the command
