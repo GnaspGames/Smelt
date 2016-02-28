@@ -2,6 +2,8 @@ one-command (beta)
 ==================
 A Minecraft one-command combiner for map makers.
 
+![How it works](demo/one-command-demo.gif)
+
 Install
 -------
 * Install Node and `npm`.
