@@ -19,7 +19,7 @@ var CommandCreator =
 	currentDirection : "east",
 	currentType : "impulse",
 	currentConditional : false,
-	currentAuto : false,
+	currentAuto : true,
 	
 	addCommand : function(type, conditional, auto, command)
 	{
