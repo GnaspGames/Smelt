@@ -93,7 +93,8 @@ if(filePath)
 			
 			
 			var minecartsString = minecarts.join(",");			
-			var oneCommand = fs.readFileSync("one-command-format.txt").toString().trim();
+			var oneCommand = "summon FallingSand ~ ~5 ~{Block:activator_rail,Time:1,Passengers:[%s]}"
+			
 			oneCommand = util.format(oneCommand, minecartsString);
 			
 			if(debug)
