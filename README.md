@@ -11,13 +11,19 @@ Install
 * Use a console to navigate to the directory you clones/unzipped into.
 * Run `npm install -g` so that `one-command` can be used anywhere.
 
+Run it
+------
+* You need to have `.mcc` files using the *Input Syntax* described below.
+* Run `one-command /path/to/directory/or/file.mcc`.
+	* `one-command /path/to/file.mcc debug` outputs extra data into the console.
+	* `one-command /path/to/file.mcc output-command` outputs the compacted command the console.
+* Your combined commands will be on the `.oc` files with the same name as your `.mcc` files.
+
 Demonstration
 -------------
 
 * Use a console to navigate to the `demo` directory included.
 * Run `one-command demo.mcc` and then see the `demo.oc` file that is created.
-	* `one-command demo.mcc debug` outputs extra data into the console.
-	* `one-command demo.mcc output-command` outputs the compacted command the console.
 * Go into Minecraft 1.9^
     * Put down a command block in most north-west corner of a spawn chunk.
 	* Enter the command
