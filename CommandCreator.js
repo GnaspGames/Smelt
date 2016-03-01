@@ -17,13 +17,16 @@ var CommandCreator =
 	currentY : -2,
 	currentZ : 0,
 	currentDirection : "east",
-	currentType : "impulse",
-	currentConditional : false,
-	currentAuto : true,
+	type : "impulse",
+	conditional : false,
+	auto : true,
 	
-	addCommand : function(type, conditional, auto, command)
+	addSetblockCommand : function(command)
 	{
-		var command = CommandCreator.buildCommand(CommandCreator.currentX, 
+		var type = CommandCreator.type;
+		var conditional = CommandCreator.conditional;
+		var auto = CommandCreator.auto;
+		var command = CommandCreator.buildSetblockCommand(CommandCreator.currentX, 
 		                                          CommandCreator.currentY,
 												  CommandCreator.currentZ,
 												  CommandCreator.currentDirection,
@@ -54,7 +57,7 @@ var CommandCreator =
 		return command;
 	},
 	
-	buildCommand : function(x, y, z, direction, type, conditional, auto, command)
+	buildSetblockCommand : function(x, y, z, direction, type, conditional, auto, command)
 	{
 		var blockName = "";
 		switch(type)
@@ -105,6 +108,16 @@ var CommandCreator =
 		CommandCreator.currentZ++;
 		if(CommandCreator.currentZ == 15)
 			console.error("TOO MANY LINES!");
+	},
+	
+	processJSONLine : function(json)
+	{
+		if(json.type != null)
+			CommandCreator.type = json.type;
+		if(json.conditional != null)
+			CommandCreator.conditional = json.type;
+		if(json.auto != null)
+			CommandCreator.auto = json.auto;
 	}
 	
 }

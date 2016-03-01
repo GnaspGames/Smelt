@@ -66,12 +66,7 @@ if(filePathArg)
 					else if(line.indexOf("{") == 0)
 					{
 						var json = JSON.parse(line);
-						if(json.type != null)
-							type = json.type;
-						if(json.conditional != null)
-							conditional = json.conditional;
-						if(json.auto != null)
-							auto = json.auto;
+						CommandCreator.processJSONLine(json);
 						if(debug)
 						{
 							console.log("  PROCESS JSON OPTIONS!");
@@ -80,7 +75,7 @@ if(filePathArg)
 					}
 					else if(line.indexOf("/") == 0)
 					{
-						var command = CommandCreator.addCommand(type, conditional, auto, line);
+						var command = CommandCreator.addSetblockCommand(line);
 						commands.unshift(command);
 						if(debug)
 						{
@@ -98,7 +93,7 @@ if(filePathArg)
 				commands.unshift(gamerule, clearArea);
 				
 				
-				var removeBlocks = CommandCreator.buildCommand(0, 1, 0, "up", "impulse", false, true, "/fill ~ ~-2 ~ ~ ~ ~ air");
+				var removeBlocks = CommandCreator.buildSetblockCommand(0, 1, 0, "up", "impulse", false, true, "/fill ~ ~-2 ~ ~ ~ ~ air");
 				var removeMinecarts = "kill @e[type=MinecartCommandBlock,r=0]";
 				commands.push(removeBlocks, removeMinecarts);
 				
