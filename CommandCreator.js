@@ -20,17 +20,20 @@ var CommandCreator =
 	type : "impulse",
 	conditional : false,
 	auto : true,
+	executeAs : "",
 	
 	addSetblockCommand : function(command)
 	{
-		var type = CommandCreator.type;
-		var conditional = CommandCreator.conditional;
-		var auto = CommandCreator.auto;
-		var command = CommandCreator.buildSetblockCommand(CommandCreator.currentX, 
-		                                          CommandCreator.currentY,
-												  CommandCreator.currentZ,
-												  CommandCreator.currentDirection,
-												  type, conditional, auto, command);
+		var command = CommandCreator.buildSetblockCommand(
+			CommandCreator.currentX, 
+			CommandCreator.currentY,
+			CommandCreator.currentZ,
+			CommandCreator.currentDirection,
+			CommandCreator.type,
+			CommandCreator.conditional, 
+			CommandCreator.auto, 
+			CommandCreator.executeAs,
+			command);
 		
 		// Set details for NEXT commandblock
 		switch(CommandCreator.currentDirection)
@@ -57,7 +60,7 @@ var CommandCreator =
 		return command;
 	},
 	
-	buildSetblockCommand : function(x, y, z, direction, type, conditional, auto, command)
+	buildSetblockCommand : function(x, y, z, direction, type, conditional, auto, executeAs, command)
 	{
 		var blockName = "";
 		switch(type)
@@ -92,7 +95,10 @@ var CommandCreator =
 		
 		var autoString = "";
 		if(auto == true) autoString = ",auto:1b";
-				
+		
+		if(executeAs != "")
+			command = util.format("/execute %s ~ ~ ~ %s", executeAs, command);
+		
 		var setblock = util.format(CommandCreator.SETBLOCK_COMMAND_FORMAT, 
 		                           x, y, z,
 								   blockName, dataValue, command, autoString);
@@ -115,9 +121,11 @@ var CommandCreator =
 		if(json.type != null)
 			CommandCreator.type = json.type;
 		if(json.conditional != null)
-			CommandCreator.conditional = json.type;
+			CommandCreator.conditional = json.conditional;
 		if(json.auto != null)
 			CommandCreator.auto = json.auto;
+		if(json.executeAs != null)
+			CommandCreator.executeAs = json.executeAs;
 	}
 	
 }

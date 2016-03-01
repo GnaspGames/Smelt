@@ -92,12 +92,11 @@ if(filePathArg)
 				var clearArea = "/fill ~1 ~-2 ~1 ~14 ~10 ~14 air 0";
 				commands.unshift(gamerule, clearArea);
 				
-				
-				var removeBlocks = CommandCreator.buildSetblockCommand(0, 1, 0, "up", "impulse", false, true, "/fill ~ ~-2 ~ ~ ~ ~ air");
+				var removeBlocks = CommandCreator.buildSetblockCommand(0, 1, 0, "up", "impulse", false, true, "", "/fill ~ ~-2 ~ ~ ~ ~ air");
 				var removeMinecarts = "kill @e[type=MinecartCommandBlock,r=0]";
 				commands.push(removeBlocks, removeMinecarts);
 				
-				if(debug) console.log("\n\nCREATE IN THIS ORDER:\n");
+				//if(debug) console.log("\n\nCREATE IN THIS ORDER:\n");
 				
 				var minecarts = []
 				for(i=0; i < commands.length; i++)
@@ -105,7 +104,7 @@ if(filePathArg)
 					var command = commands[i];
 					var minecart = util.format("{id:MinecartCommandBlock,Command:%s}", command); 
 					minecarts.push(minecart);
-					if(debug) console.log(minecart);
+					//if(debug) console.log(minecart);
 				}
 				
 				

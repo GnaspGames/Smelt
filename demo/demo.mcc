@@ -25,19 +25,23 @@
 		/say repeatThing 17
 		/say repeatThing 18
 		/say repeatThing 19
-		/say repeatThing 20
-		/say repeatThing 21
-		/say repeatThing 22
-		/say repeatThing 23
-		/say repeatThing 24
-		/say repeatThing 25
-		/say repeatThing 26
-		/say repeatThing 27
-		/say repeatThing 28
-		/say repeatThing 29
-		/say repeatThing 30
-		/say repeatThing 31
+		/tellraw @a ["",{"selector":"@p","color":"green","bold":"true"},{"text":"is the closest, let's execute off them! ","color":"green","bold":"true"}]
+		{"executeAs":"@p"}
+			/say repeatThing 20
+			/say repeatThing 21
+			/say repeatThing 22
+			/say repeatThing 23
+			/say repeatThing 24
+			/say repeatThing 25
+			/say repeatThing 26
+			/say repeatThing 27
+			/say repeatThing 28
+			/say repeatThing 29
+			/say repeatThing 30
+			/say repeatThing 31
+		{"executeAs":""}
 		/say repeatThing finised!
+		
 
 # 
 # Turn repeatThing on
