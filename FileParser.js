@@ -8,12 +8,12 @@ var FileParser = (function ()
 	{
 		this.Commands = [];
 		this.Debug = false;
+		this.OutputCommand = false;
 	}
 	
     FileParser.prototype.ProcessFile = function (filePath)
 	{
 		CommandCreator.startNewFile();
-		console.log("CommandCreator.currentZ: " + CommandCreator.currentZ.toString());
 		
 		var data = fs.readFileSync(filePath);
 
@@ -58,7 +58,7 @@ var FileParser = (function ()
 		
 		oneCommand = util.format(oneCommand, minecartsString);
 		
-		if(this.Debug || outputOneCommand)
+		if(this.Debug || this.OutputCommand)
 		{
 			console.log("\n\nFINAL ONE-COMMAND:\n");
 			console.log(oneCommand);

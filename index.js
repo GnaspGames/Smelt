@@ -6,7 +6,7 @@ var util = require('util');
 var filePathArg = process.argv[2];
 
 var debug = process.argv[3] == "debug" ? true : false;
-var outputOneCommand = process.argv[3] == "output-command" ? true : false;
+var outputCommand = process.argv[3] == "output-command" ? true : false;
 
 FileParser = require("./FileParser");
 
@@ -32,7 +32,8 @@ if(filePathArg)
 	files.forEach(function(filePath)
 	{
 		var fileParser = new FileParser();
-		fileParser.Debug = debug
+		fileParser.Debug = debug;
+		fileParser.OutputCommand = outputCommand;
 		fileParser.ProcessFile(filePath);
 	});
 }
