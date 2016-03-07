@@ -110,6 +110,18 @@ var CommandCreator =
 			console.error("TOO MANY LINES!");
 	},
 	
+	startNewFile : function()
+	{
+		CommandCreator.currentDirection = "east";
+		CommandCreator.currentX = CommandCreator.STARTING_X;
+		CommandCreator.currentY = CommandCreator.STARTING_Y;
+		CommandCreator.currentZ = CommandCreator.STARTING_Z;
+		CommandCreator.type = "impulse";
+		CommandCreator.conditional = false;
+		CommandCreator.auto = true;
+		CommandCreator.executeAs = "";
+	},
+	
 	processJSONLine : function(json)
 	{
 		if(json.type != null)
