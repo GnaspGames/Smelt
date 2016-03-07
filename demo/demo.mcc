@@ -25,7 +25,7 @@
 		/say repeatThing 17
 		/say repeatThing 18
 		/say repeatThing 19
-		/tellraw @a ["",{"selector":"@p","color":"green","bold":"true"},{"text":"is the closest, let's execute off them! ","color":"green","bold":"true"}]
+		/tellraw @a ["",{"selector":"@p","color":"green","bold":"true"},{"text":" is the closest, let's execute off them! ","color":"green","bold":"true"}]
 		{"executeAs":"@p"}
 			/say repeatThing 20
 			/say repeatThing 21
