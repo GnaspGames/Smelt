@@ -53,8 +53,6 @@ var FileParser = (function ()
 			//if(this.Debug) console.log(minecart);
 		}
 		
-		
-		
 		var minecartsString = minecarts.join(",");			
 		var oneCommand = "summon FallingSand ~ ~5 ~ {Block:activator_rail,Time:1,Passengers:[%s]}"
 		

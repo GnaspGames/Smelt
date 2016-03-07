@@ -8,7 +8,6 @@ var filePathArg = process.argv[2];
 var debug = process.argv[3] == "debug" ? true : false;
 var outputOneCommand = process.argv[3] == "output-command" ? true : false;
 
-var CommandCreator = require("./CommandCreator");
 FileParser = require("./FileParser");
 
 if(filePathArg)
