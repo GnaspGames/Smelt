@@ -6,6 +6,7 @@ var CommandCreator =
 	REPEATING_BLOCK_NAME : "repeating_command_block",
 	CHAIN_BLOCK_NAME : "chain_command_block",
 	SETBLOCK_COMMAND_FORMAT : "setblock ~%d ~%d ~%d %s %d replace {Command:%s%s}",
+	SUMMON_LINE_MARKER_FORMAT : "summon ArmorStand ~ ~ ~%d {CustomName:%s,Tags:[\"lineMarker\"],Marker:1b,CustomNameVisible:1b,Invulnerable:1b,NoGravity:1b,Invisible:1b}",
 	UP_DIRECTION_VALUE : 1,
 	EAST_DIRECTION_VALUE : 5,
 	WEST_DIRECTION_VALUE : 4,
@@ -105,15 +106,26 @@ var CommandCreator =
 								   
 		return setblock;
 	},
-	
-	startNewLine : function()
+	addNewLineMarker : function(line)
+	{
+		var summon;
+		var customName = line.replace("#", "").trim();
+		if(customName.length != 0)
+		{
+			var summon = util.format(CommandCreator.SUMMON_LINE_MARKER_FORMAT, CommandCreator.currentZ, customName);
+		}
+		return summon;
+	},
+	startNewLine : function(line)
 	{
 		CommandCreator.currentDirection = "east";
 		CommandCreator.currentX = CommandCreator.STARTING_X;
 		CommandCreator.currentY = CommandCreator.STARTING_Y;
 		CommandCreator.currentZ++;
-		if(CommandCreator.currentZ == 15)
-			console.error("TOO MANY LINES!");
+		// CommandCreator.currentZ == 15)
+		//	console.error("TOO MANY LINES!");
+		
+		return CommandCreator.addNewLineMarker(line);
 	},
 	
 	startNewFile : function()

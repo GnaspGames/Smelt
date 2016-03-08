@@ -73,12 +73,14 @@ var FileParser = (function ()
 	{
 		if(line.indexOf("#") == 0)
 		{
+			var summon = CommandCreator.startNewLine(line);
+			if(summon) this.Commands.unshift(summon);
 			if(this.Debug)
 			{
-				console.log("\n\nSTART NEW LINE!")
-				console.log(line);
+				console.log("\n\n  START NEW LINE!")
+				console.log("  " + line);
+				if(summon) console.log("   -> " + summon);
 			}
-			CommandCreator.startNewLine();
 		}
 		else if(line.indexOf("{") == 0)
 		{
