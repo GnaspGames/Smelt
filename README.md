@@ -7,9 +7,7 @@ A Minecraft one-command combiner for map makers.
 Install
 -------
 * Install Node and `npm`.
-* Download the ZIP and unzip, or clone with git.
-* Use a console to navigate to the directory you clones/unzipped into.
-* Run `npm install -g` so that `one-command` can be used anywhere.
+* Run `npm install one_command -g` so that `one-command` can be used anywhere.
 
 Run it
 ------
