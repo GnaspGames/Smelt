@@ -1,0 +1,19 @@
+#setup
+	/scoreboard objectives add tpAmount dummy Tp Amount
+	{"type":"chain"}
+	/scoreboard objectives setdisplay sidebar tpAmount
+	/tellraw @a ["run /scoreboard players set @p tpAmount n\nto get teleported by n blocks"]
+	/tellraw @a {"text":"or click here","clickEvent":{"action":"run_command","value":"/scoreboard players set @p tpAmount 42"}}
+
+# tp
+{"type":"repeating","auto":true}
+	/testfor @p[score_tpAmount_min=1]
+	{"conditional":true}
+		/tellraw @p[score_tpAmount_min=1] ["You will now be tp'ed by ",{"score":{"objective":"tpAmount","name":"@p[score_tpAmount_min=1]"}}]
+		{"type":"chain","conditional":false}
+		/execute @p[score_tpAmount_min=1] ~ ~ ~ summon ArmorStand ~ ~ ~ {Tags:["hasTpScore"]}
+		/scoreboard players operation @e[tag=hasTpScore] tpAmount = @p[score_tpAmount_min=1] tpAmount
+		!scoreTp hasTpScore tpAmount 64 x
+		/tp @p[score_tpAmount_min=1] @e[tag=hasTpScore]
+		/kill @e[tag=hasTpScore]
+		/scoreboard players set @p[score_tpAmount_min=1] tpAmount 0

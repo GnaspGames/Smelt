@@ -104,6 +104,24 @@ var FileParser = (function ()
 				console.log("   -> " + command);
 			}
 		}
+        else if(line[0] == "!")
+        {
+        	var args = line.substr(1).split(" ");
+        	var name = args[0];
+        	var plugin = require("./plugins/" + name + ".js");
+        	
+        	var self = this;
+        	plugin(args.slice(1), function(cmd, conditional)
+        	{
+        		var _conditional = CommandCreator.conditional;
+        		
+        		CommandCreator.conditional = conditional || false;
+        		var command = CommandCreator.addSetblockCommand(cmd);
+        		self.Commands.unshift(command);
+        		
+        		CommandCreator.conditional = _conditional;
+        	});
+        }
     };
 	
     return FileParser;
