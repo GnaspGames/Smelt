@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>one-command by GnaspGames</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>one-command</h1>
+        <h2>A CLI tool used to compile Minecraft commands into one-command installers, for map makers.</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/GnaspGames/one-command/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/GnaspGames/one-command/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/GnaspGames/one-command" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a id="one-command-beta" class="anchor" href="#one-command-beta" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>one-command (beta)</h1>
+
+<p>A Minecraft one-command combiner for map makers.</p>
+
+<p><img src="https://github.com/GnaspGames/one-command/raw/master/demo/one-command-demo.gif" alt="How it works"></p>
+
+<h2>
+<a id="install" class="anchor" href="#install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install</h2>
+
+<ul>
+<li>Install Node and <code>npm</code>.</li>
+<li>Run <code>npm install one_command -g</code> so that <code>one-command</code> can be used anywhere.</li>
+</ul>
+
+<h2>
+<a id="run-it" class="anchor" href="#run-it" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run it</h2>
+
+<ul>
+<li>You need to have <code>.mcc</code> files using the <em>Input Syntax</em> described below.</li>
+<li>Run <code>one-command /path/to/directory/or/file.mcc</code>.
+
+<ul>
+<li>
+<code>one-command /path/to/file.mcc debug</code> outputs extra data into the console.</li>
+<li>
+<code>one-command /path/to/file.mcc output-command</code> outputs the compacted command the console.</li>
+</ul>
+</li>
+<li>Your combined commands will be on the <code>.oc</code> files with the same name as your <code>.mcc</code> files.</li>
+</ul>
+
+<h2>
+<a id="demonstration" class="anchor" href="#demonstration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demonstration</h2>
+
+<p>Download or clone the git repository to try the demo.</p>
+
+<ul>
+<li>Use a console to navigate to the <code>demo</code> directory included.</li>
+<li>Run <code>one-command demo.mcc</code> and then see the <code>demo.oc</code> file that is created.</li>
+<li>Go into Minecraft 1.9^
+
+<ul>
+<li>Put down a command block in most north-west corner of a spawn chunk.</li>
+<li>Enter the command</li>
+<li>Power the command block with a button (<strong>NOT ON TOP</strong>) of the command block.</li>
+</ul>
+</li>
+<li>See the demo command blocks appear.</li>
+</ul>
+
+<h2>
+<a id="input-syntax" class="anchor" href="#input-syntax" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Input Syntax</h2>
+
+<p>There are 3 different types of lines used in the input syntax.</p>
+
+<h3>
+<a id="1-the-new-line-starting-with-" class="anchor" href="#1-the-new-line-starting-with-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1. The NEW line (starting with "#")</h3>
+
+<p>Each of these starts a new line of command blocks. </p>
+
+<p>Any text found after the initial "#" is used to generate a "line marker" (a hidden marker armorstand with the text as the CustomName). </p>
+
+<p>This helps to recognise lines of command blocks in your Minecraft world.</p>
+
+<p>Use a line with no text after the "#" to create a gap between your command block lines. No line marker will be created.</p>
+
+<h3>
+<a id="2-the-json-line-using--and--always-on-one-line" class="anchor" href="#2-the-json-line-using--and--always-on-one-line" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2. The JSON line (using "{" and "}", always on one line)</h3>
+
+<p>For example <code>{"type":"repeating","auto":"true"}</code>. </p>
+
+<p>This is used to set the properties of all command blocks following until a tag is changed.</p>
+
+<p>Properties available to use are: </p>
+
+<p><strong>"type"</strong></p>
+
+<p>This defines the type of command block that will be used for the following commands.</p>
+
+<p>Possible values are <code>"impulse"</code>, <code>"repeating"</code> or <code>"chain"</code>.</p>
+
+<p>Example: <code>{"type":"repeating"}</code></p>
+
+<p><strong>"auto"</strong></p>
+
+<p>This defines whether the following command blocks with be "Always active" (true), or "Require redstone" (false).</p>
+
+<p>Possible values are <code>true</code> or <code>false</code>. Double quotes should not be used around values on this property.</p>
+
+<p>Example: <code>{"auto":false}</code></p>
+
+<p><strong>"conditional"</strong></p>
+
+<p>This defines whether the following command blocks will be "Conditional", meaning that they will only execute 
+if the previous command block executes successfully. </p>
+
+<p>Possible values are <code>true</code> or <code>false</code>. Double quotes should not be used around values on this property.</p>
+
+<p>Example: <code>{"conditional":true}</code></p>
+
+<p><strong>"executeAs"</strong></p>
+
+<p>This defines the executing entity for all following command blocks. </p>
+
+<p>Currently this only supports one entity selector, but it extended to allow for more as a list.</p>
+
+<p>Any valid entity selector, e.g. <code>{"executeAs":"@a[score_lives=0]"}</code></p>
+
+<p>This will be inserted before any following commands as <code>/execute @a[score_lives=0] ~ ~ ~ /say Hello World</code>.</p>
+
+<p>Use <code>{"executeAs":""}</code> to reset this option.</p>
+
+<h3>
+<a id="3-the-command-line-starting-with-" class="anchor" href="#3-the-command-line-starting-with-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3. The command line (starting with "/")</h3>
+
+<p>Each of these commands is converted into the game, and the command-blocks executing them will use the properties 
+from the previous JSON tags.</p>
+
+<p>You can use anything on these lines that can be put into a command block in the game.</p>
+
+<h3>
+<a id="everything-else" class="anchor" href="#everything-else" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Everything else</h3>
+
+<p>Other than that, if a line doesn't start with a "#", "{", or "/" then it will be ignored and you can put whatever 
+you want. Good for notes.</p>
+
+<p>Example:</p>
+
+<pre><code># repeatThing
+{"type":"repeating","auto":true}
+/testfor @e[name=repeatThing]
+    {"conditional":true}
+    /say repeatThing exists!
+        {"type":"chain", "conditional":false}
+        /say repeatThing still running!
+        /say repeatThing finised!
+
+# Another line
+{"type":"inpulse","auto":false}
+/say TEST
+    {"type":"chain", "auto":true}
+    /say TEST 2
+    /say TEST 3
+</code></pre>
+
+<p>This will create the following command-blocks:</p>
+
+<p>A repeating command block, with auto set to true, running the <code>/testfor @e[name=repeatThing]</code> command. 
+Then a conditional repeating command block, with auto also set to true (inherited from last JSON tag), 
+running the <code>/say repeatThing exists!</code> command. Then two non-conditional chain command blocks, with auto 
+still set to true as before (still using the previous value, not overwritten in last JSON tag line), running 
+the following commands: <code>/say repeatThing still running!</code> and <code>/say repeatThing finised!</code>.</p>
+
+<p>Then a new line of command blocks is started. First an inpulse command block, with auto set to false, which 
+would run the command <code>/say TEST</code> when executed. This is followed by two chain command blocks (still not conditional, 
+since it's still false from the previous reference), but now auto has been set to true, and they would run the following 
+commands when the impulse command is executed; <code>/say TEST 2</code> and <code>/say TEST 2</code>.</p>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
