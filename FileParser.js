@@ -49,7 +49,7 @@ var FileParser = (function ()
 		for(i=0; i < this.Commands.length; i++)
 		{
 			var command = this.Commands[i];
-			var minecart = util.format("{id:MinecartCommandBlock,Command:%s}", command); 
+			var minecart = util.format("{id:MinecartCommandBlock,Command:%s}", JSON.stringify(command)); 
 			minecarts.push(minecart);
 			//if(this.Debug) console.log(minecart);
 		}
