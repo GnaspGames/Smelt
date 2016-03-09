@@ -1,0 +1,225 @@
+var precendence = {
+	"(": 1,
+	")": 1,
+	
+	"+": 2,
+	"-": 2,
+	
+	"*": 3,
+	"/": 3,
+	"%": 3
+};
+
+var compileTimeOps = {
+	"+": function(a, b) { return a + b; },
+	"-": function(a, b) { return a - b; },
+	"*": function(a, b) { return a * b; },
+	"/": function(a, b) { return a / b; },
+	"%": function(a, b) { return a % b; },
+}
+
+module.exports = function(args, command)
+{
+	var result = args[0];
+	var resultOp = args[1];
+	var formula = args.slice(2).join(" ");
+	
+	if(result.indexOf(".") < 1 || !/^[\+\-\*\/%]?=$/.test(resultOp))
+		throw new Error("Usage: !math <objective>.<selector> <operator> <expression>\n\te.g. !math money.@r += lottery.pot / 2 + 42");
+		
+	result = result.split(".");
+	result = {
+		objective: result[0],
+		name: result[1]
+	}
+	
+	var opstack = [];
+	var postfix = [];
+	
+	var i = 0;
+	while(i < formula.length)
+	{
+		var curr = formula[i];
+		if(/\s/.test(curr))
+		{
+			i++;
+		}
+		else if(curr == "(")
+		{
+			opstack.unshift("(");
+			i++;
+		}
+		else if(curr == ")")
+		{
+			while(opstack[0] && opstack[0] != "(")
+			{
+				postfix.push(opstack[0]);
+				opstack.splice(0, 1);
+			}
+			opstack.splice(0, 1);
+			i++;
+		}
+		else if(precendence[curr])
+		{
+			var prec = precendence[curr];
+			while(precendence[opstack[0]] >= prec)
+			{
+				postfix.push(opstack[0]);
+				opstack.splice(0, 1);
+			}
+			opstack.unshift(curr);
+			i++;
+		}
+		else
+		{
+			var str = [];
+			while(curr && !/\s/.test(curr) && !precendence[curr])
+			{
+				str.push(curr);
+				i++;
+				curr = formula[i];
+			}
+			str = str.join("");
+			
+			if(/^[0-9]+$/.test(str))
+			{
+				postfix.push(parseInt(str));
+			}
+			else if(str.indexOf(".") > 0)
+			{
+				var split = str.split(".");
+				postfix.push({
+					objective: split[0],
+					name: split[1],
+					dontChange: true
+				});
+			}
+			else
+			{
+				throw new Error("unexpected " + JSON.stringify(str) + " in math expression");
+			}
+		}
+	}
+	
+	for(var i = 0; i < opstack.length; i++)
+		postfix.push(opstack[i]);
+		
+	var cmds = [];
+	var statics = [];
+	var valstack = [];
+	var nextMutable = 0;
+	
+	for(var i = 0; i < postfix.length; i++)
+	{
+		var curr = postfix[i];
+		if(typeof curr == "number" || typeof curr == "object")
+			valstack.unshift(curr);
+		else if(typeof curr == "string")
+			op(curr);
+	}
+	
+	if(valstack.length > 1)
+		throw new Error("Invalid math expression: " + JSON.stringify(formula));
+	
+	placeOp(resultOp[0], result, valstack[0]);
+	command("scoreboard objectives add math dummy");
+	
+	statics.forEach(function(val, i)
+	{
+		if(statics.indexOf(val) != i)
+			return;
+		command([
+			"scoreboard players set",
+			"const" + statics[i],
+			"math",
+			statics[i]
+		].join(" "));
+	});
+	
+	cmds.forEach(function(cmd)
+	{
+		command(cmd);
+	});
+	
+	function op(operator)
+	{
+		var left = valstack[1];
+		var right = valstack[0];
+		valstack.splice(0, 2);
+		
+		if(typeof left == "number" && typeof right == "number")
+		{
+			var result = compileTimeOps[operator](left, right);
+			valstack.unshift(result);
+			console.dir(valstack);
+		}
+		else if((operator == "+" || operator == "-") && typeof right == "number")
+		{
+			if(left.dontChange)
+				left = toMutable(left);
+			if(right < 0)
+			{
+				right = -right;
+				operator = operator == "+" ? "-" : "+";
+			}
+				
+			var constOps = {
+				"+": "add",
+				"-": "remove"
+			};
+			cmds.push([
+				"scoreboard players",
+				constOps[operator],
+				left.name,
+				left.objective,
+				right
+			].join(" "));
+			valstack.unshift(left);
+		}
+		else
+		{
+			if(typeof left == "number")
+				left = toScore(left);
+			if(typeof right == "number")
+				right = toScore(right);
+				
+			if(left.dontChange)
+				left = toMutable(left);
+			
+			placeOp(operator, left, right);
+			valstack.unshift(left);
+		}
+	}
+	function toMutable(val)
+	{
+		var mutable = {
+			objective: "math",
+			name: "r" + nextMutable
+		};
+		nextMutable++;
+		placeOp("=", mutable, val);
+		return mutable;
+	}
+	function toScore(val)
+	{
+		statics.push(val);
+		return {
+			objective: "math",
+			name: "const" + val,
+			dontChange: true
+		};
+	}
+	function placeOp(operator, left, right)
+	{
+		if(operator != "=")
+			operator += "=";
+		cmds.push([
+			"scoreboard players operation",
+			left.name,
+			left.objective,
+			operator,
+			right.name,
+			right.objective
+		].join(" "));
+	}
+}
