@@ -34,12 +34,11 @@ var FileParser = (function ()
 		}
 		
 		var gamerule = "gamerule commandBlockOutput false";
-		var clearArea = "fill ~1 ~-2 ~1 ~14 ~10 ~14 air 0";
-		var clearlineMarkers1= "summon ArmorStand ~ ~-2 ~ {Tags:[\"\lineMarker\",\"clearlineMarkers\"]}";
-		var clearlineMarkers2 = "execute @e[tag=clearlineMarkers] ~ ~ ~ kill @e[tag=lineMarker,dx=15,dy=20,dz=15]";
-		this.Commands.unshift(gamerule, clearArea, clearlineMarkers1, clearlineMarkers2);
+		var clearArea = "fill ~1 ~-1 ~1 ~14 ~10 ~14 air 0";
+		var clearlineMarkers = "kill @e[tag=lineMarker,dx=15,dy=20,dz=15]";
+		this.Commands.unshift(gamerule, clearArea, clearlineMarkers);
 		
-		var removeBlocks = CommandCreator.buildSetblockCommand(0, 1, 0, "up", "impulse", false, true, "", "/fill ~ ~-2 ~ ~ ~ ~ air");
+		var removeBlocks = CommandCreator.buildSetblockCommand(0, 1, 0, "up", "impulse", false, true, "", "/fill ~ ~-1 ~ ~ ~ ~ air");
 		
 		var removeMinecarts = "kill @e[type=MinecartCommandBlock,r=0]";
 		this.Commands.push(removeBlocks, removeMinecarts);
@@ -56,7 +55,7 @@ var FileParser = (function ()
 		}
 		
 		var minecartsString = minecarts.join(",");			
-		var oneCommand = "summon FallingSand ~ ~5 ~ {Block:activator_rail,Time:1,Passengers:[%s]}"
+		var oneCommand = "summon FallingSand ~ ~1 ~ {Block:activator_rail,Time:1,Passengers:[%s]}"
 		
 		oneCommand = util.format(oneCommand, minecartsString);
 		
