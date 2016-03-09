@@ -7,5 +7,13 @@
 	"one-command": "./index.js"
   },
   "author": "Gnasp",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GnaspGames/one-command.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GnaspGames/one-command/issues"
+  },
+  "homepage": "https://github.com/GnaspGames/one-command"
 }
