@@ -2,7 +2,7 @@ one-command (beta)
 ==================
 A Minecraft one-command combiner for map makers.
 
-![How it works](demo/one-command-demo.gif)
+![How it works](https://github.com/GnaspGames/one-command/raw/master/demo/one-command-demo.gif)
 
 Install
 -------
