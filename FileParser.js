@@ -34,8 +34,10 @@ var FileParser = (function ()
 		}
 		
 		var gamerule = "gamerule commandBlockOutput false";
-		var clearArea = "/fill ~1 ~-2 ~1 ~14 ~10 ~14 air 0";
-		this.Commands.unshift(gamerule, clearArea);
+		var clearArea = "fill ~1 ~-2 ~1 ~14 ~10 ~14 air 0";
+		var clearlineMarkers1= "summon ArmorStand ~ ~-2 ~ {Tags:[\"\lineMarker\",\"clearlineMarkers\"]}";
+		var clearlineMarkers2 = "execute @e[tag=clearlineMarkers] ~ ~ ~ kill @e[tag=lineMarker,dx=15,dy=20,dz=15]";
+		this.Commands.unshift(gamerule, clearArea, clearlineMarkers1, clearlineMarkers2);
 		
 		var removeBlocks = CommandCreator.buildSetblockCommand(0, 1, 0, "up", "impulse", false, true, "", "/fill ~ ~-2 ~ ~ ~ ~ air");
 		

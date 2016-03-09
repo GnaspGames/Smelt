@@ -1,5 +1,5 @@
 
-# repeatThing
+# function: repeatThing
 {"type":"repeating","auto":true}
 /testfor @e[name=repeatThing]
 	{"conditional":true}
@@ -44,14 +44,14 @@
 		
 
 # 
-# Turn repeatThing on
+# Turn on
 {"type":"impulse", "auto": false, "conditional":false}
 /summon ArmorStand ~ ~1 ~ {CustomName:repeatThing}
 	{"type":"chain", "auto": true}
 	/say CREATED repeatThing
 
 #
-# Turn repeatThing off
+# Turn off
 {"type":"impulse", "auto": false, "conditional":false}
 /kill @e[name=repeatThing]
 	{"type":"chain", "auto": true}
