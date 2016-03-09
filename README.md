@@ -39,9 +39,11 @@ There are 3 different types of lines used in the input syntax.
 
 Each of these starts a new line of command blocks. 
 
-Any text found after the initial "#" is used to generate a hidden marker armorstand with that as the CustomName. 
+Any text found after the initial "#" is used to generate a "line marker" (a hidden marker armorstand with the text as the CustomName). 
 
 This helps to recognise lines of command blocks in your Minecraft world.
+
+Use a line with no text after the "#" to create a gap between your command block lines. No line marker will be created.
 
 ### 2. The JSON line (using "{" and "}", always on one line)
 
