@@ -17,6 +17,7 @@
 		/say repeatThing 9
 		/say repeatThing 10
 		/say repeatThing 11
+		!helloworld
 		/say repeatThing 12
 		/say repeatThing 13
 		/say repeatThing 14
