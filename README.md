@@ -33,7 +33,7 @@ Download or clone the git repository to try the demo.
 Input Syntax
 ------------
 
-There are 3 different types of lines used in the input syntax.
+There are 4 different types of lines used in the input syntax.
 
 ### 1. The NEW line (starting with "#")
 
@@ -96,6 +96,26 @@ Each of these commands is converted into the game, and the command-blocks execut
 from the previous JSON tags.
 
 You can use anything on these lines that can be put into a command block in the game.
+
+### 4. The bang command line (starting with "!")
+
+This lines are used to call custom commands built into one-command, or available via plugins.
+
+This bang commands will in turn generate a collection of standard commands to be imported into your world.
+
+One example would be the `!math` command, which can be used as follows:
+
+```
+!math <objective>.<selector> <operator> <expression>
+```
+
+For example:
+
+```
+/scoreboard objectives add money dummy
+/scoreboard players set lotteryPot money 1337
+!math money.@r += (money.lotteryPot - 10) / 2
+```
 
 ### Everything else
 

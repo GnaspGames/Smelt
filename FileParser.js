@@ -1,6 +1,7 @@
 var util = require('util');
 var fs = require('fs');
 var CommandCreator = require("./CommandCreator");
+var BangCommandHelper = require("./BangCommandHelper");
 
 var FileParser = (function () 
 {
@@ -30,7 +31,17 @@ var FileParser = (function ()
 		for(i=0; i < lines.length; i++)
 		{
 			var line = lines[i].trim();
-			this.processLine(line);
+			
+			try
+			{
+				this.processLine(line);
+			}
+			catch(err)
+			{
+				console.log("\n\n  LINE ERROR!");
+				console.log(util.format("  Error on %s:%d - %s\n\n", filePath, i, err));
+				throw err;
+			}
 		}
 		
 		var gamerule = "gamerule commandBlockOutput false";
@@ -78,7 +89,7 @@ var FileParser = (function ()
 			if(summon) this.Commands.unshift(summon);
 			if(this.Debug)
 			{
-				console.log("\n\n  START NEW LINE!")
+				console.log("\n\n* START NEW LINE!")
 				console.log("  " + line);
 				if(summon) console.log("   -> " + summon);
 			}
@@ -89,7 +100,7 @@ var FileParser = (function ()
 			CommandCreator.processJSONLine(json);
 			if(this.Debug)
 			{
-				console.log("  PROCESS JSON OPTIONS!");
+				console.log("\n* PROCESS JSON OPTIONS");
 				console.log("  " + JSON.stringify(json));
 			}
 		}
@@ -99,29 +110,30 @@ var FileParser = (function ()
 			this.Commands.unshift(command);
 			if(this.Debug)
 			{
-				console.log("  CREATE COMMAND BLOCK!");
+				console.log("\n* CREATE COMMAND BLOCK");
 				console.log("  " + line);
 				console.log("   -> " + command);
 			}
 		}
-        else if(line[0] == "!")
-        {
-        	var args = line.substr(1).split(" ");
-        	var name = args[0];
-        	var plugin = require("./plugins/" + name + ".js");
-        	
-        	var self = this;
-        	plugin(args.slice(1), function(cmd, conditional)
-        	{
-        		var _conditional = CommandCreator.conditional;
-        		
-        		CommandCreator.conditional = conditional || false;
-        		var command = CommandCreator.addSetblockCommand(cmd);
-        		self.Commands.unshift(command);
-        		
-        		CommandCreator.conditional = _conditional;
-        	});
-        }
+		else if(line[0] == "!")
+		{	
+			if(this.Debug)
+			{
+				console.log("\n* PROCESS BANG COMMAND");
+				console.log("  " + line);
+				console.log("  Commands generated:");
+			}
+			var commands = BangCommandHelper.processBang(line);
+			if(commands.length > 0)
+			{
+				var self = this;
+				commands.forEach(function(command)
+				{
+					if(self.Debug) console.log("   -> " + command);
+					self.Commands.unshift(command);
+				});
+			}
+		}
     };
 	
     return FileParser;
