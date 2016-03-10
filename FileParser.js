@@ -26,8 +26,8 @@ var FileParser = (function ()
 			var self = this;
 			this.BangSetups.forEach(function(setup)
 			{
-				console.log(util.format("\n\nTo use the \"!%s\" command you will need to also install the following command into your world:", setup.bang));
-				self.ProcessData(setup.data, setup.bang, setup.bang + ".oc");
+				console.log(util.format("\n\nTo use the \"!%s\" command you will need to also install the following command into your world:", setup.bangName));
+				self.ProcessData(setup.setupData, setup.fileName, setup.fileName + ".oc");
 			});
 			
 		}

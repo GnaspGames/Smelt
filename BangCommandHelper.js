@@ -1,4 +1,5 @@
 var util = require('util');
+var fs = require('fs');
 var CommandCreator = require("./CommandCreator");
 
 var BangCommandHelper = 
@@ -10,6 +11,7 @@ var BangCommandHelper =
 		var args = bang.substr(1).split(" ");
 		var name = args[0];
 		var plugin = this.loadPlugin(name);
+		var self = this;
 		
 		var commandCallback = function(cmd, jsonOptions)
 		{
@@ -29,9 +31,10 @@ var BangCommandHelper =
 			CommandCreator.executeAs = _executeAs;
 		};
 		
-		var setupCallback = function(setupData)
+		var setupCallback = function(fileName)
 		{
-			fileParser.BangSetups.push({bang:name, data: setupData});
+			var setupData = self.readPluginFile(name, fileName);
+			fileParser.BangSetups.push({bangName:name, fileName: fileName, setupData: setupData});
 		};
 		
 		plugin(args.slice(1), commandCallback, setupCallback);
@@ -62,6 +65,32 @@ var BangCommandHelper =
 		if(!pluginFound) throw new Error(util.format("The command \"!%s\" could not be found. Did you forget to intall a plugin?", name)); 
 		
 		return plugin;
+	},
+	readPluginFile: function(pluginName, filename)
+	{
+		var pluginFileFound = false;
+		var fullPath = "";
+		
+		try
+		{ 
+			fullPath = require.resolve("./plugins/" + filename); 
+			pluginFound = true;
+		}
+		catch(err){}
+		
+		try
+		{ 
+			if(!pluginFileFound)
+			{
+				fullPath = require.resolve("../oc-plugins/oc-" + pluginName + "/" + filename); 
+				pluginFound = true;
+			}
+		}
+		catch(err){}	
+		
+		if(!pluginFound) throw new Error(util.format("The setup file \"!%s\" could not be found.", filename)); 
+		
+		return fs.readFileSync(fullPath);
 	}
 	
 }
