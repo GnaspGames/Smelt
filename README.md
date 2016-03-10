@@ -119,7 +119,7 @@ For example:
 
 ### Everything else
 
-Other than that, if a line doesn't start with a "#", "{", or "/" then it will be ignored and you can put whatever 
+Other than that, if a line doesn't start with a "#", "{", "/" or "!" then it will be ignored and you can put whatever 
 you want. Good for notes.
 
 Example:
