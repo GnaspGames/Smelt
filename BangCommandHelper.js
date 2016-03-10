@@ -24,9 +24,9 @@ var BangCommandHelper =
 			commands.push(command);
 			
 			CommandCreator.type = _type;
-			CommandCreator.type = _conditional;
-			CommandCreator.type = _auto;
-			CommandCreator.type = _executeAs;
+			CommandCreator.conditional = _conditional;
+			CommandCreator.auto = _auto;
+			CommandCreator.executeAs = _executeAs;
 		};
 		
 		var setupCallback = function(setupData)
