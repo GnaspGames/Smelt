@@ -82,7 +82,7 @@ Example: `{"conditional":true}`
 
 This defines the executing entity for all following command blocks. 
 
-Currently this only supports one entity selector, but it extended to allow for more as a list.
+Currently this only supports one entity selector, but it may be extended to allow for more as a list.
 
 Any valid entity selector, e.g. `{"executeAs":"@a[score_lives=0]"}`
 
@@ -102,7 +102,7 @@ You can use anything on these lines that can be put into a command block in the 
 Other than that, if a line doesn't start with a "#", "{", or "/" then it will be ignored and you can put whatever 
 you want. Good for notes.
 
-Example:
+### Example:
 
 ```
 # repeatThing
@@ -115,7 +115,7 @@ Example:
 		/say repeatThing finised!
 		
 # Another line
-{"type":"inpulse","auto":false}
+{"type":"impulse","auto":false}
 /say TEST
 	{"type":"chain", "auto":true}
 	/say TEST 2
