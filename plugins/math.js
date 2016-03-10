@@ -151,7 +151,6 @@ module.exports = function(args, command)
 		{
 			var result = compileTimeOps[operator](left, right);
 			valstack.unshift(result);
-			console.dir(valstack);
 		}
 		else if((operator == "+" || operator == "-") && typeof right == "number")
 		{
