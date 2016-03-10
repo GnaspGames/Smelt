@@ -10,14 +10,35 @@ var FileParser = (function ()
 		this.Commands = [];
 		this.Debug = false;
 		this.OutputCommand = false;
+		this.BangSetups = [];
 	}
 	
     FileParser.prototype.ProcessFile = function (filePath)
 	{
+		var data = fs.readFileSync(filePath);
+		var outputFileName = filePath.replace(".mcc", ".oc");
+		
+		console.log(util.format("\n\nProcessing %s", filePath));
+		this.ProcessData(data, filePath, outputFileName);
+		
+		if(this.BangSetups.length)
+		{
+			var self = this;
+			this.BangSetups.forEach(function(setup)
+			{
+				console.log(util.format("\n\nTo use the \"!%s\" command you will need to also install the following command into your world:", setup.bang));
+				self.ProcessData(setup.data, setup.bang, setup.bang + ".oc");
+			});
+			
+		}
+    };
+	
+	FileParser.prototype.ProcessData = function (data, sourceName, outputFileName)
+	{
 		CommandCreator.startNewFile();
 		
-		var data = fs.readFileSync(filePath);
-
+		this.Commands = [];
+	
 		var content = data.toString().trim();
 		var lines = content.split("\n");
 		var distanceOffset = 3;
@@ -39,7 +60,7 @@ var FileParser = (function ()
 			catch(err)
 			{
 				console.log("\n\n  LINE ERROR!");
-				console.log(util.format("  Error on %s:%d - %s\n\n", filePath, i, err));
+				console.log(util.format("  Error on %s:%d - %s\n\n", sourceName, i, err));
 				throw err;
 			}
 		}
@@ -72,14 +93,14 @@ var FileParser = (function ()
 		
 		if(this.Debug || this.OutputCommand)
 		{
-			console.log("\n\nFINAL ONE-COMMAND:\n");
+			console.log("\n\ONE-COMMAND:\n");
 			console.log(oneCommand);
 		}
 		
-		var outputFile = filePath.replace(".mcc", ".oc");
-		fs.writeFileSync(outputFile, oneCommand);
-		console.log("\n * Saved " + outputFile);
-    };
+		fs.writeFileSync(outputFileName, oneCommand);
+		console.log("\n * Saved " + outputFileName);
+		
+	};
 	
     FileParser.prototype.processLine = function (line)
 	{
@@ -123,7 +144,7 @@ var FileParser = (function ()
 				console.log("  " + line);
 				console.log("  Commands generated:");
 			}
-			var commands = BangCommandHelper.processBang(line);
+			var commands = BangCommandHelper.ProcessBang(line, this);
 			if(commands.length > 0)
 			{
 				var self = this;

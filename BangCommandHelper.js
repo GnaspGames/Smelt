@@ -3,25 +3,15 @@ var CommandCreator = require("./CommandCreator");
 
 var BangCommandHelper = 
 {
-	
-	processBang : function(bang)
+	ProcessBang : function(bang, fileParser)
 	{
 		var commands = []
 		
 		var args = bang.substr(1).split(" ");
 		var name = args[0];
-		var plugin = undefined;
+		var plugin = this.loadPlugin(name);
 		
-		try
-		{ 
-			plugin = require("./plugins/" + name + ".js"); 
-		}
-		catch(err)
-		{
-			throw new Error(util.format("The command \"!%s\" could not be found. Did you forget to intall a plugin?", name)); 
-		}
-		
-		plugin(args.slice(1), function(cmd, jsonOptions)
+		var commandCallback = function(cmd, jsonOptions)
 		{
 			var _type = CommandCreator.type;
 			var _conditional = CommandCreator.conditional;
@@ -37,10 +27,43 @@ var BangCommandHelper =
 			CommandCreator.type = _conditional;
 			CommandCreator.type = _auto;
 			CommandCreator.type = _executeAs;
-		});
-	
+		};
+		
+		var setupCallback = function(setupData)
+		{
+			fileParser.BangSetups.push({bang:name, data: setupData});
+		};
+		
+		plugin(args.slice(1), commandCallback, setupCallback);
+		
 		return commands;
+	},
+	loadPlugin : function(name)
+	{
+		var plugin = undefined;
+		var pluginFound = false;
+		try
+		{ 
+			plugin = require("./plugins/" + name + ".js"); 
+			pluginFound = true;
+		}
+		catch(err){}
+		
+		try
+		{ 
+			if(!pluginFound)
+			{
+				plugin = require("../oc-plugins/oc-" + name + "/index.js"); 
+				pluginFound = true;
+			}
+		}
+		catch(err){}	
+		
+		if(!pluginFound) throw new Error(util.format("The command \"!%s\" could not be found. Did you forget to intall a plugin?", name)); 
+		
+		return plugin;
 	}
+	
 }
 
 module.exports = BangCommandHelper;
