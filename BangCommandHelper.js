@@ -1,5 +1,6 @@
 var util = require('util');
 var fs = require('fs');
+var path = require('path');
 var CommandCreator = require("./CommandCreator");
 
 var BangCommandHelper = 
@@ -45,22 +46,25 @@ var BangCommandHelper =
 	{
 		var plugin = undefined;
 		var pluginFound = false;
-		try
-		{ 
-			plugin = require("./plugins/" + name + ".js"); 
-			pluginFound = true;
-		}
-		catch(err){}
 		
-		try
-		{ 
-			if(!pluginFound)
-			{
-				plugin = require("../oc-plugins/oc-" + name + "/index.js"); 
-				pluginFound = true;
+		var paths = [
+			"./plugins/" + name + ".js",
+			path.resolve(".","./oc-plugins/" + name + ".js")
+		];
+		
+		paths.forEach(function(path)
+		{
+			try
+			{ 
+				if(!pluginFound)
+				{
+					var fullpath = require.resolve(path);
+					plugin = require(fullpath); 
+					pluginFound = true;
+				}
 			}
-		}
-		catch(err){}	
+			catch(err){}
+		});
 		
 		if(!pluginFound) throw new Error(util.format("The command \"!%s\" could not be found. Did you forget to intall a plugin?", name)); 
 		
@@ -69,28 +73,29 @@ var BangCommandHelper =
 	readPluginFile: function(pluginName, filename)
 	{
 		var pluginFileFound = false;
-		var fullPath = "";
+		var fileData = undefined;
+		var paths = [
+			"./plugins/" + filename,
+			path.resolve(".","./oc-plugins/" + filename)
+		];
 		
-		try
-		{ 
-			fullPath = require.resolve("./plugins/" + filename); 
-			pluginFound = true;
-		}
-		catch(err){}
-		
-		try
-		{ 
-			if(!pluginFileFound)
-			{
-				fullPath = require.resolve("../oc-plugins/oc-" + pluginName + "/" + filename); 
-				pluginFound = true;
+		paths.forEach(function(path)
+		{
+			try
+			{ 
+				if(!pluginFileFound)
+				{
+					var fullpath = require.resolve(path);
+					fileData = fs.readFileSync(fullpath);
+					pluginFound = true;
+				}
 			}
-		}
-		catch(err){}	
+			catch(err){}
+		});
 		
-		if(!pluginFound) throw new Error(util.format("The setup file \"!%s\" could not be found.", filename)); 
+		if(!pluginFound) throw new Error(util.format("The setup file \"!%s\" could not be found. Are you missing a plugin file?", filename)); 
 		
-		return fs.readFileSync(fullPath);
+		return fileData;
 	}
 	
 }
