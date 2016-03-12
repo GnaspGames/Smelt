@@ -1,6 +1,7 @@
 var util = require('util');
 var fs = require('fs');
 var CommandCreator = require("./CommandCreator");
+var BangCommandHelper = require("./BangCommandHelper");
 
 var FileParser = (function () 
 {
@@ -9,14 +10,34 @@ var FileParser = (function ()
 		this.Commands = [];
 		this.Debug = false;
 		this.OutputCommand = false;
+		this.BangSetups = [];
 	}
 	
     FileParser.prototype.ProcessFile = function (filePath)
 	{
+		var data = fs.readFileSync(filePath);
+		
+		console.log(util.format("\n\nProcessing %s", filePath));
+		this.ProcessData(data, filePath);
+		
+		if(this.BangSetups.length)
+		{
+			var self = this;
+			this.BangSetups.forEach(function(setup)
+			{
+				console.log(util.format("\n\nTo use the \"!%s\" command you will need to also install the following command into your world:", setup.bangName));
+				self.ProcessData(setup.setupData, setup.fileName);
+			});
+			
+		}
+    };
+	
+	FileParser.prototype.ProcessData = function (data, sourceName)
+	{
 		CommandCreator.startNewFile();
 		
-		var data = fs.readFileSync(filePath);
-
+		this.Commands = [];
+	
 		var content = data.toString().trim();
 		var lines = content.split("\n");
 		var distanceOffset = 3;
@@ -30,7 +51,17 @@ var FileParser = (function ()
 		for(i=0; i < lines.length; i++)
 		{
 			var line = lines[i].trim();
-			this.processLine(line);
+			
+			try
+			{
+				this.processLine(line);
+			}
+			catch(err)
+			{
+				console.log("\n\n  LINE ERROR!");
+				console.log(util.format("  Error on %s:%d - %s\n\n", sourceName, i, err));
+				throw err;
+			}
 		}
 		
 		var gamerule = "gamerule commandBlockOutput false";
@@ -49,7 +80,7 @@ var FileParser = (function ()
 		for(i=0; i < this.Commands.length; i++)
 		{
 			var command = this.Commands[i];
-			var minecart = util.format("{id:MinecartCommandBlock,Command:%s}", command); 
+			var minecart = util.format("{id:MinecartCommandBlock,Command:%s}", JSON.stringify(command)); 
 			minecarts.push(minecart);
 			//if(this.Debug) console.log(minecart);
 		}
@@ -61,14 +92,15 @@ var FileParser = (function ()
 		
 		if(this.Debug || this.OutputCommand)
 		{
-			console.log("\n\nFINAL ONE-COMMAND:\n");
+			console.log("\n\ONE-COMMAND:\n");
 			console.log(oneCommand);
 		}
 		
-		var outputFile = filePath.replace(".mcc", ".oc");
-		fs.writeFileSync(outputFile, oneCommand);
-		console.log("\n * Saved " + outputFile);
-    };
+		var outputFileName = sourceName.replace(".mcc", ".oc");
+		fs.writeFileSync(outputFileName, oneCommand);
+		console.log("\n * Saved " + outputFileName);
+		
+	};
 	
     FileParser.prototype.processLine = function (line)
 	{
@@ -78,7 +110,7 @@ var FileParser = (function ()
 			if(summon) this.Commands.unshift(summon);
 			if(this.Debug)
 			{
-				console.log("\n\n  START NEW LINE!")
+				console.log("\n\n* START NEW LINE!")
 				console.log("  " + line);
 				if(summon) console.log("   -> " + summon);
 			}
@@ -89,7 +121,7 @@ var FileParser = (function ()
 			CommandCreator.processJSONLine(json);
 			if(this.Debug)
 			{
-				console.log("  PROCESS JSON OPTIONS!");
+				console.log("\n* PROCESS JSON OPTIONS");
 				console.log("  " + JSON.stringify(json));
 			}
 		}
@@ -99,9 +131,28 @@ var FileParser = (function ()
 			this.Commands.unshift(command);
 			if(this.Debug)
 			{
-				console.log("  CREATE COMMAND BLOCK!");
+				console.log("\n* CREATE COMMAND BLOCK");
 				console.log("  " + line);
 				console.log("   -> " + command);
+			}
+		}
+		else if(line[0] == "!")
+		{	
+			if(this.Debug)
+			{
+				console.log("\n* PROCESS BANG COMMAND");
+				console.log("  " + line);
+				console.log("  Commands generated:");
+			}
+			var commands = BangCommandHelper.ProcessBang(line, this);
+			if(commands.length > 0)
+			{
+				var self = this;
+				commands.forEach(function(command)
+				{
+					if(self.Debug) console.log("   -> " + command);
+					self.Commands.unshift(command);
+				});
 			}
 		}
     };

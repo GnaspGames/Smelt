@@ -102,7 +102,7 @@ var CommandCreator =
 		
 		var setblock = util.format(CommandCreator.SETBLOCK_COMMAND_FORMAT, 
 		                           x, y, z,
-								   blockName, dataValue, command, autoString);
+								   blockName, dataValue, JSON.stringify(command), autoString);
 								   
 		return setblock;
 	},
