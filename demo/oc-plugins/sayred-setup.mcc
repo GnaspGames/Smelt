@@ -1,0 +1,6 @@
+
+# !helloworld setup
+{"type":"impulse","auto":true}
+/say Setting up !sayred
+	{"type":"chain"}
+	/tellraw @a [{"text":"!sayred is installed.","color":"red"}]

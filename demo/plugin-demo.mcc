@@ -1,0 +1,39 @@
+
+# function: repeatThing
+{"type":"repeating","auto":true}
+/testfor @e[name=repeatThing]
+	{"conditional":true}
+	/say repeatThing exists!
+		{"type":"chain", "conditional":false}
+		/say repeatThing still running!
+		/say repeatThing 1
+		/say repeatThing 2
+		/say repeatThing 3
+		/say repeatThing 4
+		/say repeatThing 5
+		!helloworld
+		!sayred "This is my message"
+		/tellraw @a ["",{"selector":"@p","color":"green","bold":"true"},{"text":" is the closest, let's execute off them! ","color":"green","bold":"true"}]
+		{"executeAs":"@p"}
+			/say repeatThing 6
+			/say repeatThing 7
+			/say repeatThing 8
+			/say repeatThing 9
+			/say repeatThing 10
+		{"executeAs":""}
+		/say repeatThing finished!
+
+# 
+# Turn on
+{"type":"impulse", "auto": false, "conditional":false}
+/summon ArmorStand ~ ~1 ~ {CustomName:repeatThing}
+	{"type":"chain", "auto": true}
+	/say CREATED repeatThing
+
+#
+# Turn off
+{"type":"impulse", "auto": false, "conditional":false}
+/kill @e[name=repeatThing]
+	{"type":"chain", "auto": true}
+	/say DESTROYED repeatThing
+	
