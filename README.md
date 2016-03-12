@@ -99,7 +99,7 @@ You can use anything on these lines that can be put into a command block in the 
 
 ### 4. The bang command line (starting with "!")
 
-This lines are used to call custom commands built into one-command, or available via plugins (see "Plugins" below).
+These lines are used to call custom commands built into one-command, or available via plugins (see "Plugins" below).
 
 This bang commands will in turn generate a collection of standard commands to be imported into your world.
 
