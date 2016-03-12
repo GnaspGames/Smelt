@@ -16,10 +16,9 @@ var FileParser = (function ()
     FileParser.prototype.ProcessFile = function (filePath)
 	{
 		var data = fs.readFileSync(filePath);
-		var outputFileName = filePath.replace(".mcc", ".oc");
 		
 		console.log(util.format("\n\nProcessing %s", filePath));
-		this.ProcessData(data, filePath, outputFileName);
+		this.ProcessData(data, filePath);
 		
 		if(this.BangSetups.length)
 		{
@@ -27,13 +26,13 @@ var FileParser = (function ()
 			this.BangSetups.forEach(function(setup)
 			{
 				console.log(util.format("\n\nTo use the \"!%s\" command you will need to also install the following command into your world:", setup.bangName));
-				self.ProcessData(setup.setupData, setup.fileName, setup.fileName + ".oc");
+				self.ProcessData(setup.setupData, setup.fileName);
 			});
 			
 		}
     };
 	
-	FileParser.prototype.ProcessData = function (data, sourceName, outputFileName)
+	FileParser.prototype.ProcessData = function (data, sourceName)
 	{
 		CommandCreator.startNewFile();
 		
@@ -97,6 +96,7 @@ var FileParser = (function ()
 			console.log(oneCommand);
 		}
 		
+		var outputFileName = sourceName.replace(".mcc", ".oc");
 		fs.writeFileSync(outputFileName, oneCommand);
 		console.log("\n * Saved " + outputFileName);
 		
