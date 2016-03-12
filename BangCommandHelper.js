@@ -48,8 +48,8 @@ var BangCommandHelper =
 		var pluginFound = false;
 		
 		var paths = [
-			"./plugins/" + name + ".js",
-			path.resolve(".","./oc-plugins/" + name + ".js")
+			path.resolve(".","./oc-plugins/" + name + ".js"),
+			"./plugins/" + name + ".js"
 		];
 		
 		paths.forEach(function(path)
@@ -75,8 +75,8 @@ var BangCommandHelper =
 		var pluginFileFound = false;
 		var fileData = undefined;
 		var paths = [
-			"./plugins/" + filename,
-			path.resolve(".","./oc-plugins/" + filename)
+			path.resolve(".","./oc-plugins/" + filename),
+			"./plugins/" + filename
 		];
 		
 		paths.forEach(function(path)
