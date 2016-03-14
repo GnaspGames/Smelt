@@ -90,7 +90,7 @@ var FileParser = (function ()
 		
 		oneCommand = util.format(oneCommand, minecartsString);
 		
-		if(Program.Debug || Program.OutputCommand)
+		if(Program.OutputCommand)
 		{
 			console.log("\n\ONE-COMMAND:\n");
 			console.log(oneCommand);
