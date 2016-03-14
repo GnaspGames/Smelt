@@ -1,5 +1,6 @@
 var util = require('util');
 var fs = require('fs');
+var chalk = require('chalk');
 var CommandCreator = require("./CommandCreator");
 var BangCommandHelper = require("./BangCommandHelper");
 var Program = require("./Program");
@@ -16,7 +17,7 @@ var FileParser = (function ()
 	{
 		var data = fs.readFileSync(filePath);
 		
-		console.log(util.format("\n\nProcessing %s", filePath));
+		console.log(chalk.yellow(util.format("\nProcessing %s", filePath)));
 		this.ProcessData(data, filePath);
 		
 		if(this.BangSetups.length)
@@ -24,7 +25,7 @@ var FileParser = (function ()
 			var self = this;
 			this.BangSetups.forEach(function(setup)
 			{
-				console.log(util.format("\n\nTo use the \"!%s\" command you will need to also install the following command into your world:", setup.bangName));
+				console.log(chalk.yellow(util.format("\nTo use the \"!%s\" command you will need to also install the following command into your world:", setup.bangName)));
 				self.ProcessData(setup.setupData, setup.fileName);
 			});
 			
@@ -97,7 +98,7 @@ var FileParser = (function ()
 		
 		var outputFileName = sourceName.replace(".mcc", ".oc");
 		fs.writeFileSync(outputFileName, oneCommand);
-		console.log("\n * Saved " + outputFileName);
+		console.log(chalk.green("\n * Saved " + outputFileName));
 		
 	};
 	
@@ -109,7 +110,7 @@ var FileParser = (function ()
 			if(summon) this.Commands.unshift(summon);
 			if(Program.Debug)
 			{
-				console.log("\n\n* START NEW LINE!")
+				console.log(chalk.bold("\n\n* START NEW LINE!"))
 				console.log("  " + line);
 				if(summon) console.log("   -> " + summon);
 			}
@@ -120,7 +121,7 @@ var FileParser = (function ()
 			CommandCreator.processJSONLine(json);
 			if(Program.Debug)
 			{
-				console.log("\n* PROCESS JSON OPTIONS");
+				console.log(chalk.bold("\n* PROCESS JSON OPTIONS"));
 				console.log("  " + JSON.stringify(json));
 			}
 		}
@@ -130,7 +131,7 @@ var FileParser = (function ()
 			this.Commands.unshift(command);
 			if(Program.Debug)
 			{
-				console.log("\n* CREATE COMMAND BLOCK");
+				console.log(chalk.bold("\n* CREATE COMMAND BLOCK"));
 				console.log("  " + line);
 				console.log("   -> " + command);
 			}
@@ -139,7 +140,7 @@ var FileParser = (function ()
 		{	
 			if(Program.Debug)
 			{
-				console.log("\n* PROCESS BANG COMMAND");
+				console.log(chalk.bold("\n* PROCESS BANG COMMAND"));
 				console.log("  " + line);
 				console.log("  Commands generated:");
 			}
