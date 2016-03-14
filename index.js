@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
 var util = require('util');
 FileParser = require("./FileParser");
 var commander = require('commander');

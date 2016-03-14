@@ -1,28 +1,31 @@
 var util = require('util');
 var fs = require('fs');
+var _path = require('path');
 
 var Program = 
 {
 	PathArg : "",
+	Path : "",
 	PathFound : false,
 	Debug : false,
 	OutputCommand : false,
 	ProcessPath : function()
 	{
-		var stats = fs.statSync(this.PathArg);
+		Program.Path = _path.resolve(this.PathArg);
+		var stats = fs.statSync(Program.Path);
 	
 		var files = [];
 		
 		if(stats.isFile())
-			files.push(this.PathArg);
+			files.push(Program.Path);
 		
 		else if(stats.isDirectory())
 		{
-			var fileNames = fs.readdirSync(this.PathArg);
+			var fileNames = fs.readdirSync(Program.Path);
 			fileNames.forEach(function(fileName)
 			{
 				if(fileName.endsWith(".mcc")) 
-					files.push(pathArg + fileName);
+					files.push(Program.Path + "\\" + fileName);
 			});
 		}
 		

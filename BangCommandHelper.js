@@ -2,6 +2,7 @@ var util = require('util');
 var fs = require('fs');
 var path = require('path');
 var CommandCreator = require("./CommandCreator");
+var Program = require("./Program");
 
 var BangCommandHelper = 
 {
@@ -48,7 +49,7 @@ var BangCommandHelper =
 		var pluginFound = false;
 		
 		var paths = [
-			path.resolve(".","./oc-plugins/" + name + ".js"),
+			path.resolve(Program.Path + "/oc-plugins/" + name + ".js"),
 			"./plugins/" + name + ".js"
 		];
 		
@@ -75,7 +76,7 @@ var BangCommandHelper =
 		var pluginFileFound = false;
 		var fileData = undefined;
 		var paths = [
-			path.resolve(".","./oc-plugins/" + filename),
+			path.resolve(Program.Path + "/oc-plugins/" + filename),
 			"./plugins/" + filename
 		];
 		
