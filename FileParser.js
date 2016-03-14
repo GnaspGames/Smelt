@@ -58,8 +58,8 @@ var FileParser = (function ()
 			}
 			catch(err)
 			{
-				console.log("\n\n  LINE ERROR!");
-				console.log(util.format("  Error on %s:%d - %s\n\n", sourceName, i, err));
+				console.log(chalk.red.bold("\n\n  LINE ERROR!"));
+				console.log(util.format(chalk.red.bold("  Error on %s:%d - %s\n\n"), sourceName, i, err));
 				throw err;
 			}
 		}
@@ -142,9 +142,12 @@ var FileParser = (function ()
 			{
 				console.log(chalk.bold("\n* PROCESS BANG COMMAND"));
 				console.log("  " + line);
-				console.log("  Commands generated:");
 			}
 			var commands = BangCommandHelper.ProcessBang(line, this);
+			if(Program.Debug)
+			{
+				console.log("  Commands generated:");
+			}
 			if(commands.length > 0)
 			{
 				var self = this;

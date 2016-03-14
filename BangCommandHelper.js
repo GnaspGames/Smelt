@@ -1,6 +1,7 @@
 var util = require('util');
 var fs = require('fs');
 var path = require('path');
+var chalk = require('chalk');
 var CommandCreator = require("./CommandCreator");
 var Program = require("./Program");
 
@@ -47,25 +48,32 @@ var BangCommandHelper =
 	{
 		var plugin = undefined;
 		var pluginFound = false;
+		var foundPath = "";
 		
 		var paths = [
 			path.resolve(Program.Directory + "/oc-plugins/" + name + ".js"),
 			"./plugins/" + name + ".js"
 		];
 		
+		if(Program.Debug) console.log("  Checking for plugins:");
+		
 		paths.forEach(function(path)
 		{
 			try
 			{ 
+				if(Program.Debug) console.log("  Checking: " + path);
 				if(!pluginFound)
 				{
 					var fullpath = require.resolve(path);
 					plugin = require(fullpath); 
 					pluginFound = true;
+					foundPath = path;
 				}
 			}
 			catch(err){}
 		});
+		
+		if(Program.Debug && pluginFound) console.log(chalk.green.bold("  FOUND: " + foundPath));
 		
 		if(!pluginFound) throw new Error(util.format("The command \"!%s\" could not be found. Did you forget to intall a plugin?", name)); 
 		

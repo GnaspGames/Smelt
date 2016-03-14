@@ -13,16 +13,19 @@ var Program =
 	ProcessPath : function()
 	{
 		Program.Path = _path.resolve(this.PathArg);
-		Program.Directory = _path.dirname(Program.Path);
 		var stats = fs.statSync(Program.Path);
 	
 		var files = [];
 		
 		if(stats.isFile())
+		{
+			Program.Directory = _path.dirname(Program.Path);
 			files.push(Program.Path);
+		}
 		
 		else if(stats.isDirectory())
 		{
+			Program.Directory = Program.Path;
 			var fileNames = fs.readdirSync(Program.Path);
 			fileNames.forEach(function(fileName)
 			{
