@@ -49,7 +49,7 @@ var BangCommandHelper =
 		var pluginFound = false;
 		
 		var paths = [
-			path.resolve(Program.Path + "/oc-plugins/" + name + ".js"),
+			path.resolve(Program.Directory + "/oc-plugins/" + name + ".js"),
 			"./plugins/" + name + ".js"
 		];
 		
@@ -76,7 +76,7 @@ var BangCommandHelper =
 		var pluginFileFound = false;
 		var fileData = undefined;
 		var paths = [
-			path.resolve(Program.Path + "/oc-plugins/" + filename),
+			path.resolve(Program.Directory + "/oc-plugins/" + filename),
 			"./plugins/" + filename
 		];
 		

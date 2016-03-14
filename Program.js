@@ -6,12 +6,14 @@ var Program =
 {
 	PathArg : "",
 	Path : "",
+	Directory : "",
 	PathFound : false,
 	Debug : false,
 	OutputCommand : false,
 	ProcessPath : function()
 	{
 		Program.Path = _path.resolve(this.PathArg);
+		Program.Directory = _path.dirname(Program.Path);
 		var stats = fs.statSync(Program.Path);
 	
 		var files = [];
