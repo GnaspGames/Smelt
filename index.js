@@ -4,13 +4,14 @@ var fs = require('fs');
 var util = require('util');
 FileParser = require("./FileParser");
 var commander = require('commander');
+var chalk = require('chalk');
 var Program = require("./Program");
 var pjson = require('./package.json');
 
 
 commander
   .version(pjson.version)
-  .description("<path> should be the path to a .mcc file or directory containing .mcc files.")
+  .description(chalk.yellow("<path> should be the path to a .mcc file or directory containing .mcc files."))
   .usage("<path> [options]")
   .arguments("<path>")
   .action(function(path)
@@ -34,5 +35,5 @@ if(Program.PathArg)
 if(!Program.PathFound)
 {
 	commander.outputHelp();
-	console.log("  Please enter the path to a .mcc file or directory containing .mcc files as the first argument.")
+	console.log(chalk.red.bold("  Please enter the path to a .mcc file or directory containing .mcc files as the first argument."));
 }
