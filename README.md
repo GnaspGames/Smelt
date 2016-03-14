@@ -13,8 +13,8 @@ Run it
 ------
 * You need to have `.mcc` files using the *Input Syntax* described below.
 * Run `one-command /path/to/directory/or/file.mcc`.
-	* `one-command /path/to/file.mcc debug` outputs extra data into the console.
-	* `one-command /path/to/file.mcc output-command` outputs the compacted command the console.
+	* Addng `--debug` outputs extra data into the console.
+	* Adding `--output-command` outputs the compacted command to the console.
 * Your combined commands will be on the `.oc` files with the same name as your `.mcc` files.
 
 Demonstration

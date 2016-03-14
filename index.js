@@ -2,42 +2,37 @@
 
 var fs = require('fs');
 var util = require('util');
-
-var filePathArg = process.argv[2];
-
-var debug = process.argv[3] == "debug" ? true : false;
-var outputCommand = process.argv[3] == "output-command" ? true : false;
-
 FileParser = require("./FileParser");
+var commander = require('commander');
+var Program = require("./Program");
+var pjson = require('./package.json');
 
-if(filePathArg)
+
+commander
+  .version(pjson.version)
+  .description("<path> should be the path to a .mcc file or directory containing .mcc files.")
+  .usage("<path> [options]")
+  .arguments("<path>")
+  .action(function(path)
+  {
+	  Program.PathArg = path
+  })
+  .option('-o, --output-command', 'Display any combined commands in the console.')
+  .option('-d, --debug', 'Display additional debug information in the console.');
+  
+process.argv[1] = 'one-command';
+commander.parse(process.argv);  
+
+Program.Debug = commander.debug; //process.argv[3] == "debug" ? true : false;
+Program.OutputCommand = commander.outputCommand; //process.argv[3] == "output-command" ? true : false;
+
+if(Program.PathArg)
 {
-	var stats = fs.statSync(filePathArg);
-	
-	var files = [];
-	
-	if(stats.isFile())
-		files.push(filePathArg);
-	
-	else if(stats.isDirectory())
-	{
-		var fileNames = fs.readdirSync(filePathArg);
-		fileNames.forEach(function(fileName)
-		{
-			if(fileName.endsWith(".mcc")) 
-				files.push(filePathArg + fileName);
-		});
-	}
-	
-	files.forEach(function(filePath)
-	{
-		var fileParser = new FileParser();
-		fileParser.Debug = debug;
-		fileParser.OutputCommand = outputCommand;
-		fileParser.ProcessFile(filePath);
-	});
+	Program.ProcessPath();
 }
-else
+
+if(!Program.PathFound)
 {
-	console.log("Please pass a filepath in as the first argument.")
+	commander.outputHelp();
+	console.log("  Please enter the path to a .mcc file or directory containing .mcc files as the first argument.")
 }

@@ -1,10 +1,10 @@
 {
   "name": "one_command",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "preferGlobal": true,
   "description": "A CLI tool used to compile Minecraft commands into one-command installers, for map makers.",
   "bin": {
-	"one-command": "./index.js"
+    "one-command": "./index.js"
   },
   "author": "Gnasp",
   "license": "UNLICENSED",
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/GnaspGames/one-command/issues"
   },
-  "homepage": "https://github.com/GnaspGames/one-command"
+  "homepage": "http://one-command.gnasp.com",
+  "dependencies": {
+    "commander": "^2.9.0"
+  }
 }

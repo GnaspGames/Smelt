@@ -1,2 +1,3 @@
 *.oc
+node_modules
 workspace.xml

@@ -2,14 +2,13 @@ var util = require('util');
 var fs = require('fs');
 var CommandCreator = require("./CommandCreator");
 var BangCommandHelper = require("./BangCommandHelper");
+var Program = require("./Program");
 
 var FileParser = (function () 
 {
     function FileParser() 
 	{
 		this.Commands = [];
-		this.Debug = false;
-		this.OutputCommand = false;
 		this.BangSetups = [];
 	}
 	
@@ -74,7 +73,7 @@ var FileParser = (function ()
 		var removeMinecarts = "kill @e[type=MinecartCommandBlock,r=0]";
 		this.Commands.push(removeBlocks, removeMinecarts);
 		
-		//if(this.Debug) console.log("\n\nCREATE IN THIS ORDER:\n");
+		//if(Program.Debug) console.log("\n\nCREATE IN THIS ORDER:\n");
 		
 		var minecarts = []
 		for(i=0; i < this.Commands.length; i++)
@@ -82,7 +81,7 @@ var FileParser = (function ()
 			var command = this.Commands[i];
 			var minecart = util.format("{id:MinecartCommandBlock,Command:%s}", JSON.stringify(command)); 
 			minecarts.push(minecart);
-			//if(this.Debug) console.log(minecart);
+			//if(Program.Debug) console.log(minecart);
 		}
 		
 		var minecartsString = minecarts.join(",");			
@@ -90,7 +89,7 @@ var FileParser = (function ()
 		
 		oneCommand = util.format(oneCommand, minecartsString);
 		
-		if(this.Debug || this.OutputCommand)
+		if(Program.Debug || Program.OutputCommand)
 		{
 			console.log("\n\ONE-COMMAND:\n");
 			console.log(oneCommand);
@@ -108,7 +107,7 @@ var FileParser = (function ()
 		{
 			var summon = CommandCreator.startNewLine(line);
 			if(summon) this.Commands.unshift(summon);
-			if(this.Debug)
+			if(Program.Debug)
 			{
 				console.log("\n\n* START NEW LINE!")
 				console.log("  " + line);
@@ -119,7 +118,7 @@ var FileParser = (function ()
 		{
 			var json = JSON.parse(line);
 			CommandCreator.processJSONLine(json);
-			if(this.Debug)
+			if(Program.Debug)
 			{
 				console.log("\n* PROCESS JSON OPTIONS");
 				console.log("  " + JSON.stringify(json));
@@ -129,7 +128,7 @@ var FileParser = (function ()
 		{
 			var command = CommandCreator.addSetblockCommand(line);
 			this.Commands.unshift(command);
-			if(this.Debug)
+			if(Program.Debug)
 			{
 				console.log("\n* CREATE COMMAND BLOCK");
 				console.log("  " + line);
@@ -138,7 +137,7 @@ var FileParser = (function ()
 		}
 		else if(line[0] == "!")
 		{	
-			if(this.Debug)
+			if(Program.Debug)
 			{
 				console.log("\n* PROCESS BANG COMMAND");
 				console.log("  " + line);
@@ -150,7 +149,7 @@ var FileParser = (function ()
 				var self = this;
 				commands.forEach(function(command)
 				{
-					if(self.Debug) console.log("   -> " + command);
+					if(Program.Debug) console.log("   -> " + command);
 					self.Commands.unshift(command);
 				});
 			}
