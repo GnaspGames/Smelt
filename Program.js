@@ -41,7 +41,6 @@ var Program =
 			Program.PathFound = true;
 		});
 	}
-	
 }
 
 module.exports = Program;

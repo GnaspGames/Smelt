@@ -70,7 +70,10 @@ var BangCommandHelper =
 					foundPath = path;
 				}
 			}
-			catch(err){}
+			catch(err)
+			{
+				console.log(chalk.red.bold("    " + err));
+			}
 		});
 		
 		if(Program.Debug && pluginFound) console.log(chalk.green.bold("  FOUND: " + foundPath));
