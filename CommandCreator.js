@@ -1,4 +1,5 @@
 var util = require('util');
+var Program = require("./Program");
 
 var CommandCreator = 
 {
@@ -143,13 +144,25 @@ var CommandCreator =
 	processJSONLine : function(json)
 	{
 		if(json.type != null)
-			CommandCreator.type = json.type;
+		{
+			CommandCreator.type = json.type; 
+			if(Program.Debug) console.log("   -> type = " + json.type);
+		}
 		if(json.conditional != null)
-			CommandCreator.conditional = json.conditional;
+		{
+			CommandCreator.conditional = json.conditional; 
+			if(Program.Debug) console.log("   -> conditional = " + json.conditional);
+		}
 		if(json.auto != null)
+		{
 			CommandCreator.auto = json.auto;
+			if(Program.Debug) console.log("   -> auto = " + json.auto);
+		}
 		if(json.executeAs != null)
+		{
 			CommandCreator.executeAs = json.executeAs;
+			if(Program.Debug) console.log("   -> executeAs = " + json.executeAs);
+		}
 	}
 	
 }
