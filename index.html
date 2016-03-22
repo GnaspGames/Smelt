@@ -141,6 +141,36 @@ if the previous command block executes successfully. </p>
 
 <p>Use <code>{"executeAs":""}</code> to reset this option.</p>
 
+<p><strong>"markerTag"</strong></p>
+
+<p>This is used to define a 'marker' ArmorStant to be summoned at the same location as each command block to follow. Each marker ArmorStand will have the tag provided as the value of <code>markerTag</code>. </p>
+
+<p>This can be useful for targetting a specific command block, or for setting up a random option system.</p>
+
+<p>Possible values are any string that can be used as a scoreboard tag. e.g. <code>{"markerTag":"randomPowerup"}</code>.</p>
+
+<p>Use <code>{"markerTag":""}</code> to reset this option and stop ArmorStands from appearing in coming command blocks. </p>
+
+<p>Example use case:</p>
+
+<pre><code># POWERUP OPTIONS
+{"type":"impulse", "auto":false, "conditional":false}
+{"markerTag":"randomPowerUp"}
+    /scoreboard players set @e[name=SYSTEM] power_up_option 1
+    /scoreboard players set @e[name=SYSTEM] power_up_option 2
+    /scoreboard players set @e[name=SYSTEM] power_up_option 3
+    /scoreboard players set @e[name=SYSTEM] power_up_option 4
+    /scoreboard players set @e[name=SYSTEM] power_up_option 5
+    /scoreboard players set @e[name=SYSTEM] power_up_option 6
+{"markerTag":""}
+
+# CYCLE POWERUP OPTIONS
+!function CyclePowerups
+    {"type":"chain", "conditional":false}
+    /execute @e[type=ArmorStand,tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:0b}
+    /execute @r[type=ArmorStand,tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:1b}
+</code></pre>
+
 <h3>
 <a id="3-the-command-line-starting-with-" class="anchor" href="#3-the-command-line-starting-with-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3. The command line (starting with "/")</h3>
 
