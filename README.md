@@ -90,6 +90,37 @@ This will be inserted before any following commands as `/execute @a[score_lives=
 
 Use `{"executeAs":""}` to reset this option.
 
+**"markerTag"**
+
+This is used to define a 'marker' ArmorStant to be summoned at the same location as each command block to follow. Each marker ArmorStand will have the tag provided as the value of `markerTag`. 
+
+This can be useful for targetting a specific command block, or for setting up a random option system.
+
+Possible values are any string that can be used as a scoreboard tag. e.g. `{"markerTag":"randomPowerup"}`.
+
+Use `{"markerTag":""}` to reset this option and stop ArmorStands from appearing in coming command blocks. 
+
+Example use case:
+
+```
+# POWERUP OPTIONS
+{"type":"impulse", "auto":false, "conditional":false}
+{"markerTag":"randomPowerUp"}
+    /scoreboard players set @e[name=SYSTEM] power_up_option 1
+    /scoreboard players set @e[name=SYSTEM] power_up_option 2
+    /scoreboard players set @e[name=SYSTEM] power_up_option 3
+    /scoreboard players set @e[name=SYSTEM] power_up_option 4
+    /scoreboard players set @e[name=SYSTEM] power_up_option 5
+    /scoreboard players set @e[name=SYSTEM] power_up_option 6
+{"markerTag":""}
+
+# CYCLE POWERUP OPTIONS
+!function CyclePowerups
+    {"type":"chain", "conditional":false}
+    /execute @e[type=ArmorStand,tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:0b}
+    /execute @r[type=ArmorStand,tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:1b}
+```
+
 ### 3. The command line (starting with "/")
 
 Each of these commands is converted into the game, and the command-blocks executing them will use the properties 

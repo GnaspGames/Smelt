@@ -7,7 +7,8 @@ var CommandCreator =
 	REPEATING_BLOCK_NAME : "repeating_command_block",
 	CHAIN_BLOCK_NAME : "chain_command_block",
 	SETBLOCK_COMMAND_FORMAT : "setblock ~%d ~%d ~%d %s %d replace {Command:%s%s}",
-	SUMMON_LINE_MARKER_FORMAT : "summon ArmorStand ~ ~ ~%d {CustomName:%s,Tags:[\"lineMarker\"],Marker:1b,CustomNameVisible:1b,Invulnerable:1b,NoGravity:1b,Invisible:1b}",
+	SUMMON_LINE_MARKER_FORMAT : "summon ArmorStand ~ ~ ~%d {CustomName:%s, Tags:[\"oc_marker\"], Marker:1b, CustomNameVisible:1b, Invulnerable:1b, NoGravity:1b, Invisible:1b}",
+	SUMMON_CMD_MARKER_FORMAT : "summon ArmorStand ~%d ~%d ~%d {Tags:[\"oc_marker\",\"%s\"], Marker:1b, Invulnerable:1b, NoGravity:1b}",
 	UP_DIRECTION_VALUE : 1,
 	EAST_DIRECTION_VALUE : 5,
 	WEST_DIRECTION_VALUE : 4,
@@ -23,6 +24,7 @@ var CommandCreator =
 	conditional : false,
 	auto : true,
 	executeAs : "",
+	markerTag : "",
 	
 	addSetblockCommand : function(command)
 	{
@@ -107,13 +109,27 @@ var CommandCreator =
 								   
 		return setblock;
 	},
+	addNewCmdMarker : function()
+	{ 
+		var summon;
+		if(CommandCreator.markerTag.length != 0)
+		{
+			summon = util.format(
+				CommandCreator.SUMMON_CMD_MARKER_FORMAT, 
+				CommandCreator.currentX,
+				CommandCreator.currentY, 
+				CommandCreator.currentZ, 
+				CommandCreator.markerTag);
+		}
+		return summon;
+	},
 	addNewLineMarker : function(line)
 	{
 		var summon;
 		var customName = line.replace("#", "").trim();
 		if(customName.length != 0)
 		{
-			var summon = util.format(CommandCreator.SUMMON_LINE_MARKER_FORMAT, CommandCreator.currentZ, customName);
+			summon = util.format(CommandCreator.SUMMON_LINE_MARKER_FORMAT, CommandCreator.currentZ, customName);
 		}
 		return summon;
 	},
@@ -144,25 +160,15 @@ var CommandCreator =
 	processJSONLine : function(json)
 	{
 		if(json.type != null)
-		{
 			CommandCreator.type = json.type; 
-			if(Program.Debug) console.log("   -> type = " + json.type);
-		}
 		if(json.conditional != null)
-		{
 			CommandCreator.conditional = json.conditional; 
-			if(Program.Debug) console.log("   -> conditional = " + json.conditional);
-		}
 		if(json.auto != null)
-		{
 			CommandCreator.auto = json.auto;
-			if(Program.Debug) console.log("   -> auto = " + json.auto);
-		}
 		if(json.executeAs != null)
-		{
 			CommandCreator.executeAs = json.executeAs;
-			if(Program.Debug) console.log("   -> executeAs = " + json.executeAs);
-		}
+		if(json.markerTag != null)
+			CommandCreator.markerTag = json.markerTag;
 	}
 	
 }

@@ -66,8 +66,10 @@ var FileParser = (function ()
 		
 		var gamerule = "gamerule commandBlockOutput false";
 		var clearArea = "fill ~1 ~-1 ~1 ~14 ~10 ~14 air 0";
-		var clearlineMarkers = "kill @e[tag=lineMarker,dx=15,dy=20,dz=15]";
-		this.Commands.unshift(gamerule, clearArea, clearlineMarkers);
+		var summonMarker = "summon ArmorStand ~ ~-1 ~ {Tags:[\"oc_rebuild\",\"oc_marker\"]}"
+		var clearlineMarkers = "/execute @e[tag=oc_rebuild] ~ ~ ~ kill @e[tag=oc_marker,dx=15,dy=20,dz=15]";
+		var clearlineMarkers_old = "kill @e[tag=lineMarker,dx=15,dy=20,dz=15]"; // keep for backwards compatibility
+		this.Commands.unshift(gamerule, clearArea, summonMarker, clearlineMarkers, clearlineMarkers_old);
 		
 		var removeBlocks = CommandCreator.buildSetblockCommand(0, 1, 0, "up", "impulse", false, true, "", "/fill ~ ~-1 ~ ~ ~ ~ air");
 		
@@ -85,7 +87,7 @@ var FileParser = (function ()
 			//if(Program.Debug) console.log(minecart);
 		}
 		
-		var minecartsString = minecarts.join(",");			
+		var minecartsString = minecarts.join(",");
 		var oneCommand = "summon FallingSand ~ ~1 ~ {Block:activator_rail,Time:1,Passengers:[%s]}"
 		
 		oneCommand = util.format(oneCommand, minecartsString);
@@ -123,10 +125,19 @@ var FileParser = (function ()
 			{
 				console.log(chalk.bold("\n* PROCESS JSON OPTIONS"));
 				console.log("  " + JSON.stringify(json));
+				console.log("   -> type = " + CommandCreator.type);
+				console.log("   -> conditional = " + CommandCreator.conditional);
+				console.log("   -> auto = " + CommandCreator.auto);
+				console.log("   -> executeAs = " + CommandCreator.executeAs);
+				console.log("   -> markerTag = " + CommandCreator.markerTag);
 			}
+			
 		}
 		else if(line.indexOf("/") == 0)
 		{
+			var summon = CommandCreator.addNewCmdMarker();
+			if(summon) this.Commands.unshift(summon);
+			
 			var command = CommandCreator.addSetblockCommand(line);
 			this.Commands.unshift(command);
 			if(Program.Debug)
@@ -134,6 +145,7 @@ var FileParser = (function ()
 				console.log(chalk.bold("\n* CREATE COMMAND BLOCK"));
 				console.log("  " + line);
 				console.log("   -> " + command);
+				if(summon) console.log("   -> " + summon);
 			}
 		}
 		else if(line[0] == "!")
