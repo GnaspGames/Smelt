@@ -35,15 +35,15 @@ Input Syntax
 
 There are 4 different types of lines used in the input syntax.
 
-### 1. The NEW line (starting with "#")
+### 1. The new row line (starting with "#")
 
-Each of these starts a new line of command blocks. 
+Each of these starts a new row of command blocks. 
 
-Any text found after the initial "#" is used to generate a "line marker" (a hidden marker armorstand with the text as the CustomName). 
+Any text found after the initial "#" is used to generate a "row marker" (a hidden marker armorstand with the text as the CustomName). 
 
-This helps to recognise lines of command blocks in your Minecraft world.
+This helps to recognise rows of command blocks in your Minecraft world.
 
-Use a line with no text after the "#" to create a gap between your command block lines. No line marker will be created.
+A line with no text after the "#" can be used to create a gap between your command block rows. No row marker will be created.
 
 ### 2. The JSON line (using "{" and "}", always on one line)
 
@@ -146,6 +146,17 @@ For example:
 /scoreboard objectives add money dummy
 /scoreboard players set lotteryPot money 1337
 !math money.@r += (money.lotteryPot - 10) / 2
+```
+
+### Wrapping Lines ###
+
+Sometimes you might want a command to wrap to the next line because it's just too long. To do this, put the "\" as the END of a line to let one-command know that the command is continuing on the next line.
+
+Example:
+
+```
+	/say I've got something really lengthy to say. It's going to take a while. It might not squeeze \
+	     on to one line.
 ```
 
 ### Everything else

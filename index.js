@@ -7,7 +7,6 @@ var chalk = require('chalk');
 var Program = require("./Program");
 var pjson = require('./package.json');
 
-
 commander
   .version(pjson.version)
   .description(chalk.yellow("<path> should be the path to a .mcc file or directory containing .mcc files."))

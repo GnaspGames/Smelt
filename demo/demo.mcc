@@ -1,5 +1,5 @@
 
-# function: repeatThing
+# Function: repeatThing
 {"type":"repeating","auto":true}
 /testfor @e[name=repeatThing]
 	{"conditional":true}
@@ -12,7 +12,9 @@
 		/say repeatThing 4
 		/say repeatThing 5
 		!helloworld
-		/tellraw @a ["",{"selector":"@p","color":"green","bold":"true"},{"text":" is the closest, let's execute off them! ","color":"green","bold":"true"}]
+		/tellraw @a ["", \
+					{"selector":"@p","color":"green","bold":"true"}, \
+					{"text":" is the closest, let's execute off them! ","color":"green","bold":"true"}]
 		{"executeAs":"@p"}
 			/say repeatThing 6
 			/say repeatThing 7
@@ -20,7 +22,21 @@
 			/say repeatThing 9
 			/say repeatThing 10
 		{"executeAs":""}
+		/execute @e[type=ArmorStand,tag=randomSay] ~ ~ ~ blockdata ~ ~ ~ {auto:0b}
+		/execute @r[type=ArmorStand,tag=randomSay] ~ ~ ~ blockdata ~ ~ ~ {auto:1b}
 		/say repeatThing finished!
+		
+# Random Say
+{"type":"impulse","auto":true}
+{"markerTag":"randomSay"}
+	!sayred I do things, randomly
+	/say Never the same
+	!sayred So that you \
+			are on your toes
+	/say Never knowing what to expect
+	/say What comes next? \
+	     Nobody knows!
+{"markerTag":""}
 
 # 
 # Turn on

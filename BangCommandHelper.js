@@ -72,7 +72,7 @@ var BangCommandHelper =
 			}
 			catch(err)
 			{
-				console.log(chalk.red.bold("    " + err));
+				if(Program.Debug) console.log(chalk.red.bold("    " + err));
 			}
 		});
 		

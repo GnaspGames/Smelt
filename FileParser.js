@@ -11,6 +11,7 @@ var FileParser = (function ()
 	{
 		this.Commands = [];
 		this.BangSetups = [];
+		this.PreviousLine = "";
 	}
 	
     FileParser.prototype.ProcessFile = function (filePath)
@@ -28,7 +29,6 @@ var FileParser = (function ()
 				console.log(chalk.yellow(util.format("\nTo use the \"!%s\" command you will need to also install the following command into your world:", setup.bangName)));
 				self.ProcessData(setup.setupData, setup.fileName);
 			});
-			
 		}
     };
 	
@@ -47,11 +47,9 @@ var FileParser = (function ()
 		var auto = true;
 		
 		var commands = [];
-		
 		for(i=0; i < lines.length; i++)
 		{
 			var line = lines[i].trim();
-			
 			try
 			{
 				this.processLine(line);
@@ -106,71 +104,107 @@ var FileParser = (function ()
 	
     FileParser.prototype.processLine = function (line)
 	{
+		if(line.endsWith('\\'))
+		{				
+			this.PreviousLine += line.replace("\\", "");					
+			return;
+		}
+		else
+		{
+			if(this.PreviousLine.length > 0)
+			{
+				line = this.PreviousLine + line;
+				this.PreviousLine = "";
+			}
+		}
+		
 		if(line.indexOf("#") == 0)
 		{
-			var summon = CommandCreator.startNewLine(line);
-			if(summon) this.Commands.unshift(summon);
-			if(Program.Debug)
-			{
-				console.log(chalk.bold("\n\n* START NEW LINE!"))
-				console.log("  " + line);
-				if(summon) console.log("   -> " + summon);
-			}
+			this.processRowLine(line);
 		}
 		else if(line.indexOf("{") == 0)
 		{
-			var json = JSON.parse(line);
-			CommandCreator.processJSONLine(json);
-			if(Program.Debug)
-			{
-				console.log(chalk.bold("\n* PROCESS JSON OPTIONS"));
-				console.log("  " + JSON.stringify(json));
-				console.log("   -> type = " + CommandCreator.type);
-				console.log("   -> conditional = " + CommandCreator.conditional);
-				console.log("   -> auto = " + CommandCreator.auto);
-				console.log("   -> executeAs = " + CommandCreator.executeAs);
-				console.log("   -> markerTag = " + CommandCreator.markerTag);
-			}
-			
+			this.processJsonLine(line);
 		}
 		else if(line.indexOf("/") == 0)
 		{
-			var summon = CommandCreator.addNewCmdMarker();
-			if(summon) this.Commands.unshift(summon);
-			
-			var command = CommandCreator.addSetblockCommand(line);
-			this.Commands.unshift(command);
-			if(Program.Debug)
-			{
-				console.log(chalk.bold("\n* CREATE COMMAND BLOCK"));
-				console.log("  " + line);
-				console.log("   -> " + command);
-				if(summon) console.log("   -> " + summon);
-			}
+			this.processCommandBlockLine(line);
 		}
 		else if(line[0] == "!")
 		{	
-			if(Program.Debug)
-			{
-				console.log(chalk.bold("\n* PROCESS BANG COMMAND"));
-				console.log("  " + line);
-			}
-			var commands = BangCommandHelper.ProcessBang(line, this);
-			if(Program.Debug)
-			{
-				console.log("  Commands generated:");
-			}
-			if(commands.length > 0)
-			{
-				var self = this;
-				commands.forEach(function(command)
-				{
-					if(Program.Debug) console.log("   -> " + command);
-					self.Commands.unshift(command);
-				});
-			}
+			this.processBangLine(line);
 		}
     };
+	
+	FileParser.prototype.processRowLine = function(line)
+	{
+		var summon = CommandCreator.startNewLine(line);
+		if(summon) this.Commands.unshift(summon);
+		
+		if(Program.Debug)
+		{
+			console.log(chalk.bold("\n\n* START NEW LINE!"))
+			console.log("  " + line);
+			if(summon) console.log("   -> " + summon);
+		}
+	};
+	
+	FileParser.prototype.processJsonLine = function(line)
+	{
+		var json = JSON.parse(line);
+		CommandCreator.processJSONLine(json);
+		
+		if(Program.Debug)
+		{
+			console.log(chalk.bold("\n* PROCESS JSON OPTIONS"));
+			console.log("  " + JSON.stringify(json));
+			console.log("   -> type = " + CommandCreator.type);
+			console.log("   -> conditional = " + CommandCreator.conditional);
+			console.log("   -> auto = " + CommandCreator.auto);
+			console.log("   -> executeAs = " + CommandCreator.executeAs);
+			console.log("   -> markerTag = " + CommandCreator.markerTag);
+		}
+	};
+	
+	FileParser.prototype.processCommandBlockLine = function(line)
+	{
+		var summon = CommandCreator.addNewCmdMarker();
+		if(summon) this.Commands.unshift(summon);
+		
+		var command = CommandCreator.addSetblockCommand(line);
+		this.Commands.unshift(command);
+		
+		if(Program.Debug)
+		{
+			console.log(chalk.bold("\n* CREATE COMMAND BLOCK"));
+			console.log("  " + line);
+			console.log("   -> " + command);
+			if(summon) console.log("   -> " + summon);
+		}
+	};
+	
+	FileParser.prototype.processBangLine = function(line)
+	{
+		if(Program.Debug)
+		{
+			console.log(chalk.bold("\n* PROCESS BANG COMMAND"));
+			console.log("  " + line);
+		}
+		var commands = BangCommandHelper.ProcessBang(line, this);
+		if(Program.Debug)
+		{
+			console.log("  Commands generated:");
+		}
+		if(commands.length > 0)
+		{
+			var self = this;
+			commands.forEach(function(command)
+			{
+				if(Program.Debug) console.log("   -> " + command);
+				self.Commands.unshift(command);
+			});
+		}
+	};
 	
     return FileParser;
 	
