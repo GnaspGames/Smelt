@@ -155,8 +155,8 @@ Sometimes you might want a command to wrap to the next line because it's just to
 Example:
 
 ```
-	/say I've got something really lengthy to say. It's going to take a while. It might not squeeze \
-	     on to one line.
+/say I've got something really lengthy to say. It's going to take a while. It might not squeeze \
+on to one line.
 ```
 
 ### Everything else
