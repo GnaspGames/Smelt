@@ -68,6 +68,12 @@ header h2 {
   color: #666;
 }
 
+header img#logo
+{
+	width: 100%;
+	margin: 0 auto;
+}
+
 #downloads .btn {
   display: inline-block;
   text-align: center;
