@@ -18,8 +18,8 @@
         <h2>A CLI tool used to compile Minecraft commands into one-command installers, for map makers.</h2>
 
         <section id="downloads">
-          <a href="#install" class="btn">Install</a>
-          <a href="#input-syntax" class="btn">Syntax</a>
+          <a href="#user-content-install" class="btn">Install</a>
+          <a href="#user-content-input-syntax" class="btn">Syntax</a>
           <a href="https://github.com/GnaspGames/one-command" target="_blank" class="btn btn-github">
             <span class="icon"></span>View on GitHub
           </a>
@@ -32,15 +32,18 @@
 
     <div class="container">
       <section id="main_content">
-        <h1>
-<a id="one-command-beta" class="anchor" href="#one-command-beta" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>one-command (beta)</h1>
+	  
+		<!--- README --->
+	  
+<h1>
+<a id="user-content-one-command-beta" class="anchor" href="#one-command-beta" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>one-command (beta)</h1>
 
 <p>A Minecraft one-command combiner for map makers.</p>
 
-<p><img src="https://github.com/GnaspGames/one-command/raw/master/demo/one-command-demo.gif" alt="How it works"></p>
+<p><a href="https://github.com/GnaspGames/one-command/raw/master/demo/one-command-demo.gif" target="_blank"><img src="https://github.com/GnaspGames/one-command/raw/master/demo/one-command-demo.gif" alt="How it works" style="max-width:100%;"></a></p>
 
 <h2>
-<a id="install" class="anchor" href="#install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install</h2>
+<a id="user-content-install" class="anchor" href="#install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install</h2>
 
 <ul>
 <li>Install Node and <code>npm</code>.</li>
@@ -48,24 +51,22 @@
 </ul>
 
 <h2>
-<a id="run-it" class="anchor" href="#run-it" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run it</h2>
+<a id="user-content-run-it" class="anchor" href="#run-it" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run it</h2>
 
 <ul>
 <li>You need to have <code>.mcc</code> files using the <em>Input Syntax</em> described below.</li>
 <li>Run <code>one-command /path/to/directory/or/file.mcc</code>.
 
 <ul>
-<li>
-Adding <code>--debug</code> outputs extra data into the console.</li>
-<li>
-Adding <code>--output-command</code> outputs the compacted commands to the console.</li>
+<li>Addng <code>--debug</code> outputs extra data into the console.</li>
+<li>Adding <code>--output-command</code> outputs the compacted command to the console.</li>
 </ul>
 </li>
 <li>Your combined commands will be on the <code>.oc</code> files with the same name as your <code>.mcc</code> files.</li>
 </ul>
 
 <h2>
-<a id="demonstration" class="anchor" href="#demonstration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demonstration</h2>
+<a id="user-content-demonstration" class="anchor" href="#demonstration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demonstration</h2>
 
 <p>Download or clone the git repository to try the demo.</p>
 
@@ -84,23 +85,23 @@ Adding <code>--output-command</code> outputs the compacted commands to the conso
 </ul>
 
 <h2>
-<a id="input-syntax" class="anchor" href="#input-syntax" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Input Syntax</h2>
+<a id="user-content-input-syntax" class="anchor" href="#input-syntax" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Input Syntax</h2>
 
 <p>There are 4 different types of lines used in the input syntax.</p>
 
 <h3>
-<a id="1-the-new-line-starting-with-" class="anchor" href="#1-the-new-line-starting-with-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1. The NEW line (starting with "#")</h3>
+<a id="user-content-1-the-new-row-line-starting-with-" class="anchor" href="#1-the-new-row-line-starting-with-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1. The new row line (starting with "#")</h3>
 
-<p>Each of these starts a new line of command blocks. </p>
+<p>Each of these starts a new row of command blocks. </p>
 
-<p>Any text found after the initial "#" is used to generate a "line marker" (a hidden marker armorstand with the text as the CustomName). </p>
+<p>Any text found after the initial "#" is used to generate a "row marker" (a hidden marker armorstand with the text as the CustomName). </p>
 
-<p>This helps to recognise lines of command blocks in your Minecraft world.</p>
+<p>This helps to recognise rows of command blocks in your Minecraft world.</p>
 
-<p>Use a line with no text after the "#" to create a gap between your command block lines. No line marker will be created.</p>
+<p>A line with no text after the "#" can be used to create a gap between your command block rows. No row marker will be created.</p>
 
 <h3>
-<a id="2-the-json-line-using--and--always-on-one-line" class="anchor" href="#2-the-json-line-using--and--always-on-one-line" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2. The JSON line (using "{" and "}", always on one line)</h3>
+<a id="user-content-2-the-json-line-using--and--always-on-one-line" class="anchor" href="#2-the-json-line-using--and--always-on-one-line" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2. The JSON line (using "{" and "}", always on one line)</h3>
 
 <p>For example <code>{"type":"repeating","auto":"true"}</code>. </p>
 
@@ -137,7 +138,7 @@ if the previous command block executes successfully. </p>
 
 <p>This defines the executing entity for all following command blocks. </p>
 
-<p>Currently this only supports one entity selector, but it extended to allow for more as a list.</p>
+<p>Currently this only supports one entity selector, but it may be extended to allow for more as a list.</p>
 
 <p>Any valid entity selector, e.g. <code>{"executeAs":"@a[score_lives=0]"}</code></p>
 
@@ -176,14 +177,15 @@ if the previous command block executes successfully. </p>
 </code></pre>
 
 <h3>
-<a id="3-the-command-line-starting-with-" class="anchor" href="#3-the-command-line-starting-with-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3. The command line (starting with "/")</h3>
+<a id="user-content-3-the-command-line-starting-with-" class="anchor" href="#3-the-command-line-starting-with-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3. The command line (starting with "/")</h3>
 
 <p>Each of these commands is converted into the game, and the command-blocks executing them will use the properties 
 from the previous JSON tags.</p>
 
 <p>You can use anything on these lines that can be put into a command block in the game.</p>
 
-<h3 id="4-the-bang-command-line-starting-with-" class="anchor" href="#4-the-bang-command-line-starting-with-" aria-hidden="true">4. The bang command line (starting with "!")</h3>
+<h3>
+<a id="user-content-4-the-bang-command-line-starting-with-" class="anchor" href="#4-the-bang-command-line-starting-with-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4. The bang command line (starting with "!")</h3>
 
 <p>These lines are used to call custom commands built into one-command, or available via plugins (see "Plugins" below).</p>
 
@@ -202,12 +204,24 @@ from the previous JSON tags.</p>
 </code></pre>
 
 <h3>
-<a id="everything-else" class="anchor" href="#everything-else" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Everything else</h3>
+<a id="user-content-wrapping-lines" class="anchor" href="#wrapping-lines" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Wrapping Lines</h3>
 
-<p>Other than that, if a line doesn't start with a "#", "{", or "/" then it will be ignored and you can put whatever 
-you want. Good for notes.</p>
+<p>Sometimes you might want a command to wrap to the next line because it's just too long. To do this, put the "\" as the END of a line to let one-command know that the command is continuing on the next line.</p>
 
 <p>Example:</p>
+
+<pre><code>/say I've got something really lengthy to say. It's going to take a while. It might not squeeze \
+on to one line.
+</code></pre>
+
+<h3>
+<a id="user-content-everything-else" class="anchor" href="#everything-else" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Everything else</h3>
+
+<p>Other than that, if a line doesn't start with a "#", "{", "/" or "!" then it will be ignored and you can put whatever 
+you want. Good for notes.</p>
+
+<h3>
+<a id="user-content-example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
 
 <pre><code># repeatThing
 {"type":"repeating","auto":true}
@@ -219,7 +233,7 @@ you want. Good for notes.</p>
         /say repeatThing finised!
 
 # Another line
-{"type":"inpulse","auto":false}
+{"type":"impulse","auto":false}
 /say TEST
     {"type":"chain", "auto":true}
     /say TEST 2
@@ -239,8 +253,8 @@ would run the command <code>/say TEST</code> when executed. This is followed by 
 since it's still false from the previous reference), but now auto has been set to true, and they would run the following 
 commands when the impulse command is executed; <code>/say TEST 2</code> and <code>/say TEST 2</code>.</p>
 
-
-<h2 id="user-content-plugins" class="anchor" href="#plugins" aria-hidden="true">Plugins</h2>
+<h2>
+<a id="user-content-plugins" class="anchor" href="#plugins" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Plugins</h2>
 
 <p>Now one-command also supports plugins! These can be used to expand the available "bang commands". There will be some bang commands built into one-command, but you can add others. </p>
 
@@ -251,6 +265,8 @@ commands when the impulse command is executed; <code>/say TEST 2</code> and <cod
 <p><strong><em>Warning:</em></strong> The work on plugins will continue and so the API for plugins is subject to change a lot in this early development. </p>
 
 
+
+		<!-- README END -->
 
       </section>
     </div>
