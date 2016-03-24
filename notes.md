@@ -52,5 +52,31 @@ Block positions
 ~13 ~-2 ~1 // west
 ~14 ~-2 ~1 // facing up
 
+REDDIT POST:
+
+**ONE-COMMAND** by Gnasp
+------------------------------------------
+
+**one-command** is a CLI tool used to compile Minecraft commands into one-command installers.
+
+Designed specifically for map makers (not for "one command creations") who organise their command-blocks on a spawn-chunks "board".
+
+It allows you to write out all of your commands in .mcc files (using a special syntax) and then converts each file into "one command" (in a .oc file) to import into your world.
+
+Each .mcc file should represent the command-blocks in a one-chunk area.
+
+You need [Node](https://nodejs.org/en/) to install, then install using Node package manager:
+
+`npm install one_command -g`
+
+Find out more at 
+
+* [one-command.gnasp.com](http://one-command.gnasp.com)
+* [Example GIF](https://raw.githubusercontent.com/GnaspGames/one-command/master/demo/one-command-demo.gif)
+* [Github repo](https://github.com/GnaspGames/one-command)
+* [Report bugs & submit ideas](https://github.com/GnaspGames/one-command/issues)
+
+
+
 
 
