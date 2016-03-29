@@ -1,6 +1,7 @@
 var util = require('util');
 var fs = require('fs');
 var _path = require('path');
+var Clipboard = require('./Clipboard.js');
 
 var Program = 
 {
@@ -40,6 +41,14 @@ var Program =
 			fileParser.ProcessFile(filePath);
 			Program.PathFound = true;
 		});
+		
+		if(files.length == 1)
+		{
+			var outFile = files[0].replace(".mcc", ".oc");
+			var command = fs.readFileSync(outFile);
+			Clipboard.auto(command);
+			console.log("\nCopied command from \"%s\" to clipboard.", outFile);
+		}
 	}
 }
 
