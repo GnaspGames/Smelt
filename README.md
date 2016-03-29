@@ -9,6 +9,8 @@ Install
 * Install Node and `npm`.
 * Run `npm install one_command -g` so that `one-command` can be used anywhere.
 
+[![NPM](https://nodei.co/npm/one_command.png)](https://www.npmjs.com/package/one_command)
+
 Run it
 ------
 * You need to have `.mcc` files using the *Input Syntax* described below.
