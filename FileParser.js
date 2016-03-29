@@ -1,6 +1,7 @@
 var util = require('util');
 var fs = require('fs');
 var chalk = require('chalk');
+var ncp = require("copy-paste");
 var CommandCreator = require("./CommandCreator");
 var BangCommandHelper = require("./BangCommandHelper");
 var Program = require("./Program");
@@ -12,6 +13,7 @@ var FileParser = (function ()
 		this.Commands = [];
 		this.BangSetups = [];
 		this.PreviousLine = "";
+		this.FinalCommand = "";
 	}
 	
     FileParser.prototype.ProcessFile = function (filePath)
@@ -23,12 +25,27 @@ var FileParser = (function ()
 		
 		if(this.BangSetups.length)
 		{
+			Program.SingleFile = false;
 			var self = this;
 			this.BangSetups.forEach(function(setup)
 			{
 				console.log(chalk.yellow(util.format("\nTo use the \"!%s\" command you will need to also install the following command into your world:", setup.bangName)));
 				self.ProcessData(setup.setupData, setup.fileName);
 			});
+		}
+		
+		if(Program.Clipboard)
+		{
+			if(Program.SingleFile)
+			{
+				ncp.copy(this.FinalCommand, function () {
+					console.log(chalk.green("\n  The compiled command is now in your clipboard."));
+				})
+			}
+			else
+			{
+				console.log(chalk.red("\n  WARNING: The 'clipboard' option can not be used when more than one compiled-command is produced."));
+			}
 		}
     };
 	
@@ -86,18 +103,18 @@ var FileParser = (function ()
 		}
 		
 		var minecartsString = minecarts.join(",");
-		var oneCommand = "summon FallingSand ~ ~1 ~ {Block:activator_rail,Time:1,Passengers:[%s]}"
+		this.FinalCommand = "summon FallingSand ~ ~1 ~ {Block:activator_rail,Time:1,Passengers:[%s]}"
 		
-		oneCommand = util.format(oneCommand, minecartsString);
+		this.FinalCommand = util.format(this.FinalCommand, minecartsString);
 		
 		if(Program.OutputCommand)
 		{
-			console.log("\n\ONE-COMMAND:\n");
-			console.log(oneCommand);
+			console.log("\n\COMPILED-COMMAND:\n");
+			console.log(this.FinalCommand);
 		}
 		
 		var outputFileName = sourceName.replace(".mcc", ".oc");
-		fs.writeFileSync(outputFileName, oneCommand);
+		fs.writeFileSync(outputFileName, this.FinalCommand);
 		console.log(chalk.green("\n * Saved " + outputFileName));
 		
 	};

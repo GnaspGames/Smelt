@@ -1,6 +1,7 @@
 var util = require('util');
 var fs = require('fs');
 var _path = require('path');
+var chalk = require('chalk');
 
 var Program = 
 {
@@ -8,8 +9,10 @@ var Program =
 	Path : "",
 	Directory : "",
 	PathFound : false,
+	SingleFile : true,
 	Debug : false,
 	OutputCommand : false,
+	Clipboard: false,
 	ProcessPath : function()
 	{
 		Program.Path = _path.resolve(this.PathArg);
@@ -25,6 +28,7 @@ var Program =
 		
 		else if(stats.isDirectory())
 		{
+			Program.SingleFile = false;
 			Program.Directory = Program.Path;
 			var fileNames = fs.readdirSync(Program.Path);
 			fileNames.forEach(function(fileName)
