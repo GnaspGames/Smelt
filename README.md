@@ -15,8 +15,10 @@ Run it
 ------
 * You need to have `.mcc` files using the *Input Syntax* described below.
 * Run `one-command /path/to/directory/or/file.mcc`.
-	* Addng `--debug` outputs extra data into the console.
-	* Adding `--output-command` outputs the compacted command to the console.
+* Additional switches can be used for more features:
+	* Adding the `--debug` switch outputs extra data into the console.
+	* `--output-command` outputs the compacted command to the console.
+	* `--copy` will copy the compiled command to your clipboard (so long as there is only one).
 * Your combined commands will be on the `.oc` files with the same name as your `.mcc` files.
 
 Demonstration
