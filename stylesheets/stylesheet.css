@@ -3,7 +3,7 @@ body {
   padding: 0;
   background: #151515 url("../images/bkg.png") 0 0;
   color: #eaeaea;
-  font: 16px;
+  font-size: 16px;
   line-height: 1.5;
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
 }
@@ -27,6 +27,13 @@ h1, h2, h3, h4, h5, h6 {
 
 li {
   line-height: 1.4 ;
+}
+
+code
+{
+	background-color: #373737;
+	display: inline-block;
+	padding: 0 5px;
 }
 
 /* Header, <header>
