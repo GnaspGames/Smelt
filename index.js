@@ -18,14 +18,14 @@ commander
   })
   .option('-o, --output-command', 'Display any combined commands in the console.')
   .option('-d, --debug', 'Display additional debug information in the console.')
-  .option('-c, --clipboard', 'When processing one file, copy combined command to clipboard');
+  .option('-c, --copy', 'When processing one file, copy combined command to system clipboard.');
   
 process.argv[1] = 'one-command';
 commander.parse(process.argv);  
 
 Program.Debug = commander.debug;
 Program.OutputCommand = commander.outputCommand;
-Program.Clipboard = commander.clipboard;
+Program.Copy = commander.copy;
 
 if(Program.PathArg)
 {

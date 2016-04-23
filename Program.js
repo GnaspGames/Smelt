@@ -12,7 +12,7 @@ var Program =
 	SingleFile : true,
 	Debug : false,
 	OutputCommand : false,
-	Clipboard: false,
+	Copy: false,
 	ProcessPath : function()
 	{
 		Program.Path = _path.resolve(this.PathArg);

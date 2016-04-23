@@ -34,17 +34,17 @@ var FileParser = (function ()
 			});
 		}
 		
-		if(Program.Clipboard)
+		if(Program.Copy)
 		{
 			if(Program.SingleFile)
 			{
 				ncp.copy(this.FinalCommand, function () {
-					console.log(chalk.green("\n  The compiled command is now in your clipboard."));
+					console.log(chalk.green("\n  The compiled command has been copied into your clipboard."));
 				})
 			}
 			else
 			{
-				console.log(chalk.red("\n  WARNING: The 'clipboard' option can not be used when more than one compiled-command is produced."));
+				console.log(chalk.red("\n  WARNING: The 'copy' option can not be used when more than one compiled-command is produced."));
 			}
 		}
     };
