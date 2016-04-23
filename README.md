@@ -9,7 +9,7 @@ Install
 * Install [Node](https://nodejs.org).
 * Run `npm install one_command -g` so that `one-command` can be used anywhere.
 
-[![NPM](https://nodei.co/npm/one_command.png)](https://www.npmjs.com/package/one_command)
+[![NPM](https://nodei.co/npm/one_command.png?downloads=true)](https://nodei.co/npm/one_command/)
 
 Run it
 ------
