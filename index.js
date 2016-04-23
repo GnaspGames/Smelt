@@ -17,13 +17,15 @@ commander
 	  Program.PathArg = path
   })
   .option('-o, --output-command', 'Display any combined commands in the console.')
-  .option('-d, --debug', 'Display additional debug information in the console.');
+  .option('-d, --debug', 'Display additional debug information in the console.')
+  .option('-c, --copy', 'When processing one file, copy combined command to system clipboard.');
   
 process.argv[1] = 'one-command';
 commander.parse(process.argv);  
 
-Program.Debug = commander.debug; //process.argv[3] == "debug" ? true : false;
-Program.OutputCommand = commander.outputCommand; //process.argv[3] == "output-command" ? true : false;
+Program.Debug = commander.debug;
+Program.OutputCommand = commander.outputCommand;
+Program.Copy = commander.copy;
 
 if(Program.PathArg)
 {
