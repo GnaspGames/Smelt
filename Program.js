@@ -25,7 +25,6 @@ var Program =
 			Program.Directory = _path.dirname(Program.Path);
 			files.push(Program.Path);
 		}
-		
 		else if(stats.isDirectory())
 		{
 			Program.SingleFile = false;

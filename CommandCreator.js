@@ -7,7 +7,7 @@ var CommandCreator =
 	REPEATING_BLOCK_NAME : "repeating_command_block",
 	CHAIN_BLOCK_NAME : "chain_command_block",
 	SETBLOCK_COMMAND_FORMAT : "setblock ~%d ~%d ~%d %s %d replace {Command:%s%s}",
-	SUMMON_LINE_MARKER_FORMAT : "summon ArmorStand ~ ~ ~%d {CustomName:%s, Tags:[\"oc_marker\"], Marker:1b, CustomNameVisible:1b, Invulnerable:1b, NoGravity:1b, Invisible:1b}",
+	SUMMON_DISPLAY_MARKER_FORMAT : "summon ArmorStand ~ ~ ~%d {CustomName:%s, Tags:[\"oc_marker\"], Marker:1b, CustomNameVisible:1b, Invulnerable:1b, NoGravity:1b, Invisible:1b}",
 	SUMMON_CMD_MARKER_FORMAT : "summon ArmorStand ~%d ~%d ~%d {Tags:[\"oc_marker\",\"%s\"], Marker:1b, Invulnerable:1b, NoGravity:1b}",
 	UP_DIRECTION_VALUE : 1,
 	EAST_DIRECTION_VALUE : 5,
@@ -63,7 +63,6 @@ var CommandCreator =
 		
 		return command;
 	},
-	
 	buildSetblockCommand : function(x, y, z, direction, type, conditional, auto, executeAs, command)
 	{
 		var blockName = "";
@@ -125,11 +124,20 @@ var CommandCreator =
 	},
 	addNewLineMarker : function(line)
 	{
-		var summon;
 		var customName = line.replace("#", "").trim();
+		return CommandCreator.addNewDisplayMarker(customName);
+	},
+	addNewFileMarker : function(fileName)
+	{
+		var customName = fileName.trim();
+		return CommandCreator.addNewDisplayMarker(customName);
+	},
+	addNewDisplayMarker : function(customName)
+	{
+		var summon;
 		if(customName.length != 0)
 		{
-			summon = util.format(CommandCreator.SUMMON_LINE_MARKER_FORMAT, CommandCreator.currentZ, customName);
+			summon = util.format(CommandCreator.SUMMON_DISPLAY_MARKER_FORMAT, CommandCreator.currentZ, customName);
 		}
 		return summon;
 	},
@@ -144,7 +152,6 @@ var CommandCreator =
 		
 		return CommandCreator.addNewLineMarker(line);
 	},
-	
 	startNewFile : function()
 	{
 		CommandCreator.currentDirection = "east";
@@ -156,7 +163,6 @@ var CommandCreator =
 		CommandCreator.auto = true;
 		CommandCreator.executeAs = "";
 	},
-	
 	processJSONLine : function(json)
 	{
 		if(json.type != null)
@@ -170,7 +176,6 @@ var CommandCreator =
 		if(json.markerTag != null)
 			CommandCreator.markerTag = json.markerTag;
 	}
-	
 }
 
 module.exports = CommandCreator;

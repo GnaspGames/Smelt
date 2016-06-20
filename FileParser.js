@@ -1,5 +1,6 @@
 var util = require('util');
 var fs = require('fs');
+var path = require('path');
 var chalk = require('chalk');
 var ncp = require("copy-paste");
 var CommandCreator = require("./CommandCreator");
@@ -64,6 +65,9 @@ var FileParser = (function ()
 		var auto = true;
 		
 		var commands = [];
+
+		var summonFilenameMarker = CommandCreator.addNewFileMarker(path.basename(sourceName));
+
 		for(i=0; i < lines.length; i++)
 		{
 			var line = lines[i].trim();
@@ -84,7 +88,7 @@ var FileParser = (function ()
 		var summonMarker = "summon ArmorStand ~ ~-1 ~ {Tags:[\"oc_rebuild\",\"oc_marker\"]}"
 		var clearlineMarkers = "/execute @e[tag=oc_rebuild] ~ ~ ~ kill @e[tag=oc_marker,dx=15,dy=20,dz=15]";
 		var clearlineMarkers_old = "kill @e[tag=lineMarker,dx=15,dy=20,dz=15]"; // keep for backwards compatibility
-		this.Commands.unshift(gamerule, clearArea, summonMarker, clearlineMarkers, clearlineMarkers_old);
+		this.Commands.unshift(gamerule, clearArea, summonMarker, clearlineMarkers, clearlineMarkers_old, summonFilenameMarker);
 		
 		var removeBlocks = CommandCreator.buildSetblockCommand(0, 1, 0, "up", "impulse", false, true, "", "/fill ~ ~-1 ~ ~ ~ ~ air");
 		
@@ -122,8 +126,8 @@ var FileParser = (function ()
     FileParser.prototype.processLine = function (line)
 	{
 		if(line.endsWith('\\'))
-		{				
-			this.PreviousLine += line.replace("\\", "");					
+		{
+			this.PreviousLine += line.replace("\\", "");
 			return;
 		}
 		else
