@@ -62,7 +62,7 @@
   <li>Additional switches can be used for more features:
     <ul>
       <li>Adding the <code>--debug</code> (or <code>-d</code>) switch outputs extra data into the console.</li>
-      <li><code>--output-command</code> (or <code>-o</code>) outputs the compacted command to the console.</li>
+      <li><code>--show</code> (or <code>-s</code>) shows the compiled command to the console.</li>
       <li><code>--copy</code> (or <code>-c</code>) will copy the compiled command to your clipboard (so long as there is only one).<br>This disables the creation of <code>.oc</code> files, unless <code>--write</code> is also specified.</li>
       <li><code>--write</code> (or <code>-w</code>) will force the creation of <code>.oc</code> files.</li>
     </ul>
@@ -268,7 +268,31 @@ commands when the impulse command is executed; <code>/say TEST 2</code> and <cod
 
 <p><strong><em>Warning:</em></strong> The work on plugins will continue and so the API for plugins is subject to change a lot in this early development. </p>
 
+<h2 id="config-files">Config files</h2>
 
+<p>You can override the default settings by creating a &#39;oc-config.json&#39; file that can go in either your users home directory, or in the root of your project directory<br>so that &#39;one-command&#39; will see it when you run it. </p>
+
+<p>An example of the <code>oc-config.json</code> file is:</p>
+
+<pre><code>{
+    &quot;Output&quot;: {
+        &quot;ShowDebugInfo&quot; : false,
+        &quot;ShowCompiledCommands&quot; : false,
+        &quot;CopyCompiledCommands&quot;: false,
+        &quot;WriteCompiledCommandsToFile&quot;: true
+    },
+    &quot;Plugins&quot;: {
+        &quot;PluginsPath&quot;: &quot;oc-plugins&quot;
+    },
+    &quot;Commands&quot;: {
+        &quot;DefaultCommandBlockType&quot;: &quot;impulse&quot;,
+        &quot;DefaultConditionalValue&quot;: false,
+        &quot;DefaultAutoValue&quot;: true
+    }
+}
+</code></pre>
+
+<p>You only need to specify the settings you wish to override.</p>
 
 		<!-- README END -->
 
