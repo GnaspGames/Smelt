@@ -117,10 +117,12 @@ var FileParser = (function ()
 			console.log(this.FinalCommand);
 		}
 		
-		var outputFileName = sourceName.replace(".mcc", ".oc");
-		fs.writeFileSync(outputFileName, this.FinalCommand);
-		console.log(chalk.green("\n * Saved " + outputFileName));
-		
+		if(Program.WriteOcFile)
+		{
+			var outputFileName = sourceName.replace(".mcc", ".oc");
+			fs.writeFileSync(outputFileName, this.FinalCommand);
+			console.log(chalk.green("\n * Saved " + outputFileName));
+		}
 	};
 	
     FileParser.prototype.processLine = function (line)

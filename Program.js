@@ -13,6 +13,7 @@ var Program =
 	Debug : false,
 	OutputCommand : false,
 	Copy: false,
+	WriteOcFile: true,
 	ProcessPath : function()
 	{
 		Program.Path = _path.resolve(this.PathArg);

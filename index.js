@@ -26,6 +26,7 @@ commander.parse(process.argv);
 Program.Debug = commander.debug;
 Program.OutputCommand = commander.outputCommand;
 Program.Copy = commander.copy;
+Program.WriteOcFile = !Program.Copy;
 
 if(Program.PathArg)
 {
