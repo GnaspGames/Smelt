@@ -40,7 +40,7 @@ var FileParser = (function ()
 			if(Program.SingleFile)
 			{
 				ncp.copy(this.FinalCommand, function () {
-					console.log(chalk.green("\n  The compiled command has been copied into your clipboard."));
+					console.log(chalk.green("\n * The compiled command has been copied into your clipboard."));
 				})
 			}
 			else
@@ -121,7 +121,7 @@ var FileParser = (function ()
 		{
 			var outputFileName = sourceName.replace(".mcc", ".oc");
 			fs.writeFileSync(outputFileName, this.FinalCommand);
-			console.log(chalk.green("\n * Saved " + outputFileName));
+			console.log(chalk.green("\n * The compiled command has been saved to " + outputFileName));
 		}
 	};
 	

@@ -18,7 +18,8 @@ commander
   })
   .option('-o, --output-command', 'Display any combined commands in the console.')
   .option('-d, --debug', 'Display additional debug information in the console.')
-  .option('-c, --copy', 'When processing one file, copy combined command to system clipboard.');
+  .option('-c, --copy', 'When processing one file, copy combined command to system clipboard.')
+  .option('-w, --write', 'Write combined commands to .oc files.');
   
 process.argv[1] = 'one-command';
 commander.parse(process.argv);  
@@ -26,7 +27,11 @@ commander.parse(process.argv);
 Program.Debug = commander.debug;
 Program.OutputCommand = commander.outputCommand;
 Program.Copy = commander.copy;
-Program.WriteOcFile = !Program.Copy;
+
+if(commander.write == true)
+  Program.WriteOcFile = commander.write;
+else
+  Program.WriteOcFile = !Program.Copy;
 
 if(Program.PathArg)
 {
