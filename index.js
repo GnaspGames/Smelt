@@ -5,6 +5,7 @@ FileParser = require("./FileParser");
 var commander = require('commander');
 var chalk = require('chalk');
 var Program = require("./Program");
+var Settings = require("./Settings");
 var pjson = require('./package.json');
 
 commander
@@ -16,22 +17,36 @@ commander
   {
 	  Program.PathArg = path
   })
-  .option('-o, --output-command', 'Display any combined commands in the console.')
-  .option('-d, --debug', 'Display additional debug information in the console.')
-  .option('-c, --copy', 'When processing one file, copy combined command to system clipboard.')
-  .option('-w, --write', 'Write combined commands to .oc files.');
+  .option('-s, --show', 
+          'Show any combined commands in the console.')
+  .option('-d, --debug', 
+          'Show additional debug information in the console.')
+  .option('-c, --copy', 
+          'When processing one file, copy combined command to system clipboard. This prevents the writing of .oc files unless --write is also included.')
+  .option('-w, --write', 
+          'Write combined commands to .oc files.');
   
 process.argv[1] = 'one-command';
 commander.parse(process.argv);  
 
-Program.Debug = commander.debug;
-Program.OutputCommand = commander.outputCommand;
-Program.Copy = commander.copy;
+Settings.ReadConfigs();
 
-if(commander.write == true)
-  Program.WriteOcFile = commander.write;
-else
-  Program.WriteOcFile = !Program.Copy;
+if(commander.show)
+  Settings.Current.Output.ShowCompiledCommands = true;
+
+if(commander.debug)
+  Settings.Current.Output.ShowDebugInfo = true;
+
+if(commander.copy)
+{
+  Settings.Current.Output.CopyCompiledCommands = true;
+  Settings.Current.Output.WriteCompiledCommandsToFile = false;
+}
+
+if(commander.write)
+  Settings.Current.Output.WriteCompiledCommandsToFile = true;
+
+Settings.OutputDebugInfo();
 
 if(Program.PathArg)
 {

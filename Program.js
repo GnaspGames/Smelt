@@ -10,7 +10,6 @@ var Program =
 	Directory : "",
 	PathFound : false,
 	SingleFile : true,
-	Debug : false,
 	OutputCommand : false,
 	Copy: false,
 	WriteOcFile: true,

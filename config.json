@@ -1,0 +1,16 @@
+{
+    "Output": {
+        "ShowDebugInfo" : false,
+        "ShowCompiledCommands" : false,
+        "CopyCompiledCommands": false,
+        "WriteCompiledCommandsToFile": true
+    },
+    "Plugins": {
+        "PluginsPath": "oc-plugins"
+    },
+    "Commands": {
+        "DefaultCommandBlockType": "impulse",
+        "DefaultConditionalValue": false,
+        "DefaultAutoValue": true
+    }
+}

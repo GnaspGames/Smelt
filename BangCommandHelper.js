@@ -4,6 +4,7 @@ var path = require('path');
 var chalk = require('chalk');
 var CommandCreator = require("./CommandCreator");
 var Program = require("./Program");
+var Settings = require("./Settings");
 
 var BangCommandHelper = 
 {
@@ -55,13 +56,13 @@ var BangCommandHelper =
 			"./plugins/" + name + ".js"
 		];
 		
-		if(Program.Debug) console.log("  Checking for plugins:");
+		if(Settings.Current.Output.ShowDebugInfo) console.log("  Checking for plugins:");
 		
 		paths.forEach(function(path)
 		{
 			try
 			{ 
-				if(Program.Debug) console.log("  Checking: " + path);
+				if(Settings.Current.Output.ShowDebugInfo) console.log("  Checking: " + path);
 				if(!pluginFound)
 				{
 					var fullpath = require.resolve(path);
@@ -72,11 +73,11 @@ var BangCommandHelper =
 			}
 			catch(err)
 			{
-				if(Program.Debug) console.log(chalk.red.bold("    " + err));
+				if(Settings.Current.Output.ShowDebugInfo) console.log(chalk.red.bold("    " + err));
 			}
 		});
 		
-		if(Program.Debug && pluginFound) console.log(chalk.green.bold("  FOUND: " + foundPath));
+		if(Settings.Current.Output.ShowDebugInfo && pluginFound) console.log(chalk.green.bold("  FOUND: " + foundPath));
 		
 		if(!pluginFound) throw new Error(util.format("The command \"!%s\" could not be found. Did you forget to intall a plugin?", name)); 
 		

@@ -1,6 +1,6 @@
 {
   "name": "one_command",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "preferGlobal": true,
   "description": "A CLI tool used to compile Minecraft commands into one-command installers, for map makers.",
   "bin": {
@@ -19,6 +19,7 @@
   "dependencies": {
     "chalk": "^1.1.1",
     "commander": "^2.9.0",
-    "copy-paste": "^1.1.4"
+    "copy-paste": "^1.1.4",
+    "json-override": "^0.2.0"
   }
 }

@@ -6,6 +6,7 @@ var ncp = require("copy-paste");
 var CommandCreator = require("./CommandCreator");
 var BangCommandHelper = require("./BangCommandHelper");
 var Program = require("./Program");
+var Settings = require("./Settings");
 
 var FileParser = (function () 
 {
@@ -35,7 +36,7 @@ var FileParser = (function ()
 			});
 		}
 		
-		if(Program.Copy)
+		if(Settings.Current.Output.CopyCompiledCommands)
 		{
 			if(Program.SingleFile)
 			{
@@ -95,15 +96,14 @@ var FileParser = (function ()
 		var removeMinecarts = "kill @e[type=MinecartCommandBlock,r=0]";
 		this.Commands.push(removeBlocks, removeMinecarts);
 		
-		//if(Program.Debug) console.log("\n\nCREATE IN THIS ORDER:\n");
-		
+		//if(Settings.Current.Output.ShowDebugInfo) console.log("\n\nCREATE IN THIS ORDER:\n");
 		var minecarts = []
 		for(i=0; i < this.Commands.length; i++)
 		{
 			var command = this.Commands[i];
 			var minecart = util.format("{id:MinecartCommandBlock,Command:%s}", JSON.stringify(command)); 
 			minecarts.push(minecart);
-			//if(Program.Debug) console.log(minecart);
+			//if(Settings.Current.Output.ShowDebugInfo) console.log(minecart);
 		}
 		
 		var minecartsString = minecarts.join(",");
@@ -111,13 +111,13 @@ var FileParser = (function ()
 		
 		this.FinalCommand = util.format(this.FinalCommand, minecartsString);
 		
-		if(Program.OutputCommand)
+		if(Settings.Current.Output.ShowCompiledCommands)
 		{
 			console.log("\n\COMPILED-COMMAND:\n");
 			console.log(this.FinalCommand);
 		}
 		
-		if(Program.WriteOcFile)
+		if(Settings.Current.Output.WriteCompiledCommandsToFile)
 		{
 			var outputFileName = sourceName.replace(".mcc", ".oc");
 			fs.writeFileSync(outputFileName, this.FinalCommand);
@@ -164,7 +164,7 @@ var FileParser = (function ()
 		var summon = CommandCreator.startNewLine(line);
 		if(summon) this.Commands.unshift(summon);
 		
-		if(Program.Debug)
+		if(Settings.Current.Output.ShowDebugInfo)
 		{
 			console.log(chalk.bold("\n\n* START NEW LINE!"))
 			console.log("  " + line);
@@ -177,7 +177,7 @@ var FileParser = (function ()
 		var json = JSON.parse(line);
 		CommandCreator.processJSONLine(json);
 		
-		if(Program.Debug)
+		if(Settings.Current.Output.ShowDebugInfo)
 		{
 			console.log(chalk.bold("\n* PROCESS JSON OPTIONS"));
 			console.log("  " + JSON.stringify(json));
@@ -197,7 +197,7 @@ var FileParser = (function ()
 		var command = CommandCreator.addSetblockCommand(line);
 		this.Commands.unshift(command);
 		
-		if(Program.Debug)
+		if(Settings.Current.Output.ShowDebugInfo)
 		{
 			console.log(chalk.bold("\n* CREATE COMMAND BLOCK"));
 			console.log("  " + line);
@@ -208,13 +208,13 @@ var FileParser = (function ()
 	
 	FileParser.prototype.processBangLine = function(line)
 	{
-		if(Program.Debug)
+		if(Settings.Current.Output.ShowDebugInfo)
 		{
 			console.log(chalk.bold("\n* PROCESS BANG COMMAND"));
 			console.log("  " + line);
 		}
 		var commands = BangCommandHelper.ProcessBang(line, this);
-		if(Program.Debug)
+		if(Settings.Current.Output.ShowDebugInfo)
 		{
 			console.log("  Commands generated:");
 		}
@@ -223,7 +223,7 @@ var FileParser = (function ()
 			var self = this;
 			commands.forEach(function(command)
 			{
-				if(Program.Debug) console.log("   -> " + command);
+				if(Settings.Current.Output.ShowDebugInfo) console.log("   -> " + command);
 				self.Commands.unshift(command);
 			});
 		}
