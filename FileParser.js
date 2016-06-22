@@ -23,7 +23,7 @@ var FileParser = (function ()
 		var data = fs.readFileSync(filePath);
 		
 		console.log(chalk.yellow(util.format("\nProcessing %s", filePath)));
-		this.ProcessData(data, filePath);
+		this.ProcessData(data, path.basename(filePath));
 		
 		if(this.BangSetups.length)
 		{
@@ -119,7 +119,7 @@ var FileParser = (function ()
 		
 		if(Settings.Current.Output.WriteCompiledCommandsToFile)
 		{
-			var outputFileName = sourceName.replace(".mcc", ".oc");
+			var outputFileName = path.resolve(Program.Directory + "/" + sourceName.replace(".mcc", ".oc"));
 			fs.writeFileSync(outputFileName, this.FinalCommand);
 			console.log(chalk.green("\n * The compiled command has been saved to " + outputFileName));
 		}
