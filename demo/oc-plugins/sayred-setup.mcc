@@ -1,5 +1,5 @@
 
-# !helloworld setup
+# !sayred setup
 {"type":"impulse","auto":true}
 /say Setting up !sayred
 	{"type":"chain"}

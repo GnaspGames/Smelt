@@ -1,6 +1,0 @@
-
-# !helloworld setup
-{"type":"impulse","auto":true}
-/say This is a demonstration plugin setup file.
-	{"type":"chain"}
-	/tellraw @a [{"text":"!helloworld is installed.","color":"red"}]
