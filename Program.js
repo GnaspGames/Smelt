@@ -10,9 +10,6 @@ var Program =
 	Directory : "",
 	PathFound : false,
 	SingleFile : true,
-	OutputCommand : false,
-	Copy: false,
-	WriteOcFile: true,
 	ProcessPath : function()
 	{
 		Program.Path = _path.resolve(this.PathArg);
