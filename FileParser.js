@@ -31,7 +31,7 @@ var FileParser = (function ()
 			var self = this;
 			this.BangSetups.forEach(function(setup)
 			{
-				console.log(chalk.yellow(util.format("\nTo use the \"!%s\" command you will need to also install the following command into your world:", setup.bangName)));
+				console.log(chalk.yellow(util.format("\nTo use the \"!%s\" command you will need to also install the following module into your world: %s", setup.bangName, setup.fileName)));
 				self.ProcessData(setup.setupData, setup.fileName);
 			});
 		}
