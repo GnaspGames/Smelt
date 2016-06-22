@@ -8,14 +8,12 @@
 	{"type":"repeating"}
 	/tellraw @a ["Current value: ",{"score":{"objective":"random","name":"seed"}}]
 	{"type":"chain"}
-	
-	__  __    _    ____ ___ ____ 
-	|  \/  |  / \  / ___|_ _/ ___|
-	| |\/| | / _ \| |  _ | | |    
-	| |  | |/ ___ \ |_| || | |___ 
-	|_|  |_/_/   \_\____|___\____|
+--	__  __    _    ____ ___ ____ 
+--	|  \/  |  / \  / ___|_ _/ ___|
+--	| |\/| | / _ \| |  _ | | |    
+--	| |  | |/ ___ \ |_| || | |___ 
+--	|_|  |_/_/   \_\____|___\____|
 	!math random.seed = (random.seed * 214013 + 2531011) % (32768 - 1 + 1)
-	
 	/scoreboard players test seed random * -1
 	{"conditional":true}
 	/scoreboard players operation seed random *= const-1 random

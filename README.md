@@ -138,10 +138,33 @@ You can use anything on these lines that can be put into a command block in the 
 
 These lines are used to call custom commands built into one-command, or available via plugins (see "Plugins" below).
 
-This bang commands will in turn generate a collection of standard commands to be imported into your world.
+These bang commands will in turn generate a collection of standard commands to be imported into your world.
 
-One example would be the `!math` command, which can be used as follows:
+Available commands are as follows:
 
+
+Loops:
+```
+-- Define a loop:
+!loop <loopName>
+
+-- Start or stop a loop:
+!start_loop <loopName>
+!stop_loop <loopName>
+```
+Events:
+```
+-- Define an event:
+!event <eventName>
+
+-- Start an event (in the next tick)
+!start_event <eventName>
+```
+Reset objectives:
+```
+!reset_objective <objective> <criteria>
+```
+Do Math:
 ```
 !math <objective>.<selector> <operator> <expression>
 ```
