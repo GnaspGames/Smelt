@@ -9,7 +9,6 @@ var Program =
 	Path : "",
 	Directory : "",
 	PathFound : false,
-	SingleFile : true,
 	ProcessPath : function()
 	{
 		Program.Path = _path.resolve(this.PathArg);
@@ -24,7 +23,6 @@ var Program =
 		}
 		else if(stats.isDirectory())
 		{
-			Program.SingleFile = false;
 			Program.Directory = Program.Path;
 			var fileNames = fs.readdirSync(Program.Path);
 			fileNames.forEach(function(fileName)
