@@ -67,7 +67,6 @@ var FileParser = (function ()
 
 			// Give the user time to use the clipboard before moving on.
 			readlineSync.keyIn(chalk.green("   You'll probably want to paste it before moving on. Type 'c' to continue. "), {limit: 'c'});
-			console.log("");
 		}
 	};
 	
