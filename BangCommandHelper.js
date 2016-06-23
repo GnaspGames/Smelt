@@ -38,7 +38,7 @@ var BangCommandHelper =
 		var setupCallback = function(fileName)
 		{
 			var setupData = self.readPluginFile(name, fileName);
-			fileParser.BangSetups.push({bangName:name, fileName: fileName, setupData: setupData});
+			fileParser.AddBangSetup({bangName:name, fileName: fileName, setupData: setupData});
 		};
 		
 		plugin(args.slice(1), commandCallback, setupCallback);

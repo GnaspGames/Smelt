@@ -7,6 +7,8 @@ var CommandCreator = require("./CommandCreator");
 var BangCommandHelper = require("./BangCommandHelper");
 var Program = require("./Program");
 var Settings = require("./Settings");
+var readlineSync = require('readline-sync');
+
 
 var FileParser = (function () 
 {
@@ -16,6 +18,7 @@ var FileParser = (function ()
 		this.BangSetups = [];
 		this.PreviousLine = "";
 		this.FinalCommand = "";
+		this.Module = null;
 	}
 	
     FileParser.prototype.ProcessFile = function (filePath)
@@ -23,33 +26,50 @@ var FileParser = (function ()
 		var data = fs.readFileSync(filePath);
 		
 		console.log(chalk.yellow(util.format("\nProcessing %s", filePath)));
-		this.ProcessData(data, path.basename(filePath));
+		
+		this.Module = this.ProcessData(data, path.basename(filePath));
 		
 		if(this.BangSetups.length)
 		{
-			Program.SingleFile = false;
 			var self = this;
 			this.BangSetups.forEach(function(setup)
 			{
 				console.log(chalk.yellow(util.format("\nTo use the \"!%s\" command you will need to also install the following module into your world: %s", setup.bangName, setup.fileName)));
-				self.ProcessData(setup.setupData, setup.fileName);
+				var compiledSetupModule = self.ProcessData(setup.setupData, setup.fileName);
+				self.OutputCompiledModule(compiledSetupModule);
 			});
 		}
-		
+
+		console.log(chalk.yellow(util.format("\nProcessing of %s is complete.", this.Module.SourceName)));
+		this.OutputCompiledModule(this.Module);
+    };
+
+	FileParser.prototype.OutputCompiledModule = function(commandModule)
+	{
+		if(Settings.Current.Output.WriteCompiledCommandsToFile)
+		{
+			var outputFileName = path.resolve(Program.Directory + "/" + commandModule.SourceName.replace(".mcc", ".oc"));
+			fs.writeFileSync(outputFileName, commandModule.CompiledCommand);
+			console.log(chalk.green("\n * The compiled command has been saved to " + outputFileName));
+		}
+
+		if(Settings.Current.Output.ShowCompiledCommands)
+		{
+			console.log(chalk.green("\n\ * COMPILED-COMMAND:\n"));
+			console.log(commandModule.CompiledCommand);
+		}
+
 		if(Settings.Current.Output.CopyCompiledCommands)
 		{
-			if(Program.SingleFile)
-			{
-				ncp.copy(this.FinalCommand, function () {
-					console.log(chalk.green("\n * The compiled command has been copied into your clipboard."));
-				})
-			}
-			else
-			{
-				console.log(chalk.red("\n  WARNING: The 'copy' option can not be used when more than one compiled-command is produced."));
-			}
+			// Copy to the clipboard
+			ncp.copy(commandModule.CompiledCommand);
+			console.log(chalk.green("\n * The compiled command has been copied into your clipboard."));
+
+			// Give the user time to use the clipboard before moving on.
+			readlineSync.keyIn(chalk.green("   You'll probably want to paste it before moving on. Type 'c' to continue. "), {limit: 'c'});
+			console.log("");
 		}
-    };
+	};
 	
 	FileParser.prototype.ProcessData = function (data, sourceName)
 	{
@@ -107,22 +127,15 @@ var FileParser = (function ()
 		}
 		
 		var minecartsString = minecarts.join(",");
-		this.FinalCommand = "summon FallingSand ~ ~1 ~ {Block:activator_rail,Time:1,Passengers:[%s]}"
-		
-		this.FinalCommand = util.format(this.FinalCommand, minecartsString);
-		
-		if(Settings.Current.Output.ShowCompiledCommands)
-		{
-			console.log("\n\COMPILED-COMMAND:\n");
-			console.log(this.FinalCommand);
-		}
-		
-		if(Settings.Current.Output.WriteCompiledCommandsToFile)
-		{
-			var outputFileName = path.resolve(Program.Directory + "/" + sourceName.replace(".mcc", ".oc"));
-			fs.writeFileSync(outputFileName, this.FinalCommand);
-			console.log(chalk.green("\n * The compiled command has been saved to " + outputFileName));
-		}
+
+		var compiledCommand = "summon FallingSand ~ ~1 ~ {Block:activator_rail,Time:1,Passengers:[%s]}"
+		compiledCommand = util.format(compiledCommand, minecartsString);
+
+		var commandModule = new CommandModule();
+		commandModule.SourceName = sourceName;
+		commandModule.CompiledCommand = compiledCommand;
+
+		return commandModule;
 	};
 	
     FileParser.prototype.processLine = function (line)
@@ -228,6 +241,18 @@ var FileParser = (function ()
 			});
 		}
 	};
+
+	FileParser.prototype.AddBangSetup = function(bangSetup)
+	{
+		var exists = false;
+		this.BangSetups.forEach(function(existingSetup)
+		{
+			if(bangSetup.fileName == existingSetup.fileName)
+				exists = true;
+		});
+		if(!exists)
+			this.BangSetups.push(bangSetup);
+	}
 	
     return FileParser;
 	

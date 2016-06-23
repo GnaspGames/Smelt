@@ -2,6 +2,7 @@
 
 var util = require('util');
 FileParser = require("./FileParser");
+CommandModule = require("./CommandModule");
 var commander = require('commander');
 var chalk = require('chalk');
 var Program = require("./Program");
