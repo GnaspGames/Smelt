@@ -15,13 +15,13 @@ Run it
 ------
 * You need to have `.mcc` files using the *Input Syntax* described below.
 * Run `one-command /path/to/directory/or/file.mcc`.
-* Your combined commands will be on the `.oc` files with the same name as your `.mcc` files (normally, see switches below).
+* Your compiled commands will be on the `.oc` files with the same name as your `.mcc` files (normally, see switches below).
 * Additional switches can be used for more features:
 	* Adding the `--debug` (or `-d`) switch outputs extra data into the console.
-	* `--show` (or `-s`) shows the compiled command to the console.
-	* `--copy` (or `-c`) will copy the compiled command to your clipboard (so long as there is only one). 
-	This disables the creation of `.oc` files, unless `--write` is also specified.
-	* `--write` (or `-w`) will force the creation of `.oc` files.
+	* `--show` (or `-s`) shows the compiled commands in the console.
+	* `--copy` (or `-c`) will copy the compiled commands to your clipboard (one at a time).
+	<br /> This disables the creation of `.oc` files, unless `--write` is also specified.
+	* `--write` (or `-w`) will force the compiled commands to be written into `.oc` files, matching the name of each module.
 
 Demonstration
 -------------
