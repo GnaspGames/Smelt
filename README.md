@@ -240,10 +240,14 @@ Plugins can also declare *setup* .mcc files that need to be installed into your 
 Config files
 ------------
 
-You can override the default settings by creating a 'oc-config.json' file that can go in either your users home directory, or in the root of your project directory
+You can override the default settings by creating a `config.json` file that can go in either your users home directory, or in the root of your project directory
 so that 'one-command' will see it when you run it. 
 
-An example of the `oc-config.json` file is:
+To have settings for all projects, create a file called `[YOUR-HOME-DIRECTORY]/one-command/config.json`.
+
+To have settings for one project, create a file called `[YOUR-PROJECT-DIRECTORY]/one-command/config.json`.
+
+An example of the `config.json` file is:
 
 ```
 {
@@ -252,10 +256,7 @@ An example of the `oc-config.json` file is:
         "ShowCompiledCommands" : false,
         "CopyCompiledCommands": false,
         "WriteCompiledCommandsToFile": true
-    },
-    "Plugins": {
-        "PluginsPath": "oc-plugins"
-    },
+    }
     "Commands": {
         "DefaultCommandBlockType": "impulse",
         "DefaultConditionalValue": false,

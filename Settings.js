@@ -23,7 +23,7 @@ var Settings =
         Settings.Global = Settings.ReadConfigFile(Program.HomeDirectory + "/config.json");
         
         // Third, look for a LOCAL specific config to override above.
-        Settings.Local = Settings.ReadConfigFile("oc-config.json");
+        Settings.Local = Settings.ReadConfigFile("one-command/config.json");
 
         // Set "Current" to equal the sum of all
         Settings.Current = Settings.Default;
