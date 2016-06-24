@@ -56,17 +56,18 @@
 <a id="user-content-run-it" class="anchor" href="#run-it" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run it</h2>
 
 <ul>
-  <li>You need to have <code>.mcc</code> files using the <em>Input Syntax</em> described below.</li>
-  <li>Run <code>one-command /path/to/directory/or/file.mcc</code>.</li>
-  <li>Your combined commands will be on the <code>.oc</code> files with the same name as your <code>.mcc</code> files (normally, see switches below).</li>
-  <li>Additional switches can be used for more features:
-    <ul>
-      <li>Adding the <code>--debug</code> (or <code>-d</code>) switch outputs extra data into the console.</li>
-      <li><code>--show</code> (or <code>-s</code>) shows the compiled command to the console.</li>
-      <li><code>--copy</code> (or <code>-c</code>) will copy the compiled command to your clipboard (so long as there is only one).<br>This disables the creation of <code>.oc</code> files, unless <code>--write</code> is also specified.</li>
-      <li><code>--write</code> (or <code>-w</code>) will force the creation of <code>.oc</code> files.</li>
-    </ul>
-  </li>
+    <li>You need to have <code>.mcc</code> files using the <em>Input Syntax</em> described below.</li>
+    <li>Run <code>one-command /path/to/directory/or/file.mcc</code>.</li>
+    <li>Your compiled commands will be on the <code>.oc</code> files with the same name as your <code>.mcc</code> files (normally, see switches below).</li>
+    <li>Additional switches can be used for more features:
+        <ul>
+            <li>Adding the <code>--debug</code> (or <code>-d</code>) switch outputs extra data into the console.</li>
+            <li><code>--show</code> (or <code>-s</code>) shows the compiled commands in the console.</li>
+            <li><code>--copy</code> (or <code>-c</code>) will copy the compiled commands to your clipboard (one at a time).<br>
+            This disables the creation of <code>.oc</code> files, unless <code>--write</code> is also specified.</li>
+            <li><code>--write</code> (or <code>-w</code>) will force the compiled commands to be written into <code>.oc</code> files, matching the name of each module.</li>
+        </ul>
+    </li>
 </ul>
 
 <h2>
