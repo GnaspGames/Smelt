@@ -112,6 +112,32 @@ var BangCommandHelper =
 		if(!pluginFound) throw new Error(util.format("The setup file \"!%s\" could not be found. Are you missing a plugin file?", filename)); 
 		
 		return fileData;
+	},
+	GetAllPlugins: function()
+	{
+		var plugins = [];
+		
+		var paths = [
+			// path.resolve(Program.OcDirectory + "/plugins/"), - Don't include built in plugins
+			path.resolve(Program.HomeDirectory + "/plugins/"),
+			path.resolve("one-command/plugins/")
+		];
+
+		paths.forEach(function(path)
+		{	
+			try 
+			{
+				var files = fs.readdirSync(path);
+				files.forEach(function(file)
+				{
+					if(file.endsWith(".js"))
+						plugins.push(path + ": " + file);
+				});
+			} 
+			catch(err){}
+		});
+
+		return plugins;
 	}
 	
 }

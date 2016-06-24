@@ -27,7 +27,7 @@ commander
   .option('-w, --write', 
           'Write combined commands to .oc files.');
   
-process.argv[1] = 'one-command';
+process.argv[1] = 'onec process';
 commander.parse(process.argv);  
 
 Settings.ReadConfigs();

@@ -4,7 +4,8 @@
   "preferGlobal": true,
   "description": "A CLI tool used to compile Minecraft commands into one-command installers, for map makers.",
   "bin": {
-    "one-command": "./index.js"
+    "one-command": "./onec-process.js",
+    "onec": "./onec.js"
   },
   "author": "Gnasp",
   "license": "UNLICENSED",
