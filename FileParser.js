@@ -23,7 +23,7 @@ var FileParser = (function ()
 	
     FileParser.prototype.ProcessFile = function (filePath)
 	{
-		var data = fs.readFileSync(filePath);
+		var data = fs.readFileSync(filePath).toString().trim();
 		
 		console.log(chalk.yellow(util.format("\nProcessing %s", filePath)));
 		
@@ -246,7 +246,7 @@ var FileParser = (function ()
 		var exists = false;
 		this.BangSetups.forEach(function(existingSetup)
 		{
-			if(bangSetup.fileName == existingSetup.fileName)
+			if(bangSetup.setupData == existingSetup.setupData)
 				exists = true;
 		});
 		if(!exists)
