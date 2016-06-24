@@ -23,6 +23,7 @@ var doSomething = false;
 
 if(commander.list)
 {
+    doSomething = true;
     var plugins = BangCommandHelper.GetAllPlugins();
 
     if(plugins.length > 0)
