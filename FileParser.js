@@ -48,7 +48,7 @@ var FileParser = (function ()
 	{
 		if(Settings.Current.Output.WriteCompiledCommandsToFile)
 		{
-			var outputFileName = path.resolve(Program.Directory + "/" + commandModule.SourceName.replace(".mcc", ".oc"));
+			var outputFileName = path.resolve(Program.LocalDirectory + "/" + commandModule.SourceName.replace(".mcc", ".oc"));
 			fs.writeFileSync(outputFileName, commandModule.CompiledCommand);
 			console.log(chalk.green("\n * The compiled command has been saved to " + outputFileName));
 		}

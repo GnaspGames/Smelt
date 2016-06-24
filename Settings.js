@@ -16,11 +16,11 @@ var Settings =
     ReadConfigs : function()
     {
         // First, use the default config.json packaged with program.
-        var defaultsFile = path.resolve(__dirname + "/" + "config.json");
+        var defaultsFile = path.resolve(Program.OcDirectory + "/config.json");
         Settings.Default = Settings.ReadConfigFile(defaultsFile);
         
         // Second, look for a GLOBAL config file to override above.
-        Settings.Global = Settings.ReadConfigFile(os.homedir() + "/oc-config.json");
+        Settings.Global = Settings.ReadConfigFile(Program.HomeDirectory + "/config.json");
         
         // Third, look for a LOCAL specific config to override above.
         Settings.Local = Settings.ReadConfigFile("oc-config.json");
@@ -52,10 +52,6 @@ var Settings =
             // console.log(chalk.red.bold("    " + err));
             // console.log(chalk.red.bold("Not found: " + configPath + "!"));
         }
-
-           
-            
-
         return settings;
     },
     OutputDebugInfo: function()

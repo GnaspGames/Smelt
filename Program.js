@@ -2,12 +2,15 @@ var util = require('util');
 var fs = require('fs');
 var _path = require('path');
 var chalk = require('chalk');
+var os = require('os');
 
 var Program = 
 {
 	PathArg : "",
 	Path : "",
-	Directory : "",
+	LocalDirectory : "",
+	HomeDirectory: os.homedir() + "/one-command",
+	OcDirectory: __dirname,
 	PathFound : false,
 	ProcessPath : function()
 	{
@@ -18,12 +21,12 @@ var Program =
 		
 		if(stats.isFile())
 		{
-			Program.Directory = _path.dirname(Program.Path);
+			Program.LocalDirectory = _path.dirname(Program.Path);
 			files.push(Program.Path);
 		}
 		else if(stats.isDirectory())
 		{
-			Program.Directory = Program.Path;
+			Program.LocalDirectory = Program.Path;
 			var fileNames = fs.readdirSync(Program.Path);
 			fileNames.forEach(function(fileName)
 			{

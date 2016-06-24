@@ -50,10 +50,11 @@ var BangCommandHelper =
 		var plugin = undefined;
 		var pluginFound = false;
 		var foundPath = "";
-		
+				
 		var paths = [
-			path.resolve(Program.Directory + "/oc-plugins/" + name + ".js"),
-			"./plugins/" + name + ".js"
+			path.resolve(Program.LocalDirectory + "/oc-plugins/" + name + ".js"),
+			path.resolve(Program.HomeDirectory + "/plugins/" + name + ".js"),
+			path.resolve(Program.OcDirectory + "/plugins/" + name + ".js")
 		];
 		
 		if(Settings.Current.Output.ShowDebugInfo) console.log("  Checking for plugins:");
@@ -87,9 +88,11 @@ var BangCommandHelper =
 	{
 		var pluginFileFound = false;
 		var fileData = undefined;
+
 		var paths = [
-			path.resolve(Program.Directory + "/oc-plugins/" + filename),
-			"./plugins/" + filename
+			path.resolve(Program.LocalDirectory + "/oc-plugins/" + filename),
+			path.resolve(Program.HomeDirectory + "/plugins/" + filename),
+			path.resolve(Program.OcDirectory + "/plugins/" + filename)
 		];
 		
 		paths.forEach(function(path)

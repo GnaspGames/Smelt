@@ -5,9 +5,6 @@
         "CopyCompiledCommands": false,
         "WriteCompiledCommandsToFile": true
     },
-    "Plugins": {
-        "PluginsPath": "oc-plugins"
-    },
     "Commands": {
         "DefaultCommandBlockType": "impulse",
         "DefaultConditionalValue": false,
