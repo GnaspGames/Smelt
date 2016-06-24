@@ -23,7 +23,7 @@ commander
   .option('-d, --debug', 
           'Show additional debug information in the console.')
   .option('-c, --copy', 
-          'When processing one file, copy combined command to system clipboard. This prevents the writing of .oc files unless --write is also included.')
+          'Copy combined commands to system clipboard, one at a time. This prevents the writing of .oc files unless --write is also included.')
   .option('-w, --write', 
           'Write combined commands to .oc files.');
   
