@@ -1,5 +1,5 @@
 var util = require('util');
-var Program = require("./Program");
+var Settings = require("./Settings");
 
 var CommandCreator = 
 {
@@ -20,9 +20,9 @@ var CommandCreator =
 	currentY : -1,
 	currentZ : 0,
 	currentDirection : "east",
-	type : "impulse",
+	type : "",
 	conditional : false,
-	auto : true,
+	auto : false,
 	executeAs : "",
 	markerTag : "",
 	
@@ -158,9 +158,9 @@ var CommandCreator =
 		CommandCreator.currentX = CommandCreator.STARTING_X;
 		CommandCreator.currentY = CommandCreator.STARTING_Y;
 		CommandCreator.currentZ = CommandCreator.STARTING_Z;
-		CommandCreator.type = "impulse";
-		CommandCreator.conditional = false;
-		CommandCreator.auto = true;
+		CommandCreator.type = Settings.Current.Commands.DefaultCommandBlockType;
+		CommandCreator.conditional = Settings.Current.Commands.DefaultConditionalValue;
+		CommandCreator.auto = Settings.Current.Commands.DefaultAutoValue;
 		CommandCreator.executeAs = "";
 	},
 	processJSONLine : function(json)
