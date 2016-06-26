@@ -9,11 +9,11 @@ Plugins
 Now one-command also supports plugins! These can be used to add to the 
 available "bang commands" built into *one-command*.
 
-Plugins need to be installed into a `/one-commang/plugins/` directory alongside the .mcc files you plan on 
+Plugins need to be installed into a `/one-command/plugins/` directory alongside the .mcc files you plan on 
 processing. 
 
 You can see an example of this in the `demo` directory included in the git repository 
-for this project. There is a `sayred.js` plugin in the `/one-commang/plugins/` directory. 
+for this project. There is a `sayred.js` plugin in the `/one-command/plugins/` directory. 
 You can see this being used in the `demo.mcc` file.
 
 Plugins can also declare *setup* .mcc files that need to be installed into your map for the 

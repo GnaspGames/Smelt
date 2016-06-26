@@ -45,7 +45,7 @@ See [Docs/Syntax](Docs/Syntax.md) for more information on the *one-command* synt
 Powerful "Bang" Commands
 ------------------------
 
-See [Docs/BangCommands](Docs/BangCommandsSyntax.md) to find out how the 'bang commands' feature works.
+See [Docs/BangCommands](Docs/BangCommands.md) to find out how the 'bang commands' feature works.
 
 Plugins
 -------
