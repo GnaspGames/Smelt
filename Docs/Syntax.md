@@ -102,7 +102,7 @@ These lines are used to call custom commands built into one-command, or availabl
 
 These bang commands will in turn generate a collection of standard commands to be imported into your map.
 
-See [Docs/BangCommands](BangCommands.md) for more information.
+See [Docs/BangCommands](./BangCommands.md) for more information.
 
 ## Wrapping Lines
 
