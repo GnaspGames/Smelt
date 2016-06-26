@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+
+    <title>one-command by Gnasp</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+		<img src="images/logo.png" id="logo" />
+        <h2>A CLI tool for Minecraft map makers; used to compile commands into one-command installers.</h2>
+
+        <section id="downloads">
+          <a href="index.html" class="btn">README</a>
+          <a href="syntax.html" class="btn">Syntax</a>
+          <a href="bangcommands.html" class="btn">Bang Commands</a>
+          <a href="plugins.html" class="btn">Plugins</a>
+          <a href="configuration.html" class="btn">Configuration</a>
+          <a href="https://github.com/GnaspGames/one-command" target="_blank" class="btn btn-github">
+            <span class="icon"></span>View on GitHub
+          </a>
+          <a href="https://github.com/GnaspGames/one-command/issues" target="_blank" class="btn btn-github">
+            <span class="icon"></span>Bugs / Ideas
+          </a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+	  
+		<!--- CONTENT-GOES-HERE --->
+
+
+<h1 id="custom-configuration">Custom Configuration</h1>
+<p>You can override some default <em>one-command</em> behavours using your own configuration files. </p>
+<p>This is done by creating a <code>config.json</code> file that can go in either your users home directory,<br>or in the root of your project directory so that <em>one-command</em> will use it. </p>
+<h2 id="the-file-format">The file format</h2>
+<p>An example of the <code>config.json</code> file is:</p>
+<pre><code>{
+    &quot;Output&quot;: {
+        &quot;ShowDebugInfo&quot; : false,
+        &quot;ShowCompiledCommands&quot; : false,
+        &quot;CopyCompiledCommands&quot;: false,
+        &quot;WriteCompiledCommandsToFile&quot;: true
+    }
+    &quot;Commands&quot;: {
+        &quot;DefaultCommandBlockType&quot;: &quot;impulse&quot;,
+        &quot;DefaultConditionalValue&quot;: false,
+        &quot;DefaultAutoValue&quot;: true
+    }
+}
+</code></pre><p>You only need to specify the settings you wish to override.</p>
+<h2 id="user-level-configuration">User-level configuration</h2>
+<p>To have settings for all projects, create a file called <code>[YOUR-HOME-DIRECTORY]/one-command/config.json</code>.</p>
+<p>Example on Windows: <code>c:\users\gnasp\one-command\config.json</code></p>
+<h2 id="project-level-configuration">Project-level configuration</h2>
+<p>To have settings for one project, create a file called <code>[YOUR-PROJECT-DIRECTORY]/one-command/config.json</code>.</p>
+<p>Example on Windows: <code>c:\projects\my-amazing-map\one-command\config.json</code></p>
+
+
+      </section>
+    </div>
+    
+  </body>
+</html>
