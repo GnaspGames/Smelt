@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
 
-    <title>one-command by GnaspGames</title>
+    <title>one-command by Gnasp</title>
   </head>
 
   <body>
@@ -18,8 +18,11 @@
         <h2>A CLI tool for Minecraft map makers; used to compile commands into one-command installers.</h2>
 
         <section id="downloads">
-          <a href="#user-content-install" class="btn">Install</a>
-          <a href="#user-content-input-syntax" class="btn">Syntax</a>
+          <a href="index.html" class="btn">README</a>
+          <a href="syntax.html" class="btn">Syntax</a>
+          <a href="bangcommands.html" class="btn">Bang Commands</a>
+          <a href="plugins.html" class="btn">Plugins</a>
+          <a href="configuration.html" class="btn">Configuration</a>
           <a href="https://github.com/GnaspGames/one-command" target="_blank" class="btn btn-github">
             <span class="icon"></span>View on GitHub
           </a>
@@ -33,273 +36,54 @@
     <div class="container">
       <section id="main_content">
 	  
-		<!--- README --->
-	  
-<h1>
-<a id="user-content-one-command-beta" class="anchor" href="#one-command-beta" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>one-command (beta)</h1>
-
+		<!--- CONTENT-GOES-HERE --->
+<h1 id="one-command-beta-">one-command (beta)</h1>
 <p>A Minecraft one-command combiner for map makers.</p>
-
-<p><a href="https://github.com/GnaspGames/one-command/raw/master/demo/one-command-demo.gif" target="_blank"><img src="https://github.com/GnaspGames/one-command/raw/master/demo/one-command-demo.gif" alt="How it works" style="max-width:100%;"></a></p>
-
-<h2>
-<a id="user-content-install" class="anchor" href="#install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install</h2>
-
+<p><img src="https://github.com/GnaspGames/one-command/raw/master/demo/one-command-demo.gif" alt="How it works"></p>
+<h2 id="install">Install</h2>
 <ul>
-<li>Install <a href="https://nodejs.org" target="_blank">Node</a>.</li>
+<li>Install <a href="https://nodejs.org">Node</a>.</li>
 <li>Run <code>npm install one_command -g</code> so that <code>one-command</code> can be used anywhere.</li>
 </ul>
-
-<p><a href="https://nodei.co/npm/one_command/"><img src="https://nodei.co/npm/one_command.png?downloads=true"></a></p>
-
-<h2>
-<a id="user-content-run-it" class="anchor" href="#run-it" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run it</h2>
-
+<p><a href="https://nodei.co/npm/one_command/"><img src="https://nodei.co/npm/one_command.png?downloads=true" alt="NPM"></a></p>
+<h2 id="run-it">Run it</h2>
 <ul>
-    <li>You need to have <code>.mcc</code> files using the <em>Input Syntax</em> described below.</li>
-    <li>Run <code>one-command /path/to/directory/or/file.mcc</code>.</li>
-    <li>Your compiled commands will be on the <code>.oc</code> files with the same name as your <code>.mcc</code> files (normally, see switches below).</li>
-    <li>Additional switches can be used for more features:
-        <ul>
-            <li>Adding the <code>--debug</code> (or <code>-d</code>) switch outputs extra data into the console.</li>
-            <li><code>--show</code> (or <code>-s</code>) shows the compiled commands in the console.</li>
-            <li><code>--copy</code> (or <code>-c</code>) will copy the compiled commands to your clipboard (one at a time).<br>
-            This disables the creation of <code>.oc</code> files, unless <code>--write</code> is also specified.</li>
-            <li><code>--write</code> (or <code>-w</code>) will force the compiled commands to be written into <code>.oc</code> files, matching the name of each module.</li>
-        </ul>
-    </li>
+<li>You need to have <code>.mcc</code> files using the <em>Input Syntax</em> described below.</li>
+<li>Run <code>one-command /path/to/directory/or/file.mcc</code>.</li>
+<li>Your compiled commands will be on the <code>.oc</code> files with the same name as your <code>.mcc</code> files (normally, see switches below).</li>
+<li>Additional switches can be used for more features:<ul>
+<li>Adding the <code>--debug</code> (or <code>-d</code>) switch outputs extra data into the console.</li>
+<li><code>--show</code> (or <code>-s</code>) shows the compiled commands in the console.</li>
+<li><code>--copy</code> (or <code>-c</code>) will copy the compiled commands to your clipboard (one at a time).<br>&lt;br /&gt; This disables the creation of <code>.oc</code> files, unless <code>--write</code> is also specified.</li>
+<li><code>--write</code> (or <code>-w</code>) will force the compiled commands to be written into <code>.oc</code> files, matching the name of each module.</li>
 </ul>
-
-<h2>
-<a id="user-content-demonstration" class="anchor" href="#demonstration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demonstration</h2>
-
+</li>
+</ul>
+<h2 id="demonstration">Demonstration</h2>
 <p>Download or clone the git repository to try the demo.</p>
-
 <ul>
-<li>Use a console to navigate to the <code>demo</code> directory included.</li>
+<li>Using a command line terminal, navigate to the <code>demo</code> directory included.</li>
 <li>Run <code>one-command demo.mcc</code> and then see the <code>demo.oc</code> file that is created.</li>
-<li>Go into Minecraft 1.9^
-
-<ul>
+<li>Go into Minecraft 1.9^<ul>
 <li>Put down a command block in most north-west corner of a spawn chunk.</li>
-<li>Enter the command</li>
-<li>Power the command block with a button (<strong>NOT ON TOP</strong>) of the command block.</li>
+<li>Copy the compiled command from <code>demo.oc</code> and enter into the command block.</li>
+<li>Power the command block with a button (<strong>ON THE SIDE, NOT ON TOP</strong>).</li>
 </ul>
 </li>
 <li>See the demo command blocks appear.</li>
 </ul>
 
-<h2>
-<a id="user-content-input-syntax" class="anchor" href="#input-syntax" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Input Syntax</h2>
-
-<p>There are 4 different types of lines used in the input syntax.</p>
-
-<h3>
-<a id="user-content-1-the-new-row-line-starting-with-" class="anchor" href="#1-the-new-row-line-starting-with-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1. The new row line (starting with "#")</h3>
-
-<p>Each of these starts a new row of command blocks. </p>
-
-<p>Any text found after the initial "#" is used to generate a "row marker" (a hidden marker armorstand with the text as the CustomName). </p>
-
-<p>This helps to recognise rows of command blocks in your Minecraft world.</p>
-
-<p>A line with no text after the "#" can be used to create a gap between your command block rows. No row marker will be created.</p>
-
-<h3>
-<a id="user-content-2-the-json-line-using--and--always-on-one-line" class="anchor" href="#2-the-json-line-using--and--always-on-one-line" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2. The JSON line (using "{" and "}", always on one line)</h3>
-
-<p>For example <code>{"type":"repeating","auto":"true"}</code>. </p>
-
-<p>This is used to set the properties of all command blocks following until a tag is changed.</p>
-
-<p>Properties available to use are: </p>
-
-<p><strong>"type"</strong></p>
-
-<p>This defines the type of command block that will be used for the following commands.</p>
-
-<p>Possible values are <code>"impulse"</code>, <code>"repeating"</code> or <code>"chain"</code>.</p>
-
-<p>Example: <code>{"type":"repeating"}</code></p>
-
-<p><strong>"auto"</strong></p>
-
-<p>This defines whether the following command blocks with be "Always active" (true), or "Require redstone" (false).</p>
-
-<p>Possible values are <code>true</code> or <code>false</code>. Double quotes should not be used around values on this property.</p>
-
-<p>Example: <code>{"auto":false}</code></p>
-
-<p><strong>"conditional"</strong></p>
-
-<p>This defines whether the following command blocks will be "Conditional", meaning that they will only execute 
-if the previous command block executes successfully. </p>
-
-<p>Possible values are <code>true</code> or <code>false</code>. Double quotes should not be used around values on this property.</p>
-
-<p>Example: <code>{"conditional":true}</code></p>
-
-<p><strong>"executeAs"</strong></p>
-
-<p>This defines the executing entity for all following command blocks. </p>
-
-<p>Currently this only supports one entity selector, but it may be extended to allow for more as a list.</p>
-
-<p>Any valid entity selector, e.g. <code>{"executeAs":"@a[score_lives=0]"}</code></p>
-
-<p>This will be inserted before any following commands as <code>/execute @a[score_lives=0] ~ ~ ~ /say Hello World</code>.</p>
-
-<p>Use <code>{"executeAs":""}</code> to reset this option.</p>
-
-<p><strong>"markerTag"</strong></p>
-
-<p>This is used to define a 'marker' ArmorStant to be summoned at the same location as each command block to follow. Each marker ArmorStand will have the tag provided as the value of <code>markerTag</code>. </p>
-
-<p>This can be useful for targetting a specific command block, or for setting up a random option system.</p>
-
-<p>Possible values are any string that can be used as a scoreboard tag. e.g. <code>{"markerTag":"randomPowerup"}</code>.</p>
-
-<p>Use <code>{"markerTag":""}</code> to reset this option and stop ArmorStands from appearing in coming command blocks. </p>
-
-<p>Example use case:</p>
-
-<pre><code># POWERUP OPTIONS
-{"type":"impulse", "auto":false, "conditional":false}
-{"markerTag":"randomPowerUp"}
-    /scoreboard players set @e[name=SYSTEM] power_up_option 1
-    /scoreboard players set @e[name=SYSTEM] power_up_option 2
-    /scoreboard players set @e[name=SYSTEM] power_up_option 3
-    /scoreboard players set @e[name=SYSTEM] power_up_option 4
-    /scoreboard players set @e[name=SYSTEM] power_up_option 5
-    /scoreboard players set @e[name=SYSTEM] power_up_option 6
-{"markerTag":""}
-
-# CYCLE POWERUP OPTIONS
-!function CyclePowerups
-    {"type":"chain", "conditional":false}
-    /execute @e[type=ArmorStand,tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:0b}
-    /execute @r[type=ArmorStand,tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:1b}
-</code></pre>
-
-<h3>
-<a id="user-content-3-the-command-line-starting-with-" class="anchor" href="#3-the-command-line-starting-with-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3. The command line (starting with "/")</h3>
-
-<p>Each of these commands is converted into the game, and the command-blocks executing them will use the properties 
-from the previous JSON tags.</p>
-
-<p>You can use anything on these lines that can be put into a command block in the game.</p>
-
-<h3>
-<a id="user-content-4-the-bang-command-line-starting-with-" class="anchor" href="#4-the-bang-command-line-starting-with-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4. The bang command line (starting with "!")</h3>
-
-<p>These lines are used to call custom commands built into one-command, or available via plugins (see "Plugins" below).</p>
-
-<p>This bang commands will in turn generate a collection of standard commands to be imported into your world.</p>
-
-<p>One example would be the <code>!math</code> command, which can be used as follows:</p>
-
-<pre><code>!math &lt;objective&gt;.&lt;selector&gt; &lt;operator&gt; &lt;expression&gt;
-</code></pre>
-
-<p>For example:</p>
-
-<pre><code>/scoreboard objectives add money dummy
-/scoreboard players set lotteryPot money 1337
-!math money.@r += (money.lotteryPot - 10) / 2
-</code></pre>
-
-<h3>
-<a id="user-content-wrapping-lines" class="anchor" href="#wrapping-lines" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Wrapping Lines</h3>
-
-<p>Sometimes you might want a command to wrap to the next line because it's just too long. To do this, put the "\" as the END of a line to let one-command know that the command is continuing on the next line.</p>
-
-<p>Example:</p>
-
-<pre><code>/say I've got something really lengthy to say. It's going to take a while. It might not squeeze \
-on to one line.
-</code></pre>
-
-<h3>
-<a id="user-content-everything-else" class="anchor" href="#everything-else" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Everything else</h3>
-
-<p>Other than that, if a line doesn't start with a "#", "{", "/" or "!" then it will be ignored and you can put whatever 
-you want. Good for notes.</p>
-
-<h3>
-<a id="user-content-example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h3>
-
-<pre><code># repeatThing
-{"type":"repeating","auto":true}
-/testfor @e[name=repeatThing]
-    {"conditional":true}
-    /say repeatThing exists!
-        {"type":"chain", "conditional":false}
-        /say repeatThing still running!
-        /say repeatThing finised!
-
-# Another line
-{"type":"impulse","auto":false}
-/say TEST
-    {"type":"chain", "auto":true}
-    /say TEST 2
-    /say TEST 3
-</code></pre>
-
-<p>This will create the following command-blocks:</p>
-
-<p>A repeating command block, with auto set to true, running the <code>/testfor @e[name=repeatThing]</code> command. 
-Then a conditional repeating command block, with auto also set to true (inherited from last JSON tag), 
-running the <code>/say repeatThing exists!</code> command. Then two non-conditional chain command blocks, with auto 
-still set to true as before (still using the previous value, not overwritten in last JSON tag line), running 
-the following commands: <code>/say repeatThing still running!</code> and <code>/say repeatThing finised!</code>.</p>
-
-<p>Then a new line of command blocks is started. First an inpulse command block, with auto set to false, which 
-would run the command <code>/say TEST</code> when executed. This is followed by two chain command blocks (still not conditional, 
-since it's still false from the previous reference), but now auto has been set to true, and they would run the following 
-commands when the impulse command is executed; <code>/say TEST 2</code> and <code>/say TEST 2</code>.</p>
-
-<h2>
-<a id="user-content-plugins" class="anchor" href="#plugins" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Plugins</h2>
-
-<p>Now one-command also supports plugins! These can be used to expand the available "bang commands". There will be some bang commands built into one-command, but you can add others. </p>
-
-<p>Plugins need to be installed into a <code>/oc-plugins/</code> directory alongside the .mcc files you plan on processing. You can see an example of this in the <code>demo</code> directory included in the git repository for this project. There is a <code>sayred.js</code> plugin in the <code>oc-plugins</code> directory. You can see this being used in the <code>plugin-demo.mcc</code> file.</p>
-
-<p>Plugins can also declare <em>setup</em> .mcc files that need to be installed into your world for the commands generated by the plugin to work correctly. </p>
-
-<p><strong><em>Warning:</em></strong> The work on plugins will continue and so the API for plugins is subject to change a lot in this early development. </p>
-
+<h2 id="input-syntax">Input Syntax</h2>
+<p>See <a href="syntax.html">Syntax</a> for more information on the <em>one-command</em> syntax.</p>
+<h2 id="powerful-bang-commands">Powerful &quot;Bang&quot; Commands</h2>
+<p>See <a href="bangcommands.html">bang commands</a> to find out how the &#39;bang commands&#39; feature works.</p>
+<h2 id="plugins">Plugins</h2>
+<p>See <a href="plugins.html">plugins</a> for more information on what plugins are available.</p>
 <h2 id="config-files">Config files</h2>
-
-<p>You can override the default settings by creating a &#39;oc-config.json&#39; file that can go in either your users home directory, or in the root of your project directory<br>so that &#39;one-command&#39; will see it when you run it. </p>
-
-<p>An example of the <code>oc-config.json</code> file is:</p>
-
-<pre><code>{
-    &quot;Output&quot;: {
-        &quot;ShowDebugInfo&quot; : false,
-        &quot;ShowCompiledCommands&quot; : false,
-        &quot;CopyCompiledCommands&quot;: false,
-        &quot;WriteCompiledCommandsToFile&quot;: true
-    },
-    &quot;Plugins&quot;: {
-        &quot;PluginsPath&quot;: &quot;oc-plugins&quot;
-    },
-    &quot;Commands&quot;: {
-        &quot;DefaultCommandBlockType&quot;: &quot;impulse&quot;,
-        &quot;DefaultConditionalValue&quot;: false,
-        &quot;DefaultAutoValue&quot;: true
-    }
-}
-</code></pre>
-
-<p>You only need to specify the settings you wish to override.</p>
-
-		<!-- README END -->
+<p>See <a href="configuration.html">configuration</a> to find out how to change <em>one-command</em> settings.</p>
 
       </section>
     </div>
-
     
   </body>
 </html>

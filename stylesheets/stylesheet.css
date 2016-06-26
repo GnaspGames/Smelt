@@ -84,7 +84,7 @@ header img#logo
 #downloads .btn {
   display: inline-block;
   text-align: center;
-  margin: 0;
+  margin: 0 0 10px 0;
 }
 
 /* Main Content
@@ -227,7 +227,7 @@ hr {
   width: 16px;
   height: 16px;
   margin: 1px 8px 0 0;
-  float: left;
+  /* float: left; */
 }
 
 .btn-github .icon {
