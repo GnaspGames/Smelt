@@ -2,7 +2,7 @@ one-command (beta)
 ==================
 A Minecraft one-command combiner for map makers.
 
-![How it works](https://github.com/GnaspGames/one-command/raw/master/demo/one-command-demo.gif)
+![How it works](./demo/one-command-demo.gif)
 
 Install
 -------
@@ -40,7 +40,7 @@ Download or clone the git repository to try the demo.
 Input Syntax
 ------------
 
-See [Docs/Syntax](Syntax.md) for more information on the *one-command* syntax.
+See [Docs/Syntax](Docs/Syntax.md) for more information on the *one-command* syntax.
 
 
 Plugins
