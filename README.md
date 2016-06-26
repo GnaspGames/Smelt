@@ -28,14 +28,13 @@ Demonstration
 
 Download or clone the git repository to try the demo.
 
-* Use a console to navigate to the `demo` directory included.
+* Using a command line terminal, navigate to the `demo` directory included.
 * Run `one-command demo.mcc` and then see the `demo.oc` file that is created.
 * Go into Minecraft 1.9^
     * Put down a command block in most north-west corner of a spawn chunk.
-	* Enter the command
-	* Power the command block with a button (**NOT ON TOP**) of the command block.
+	* Copy the compiled command from `demo.oc` and enter into the command block.
+	* Power the command block with a button (**ON THE SIDE, NOT ON TOP**).
 * See the demo command blocks appear.
-
 
 Input Syntax
 ------------
