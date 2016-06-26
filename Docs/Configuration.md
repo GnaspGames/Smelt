@@ -1,3 +1,8 @@
+* [Syntax](./Syntax.md)
+* [BangCommands](./BangCommands.md)
+* [Plugins](./Plugins.md)
+* [Configuration](./Configuration.md)
+
 Custom Configuration
 ====================
 

@@ -1,3 +1,8 @@
+* [Syntax](./Syntax.md)
+* [BangCommands](./BangCommands.md)
+* [Plugins](./Plugins.md)
+* [Configuration](./Configuration.md)
+
 Bang Commands
 =============
 "Bang commands" (called such because they start with a bang "!") are used in 'one-command' 
@@ -117,10 +122,3 @@ This command is used to destroy and re-create a scoreboard objective in one comm
 ```
 !reset_objective lobbyStatus dummy LOBBY STATUS
 ```
-
-----
-
-More info
----------
-* [Plugins](./Plugins.md)
-* [Syntax](./Syntax.md)

@@ -1,3 +1,8 @@
+* [Syntax](./Syntax.md)
+* [BangCommands](./BangCommands.md)
+* [Plugins](./Plugins.md)
+* [Configuration](./Configuration.md)
+
 Plugins
 =======
 
@@ -72,11 +77,3 @@ The file referenced has to be included alongside your JavaScript file.
 ```
 addSetup("sayred-setup.mcc");
 ```
-
-----
-
-More info
----------
-* [BangCommands](./BangCommands.md)
-* [Syntax](./Syntax.md)
-
