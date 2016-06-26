@@ -122,5 +122,5 @@ This command is used to destroy and re-create a scoreboard objective in one comm
 
 More info
 ---------
-* [Plugins](Plugins.md)
-* [Syntax](Syntax.md)
+* [Plugins](./Plugins.md)
+* [Syntax](./Syntax.md)

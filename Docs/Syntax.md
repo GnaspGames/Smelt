@@ -152,3 +152,8 @@ Then a new line of command blocks is started. First an inpulse command block, wi
 would run the command `/say TEST` when executed. This is followed by two chain command blocks (still not conditional, 
 since it's still false from the previous reference), but now auto has been set to true, and they would run the following 
 commands when the impulse command is executed; `/say TEST 2` and `/say TEST 2`.
+
+More info
+---------
+* [BangCommands](./BangCommands.md)
+* [Syntax](./Syntax.md)
