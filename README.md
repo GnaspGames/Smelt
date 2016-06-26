@@ -43,6 +43,11 @@ Input Syntax
 See [Docs/Syntax](Docs/Syntax.md) for more information on the *one-command* syntax.
 
 
+Powerful "Bang" Commands
+------------------------
+
+See [Docs/BangCommands](Docs/BangCommandsSyntax.md) to find out how the 'bang commands' feature works.
+
 Plugins
 -------
 
@@ -51,29 +56,4 @@ See [Docs/Plugins](Docs/Plugins.md) for more information on what plugins are ava
 Config files
 ------------
 
-You can override the default settings by creating a `config.json` file that can go in either your users home directory, or in the root of your project directory
-so that 'one-command' will see it when you run it. 
-
-To have settings for all projects, create a file called `[YOUR-HOME-DIRECTORY]/one-command/config.json`.
-
-To have settings for one project, create a file called `[YOUR-PROJECT-DIRECTORY]/one-command/config.json`.
-
-An example of the `config.json` file is:
-
-```
-{
-    "Output": {
-        "ShowDebugInfo" : false,
-        "ShowCompiledCommands" : false,
-        "CopyCompiledCommands": false,
-        "WriteCompiledCommandsToFile": true
-    }
-    "Commands": {
-        "DefaultCommandBlockType": "impulse",
-        "DefaultConditionalValue": false,
-        "DefaultAutoValue": true
-    }
-}
-``` 
-
-You only need to specify the settings you wish to override.
+See [Docs/Configuration](Docs/Configuration.md) to find out how to change *one-command* settings.
