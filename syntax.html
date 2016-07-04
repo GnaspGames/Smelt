@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
 
-    <title>one-command by Gnasp</title>
+    <title>Smelt (beta): A CLI tool for Minecraft mapmakers</title>
   </head>
 
   <body>
@@ -15,7 +15,7 @@
     <header>
       <div class="container">
 		<img src="images/logo.png" id="logo" />
-        <h2>A CLI tool for Minecraft map makers; used to compile commands into one-command installers.</h2>
+        <h2>A CLI tool for Minecraft map makers; used to compile MCC files into combined-command installers.</h2>
 
         <section id="downloads">
           <a href="index.html" class="btn">README</a>
@@ -23,10 +23,10 @@
           <a href="bangcommands.html" class="btn">Bang Commands</a>
           <a href="plugins.html" class="btn">Plugins</a>
           <a href="configuration.html" class="btn">Configuration</a>
-          <a href="https://github.com/GnaspGames/one-command" target="_blank" class="btn btn-github">
+          <a href="https://github.com/GnaspGames/Smelt" target="_blank" class="btn btn-github">
             <span class="icon"></span>View on GitHub
           </a>
-          <a href="https://github.com/GnaspGames/one-command/issues" target="_blank" class="btn btn-github">
+          <a href="https://github.com/GnaspGames/Smelt/issues" target="_blank" class="btn btn-github">
             <span class="icon"></span>Bugs / Ideas
           </a>
         </section>
@@ -37,9 +37,8 @@
       <section id="main_content">
 	  
 		<!--- CONTENT-GOES-HERE --->
-
 <h1 id="input-syntax">Input Syntax</h1>
-<p>There are 4 different types of lines used in the <em>one-command</em> input syntax.</p>
+<p>There are 4 different types of lines used in the <em>Smelt</em> input syntax.</p>
 <h2 id="1-the-new-row-line-starting-with-">1. The new row line (starting with &quot;#&quot;)</h2>
 <p>Each of these starts a new row of command blocks. </p>
 <p>Any text found after the initial &quot;#&quot; is used to generate a &quot;row marker&quot; (a hidden marker armorstand with the text as the CustomName). </p>
@@ -93,11 +92,11 @@
 <p>Each of these commands is converted into the game, and the command-blocks executing them will use the properties<br>from the previous JSON tags.</p>
 <p>You can use anything on these lines that can be put into a command block in the game.</p>
 <h2 id="4-the-bang-command-line-starting-with-">4. The bang command line (starting with &quot;!&quot;)</h2>
-<p>These lines are used to call custom commands built into one-command, or available via plugins (see &quot;Plugins&quot; below).</p>
+<p>These lines are used to call custom commands built into <em>Smelt</em>, or available via plugins (see &quot;Plugins&quot; below).</p>
 <p>These bang commands will in turn generate a collection of standard commands to be imported into your map.</p>
 <p>See <a href="./BangCommands.md">Docs/BangCommands</a> for more information.</p>
 <h2 id="wrapping-lines">Wrapping Lines</h2>
-<p>Sometimes you might want a command to wrap to the next line because it&#39;s just too long. To do this, put the &quot;\&quot; as the END of a line to let one-command know that the command is continuing on the next line.</p>
+<p>Sometimes you might want a command to wrap to the next line because it&#39;s just too long. To do this, put the &quot;\&quot; as the END of a line to let <em>Smelt</em> know that the command is continuing on the next line.</p>
 <p>Example:</p>
 <pre><code>/say I&#39;ve got something really lengthy to say. It&#39;s going to take a while. It might not squeeze \
 on to one line.
