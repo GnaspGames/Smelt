@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
 
-    <title>one-command by Gnasp</title>
+    <title>Smelt (beta): A CLI tool for Minecraft mapmakers</title>
   </head>
 
   <body>
@@ -15,7 +15,7 @@
     <header>
       <div class="container">
 		<img src="images/logo.png" id="logo" />
-        <h2>A CLI tool for Minecraft map makers; used to compile commands into one-command installers.</h2>
+        <h2>A CLI tool for Minecraft map makers; used to compile MCC files into combined-command installers.</h2>
 
         <section id="downloads">
           <a href="index.html" class="btn">README</a>
@@ -23,10 +23,10 @@
           <a href="bangcommands.html" class="btn">Bang Commands</a>
           <a href="plugins.html" class="btn">Plugins</a>
           <a href="configuration.html" class="btn">Configuration</a>
-          <a href="https://github.com/GnaspGames/one-command" target="_blank" class="btn btn-github">
+          <a href="https://github.com/GnaspGames/Smelt" target="_blank" class="btn btn-github">
             <span class="icon"></span>View on GitHub
           </a>
-          <a href="https://github.com/GnaspGames/one-command/issues" target="_blank" class="btn btn-github">
+          <a href="https://github.com/GnaspGames/Smelt/issues" target="_blank" class="btn btn-github">
             <span class="icon"></span>Bugs / Ideas
           </a>
         </section>
@@ -37,14 +37,12 @@
       <section id="main_content">
 	  
 		<!--- CONTENT-GOES-HERE --->
-
-
 <h1 id="bang-commands">Bang Commands</h1>
-<p>&quot;Bang commands&quot; (called such because they start with a bang &quot;!&quot;) are used in &#39;one-command&#39;<br>to implement powerful custom commands. Some are built into <em>one-command</em>, others can be added using<br>the plugins feature.</p>
+<p>&quot;Bang commands&quot; (called such because they start with a bang &quot;!&quot;) are used in <em>Smelt</em><br>to implement powerful custom commands. Some are built into <em>Smelt</em>, others can be added using<br>the plugins feature.</p>
 <h1 id="built-in-commands">Built in commands</h1>
 <h2 id="loops-and-events">Loops and events</h2>
 <h3 id="explanation">Explanation</h3>
-<p>Commands for <em>loops</em> (20-ticks-per-second continous commands) and <em>events</em> (run-once commands) are built into<br><em>one-command</em>. These bang commands require the <code>bang-commands-setup.mcc</code> module to be installed into your map.<br>You will be prompted to do this by <em>one-command</em> when using them.</p>
+<p>Commands for <em>loops</em> (20-ticks-per-second continous commands) and <em>events</em> (run-once commands) are built into<br><em>Smelt</em>. These bang commands require the <code>bang-commands-setup.mcc</code> module to be installed into your map.<br>You will be prompted to do this by <em>Smelt</em> when using them.</p>
 <p>The custom commands use Minecraft&#39;s scoreboard tag feature to work.<br>The setup module created an entity named &quot;OC-SYSTEM&quot;, and this entity runs the loops and events. </p>
 <p>For example; if there is a loop named &#39;GameRunning&#39;, the OC-SYSTEM entity will be tagged &#39;loop_GameRunning&#39;<br>while the loop is active. For an event named &#39;StartGame&#39; to run, OC-SYSTEM will be tagged &#39;event_StartGame&#39;.</p>
 <hr>
