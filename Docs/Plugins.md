@@ -6,14 +6,14 @@
 Plugins
 =======
 
-Now one-command also supports plugins! These can be used to add to the 
-available "bang commands" built into *one-command*.
+Now *Smelt* also supports plugins! These can be used to add to the 
+available "bang commands" built into *Smelt*.
 
-Plugins need to be installed into a `/one-command/plugins/` directory alongside the .mcc files you plan on 
+Plugins need to be installed into a `/.smelt/plugins/` directory alongside the .mcc files you plan on 
 processing. 
 
 You can see an example of this in the `demo` directory included in the git repository 
-for this project. There is a `sayred.js` plugin in the `/one-command/plugins/` directory. 
+for this project. There is a `sayred.js` plugin in the `/.smelt/plugins/` directory. 
 You can see this being used in the `demo.mcc` file.
 
 Plugins can also declare *setup* .mcc files that need to be installed into your map for the 
@@ -69,7 +69,7 @@ addCommand("/testfor Gnasp", {type:"repeating",auto:true,conditional:false});
 
 ### addSetup(filename)
 
-The `addSetup` method is used to also tell *one-command* that for this plugin to work, 
+The `addSetup` method is used to also tell *Smelt* that for this plugin to work, 
 another command module needs to be installed into the map. 
 
 The file referenced has to be included alongside your JavaScript file.

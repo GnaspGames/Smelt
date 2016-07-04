@@ -1,0 +1,42 @@
+<h1 id="smelt-beta-">Smelt (beta)</h1>
+<p><img src="./demo/smelt-demo.gif" alt="How it works"></p>
+<h2 id="install">Install</h2>
+<ul>
+<li>Install <a href="https://nodejs.org">Node</a>.</li>
+<li>Run <code>npm install smelt-cli -g</code> so that the <code>smelt</code> command can be used anywhere.</li>
+</ul>
+<p><a href="https://nodei.co/npm/one_command/"><img src="https://nodei.co/npm/one_command.png?downloads=true" alt="NPM"></a></p>
+<h2 id="run-it">Run it</h2>
+<ul>
+<li>You need to have <code>.mcc</code> files using the <em>Input Syntax</em> described below.</li>
+<li>Run <code>smelt /path/to/directory/or/file.mcc</code>.</li>
+<li>Your compiled commands will be on the <code>.oc</code> files with the same name as your <code>.mcc</code> files (normally, see switches below).</li>
+<li>Additional switches can be used for more features:<ul>
+<li>Adding the <code>--debug</code> (or <code>-d</code>) switch outputs extra data into the console.</li>
+<li><code>--show</code> (or <code>-s</code>) shows the compiled commands in the console.</li>
+<li><code>--copy</code> (or <code>-c</code>) will copy the compiled commands to your clipboard (one at a time).<br>&lt;br /&gt; This disables the creation of <code>.oc</code> files, unless <code>--write</code> is also specified.</li>
+<li><code>--write</code> (or <code>-w</code>) will force the compiled commands to be written into <code>.oc</code> files, matching the name of each module.</li>
+</ul>
+</li>
+</ul>
+<h2 id="demonstration">Demonstration</h2>
+<p>Download or clone the git repository to try the demo.</p>
+<ul>
+<li>Using a command line terminal, navigate to the <code>demo</code> directory included.</li>
+<li>Run <code>smelt demo.mcc</code> and then see the <code>demo.oc</code> file that is created.</li>
+<li>Go into Minecraft 1.9^<ul>
+<li>Put down a command block in most north-west corner of a spawn chunk.</li>
+<li>Copy the compiled command from <code>demo.oc</code> and enter into the command block.</li>
+<li>Power the command block with a button (<strong>ON THE SIDE, NOT ON TOP</strong>).</li>
+</ul>
+</li>
+<li>See the demo command blocks appear.</li>
+</ul>
+<h2 id="input-syntax">Input Syntax</h2>
+<p>See <a href="Docs/Syntax.md">Docs/Syntax</a> for more information on the <em>Smelt</em> MCC syntax.</p>
+<h2 id="powerful-bang-commands">Powerful &quot;Bang&quot; Commands</h2>
+<p>See <a href="Docs/BangCommands.md">Docs/BangCommands</a> to find out how the &#39;bang commands&#39; feature works.</p>
+<h2 id="plugins">Plugins</h2>
+<p>See <a href="Docs/Plugins.md">Docs/Plugins</a> for more information on what plugins are available.</p>
+<h2 id="config-files">Config files</h2>
+<p>See <a href="Docs/Configuration.md">Docs/Configuration</a> to find out how to change <em>Smelt</em> settings.</p>
