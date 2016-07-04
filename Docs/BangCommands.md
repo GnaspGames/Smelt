@@ -5,8 +5,8 @@
 
 Bang Commands
 =============
-"Bang commands" (called such because they start with a bang "!") are used in 'one-command' 
-to implement powerful custom commands. Some are built into *one-command*, others can be added using 
+"Bang commands" (called such because they start with a bang "!") are used in *Smelt* 
+to implement powerful custom commands. Some are built into *Smelt*, others can be added using 
 the plugins feature.
 
 Built in commands
@@ -17,8 +17,8 @@ Loops and events
 
 ### Explanation
 Commands for *loops* (20-ticks-per-second continous commands) and *events* (run-once commands) are built into 
-*one-command*. These bang commands require the `bang-commands-setup.mcc` module to be installed into your map. 
-You will be prompted to do this by *one-command* when using them.
+*Smelt*. These bang commands require the `bang-commands-setup.mcc` module to be installed into your map. 
+You will be prompted to do this by *Smelt* when using them.
 
 The custom commands use Minecraft's scoreboard tag feature to work. 
 The setup module created an entity named "OC-SYSTEM", and this entity runs the loops and events. 

@@ -3,10 +3,10 @@
 * [Plugins](./Plugins.md)
 * [Configuration](./Configuration.md)
 
-Input Syntax
-============
+Smelt's MCC Syntax
+==================
 
-There are 4 different types of lines used in the *one-command* input syntax.
+There are 4 different types of lines used in the *Smelt* MCC syntax.
 
 ## 1. The new row line (starting with "#")
 
@@ -103,7 +103,7 @@ You can use anything on these lines that can be put into a command block in the 
 
 ## 4. The bang command line (starting with "!")
 
-These lines are used to call custom commands built into one-command, or available via plugins (see "Plugins" below).
+These lines are used to call custom commands built into *Smelt*, or available via plugins (see "Plugins" below).
 
 These bang commands will in turn generate a collection of standard commands to be imported into your map.
 
@@ -111,7 +111,7 @@ See [Docs/BangCommands](./BangCommands.md) for more information.
 
 ## Wrapping Lines
 
-Sometimes you might want a command to wrap to the next line because it's just too long. To do this, put the "\" as the END of a line to let one-command know that the command is continuing on the next line.
+Sometimes you might want a command to wrap to the next line because it's just too long. To do this, put the "\" as the END of a line to let *Smelt* know that the command is continuing on the next line.
 
 Example:
 

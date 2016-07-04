@@ -1,8 +1,8 @@
 -----------------------------
---      Plugins Setup      --
+--        Bang Setup       --
 -----------------------------
 -- This module is used to setup required entities 
--- for some of the one-command plugins to work
+-- for some of the Smelt plugins to work
 
 # Bang Commands Setup
 {"type":"impulse","auto":true}

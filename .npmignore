@@ -1,3 +1,5 @@
 *.oc
 workspace.xml
+create-html-files.sh
+HTML
 demo

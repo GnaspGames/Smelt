@@ -9,7 +9,7 @@ var Program =
 	PathArg : "",
 	Path : "",
 	LocalDirectory : "",
-	HomeDirectory: os.homedir() + "/one-command",
+	HomeDirectory: os.homedir() + "/.smelt",
 	OcDirectory: __dirname,
 	PathFound : false,
 	ProcessPath : function()
