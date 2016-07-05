@@ -120,7 +120,7 @@ var BangCommandHelper =
 		var paths = [
 			// path.resolve(Program.OcDirectory + "/plugins/"), - Don't include built in plugins
 			path.resolve(Program.HomeDirectory + "/plugins/"),
-			path.resolve("one-command/plugins/")
+			path.resolve(".smelt/plugins/")
 		];
 
 		paths.forEach(function(path)
