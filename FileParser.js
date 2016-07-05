@@ -36,15 +36,15 @@ var FileParser = (function ()
 			{
 				console.log(chalk.yellow(util.format("\nTo use the \"!%s\" command you will need to also install the following module into your map: %s", setup.bangName, setup.fileName)));
 				var compiledSetupModule = self.ProcessData(setup.setupData, setup.fileName);
-				self.OutputCompiledModule(compiledSetupModule);
+				self.OutputCompiledModule(compiledSetupModule, false);
 			});
 		}
 
 		console.log(chalk.yellow(util.format("\nProcessing of %s is complete.", this.Module.SourceName)));
-		this.OutputCompiledModule(this.Module);
+		this.OutputCompiledModule(this.Module, true);
     };
 
-	FileParser.prototype.OutputCompiledModule = function(commandModule)
+	FileParser.prototype.OutputCompiledModule = function(commandModule, isLast)
 	{
 		if(Settings.Current.Output.WriteCompiledCommandsToFile)
 		{
@@ -66,7 +66,7 @@ var FileParser = (function ()
 			console.log(chalk.green("\n * The compiled command has been copied into your clipboard."));
 
 			// Give the user time to use the clipboard before moving on.
-			readlineSync.keyIn(chalk.green("   You'll probably want to paste it before moving on. Type 'c' to continue. "), {limit: 'c'});
+			if(!isLast) readlineSync.keyIn(chalk.green("   You'll probably want to paste it before moving on. Type 'c' to continue. "), {limit: 'c'});
 		}
 	};
 	
