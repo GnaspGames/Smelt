@@ -8,7 +8,7 @@ Install
 * Install [Node](https://nodejs.org).
 * Run `npm install smelt-cli -g` so that the `smelt` command can be used anywhere.
 
-[![NPM](https://nodei.co/npm/one_command.png?downloads=true)](https://nodei.co/npm/one_command/)
+[![NPM](https://nodei.co/npm/smelt-cli.png?downloads=true)](https://nodei.co/npm/smelt-cli/)
 
 Run it
 ------
