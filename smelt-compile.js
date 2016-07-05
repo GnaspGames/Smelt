@@ -27,7 +27,7 @@ commander
   .option('-w, --write', 
           'Write combined commands to .oc files.');
   
-process.argv[1] = 'smelt';
+process.argv[1] = 'smelt compile';
 commander.parse(process.argv);  
 
 Settings.ReadConfigs();

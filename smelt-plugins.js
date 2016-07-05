@@ -14,7 +14,7 @@ commander
   .option('--list', 
           'List all available plugins.');
   
-process.argv[1] = 'onec plugins';
+process.argv[1] = 'smelt plugins';
 commander.parse(process.argv);  
 
 Settings.ReadConfigs();

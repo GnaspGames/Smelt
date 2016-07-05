@@ -1,11 +1,11 @@
 {
   "name": "smelt-cli",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "preferGlobal": true,
   "description": "A CLI tool for Minecraft map makers.",
   "bin": {
-    "smelt": "./index.js"
-    "onec": "./onec.js"
+    "one-command": "./smelt-compile.js",
+    "smelt": "./smelt.js"
   },
   "author": "Gnasp",
   "license": "UNLICENSED",

@@ -11,7 +11,7 @@ commander
   .version(pjson.version)
   .description(chalk.yellow("A CLI tool used to compile Minecraft commands into one-command installers, for map makers."))
   .usage("[command] <options>")
-  .command('process [name] <options>', 'Process .mcc modules - <path> should be the path to a .mcc file or directory containing .mcc files')
+  .command('compile [name] <options>', 'Compile .mcc modules - <path> should be the path to a .mcc file or directory containing .mcc files')
   .command('config <options>','Create/modify user and project level configurations.')
   .command('plugins <options>', 'Install/manage plugins.');
 

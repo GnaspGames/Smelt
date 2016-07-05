@@ -13,7 +13,7 @@ commander
   .option('--show-current', 
           'Show what settings are currently being used.');
   
-process.argv[1] = 'onec config';
+process.argv[1] = 'smelt config';
 commander.parse(process.argv);  
 
 Settings.ReadConfigs();
