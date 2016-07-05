@@ -222,17 +222,23 @@ hr {
 }
 
 .btn .icon {
-  display: inline-block;
+  /* display: inline-block; */
   width: 16px;
   height: 16px;
   margin: 1px 8px 0 0;
-  /* float: left; */
+  float: left;
 }
 
 .btn-github .icon {
   opacity: 0.6;
   background: url("../images/blacktocat.png") 0 0 no-repeat;
 }
+
+.btn-discord .icon {
+  opacity: 0.6;
+  background: url("../images/discord.png") 0 0 no-repeat;
+}
+
 
 /* Links
    a, a:hover, a:visited
