@@ -40,8 +40,8 @@
       <section id="main_content">
 	  
 		<!--- CONTENT-GOES-HERE --->
-<h1 id="input-syntax">Input Syntax</h1>
-<p>There are 4 different types of lines used in the <em>Smelt</em> input syntax.</p>
+<h1 id="smelt-s-mcc-syntax">Smelt&#39;s MCC Syntax</h1>
+<p>There are 4 different types of lines used in the <em>Smelt</em> MCC syntax.</p>
 <h2 id="1-the-new-row-line-starting-with-">1. The new row line (starting with &quot;#&quot;)</h2>
 <p>Each of these starts a new row of command blocks. </p>
 <p>Any text found after the initial &quot;#&quot; is used to generate a &quot;row marker&quot; (a hidden marker armorstand with the text as the CustomName). </p>
@@ -124,7 +124,6 @@ on to one line.
 </code></pre><p>This will create the following command-blocks:</p>
 <p>A repeating command block, with auto set to true, running the <code>/testfor @e[name=repeatThing]</code> command.<br>Then a conditional repeating command block, with auto also set to true (inherited from last JSON tag),<br>running the <code>/say repeatThing exists!</code> command. Then two non-conditional chain command blocks, with auto<br>still set to true as before (still using the previous value, not overwritten in last JSON tag line), running<br>the following commands: <code>/say repeatThing still running!</code> and <code>/say repeatThing finised!</code>.</p>
 <p>Then a new line of command blocks is started. First an inpulse command block, with auto set to false, which<br>would run the command <code>/say TEST</code> when executed. This is followed by two chain command blocks (still not conditional,<br>since it&#39;s still false from the previous reference), but now auto has been set to true, and they would run the following<br>commands when the impulse command is executed; <code>/say TEST 2</code> and <code>/say TEST 2</code>.</p>
-
 
       </section>
     </div>
