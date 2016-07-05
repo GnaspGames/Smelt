@@ -40,8 +40,16 @@
       <section id="main_content">
 	  
 		<!--- CONTENT-GOES-HERE --->
+
 <h1 id="smelt-s-mcc-syntax">Smelt&#39;s MCC Syntax</h1>
 <p>There are 4 different types of lines used in the <em>Smelt</em> MCC syntax.</p>
+<ol>
+<li><strong>New row line (starting with &quot;#&quot;)</strong>. &lt;br&gt;<br>Used to create a new row of command blocks.</li>
+<li><strong>JSON lines (using &quot;{&quot; and &quot;}&quot;, always on one line)</strong>. &lt;br&gt;<br>Used to set properties for the following commands.</li>
+<li><strong>Command lines (starting with &quot;/&quot;)</strong>. &lt;br&gt;<br>Used to enter Minecraft commands.</li>
+<li><strong>Bang command line (starting with &quot;!&quot;)</strong>. &lt;br&gt;<br>Used to call special commands built into <em>Smelt</em> or added via plugins.</li>
+</ol>
+<p>Let&#39;s consider each of these one at a time:</p>
 <h2 id="1-the-new-row-line-starting-with-">1. The new row line (starting with &quot;#&quot;)</h2>
 <p>Each of these starts a new row of command blocks. </p>
 <p>Any text found after the initial &quot;#&quot; is used to generate a &quot;row marker&quot; (a hidden marker armorstand with the text as the CustomName). </p>
@@ -95,9 +103,9 @@
 <p>Each of these commands is converted into the game, and the command-blocks executing them will use the properties<br>from the previous JSON tags.</p>
 <p>You can use anything on these lines that can be put into a command block in the game.</p>
 <h2 id="4-the-bang-command-line-starting-with-">4. The bang command line (starting with &quot;!&quot;)</h2>
-<p>These lines are used to call custom commands built into <em>Smelt</em>, or available via plugins (see &quot;Plugins&quot; below).</p>
+<p>These lines are used to call custom commands built into <em>Smelt</em> or available via plugins.</p>
 <p>These bang commands will in turn generate a collection of standard commands to be imported into your map.</p>
-<p>See <a href="./BangCommands.md">Docs/BangCommands</a> for more information.</p>
+<p>See <a href="bangcommands.html">Bang Commands</a> and <a href="plugins.html">Plugins</a> for more information.</p>
 <h2 id="wrapping-lines">Wrapping Lines</h2>
 <p>Sometimes you might want a command to wrap to the next line because it&#39;s just too long. To do this, put the &quot;\&quot; as the END of a line to let <em>Smelt</em> know that the command is continuing on the next line.</p>
 <p>Example:</p>
@@ -121,9 +129,15 @@ on to one line.
     {&quot;type&quot;:&quot;chain&quot;, &quot;auto&quot;:true}
     /say TEST 2
     /say TEST 3
-</code></pre><p>This will create the following command-blocks:</p>
-<p>A repeating command block, with auto set to true, running the <code>/testfor @e[name=repeatThing]</code> command.<br>Then a conditional repeating command block, with auto also set to true (inherited from last JSON tag),<br>running the <code>/say repeatThing exists!</code> command. Then two non-conditional chain command blocks, with auto<br>still set to true as before (still using the previous value, not overwritten in last JSON tag line), running<br>the following commands: <code>/say repeatThing still running!</code> and <code>/say repeatThing finised!</code>.</p>
-<p>Then a new line of command blocks is started. First an inpulse command block, with auto set to false, which<br>would run the command <code>/say TEST</code> when executed. This is followed by two chain command blocks (still not conditional,<br>since it&#39;s still false from the previous reference), but now auto has been set to true, and they would run the following<br>commands when the impulse command is executed; <code>/say TEST 2</code> and <code>/say TEST 2</code>.</p>
+</code></pre>
+
+<p>This will create the following command-blocks:</p>
+<p>A repeating command block, with auto set to true, running the <code>/testfor @e[name=repeatThing]</code> command. </p>
+<p>Then a conditional repeating command block, with auto also set to true (inherited from last JSON tag), running the <code>/say repeatThing exists!</code> command. </p>
+<p>Then two non-conditional chain command blocks, with auto still set to true as before (still using the previous value, not overwritten in last JSON tag line), running  the following commands: <code>/say repeatThing still running!</code> and <code>/say repeatThing finised!</code>.</p>
+<p>Then a new line of command blocks is started. </p>
+<p>First an inpulse command block, with auto set to false, which would run the command <code>/say TEST</code> when executed. </p>
+<p>This is followed by two chain command blocks (still not conditional, since it&#39;s still false from the previous reference), but now auto has been set to true, and they would run the following commands when the impulse command is executed; <code>/say TEST 2</code> and <code>/say TEST 2</code>.</p>
 
       </section>
     </div>
