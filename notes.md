@@ -54,27 +54,44 @@ Block positions
 
 REDDIT POST:
 
-**ONE-COMMAND** by Gnasp
+***Smelt*** by Gnasp
 ------------------------------------------
 
-**one-command** is a CLI tool used to compile Minecraft commands into one-command installers.
+**Smelt** is a CLI tool used to compile Minecraft commands into combined-command installers.
 
-Designed specifically for map makers (not for "one command creations") who organise their command-blocks on a spawn-chunks "board".
+Designed specifically for map makers who organise their command-blocks on a spawn-chunks "board".
 
-It allows you to write out all of your commands in .mcc files (using a special syntax) and then converts each file into "one command" (in a .oc file) to import into your world.
+It allows you to write out all of your commands in .mcc files (using a special syntax) and then converts each file into combined commands (in .oc files) to import into your world.
 
 Each .mcc file should represent the command-blocks in a one-chunk area.
 
 You need [Node](https://nodejs.org/en/) to install, then install using Node package manager:
 
-`npm install one_command -g`
+`npm install smelt-cli -g`
 
 Find out more at 
 
-* [one-command.gnasp.com](http://one-command.gnasp.com)
-* [Example GIF](https://raw.githubusercontent.com/GnaspGames/one-command/master/demo/one-command-demo.gif)
-* [Github repo](https://github.com/GnaspGames/one-command)
-* [Report bugs & submit ideas](https://github.com/GnaspGames/one-command/issues)
+* [smelt.gnasp.com](http://smelt.gnasp.com)
+* [Example GIF](https://raw.githubusercontent.com/GnaspGames/smelt/master/demo/smelt-demo.gif)
+* [Github repo](https://github.com/GnaspGames/smelt)
+* [Report bugs & submit ideas](https://github.com/GnaspGames/smelt/issues)
+
+
+Steps to update USER settings to Smelt
+--------------------------------------
+
+`cd ~`
+
+Run same commands as per project
+
+Steps to update a project to Smelt
+----------------------------------
+
+`mkdir .smelt`
+
+`mv one-command/* .smelt/`
+
+`rm -rf one-command/`
 
 
 

@@ -1,22 +1,22 @@
 {
-  "name": "one_command",
-  "version": "0.4.4",
+  "name": "smelt-cli",
+  "version": "0.5.0",
   "preferGlobal": true,
-  "description": "A CLI tool used to compile Minecraft commands into one-command installers, for map makers.",
+  "description": "A CLI tool for Minecraft map makers.",
   "bin": {
-    "one-command": "./onec-process.js",
+    "smelt": "./index.js"
     "onec": "./onec.js"
   },
   "author": "Gnasp",
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
-    "url": "https://github.com/GnaspGames/one-command.git"
+    "url": "https://github.com/GnaspGames/smelt.git"
   },
   "bugs": {
-    "url": "https://github.com/GnaspGames/one-command/issues"
+    "url": "https://github.com/GnaspGames/smelt/issues"
   },
-  "homepage": "http://one-command.gnasp.com",
+  "homepage": "http://smelt.gnasp.com",
   "dependencies": {
     "chalk": "^1.1.1",
     "commander": "^2.9.0",
