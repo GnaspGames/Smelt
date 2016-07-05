@@ -10,6 +10,8 @@ Install
 
 [![NPM](https://nodei.co/npm/smelt-cli.png?downloads=true)](https://nodei.co/npm/smelt-cli/)
 
+[Chat online using Discord](https://discord.gg/aDFs2pB)
+
 Run it
 ------
 * You need to have `.mcc` files using the *MCC Syntax* described below.
