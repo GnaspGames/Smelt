@@ -161,12 +161,13 @@ you want. Good for notes.
 This will create the following command-blocks:
 
 A repeating command block, with auto set to true, running the `/testfor @e[name=repeatThing]` command. 
-Then a conditional repeating command block, with auto also set to true (inherited from last JSON tag), 
-running the `/say repeatThing exists!` command. Then two non-conditional chain command blocks, with auto 
-still set to true as before (still using the previous value, not overwritten in last JSON tag line), running 
-the following commands: `/say repeatThing still running!` and `/say repeatThing finised!`.
 
-Then a new line of command blocks is started. First an inpulse command block, with auto set to false, which 
-would run the command `/say TEST` when executed. This is followed by two chain command blocks (still not conditional, 
-since it's still false from the previous reference), but now auto has been set to true, and they would run the following 
-commands when the impulse command is executed; `/say TEST 2` and `/say TEST 2`.
+Then a conditional repeating command block, with auto also set to true (inherited from last JSON tag), running the `/say repeatThing exists!` command. 
+
+Then two non-conditional chain command blocks, with auto still set to true as before (still using the previous value, not overwritten in last JSON tag line), running  the following commands: `/say repeatThing still running!` and `/say repeatThing finised!`.
+
+Then a new line of command blocks is started. 
+
+First an inpulse command block, with auto set to false, which would run the command `/say TEST` when executed. 
+
+This is followed by two chain command blocks (still not conditional, since it's still false from the previous reference), but now auto has been set to true, and they would run the following commands when the impulse command is executed; `/say TEST 2` and `/say TEST 2`.
