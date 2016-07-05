@@ -8,6 +8,19 @@ Smelt's MCC Syntax
 
 There are 4 different types of lines used in the *Smelt* MCC syntax.
 
+1. **New row line (starting with "#")**. <br>
+   Used to create a new row of command blocks.
+2. **JSON lines (using "{" and "}", always on one line)**. <br>
+   Used to set properties for the following commands.
+3. **Command lines (starting with "/")**. <br>
+   Used to enter Minecraft commands.
+4. **Bang command line (starting with "!")**. <br>
+   Used to call special commands built into *Smelt* or added via plugins.
+
+
+
+Let's consider each of these one at a time:
+
 ## 1. The new row line (starting with "#")
 
 Each of these starts a new row of command blocks. 
@@ -103,11 +116,11 @@ You can use anything on these lines that can be put into a command block in the 
 
 ## 4. The bang command line (starting with "!")
 
-These lines are used to call custom commands built into *Smelt*, or available via plugins (see "Plugins" below).
+These lines are used to call custom commands built into *Smelt* or available via plugins.
 
 These bang commands will in turn generate a collection of standard commands to be imported into your map.
 
-See [Docs/BangCommands](./BangCommands.md) for more information.
+See [Docs/BangCommands](./BangCommands.md) and [Docs/Plugins](./Plugins.md) for more information.
 
 ## Wrapping Lines
 
