@@ -5,11 +5,12 @@
 <li>Install <a href="https://nodejs.org">Node</a>.</li>
 <li>Run <code>npm install smelt-cli -g</code> so that the <code>smelt</code> command can be used anywhere.</li>
 </ul>
-<p><a href="https://nodei.co/npm/one_command/"><img src="https://nodei.co/npm/one_command.png?downloads=true" alt="NPM"></a></p>
+<p><a href="https://nodei.co/npm/smelt-cli/"><img src="https://nodei.co/npm/smelt-cli.png?downloads=true" alt="NPM"></a></p>
+<p><a href="https://discord.gg/aDFs2pB">Chat online using Discord</a></p>
 <h2 id="run-it">Run it</h2>
 <ul>
-<li>You need to have <code>.mcc</code> files using the <em>Input Syntax</em> described below.</li>
-<li>Run <code>smelt /path/to/directory/or/file.mcc</code>.</li>
+<li>You need to have <code>.mcc</code> files using the <em>MCC Syntax</em> described below.</li>
+<li>Run <code>smelt compile /path/to/directory/or/file.mcc</code>.</li>
 <li>Your compiled commands will be on the <code>.oc</code> files with the same name as your <code>.mcc</code> files (normally, see switches below).</li>
 <li>Additional switches can be used for more features:<ul>
 <li>Adding the <code>--debug</code> (or <code>-d</code>) switch outputs extra data into the console.</li>
@@ -23,7 +24,7 @@
 <p>Download or clone the git repository to try the demo.</p>
 <ul>
 <li>Using a command line terminal, navigate to the <code>demo</code> directory included.</li>
-<li>Run <code>smelt demo.mcc</code> and then see the <code>demo.oc</code> file that is created.</li>
+<li>Run <code>smelt compile demo.mcc</code> and then see the <code>demo.oc</code> file that is created.</li>
 <li>Go into Minecraft 1.9^<ul>
 <li>Put down a command block in most north-west corner of a spawn chunk.</li>
 <li>Copy the compiled command from <code>demo.oc</code> and enter into the command block.</li>
@@ -32,8 +33,8 @@
 </li>
 <li>See the demo command blocks appear.</li>
 </ul>
-<h2 id="input-syntax">Input Syntax</h2>
-<p>See <a href="Docs/Syntax.md">Docs/Syntax</a> for more information on the <em>Smelt</em> MCC syntax.</p>
+<h2 id="the-mcc-syntax">The MCC Syntax</h2>
+<p>See <a href="Docs/Syntax.md">Docs/Syntax</a> for more information on <em>Smelt</em>&#39;s MCC syntax.</p>
 <h2 id="powerful-bang-commands">Powerful &quot;Bang&quot; Commands</h2>
 <p>See <a href="Docs/BangCommands.md">Docs/BangCommands</a> to find out how the &#39;bang commands&#39; feature works.</p>
 <h2 id="plugins">Plugins</h2>
