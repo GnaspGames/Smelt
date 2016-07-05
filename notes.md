@@ -77,6 +77,23 @@ Find out more at
 * [Report bugs & submit ideas](https://github.com/GnaspGames/smelt/issues)
 
 
+Steps to update USER settings to Smelt
+--------------------------------------
+
+`cd ~`
+
+Run same commands as per project
+
+Steps to update a project to Smelt
+----------------------------------
+
+`mkdir .smelt`
+
+`mv one-command/* .smelt/`
+
+`rm -rf one-command/`
+
+
 
 
 
