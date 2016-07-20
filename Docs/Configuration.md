@@ -8,8 +8,18 @@ Custom Configuration
 
 You can override some default *Smelt* behavours using your own configuration files. 
 
-This is done by creating a `config.json` file that can go in either your users home directory, 
-or in the root of your project directory so that *Smelt* will use it. 
+This is done by creating a `config.json` file that can go in either your users home directory, or in the root of your project directory so that *Smelt* will use it.
+
+The "smelt config" command
+--------------------------
+
+To help you manage your config files, you can use `smelt config`. 
+
+There are different switches you can use:
+
+* Adding the `--show` (or `-s`) switch outputs the 'current' settings.
+* `--change-local` (or `-l`) will start the wizard to change/create a local configuration file.
+* `--change-global` (or `-g`) will start the wizard to change/create a global configuration file.
 
 The file format
 ---------------
@@ -34,16 +44,17 @@ An example of the `config.json` file is:
 
 You only need to specify the settings you wish to override.
 
-User-level configuration
-------------------------
+**Global** (user-level) configuration
+-------------------------------------
 
 To have settings for all projects, create a file called `[YOUR-HOME-DIRECTORY]/.smelt/config.json`.
 
 Example on Windows: `c:\users\gnasp\.smelt\config.json`
 
-Project-level configuration
----------------------------
+**Local** (project-level) configuration
+---------------------------------------
 
 To have settings for one project, create a file called `[YOUR-PROJECT-DIRECTORY]/.smelt/config.json`.
 
 Example on Windows: `c:\projects\my-amazing-map\.smelt\config.json`
+

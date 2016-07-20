@@ -12,11 +12,11 @@ var readlineSync = require('readline-sync');
 commander
   .description(chalk.yellow("Create/modify user and project level configurations."))
   .usage("[options]")
-  .option('--show', 
+  .option('-s, --show', 
           'Show what settings are currently being used.')
-  .option('--change-local', 
+  .option('-l, --change-local', 
           'Change (or create) the ' + chalk.bold('local') + ' config file to customise behaviour ' + chalk.bold('in this project') + '.')
-  .option('--change-global', 
+  .option('-g, --change-global', 
           'Change (or create) the ' + chalk.bold('global') + ' config file to customise behaviour ' + chalk.bold('for all projects') + '.');
   
 process.argv[1] = 'smelt config';

@@ -12,8 +12,11 @@ Install
 
 [Chat online using Discord](https://discord.gg/aDFs2pB)
 
-Run it
-------
+Smelt CLI
+---------
+
+The main command is `smelt compile`, used to compile your MCC files into Minecraft. 
+
 * You need to have `.mcc` files using the *MCC Syntax* described below.
 * Run `smelt compile /path/to/directory/or/file.mcc`.
 * Your compiled commands will be on the `.oc` files with the same name as your `.mcc` files (normally, see switches below).
@@ -21,8 +24,10 @@ Run it
 	* Adding the `--debug` (or `-d`) switch outputs extra data into the console.
 	* `--show` (or `-s`) shows the compiled commands in the console.
 	* `--copy` (or `-c`) will copy the compiled commands to your clipboard (one at a time).
-	<br /> This disables the creation of `.oc` files, unless `--write` is also specified.
+	<br /> This disables creation of `.oc` files, unless `--write` is also specified.
 	* `--write` (or `-w`) will force the compiled commands to be written into `.oc` files, matching the name of each module.
+
+In addition, there is also `smelt config` and `smelt plugins`, please see the *Configuration* and *Plugins* documentation for more information.
 
 Demonstration
 -------------
@@ -53,7 +58,7 @@ Plugins
 
 See [Docs/Plugins](Docs/Plugins.md) for more information on what plugins are available.
 
-Config files
-------------
+Configuration
+-------------
 
 See [Docs/Configuration](Docs/Configuration.md) to find out how to change *Smelt* settings.
