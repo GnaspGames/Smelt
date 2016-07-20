@@ -12,18 +12,27 @@ var Settings =
     Default: null,
     Global: null,
     Local: null,
+    GlobalPath : null,
+    LocalPath : null,
+    GlobalExists : false,
+    LocalExists : false,
 
     ReadConfigs : function()
     {
+        Settings.GlobalPath = Program.HomeDirectory + "/config.json";
+        Settings.LocalPath = path.resolve(".smelt/config.json");
+        
         // First, use the default config.json packaged with program.
         var defaultsFile = path.resolve(Program.OcDirectory + "/config.json");
         Settings.Default = Settings.ReadConfigFile(defaultsFile);
         
         // Second, look for a GLOBAL config file to override above.
-        Settings.Global = Settings.ReadConfigFile(Program.HomeDirectory + "/config.json");
+        Settings.Global = Settings.ReadConfigFile(Settings.GlobalPath);
+        Settings.GlobalExists = (Settings.Global != null);
         
         // Third, look for a LOCAL specific config to override above.
-        Settings.Local = Settings.ReadConfigFile("./smelt/config.json");
+        Settings.Local = Settings.ReadConfigFile(Settings.LocalPath);
+        Settings.LocalExists = (Settings.Local != null);
 
         // Set "Current" to equal the sum of all
         Settings.Current = Settings.Default;
@@ -53,6 +62,27 @@ var Settings =
             // console.log(chalk.red.bold("Not found: " + configPath + "!"));
         }
         return settings;
+    },
+    GetConfig : function(options)
+    {
+        // Start with default app settings
+        var template = Settings.Default;
+
+        if(options.includeGlobal)
+        {
+            // If a global config exists, override default settings with this
+            if(Settings.GlobalExists)
+                template = jsonOverride(template, Settings.Global, true);
+        }
+
+        if(options.includeLocal)
+        {
+            // If a global config exists, override default settings with this
+            if(Settings.LocalExists)
+                template = jsonOverride(template, Settings.Local, true);
+        }
+
+        return template;
     },
     OutputDebugInfo: function()
     {
