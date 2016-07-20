@@ -42,7 +42,15 @@
 		<!--- CONTENT-GOES-HERE --->
 <h1 id="custom-configuration">Custom Configuration</h1>
 <p>You can override some default <em>Smelt</em> behavours using your own configuration files. </p>
-<p>This is done by creating a <code>config.json</code> file that can go in either your users home directory,<br>or in the root of your project directory so that <em>Smelt</em> will use it. </p>
+<p>This is done by creating a <code>config.json</code> file that can go in either your users home directory, or in the root of your project directory so that <em>Smelt</em> will use it.</p>
+<h2 id="the-smelt-config-command">The &quot;smelt config&quot; command</h2>
+<p>To help you manage your config files, you can use <code>smelt config</code>. </p>
+<p>There are different switches you can use:</p>
+<ul>
+<li>Adding the <code>--show</code> (or <code>-s</code>) switch outputs the &#39;current&#39; settings.</li>
+<li><code>--change-local</code> (or <code>-l</code>) will start the wizard to change/create a local configuration file.</li>
+<li><code>--change-global</code> (or <code>-g</code>) will start the wizard to change/create a global configuration file.</li>
+</ul>
 <h2 id="the-file-format">The file format</h2>
 <p>An example of the <code>config.json</code> file is:</p>
 <pre><code>{
@@ -59,12 +67,14 @@
     }
 }
 </code></pre><p>You only need to specify the settings you wish to override.</p>
-<h2 id="user-level-configuration">User-level configuration</h2>
+<h2 id="-global-user-level-configuration"><strong>Global</strong> (user-level) configuration</h2>
 <p>To have settings for all projects, create a file called <code>[YOUR-HOME-DIRECTORY]/.smelt/config.json</code>.</p>
 <p>Example on Windows: <code>c:\users\gnasp\.smelt\config.json</code></p>
-<h2 id="project-level-configuration">Project-level configuration</h2>
+<h2 id="-local-project-level-configuration"><strong>Local</strong> (project-level) configuration</h2>
 <p>To have settings for one project, create a file called <code>[YOUR-PROJECT-DIRECTORY]/.smelt/config.json</code>.</p>
 <p>Example on Windows: <code>c:\projects\my-amazing-map\.smelt\config.json</code></p>
+
+
 
 
       </section>
