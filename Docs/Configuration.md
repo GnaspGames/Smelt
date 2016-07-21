@@ -24,7 +24,7 @@ There are different switches you can use:
 The file format
 ---------------
 
-An example of the `config.json` file is:
+Here's what the default `config.json` looks like:
 
 ```
 {
@@ -33,11 +33,16 @@ An example of the `config.json` file is:
         "ShowCompiledCommands" : false,
         "CopyCompiledCommands": false,
         "WriteCompiledCommandsToFile": true
-    }
+    },
     "Commands": {
         "DefaultCommandBlockType": "impulse",
         "DefaultConditionalValue": false,
         "DefaultAutoValue": true
+    },
+    "Markers": {
+        "EntityType": "AreaEffectCloud",
+        "SummonFileMarkers": true,
+        "SummonLineMarkers": true
     }
 }
 ``` 

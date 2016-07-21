@@ -1,3 +1,9 @@
+<ul>
+<li><a href="./Syntax.md">Syntax</a></li>
+<li><a href="./BangCommands.md">BangCommands</a></li>
+<li><a href="./Plugins.md">Plugins</a></li>
+<li><a href="./Configuration.md">Configuration</a></li>
+</ul>
 <h1 id="custom-configuration">Custom Configuration</h1>
 <p>You can override some default <em>Smelt</em> behavours using your own configuration files. </p>
 <p>This is done by creating a <code>config.json</code> file that can go in either your users home directory, or in the root of your project directory so that <em>Smelt</em> will use it.</p>
@@ -10,18 +16,23 @@
 <li><code>--change-global</code> (or <code>-g</code>) will start the wizard to change/create a global configuration file.</li>
 </ul>
 <h2 id="the-file-format">The file format</h2>
-<p>An example of the <code>config.json</code> file is:</p>
+<p>Here&#39;s what the default <code>config.json</code> looks like:</p>
 <pre><code>{
     &quot;Output&quot;: {
         &quot;ShowDebugInfo&quot; : false,
         &quot;ShowCompiledCommands&quot; : false,
         &quot;CopyCompiledCommands&quot;: false,
         &quot;WriteCompiledCommandsToFile&quot;: true
-    }
+    },
     &quot;Commands&quot;: {
         &quot;DefaultCommandBlockType&quot;: &quot;impulse&quot;,
         &quot;DefaultConditionalValue&quot;: false,
         &quot;DefaultAutoValue&quot;: true
+    },
+    &quot;Markers&quot;: {
+        &quot;EntityType&quot;: &quot;AreaEffectCloud&quot;,
+        &quot;SummonFileMarkers&quot;: true,
+        &quot;SummonLineMarkers&quot;: true
     }
 }
 </code></pre><p>You only need to specify the settings you wish to override.</p>
