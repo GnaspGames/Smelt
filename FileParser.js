@@ -88,6 +88,14 @@ var FileParser = (function ()
 
 		var summonFilenameMarker = CommandCreator.addNewFileMarker(path.basename(sourceName));
 
+		if(Settings.Current.Output.ShowDebugInfo)
+		{
+			console.log(chalk.bold("\n\n* START NEW FILE!"))
+			console.log("  " + sourceName);
+			if(summonFilenameMarker) console.log("   -> " + summonFilenameMarker);
+			else console.log("   -> " + "No file marker summoned");
+		}
+
 		for(i=0; i < lines.length; i++)
 		{
 			var line = lines[i].trim();
@@ -181,6 +189,7 @@ var FileParser = (function ()
 			console.log(chalk.bold("\n\n* START NEW LINE!"))
 			console.log("  " + line);
 			if(summon) console.log("   -> " + summon);
+			else console.log("   -> " + "No line marker summoned");
 		}
 	};
 	

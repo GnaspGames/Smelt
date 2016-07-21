@@ -7,8 +7,10 @@ var CommandCreator =
 	REPEATING_BLOCK_NAME : "repeating_command_block",
 	CHAIN_BLOCK_NAME : "chain_command_block",
 	SETBLOCK_COMMAND_FORMAT : "setblock ~%d ~%d ~%d %s %d replace {Command:%s%s}",
-	SUMMON_DISPLAY_MARKER_FORMAT : "summon ArmorStand ~ ~ ~%d {CustomName:%s, Tags:[\"oc_marker\"], Marker:1b, CustomNameVisible:1b, Invulnerable:1b, NoGravity:1b, Invisible:1b}",
-	SUMMON_CMD_MARKER_FORMAT : "summon ArmorStand ~%d ~%d ~%d {Tags:[\"oc_marker\",\"%s\"], Marker:1b, Invulnerable:1b, NoGravity:1b}",
+	SUMMON_ARMORSTAND_DISPLAY_MARKER_FORMAT : "summon ArmorStand ~ ~ ~%d {CustomName:%s, Tags:[\"oc_marker\"], Marker:1b, CustomNameVisible:1b, Invulnerable:1b, NoGravity:1b, Invisible:1b}",
+	SUMMON_ARMORSTAND_CMD_MARKER_FORMAT : "summon ArmorStand ~%d ~%d ~%d {Tags:[\"oc_marker\",\"%s\"], Marker:1b, Invulnerable:1b, NoGravity:1b}",	
+	SUMMON_AEC_DISPLAY_MARKER_FORMAT : "summon AreaEffectCloud ~ ~ ~%d {CustomName:%s, CustomNameVisible:1b, Tags:[\"oc_marker\"], Duration:2147483647}",
+	SUMMON_AEC_CMD_MARKER_FORMAT : "summon AreaEffectCloud ~%d ~%d ~%d {Tags:[\"oc_marker\",\"%s\"], Duration:2147483647}",
 	UP_DIRECTION_VALUE : 1,
 	EAST_DIRECTION_VALUE : 5,
 	WEST_DIRECTION_VALUE : 4,
@@ -113,8 +115,20 @@ var CommandCreator =
 		var summon;
 		if(CommandCreator.markerTag.length != 0)
 		{
-			summon = util.format(
-				CommandCreator.SUMMON_CMD_MARKER_FORMAT, 
+			var format = "";
+
+			switch (Settings.Current.Markers.EntityType) 
+			{
+				case "AreaEffectCloud":
+					format = CommandCreator.SUMMON_AEC_CMD_MARKER_FORMAT;
+					break;
+				case "ArmorStand":
+				default:
+					format = CommandCreator.SUMMON_ARMORSTAND_CMD_MARKER_FORMAT;
+					break;
+			}
+
+			summon = util.format(format, 
 				CommandCreator.currentX,
 				CommandCreator.currentY, 
 				CommandCreator.currentZ, 
@@ -125,19 +139,36 @@ var CommandCreator =
 	addNewLineMarker : function(line)
 	{
 		var customName = line.replace("#", "").trim();
-		return CommandCreator.addNewDisplayMarker(customName);
+		var summon;
+		if(Settings.Current.Markers.SummonLineMarkers)
+			summon = CommandCreator.addNewDisplayMarker(customName);
+		return summon;
 	},
 	addNewFileMarker : function(fileName)
 	{
 		var customName = fileName.trim();
-		return CommandCreator.addNewDisplayMarker(customName);
+		var summon;
+		if(Settings.Current.Markers.SummonFileMarkers)
+			summon = CommandCreator.addNewDisplayMarker(customName);
+		return summon;
 	},
 	addNewDisplayMarker : function(customName)
 	{
 		var summon;
 		if(customName.length != 0)
 		{
-			summon = util.format(CommandCreator.SUMMON_DISPLAY_MARKER_FORMAT, CommandCreator.currentZ, customName);
+			var format = "";
+			switch (Settings.Current.Markers.EntityType) 
+			{
+				case "AreaEffectCloud":
+					format = CommandCreator.SUMMON_AEC_DISPLAY_MARKER_FORMAT;
+					break;
+				case "ArmorStand":
+				default:
+					format = CommandCreator.SUMMON_ARMORSTAND_DISPLAY_MARKER_FORMAT;
+					break;
+			}
+			summon = util.format(format, CommandCreator.currentZ, customName);
 		}
 		return summon;
 	},

@@ -9,5 +9,10 @@
         "DefaultCommandBlockType": "impulse",
         "DefaultConditionalValue": false,
         "DefaultAutoValue": true
+    },
+    "Markers": {
+        "EntityType": "AreaEffectCloud",
+        "SummonFileMarkers": true,
+        "SummonLineMarkers": true
     }
 }
