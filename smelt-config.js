@@ -2,6 +2,7 @@
 
 var util = require('util');
 var fs = require('fs');
+var path = require('path');
 var commander = require('commander');
 var chalk = require('chalk');
 var Program = require("./Program");
@@ -115,6 +116,10 @@ if(commander.changeLocal || commander.changeGlobal)
     {
         console.log(chalk.bold("\n New configuration saved to:"));
         console.log(chalk.bold("  " + savePath));
+        // Create the directory if it doesn't exist
+        var saveDir = path.dirname(savePath);
+        if (!fs.existsSync(saveDir)) fs.mkdirSync(saveDir);
+        // Save the file.
         fs.writeFileSync(savePath, saveContent);
     }
     else

@@ -1,6 +1,6 @@
 {
   "name": "smelt-cli",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "preferGlobal": true,
   "description": "A CLI tool for Minecraft map makers.",
   "bin": {
