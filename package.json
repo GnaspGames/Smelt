@@ -1,8 +1,8 @@
 {
   "name": "one_command",
-  "version": "0.4.3",
+  "version": "1.0.0",
   "preferGlobal": true,
-  "description": "A CLI tool used to compile Minecraft commands into one-command installers, for map makers.",
+  "description": "No longer maintained: please use www.npmjs.com/package/smelt-cli",
   "bin": {
     "one-command": "./index.js"
   },
