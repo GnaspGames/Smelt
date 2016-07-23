@@ -78,10 +78,10 @@
 <p>This will be inserted before any following commands as <code>/execute @a[score_lives=0] ~ ~ ~ /say Hello World</code>.</p>
 <p>Use <code>{&quot;executeAs&quot;:&quot;&quot;}</code> to reset this option.</p>
 <p><strong>&quot;markerTag&quot;</strong></p>
-<p>This is used to define a &#39;marker&#39; ArmorStant to be summoned at the same location as each command block to follow. Each marker ArmorStand will have the tag provided as the value of <code>markerTag</code>. </p>
-<p>This can be useful for targetting a specific command block, or for setting up a random option system.</p>
+<p>This is used to define a &#39;marker&#39; entity (either an ArmorStand or AreaEffectCloud according to the config) to be summoned at the same location as each command block to follow.<br>Each marker entity will have the tag provided as the value of <code>markerTag</code>. </p>
+<p>This can be useful for targeting a specific command block, or for setting up a random option system.</p>
 <p>Possible values are any string that can be used as a scoreboard tag. e.g. <code>{&quot;markerTag&quot;:&quot;randomPowerup&quot;}</code>.</p>
-<p>Use <code>{&quot;markerTag&quot;:&quot;&quot;}</code> to reset this option and stop ArmorStands from appearing in coming command blocks. </p>
+<p>Use <code>{&quot;markerTag&quot;:&quot;&quot;}</code> to reset this option and stop entities from being summoned in coming command blocks. </p>
 <p>Example use case:</p>
 <pre><code># POWERUP OPTIONS
 {&quot;type&quot;:&quot;impulse&quot;, &quot;auto&quot;:false, &quot;conditional&quot;:false}
