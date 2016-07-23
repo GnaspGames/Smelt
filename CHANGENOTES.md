@@ -1,0 +1,10 @@
+Smelt Change Notes
+==================
+
+Version 0.7.2
+-------------
+
+* Improved the use of `smelt config --change-local` and `smelt config --change-global` to be faster to use.
+    * Includes adding a description and validation for each setting.
+* Changed the name of the configuration setting `SummonLineMarkers` to `SummonRowMarkers` because the term 'row' is what's been used elsewhere.
+    * NOTE: This might require some users to run `smelt config --change-local` or `smelt config --change-global` again to correct their own config files.
