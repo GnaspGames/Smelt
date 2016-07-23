@@ -80,51 +80,58 @@ if(commander.changeLocal || commander.changeGlobal)
         var currentKeys = current[section];
         for(var key in currentKeys)
         {
-            var baseValue = baseKeys[key];
-            var currentValue = currentKeys[key];
-            var newValue = currentValue;
-            
-            // Show current value for key and ask if it should be changed
-            console.log("\n    " + chalk.bold(key));    
-            console.log("    " + allDescriptions[section][key].toString());
-            var stepComplete = false;
+            // Get list of valid values
+            var validValues = allValidValues[section][key]; 
+            // If list doesn't exist, this isn't a valid setting (maybe redundant setting from old config).
+            var isValidSetting = validValues != null;
 
-            while (!stepComplete) 
+            if(isValidSetting)
             {
-                var inputValue = readlineSync.question("    [" + currentValue.toString() + "] ");
-                var changedValue = (inputValue != "");
-                if(changedValue)
-                {   
-                    // Convert to boolean
-                    if(inputValue == "true") inputValue = true;
-                    if(inputValue == "false") inputValue = false;
-
-                    // Get list of valid values
-                    var validValues = allValidValues[section][key];
+                var description = allDescriptions[section][key].toString();
+                var baseValue = baseKeys[key];
+                var currentValue = currentKeys[key];
+                var newValue = currentValue;
                 
-                    if(validValues.indexOf(inputValue) > -1)
-                    {
-                        // If the inputValue matches one of the valid values, great! 
-                        newValue = inputValue;
-                        stepComplete = true;
+                // Show current value for key and ask if it should be changed
+                console.log("\n    " + chalk.bold(key));    
+                console.log("    " + description);
+                var stepComplete = false;
+
+                while (!stepComplete) 
+                {
+                    var inputValue = readlineSync.question("    [" + currentValue.toString() + "] ");
+                    var changedValue = (inputValue != "");
+                    if(changedValue)
+                    {   
+                        // Convert to boolean
+                        if(inputValue == "true") inputValue = true;
+                        if(inputValue == "false") inputValue = false;
+                    
+                        // Check valid values
+                        if(validValues.indexOf(inputValue) > -1)
+                        {
+                            // If the inputValue matches one of the valid values, great! 
+                            newValue = inputValue;
+                            stepComplete = true;
+                        }
+                        else
+                        {
+                            // Otherwise, ask them to try again.
+                            console.log(chalk.yellow("    Sorry, valid values are: " + validValues.join(", ")));
+                            console.log("    Please try again.");
+                        }
                     }
                     else
                     {
-                        // Otherwise, ask them to try again.
-                        console.log(chalk.yellow("    Sorry, valid values are: " + validValues.join(", ")));
-                        console.log("    Please try again.");
+                        stepComplete = true;
                     }
                 }
-                else
+                
+                if(baseValue != newValue)
                 {
-                    stepComplete = true;
+                    newSettings[section][key] = new Object();
+                    newSettings[section][key] = newValue; 
                 }
-            }
-            
-            if(baseValue != newValue)
-            {
-                newSettings[section][key] = new Object();
-                newSettings[section][key] = newValue; 
             }
         }
     }
