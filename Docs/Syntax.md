@@ -78,13 +78,14 @@ Use `{"executeAs":""}` to reset this option.
 
 **"markerTag"**
 
-This is used to define a 'marker' ArmorStant to be summoned at the same location as each command block to follow. Each marker ArmorStand will have the tag provided as the value of `markerTag`. 
+This is used to define a 'marker' entity (either an ArmorStand or AreaEffectCloud according to the config) to be summoned at the same location as each command block to follow. 
+Each marker entity will have the tag provided as the value of `markerTag`. 
 
-This can be useful for targetting a specific command block, or for setting up a random option system.
+This can be useful for targeting a specific command block, or for setting up a random option system.
 
 Possible values are any string that can be used as a scoreboard tag. e.g. `{"markerTag":"randomPowerup"}`.
 
-Use `{"markerTag":""}` to reset this option and stop ArmorStands from appearing in coming command blocks. 
+Use `{"markerTag":""}` to reset this option and stop entities from being summoned in coming command blocks. 
 
 Example use case:
 
