@@ -1,0 +1,18 @@
+{
+    "Output": {
+        "ShowDebugInfo" : "Output additional debug information to the console.",
+        "ShowCompiledCommands" : "Output compiled commands to the console.",
+        "CopyCompiledCommands": "Copy compiled commands to the clipboard to be pasted elsewhere.",
+        "WriteCompiledCommandsToFile": "Write compiled commands to files (example.mcc writes to example.oc)."
+    },
+    "Commands": {
+        "DefaultCommandBlockType": "The default command block type. Value used until changed using a JSON line.",
+        "DefaultConditionalValue": "The default value for whether command blocks are conditional or not. Value used until changed using a JSON line.",
+        "DefaultAutoValue": "The default value for whether commands blocks are 'always powered' (true) or 'require redstone' (false). Value used until changed using a JSON line."
+    },
+    "Markers": {
+        "EntityType": "Defines what type of entities should be used for 'marker' entities created.",
+        "SummonFileMarkers": "Defines whether file marker entities should be created (e.g. a marker named 'example.mcc').",
+        "SummonRowMarkers": "Defines whether row markers entities should be created (for use with new row lines - starting with #)."
+    }
+}

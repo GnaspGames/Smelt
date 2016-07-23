@@ -1,0 +1,18 @@
+{
+    "Output": {
+        "ShowDebugInfo" : [true, false],
+        "ShowCompiledCommands" :  [true, false],
+        "CopyCompiledCommands":  [true, false],
+        "WriteCompiledCommandsToFile":  [true, false]
+    },
+    "Commands": {
+        "DefaultCommandBlockType": ["impulse", "repeating", "chain"],
+        "DefaultConditionalValue": [true, false],
+        "DefaultAutoValue": [true, false]
+    },
+    "Markers": {
+        "EntityType": ["AreaEffectCloud", "ArmorStand"],
+        "SummonFileMarkers":  [true, false],
+        "SummonRowMarkers": [true, false]
+    }
+}

@@ -140,7 +140,7 @@ var CommandCreator =
 	{
 		var customName = line.replace("#", "").trim();
 		var summon;
-		if(Settings.Current.Markers.SummonLineMarkers)
+		if(Settings.Current.Markers.SummonRowMarkers)
 			summon = CommandCreator.addNewDisplayMarker(customName);
 		return summon;
 	},

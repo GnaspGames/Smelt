@@ -13,6 +13,6 @@
     "Markers": {
         "EntityType": "AreaEffectCloud",
         "SummonFileMarkers": true,
-        "SummonLineMarkers": true
+        "SummonRowMarkers": true
     }
 }

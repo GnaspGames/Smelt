@@ -42,7 +42,7 @@ Here's what the default `config.json` looks like:
     "Markers": {
         "EntityType": "AreaEffectCloud",
         "SummonFileMarkers": true,
-        "SummonLineMarkers": true
+        "SummonRowMarkers": true
     }
 }
 ``` 

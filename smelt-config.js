@@ -50,6 +50,9 @@ if(commander.changeLocal || commander.changeGlobal)
     doSomething = true;
     var current, base, savePath = null;
 
+    var allDescriptions = Settings.GetDescriptions();
+    var allValidValues = Settings.GetValidValues();
+
     // Determind vars for local/global
     if(commander.changeLocal)
     {
@@ -63,6 +66,8 @@ if(commander.changeLocal || commander.changeGlobal)
         current = Settings.GetConfig({includeGlobal:true, includeLocal:false});
         savePath = Settings.GlobalPath;
     }
+
+    console.log(chalk.yellow("Leave value blank to accept existing value, or type a new value to change."));
 
     // Go through template and look up values to overwrite
     var newSettings = new Object();
@@ -80,22 +85,42 @@ if(commander.changeLocal || commander.changeGlobal)
             var newValue = currentValue;
             
             // Show current value for key and ask if it should be changed
-            console.log("\n    " + chalk.italic(key) + " = " + currentValue.toString());    
-            var changeIt = readlineSync.keyInYN("    Do you want to change this? ");
+            console.log("\n    " + chalk.bold(key));    
+            console.log("    " + allDescriptions[section][key].toString());
+            var stepComplete = false;
 
-            if(changeIt)
+            while (!stepComplete) 
             {
-                if(typeof currentValue == "boolean")
-                {
-                    var setTo = readlineSync.keyInYN("    Set to true?");
-                    newValue = setTo == true ? true : false;
+                var inputValue = readlineSync.question("    [" + currentValue.toString() + "] ");
+                var changedValue = (inputValue != "");
+                if(changedValue)
+                {   
+                    // Convert to boolean
+                    if(inputValue == "true") inputValue = true;
+                    if(inputValue == "false") inputValue = false;
+
+                    // Get list of valid values
+                    var validValues = allValidValues[section][key];
+                
+                    if(validValues.indexOf(inputValue) > -1)
+                    {
+                        // If the inputValue matches one of the valid values, great! 
+                        newValue = inputValue;
+                        stepComplete = true;
+                    }
+                    else
+                    {
+                        // Otherwise, ask them to try again.
+                        console.log(chalk.yellow("    Sorry, valid values are: " + validValues.join(", ")));
+                        console.log("    Please try again.");
+                    }
                 }
                 else
                 {
-                    newValue = readlineSync.question("    What should the new value be? ").toString();
+                    stepComplete = true;
                 }
-                console.log("        VALUE:" + newValue.toString());
             }
+            
             if(baseValue != newValue)
             {
                 newSettings[section][key] = new Object();

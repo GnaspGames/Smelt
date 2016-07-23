@@ -23,15 +23,15 @@ var Settings =
         Settings.LocalPath = path.resolve(".smelt/config.json");
         
         // First, use the default config.json packaged with program.
-        var defaultsFile = path.resolve(Program.OcDirectory + "/config.json");
-        Settings.Default = Settings.ReadConfigFile(defaultsFile);
+        var defaultsFile = path.resolve(Program.OcDirectory + "/configuration/defaultValues.json");
+        Settings.Default = Settings.ReadJsonFile(defaultsFile);
         
         // Second, look for a GLOBAL config file to override above.
-        Settings.Global = Settings.ReadConfigFile(Settings.GlobalPath);
+        Settings.Global = Settings.ReadJsonFile(Settings.GlobalPath);
         Settings.GlobalExists = (Settings.Global != null);
         
         // Third, look for a LOCAL specific config to override above.
-        Settings.Local = Settings.ReadConfigFile(Settings.LocalPath);
+        Settings.Local = Settings.ReadJsonFile(Settings.LocalPath);
         Settings.LocalExists = (Settings.Local != null);
 
         // Set "Current" to equal the sum of all
@@ -41,19 +41,29 @@ var Settings =
         if(Settings.Local != null)
             Settings.Current = jsonOverride(Settings.Current, Settings.Local, true);
     },
-    ReadConfigFile : function(configPath)
+    GetDescriptions : function()
     {
-        var settings = null;
+        var filepath = path.resolve(Program.OcDirectory + "/configuration/descriptions.json");
+        return Settings.ReadJsonFile(filepath);
+    },
+    GetValidValues : function()
+    {
+        var filepath = path.resolve(Program.OcDirectory + "/configuration/validValues.json");
+        return Settings.ReadJsonFile(filepath);
+    },
+    ReadJsonFile : function(filePath)
+    {
+        var json = null;
         try 
         {
             // Look to see if configPath exists
-            configPath = path.resolve(configPath);
-            var configString = fs.readFileSync(configPath);
-            var configJson = JSON.parse(configString);
-            if(configJson != null)
+            filePath = path.resolve(filePath);
+            var contentString = fs.readFileSync(filePath);
+            var contentJSON = JSON.parse(contentString);
+            if(contentJSON != null)
             {
                 // Found it
-                settings = configJson;
+                json = contentJSON;
             }
         } 
         catch (err) 
@@ -61,7 +71,7 @@ var Settings =
             // console.log(chalk.red.bold("    " + err));
             // console.log(chalk.red.bold("Not found: " + configPath + "!"));
         }
-        return settings;
+        return json;
     },
     GetConfig : function(options)
     {
