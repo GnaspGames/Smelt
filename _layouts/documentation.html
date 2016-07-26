@@ -1,0 +1,22 @@
+---
+layout: default
+---
+
+       
+        {% assign pages = site.pages | sort:"weight"  %}
+        {% for p in pages %}
+        {% if p.nav == 'docs' %}
+       
+        <a href="{{ p.url }}" class="btn{% if p.title == page.title %} btn-selected{% endif %}">
+            {{ p.title }}
+        </a>
+        
+        {% endif %}	 
+        {% endfor %}
+
+        <br />
+        <br />
+        <hr>
+       
+
+{{ content }}
