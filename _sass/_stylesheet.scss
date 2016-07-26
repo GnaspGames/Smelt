@@ -221,6 +221,12 @@ hr {
   background: -webkit-linear-gradient(top, rgba(40, 40, 40, 0.6), rgba(35, 35, 35, 0.6) 50%, rgba(10, 10, 10, 0.8) 50%, rgba(0, 0, 0, 0.8));
 }
 
+.btn-selected {
+  color: #FFA300;
+  background: -webkit-linear-gradient(top, rgba(40, 40, 40, 0.6), rgba(35, 35, 35, 0.6) 50%, rgba(10, 10, 10, 0.8) 50%, rgba(0, 0, 0, 0.8));
+}
+
+
 .btn .icon {
   /* display: inline-block; */
   width: 16px;
@@ -237,6 +243,11 @@ hr {
 .btn-discord .icon {
   opacity: 0.6;
   background: url("../images/discord.png") 0 0 no-repeat;
+}
+
+.btn-external
+{
+    color: lighten(#FFA300, 20%);
 }
 
 
@@ -262,4 +273,13 @@ a {
 
 .cf {
   zoom:1;
+}
+
+
+footer {
+  background: rgba(0, 0, 0, 0.1);
+  width: 100%;
+  border-top: 1px dashed #FFA300;
+  padding: 20px 0;
+  margin: 40px 0 0 0;
 }
