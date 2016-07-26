@@ -88,8 +88,8 @@ will only execute if `!start_event` has been called in the previous tick.
 !event CyclePowerups
 	{"type":"chain", "conditional":false}
 	/scoreboard players set @e[name=SYSTEM] countdown 600
-	/execute @r[type=ArmorStand,tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:1b}
-	/execute @e[type=ArmorStand,tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:0b}
+	/execute @r[tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:1b}
+	/execute @e[tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:0b}
 ```
 
 ----

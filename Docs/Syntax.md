@@ -25,7 +25,7 @@ Let's consider each of these one at a time:
 
 Each of these starts a new row of command blocks. 
 
-Any text found after the initial "#" is used to generate a "row marker" (a hidden marker armorstand with the text as the CustomName). 
+Any text found after the initial "#" is used to generate a "row marker" (a hidden marker entity with the text as the CustomName). 
 
 This helps to recognise rows of command blocks in your Minecraft map.
 
@@ -104,8 +104,8 @@ Example use case:
 # CYCLE POWERUP OPTIONS
 !function CyclePowerups
     {"type":"chain", "conditional":false}
-    /execute @e[type=ArmorStand,tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:0b}
-    /execute @r[type=ArmorStand,tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:1b}
+    /execute @e[tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:0b}
+    /execute @r[tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:1b}
 ```
 
 ## 3. The command line (starting with "/")
