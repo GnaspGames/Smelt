@@ -84,8 +84,8 @@
 !event CyclePowerups
     {&quot;type&quot;:&quot;chain&quot;, &quot;conditional&quot;:false}
     /scoreboard players set @e[name=SYSTEM] countdown 600
-    /execute @r[type=ArmorStand,tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:1b}
-    /execute @e[type=ArmorStand,tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:0b}
+    /execute @r[tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:1b}
+    /execute @e[tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:0b}
 </code></pre><hr>
 <h3 id="the-start_event-command">The <code>!start_event</code> command</h3>
 <p>Usage: <code>!start_event &lt;eventName&gt;</code></p>
