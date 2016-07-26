@@ -33,7 +33,7 @@ A line with no text after the "#" can be used to create a gap between your comma
 
 ## 2. The JSON line (using "{" and "}", always on one line)
 
-For example `{"type":"repeating","auto":"true"}`. 
+For example `{"type":"repeating","auto":true}`. 
 
 This is used to set the properties of all command blocks following until a tag is changed.
 
