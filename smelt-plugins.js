@@ -9,7 +9,7 @@ var pjson = require('./package.json');
 var BangCommandHelper = require("./BangCommandHelper");
 
 commander
-  .description(chalk.yellow("Install/manage plugins."))
+  .description(chalk.yellow("Manage plugins."))
   .usage("[options]")
   .option('--list', 
           'List all available plugins.');

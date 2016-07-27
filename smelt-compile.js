@@ -11,7 +11,7 @@ var pjson = require('./package.json');
 
 commander
   .version(pjson.version)
-  .description(chalk.yellow("<path> should be the path to a .mcc file or directory containing .mcc files."))
+  .description(chalk.yellow("Compile .mcc modules: <path> should be the path to an .mcc file or directory containing .mcc files."))
   .usage("<path> [options]")
   .arguments("<path>")
   .action(function(path)
@@ -19,13 +19,13 @@ commander
 	  Program.PathArg = path
   })
   .option('-s, --show', 
-          'Show any combined commands in the console.')
+          'Show any combined-commands in the console.')
   .option('-d, --debug', 
           'Show additional debug information in the console.')
   .option('-c, --copy', 
-          'Copy combined commands to system clipboard, one at a time. This prevents the writing of .oc files unless --write is also included.')
+          'Copy combined-commands to system clipboard, one at a time. This disables the writing of .oc files unless --write is also specified.')
   .option('-w, --write', 
-          'Write combined commands to .oc files.');
+          'Write combined-commands to .oc files.');
   
 process.argv[1] = 'smelt compile';
 commander.parse(process.argv);  
