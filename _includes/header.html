@@ -1,30 +1,28 @@
 <header>
-    <div class="container">
+    <div class="container navigation">
         <img src="images/logo.png" id="logo" />
-    <h2>A NEW CLI tool for Minecraft map makers; used to compile MCC files into combined-command installers.</h2>
+        <section>
 
-    <section id="downloads">
+            {% assign pages = site.pages | sort:"weight"  %}
+            {% for p in pages %}
+            {% if p.nav == 'top' %}
+            <a href="{{ p.url }}" class="btn{% if p.title == page.title %} btn-selected{% endif %}">
+                {{ p.title }}
+            </a>
+            {% endif %}	 
+            {% endfor %}
 
-        {% assign pages = site.pages | sort:"weight"  %}
-        {% for p in pages %}
-        {% if p.nav == 'top' %}
-        <a href="{{ p.url }}" class="btn{% if p.title == page.title %} btn-selected{% endif %}">
-            {{ p.title }}
-        </a>
-        {% endif %}	 
-        {% endfor %}
+            
+            <a href="https://github.com/GnaspGames/Smelt" target="_blank" class="btn btn-external btn-github">
+                <span class="icon"></span>View on GitHub
+            </a>
+            <a href="https://github.com/GnaspGames/Smelt/issues" target="_blank" class="btn btn-external btn-github">
+                <span class="icon"></span>Bugs / Ideas
+            </a>
+            <a href="https://discord.gg/aDFs2pB" target="_blank" class="btn btn-external btn-discord">
+                <span class="icon"></span>Discord
+            </a>
 
-        
-        <a href="https://github.com/GnaspGames/Smelt" target="_blank" class="btn btn-external btn-github">
-            <span class="icon"></span>View on GitHub
-        </a>
-        <a href="https://github.com/GnaspGames/Smelt/issues" target="_blank" class="btn btn-external btn-github">
-            <span class="icon"></span>Bugs / Ideas
-        </a>
-        <a href="https://discord.gg/aDFs2pB" target="_blank" class="btn btn-external btn-discord">
-            <span class="icon"></span>Discord
-        </a>
-
-    </section>
+        </section>
     </div>
 </header>

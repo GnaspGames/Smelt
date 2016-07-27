@@ -2,6 +2,7 @@
 layout: default
 ---
 
+    <div class="navigation">
        
         {% assign pages = site.pages | sort:"weight"  %}
         {% for p in pages %}
@@ -16,7 +17,8 @@ layout: default
 
         <br />
         <br />
-        <hr>
+        
+    </div>
        
 
 {{ content }}
