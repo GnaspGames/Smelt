@@ -2,23 +2,23 @@
 layout: default
 ---
 
-    <div class="navigation">
-       
-        {% assign pages = site.pages | sort:"weight"  %}
-        {% for p in pages %}
-        {% if p.nav == 'docs' %}
-       
-        <a href="{{ p.url }}" class="btn{% if p.title == page.title %} btn-selected{% endif %}">
-            {{ p.title }}
-        </a>
-        
-        {% endif %}	 
-        {% endfor %}
+<div class="navigation">
+    
+    {% assign pages = site.pages | sort:"weight"  %}
+    {% for p in pages %}
+    {% if p.nav == 'docs' %}
+    
+    <a href="{{ p.url }}" class="btn{% if p.title == page.title %} btn-selected{% endif %}">
+        {{ p.title }}
+    </a>
+    
+    {% endif %}	 
+    {% endfor %}
 
-        <br />
-        <br />
-        
-    </div>
+    <br />
+    <br />
+    
+</div>
        
 
 {{ content }}
