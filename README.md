@@ -1,6 +1,8 @@
 Smelt (beta)
 ==================
 
+![Logo](./logo.png)
+
 Install
 -------
 * Install [Node](https://nodejs.org).
