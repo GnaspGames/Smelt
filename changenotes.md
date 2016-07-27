@@ -8,6 +8,12 @@ nav: top
 Smelt Change Notes
 ==================
 
+Version 0.7.3
+-------------
+
+* Updated some of the help output. `smelt help`, `smelt help compile` etc.
+    * More details found in the [CLI documentation](http://smelt.gnasp.com/cli.html)
+
 Version 0.7.2
 -------------
 
