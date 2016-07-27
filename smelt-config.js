@@ -164,3 +164,5 @@ if(!doSomething)
 {
     commander.outputHelp();
 }
+
+require("./VersionCheck").Query();

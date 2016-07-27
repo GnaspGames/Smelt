@@ -56,6 +56,8 @@ if(Program.PathArg)
 
 if(!Program.PathFound)
 {
-	commander.outputHelp();
-	console.log(chalk.red.bold("  Please enter the path to a .mcc file or directory containing .mcc files as the first argument."));
+  console.log(chalk.red.bold("\n  [WARNING] Please enter the path to a .mcc file or directory containing .mcc files as the first argument."));
+  commander.outputHelp();
 }
+
+require("./VersionCheck").Query();
