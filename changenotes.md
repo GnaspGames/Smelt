@@ -8,6 +8,11 @@ nav: top
 Smelt Change Notes
 ==================
 
+Version 0.7.4
+-------------
+
+* Added a version check to encourage you to update if your version of Smelt is out of date.
+
 Version 0.7.3
 -------------
 
