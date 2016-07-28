@@ -8,6 +8,11 @@ nav: top
 Smelt Change Notes
 ==================
 
+Version 0.7.5
+-------------
+
+* Fixed a line endings bug issue that stopped Smelt working on Linux OS.
+
 Version 0.7.4
 -------------
 
