@@ -17,6 +17,8 @@ var FileParser = (function ()
 		this.Commands = [];
 		this.BangSetups = [];
 		this.PreviousLine = "";
+		this.PreviousTrigger ="";
+		this.Readstarted = false;
 		this.FinalCommand = "";
 		this.Module = null;
 	}
@@ -101,7 +103,7 @@ var FileParser = (function ()
 			var line = lines[i].trim();
 			try
 			{
-				this.processLine(line);
+				this.processLine(line,false);
 			}
 			catch(err)
 			{
@@ -110,6 +112,7 @@ var FileParser = (function ()
 				throw err;
 			}
 		}
+		this.processLine("",true);
 		
 		var gamerule = "gamerule commandBlockOutput false";
 		var clearArea = "fill ~1 ~-1 ~1 ~14 ~10 ~14 air 0";
@@ -144,38 +147,39 @@ var FileParser = (function ()
 
 		return commandModule;
 	};
-	
-    FileParser.prototype.processLine = function (line)
-	{
-		if(line.endsWith('\\'))
-		{
-			this.PreviousLine += line.replace("\\", "");
-			return;
-		}
-		else
-		{
-			if(this.PreviousLine.length > 0)
-			{
-				line = this.PreviousLine + line;
-				this.PreviousLine = "";
-			}
-		}
 		
-		if(line.indexOf("#") == 0)
-		{
-			this.processRowLine(line);
+    FileParser.prototype.processLine = function (line , endoffile)
+	{
+		
+		if (line[0]=="#" || line[0]==">" || line[0]=="/" || line[0]=="!" || endoffile==true){
+			if (this.Readstarted==true) {
+				
+				switch(this.PreviousTrigger){
+			case "#":
+				this.processRowLine(this.FinalCommand.trim());
+				break;
+			case ">":
+				this.processJsonLine(this.FinalCommand.trim());
+				break;
+			case "/":
+				this.processCommandBlockLine(this.FinalCommand.trim());
+				break;
+			case "!":
+				this.processBangLine(this.FinalCommand.trim());
+				break;
+				}
+
+			this.PreviousTrigger=line[0];	
+			this.FinalCommand="";
+		
+		} else {
+			this.Readstarted=true;
+			this.PreviousTrigger=line[0];
 		}
-		else if(line.indexOf("{") == 0)
-		{
-			this.processJsonLine(line);
+			
 		}
-		else if(line.indexOf("/") == 0)
-		{
-			this.processCommandBlockLine(line);
-		}
-		else if(line[0] == "!")
-		{	
-			this.processBangLine(line);
+		if (line[0]+line[1]!="--"){
+			this.FinalCommand += " " + line;
 		}
     };
 	
@@ -195,7 +199,7 @@ var FileParser = (function ()
 	
 	FileParser.prototype.processJsonLine = function(line)
 	{
-		var json = JSON.parse(line);
+		var json = JSON.parse(line.replace(">",""));
 		CommandCreator.processJSONLine(json);
 		
 		if(Settings.Current.Output.ShowDebugInfo)
