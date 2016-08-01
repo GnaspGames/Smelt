@@ -177,9 +177,6 @@ var FileParser = (function ()
 			
 		}
 		if (line[0]+line[1]!="--"){
-			for (var Vars in this.CustomVariables){
-			line = line.replace(new RegExp("\\"+Vars,'g'), this.CustomVariables[Vars]);
-		}
 			this.FinalCommand += " " + line;
 		}
     };
@@ -200,6 +197,7 @@ var FileParser = (function ()
 	
 	FileParser.prototype.processJsonLine = function(line)
 	{
+		line=this.CheckforVariables(line);
 		var json = JSON.parse(line.replace(">",""));
 		CommandCreator.processJSONLine(json);
 		
@@ -217,6 +215,7 @@ var FileParser = (function ()
 	
 	FileParser.prototype.processCommandBlockLine = function(line)
 	{
+		line=this.CheckforVariables(line);
 		var summon = CommandCreator.addNewCmdMarker();
 		if(summon) this.Commands.unshift(summon);
 		
@@ -234,6 +233,7 @@ var FileParser = (function ()
 	
 	FileParser.prototype.processBangLine = function(line)
 	{
+		line=this.CheckforVariables(line);
 		if(Settings.Current.Output.ShowDebugInfo)
 		{
 			console.log(chalk.bold("\n* PROCESS BANG COMMAND"));
@@ -256,21 +256,26 @@ var FileParser = (function ()
 	};
 	FileParser.prototype.processVariableLine = function(line)
 	{
-		// var VarName = (line.substring(0,line.indexOf("="))).trim();
-		// //there is a bug with the re-assignment of variables here. I couldn't find it!
-		// var VarValue = (line.substring(line.indexOf("=")+1)).trim();
     	var parts = line.split('=', 2);
-   	 	var varName = parts[0].replace("$","");
-  		var varValue = parts[1];
+   	 	var varName = parts[0].trim();
+  		var varValue =this.CheckforVariables(parts[1].trim());
     
 		if(Settings.Current.Output.ShowDebugInfo){
 	 	console.log("\n* VARIABLE ASSIGNED:"); 
-	 	console.log("  " + varName + " stands for the value "+ varValue);}
+	 	console.log("  " + varName + " = "+ varValue);}
 		
 		this.CustomVariables[varName] = varValue;
 
 	 
 	 	
+	};
+	FileParser.prototype.CheckforVariables = function(line)
+	{
+			for (var Vars in this.CustomVariables)
+			{
+			line = line.replace(new RegExp("\\"+Vars,'g'), this.CustomVariables[Vars]); 
+		}
+		return line;
 	};
 	FileParser.prototype.AddBangSetup = function(bangSetup)
 	{
