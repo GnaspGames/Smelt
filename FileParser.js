@@ -112,11 +112,11 @@ var FileParser = (function ()
 		}
 		
 		var gamerule = "gamerule commandBlockOutput false";
-		var clearArea = "fill ~1 ~-1 ~1 ~14 ~10 ~14 air 0";
-		var summonMarker = "summon ArmorStand ~ ~-1 ~ {Tags:[\"oc_rebuild\",\"oc_marker\"]}"
+		var summonRebuildEntity = "summon ArmorStand ~ ~-1 ~ {Tags:[\"oc_rebuild\",\"oc_marker\"]}"
+		var clearArea = "/execute @e[tag=oc_rebuild] ~ ~ ~ fill ~1 ~ ~1 ~14 ~10 ~14 air 0";
 		var clearlineMarkers = "/execute @e[tag=oc_rebuild] ~ ~ ~ kill @e[tag=oc_marker,dx=15,dy=20,dz=15]";
 		var clearlineMarkers_old = "kill @e[tag=lineMarker,dx=15,dy=20,dz=15]"; // keep for backwards compatibility
-		this.Commands.unshift(gamerule, clearArea, summonMarker, clearlineMarkers, clearlineMarkers_old, summonFilenameMarker);
+		this.Commands.unshift(gamerule, summonRebuildEntity, clearArea, clearlineMarkers, clearlineMarkers_old, summonFilenameMarker);
 		
 		var removeBlocks = CommandCreator.buildSetblockCommand(0, 1, 0, "up", "impulse", false, true, "", "/fill ~ ~-1 ~ ~ ~ ~ air");
 		
