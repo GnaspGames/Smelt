@@ -18,9 +18,9 @@ var FileParser = (function ()
 		this.BangSetups = [];
 		this.PreviousLine = "";
 		this.PreviousTrigger ="";
-		this.Readstarted = false;
 		this.FinalCommand = "";
 		this.Module = null;
+		this.CustomVariables = {};
 	}
 	
     FileParser.prototype.ProcessFile = function (filePath)
@@ -151,8 +151,10 @@ var FileParser = (function ()
     FileParser.prototype.processLine = function (line , endoffile)
 	{
 		
-		if (line[0]=="#" || line[0]==">" || line[0]=="/" || line[0]=="!" || endoffile==true){
-			if (this.Readstarted==true) {
+		
+		if (line[0]=="#" || line[0]==">" || line[0]=="/" || line[0]=="!" || line[0]=="$" || endoffile==true)
+		{
+		
 				
 				switch(this.PreviousTrigger){
 			case "#":
@@ -167,18 +169,19 @@ var FileParser = (function ()
 			case "!":
 				this.processBangLine(this.FinalCommand.trim());
 				break;
+			case "$":
+				this.processVariableLine(this.FinalCommand.trim());
+				break;
 				}
 
 			this.PreviousTrigger=line[0];	
 			this.FinalCommand="";
-		
-		} else {
-			this.Readstarted=true;
-			this.PreviousTrigger=line[0];
-		}
 			
 		}
 		if (line[0]+line[1]!="--"){
+			for (var Vars in this.CustomVariables){
+			line = line.replace(new RegExp("\\"+Vars,'g'), this.CustomVariables[Vars]);
+		}
 			this.FinalCommand += " " + line;
 		}
     };
@@ -253,7 +256,20 @@ var FileParser = (function ()
 			});
 		}
 	};
+	FileParser.prototype.processVariableLine = function(line)
+	{
+		var VarName = (line.substring(0,line.indexOf("="))).trim();
+		//there is a bug with the re-assignment of variables here. I couldn't find it!
+		var VarValue = (line.substring(line.indexOf("=")+1)).trim();
+		if(Settings.Current.Output.ShowDebugInfo){
+	 	console.log("\n* VARIABLE ASSIGNED:"); 
+	 	console.log("  " + VarName + " stands for the value "+ VarValue);}
+		
+		this.CustomVariables[VarName] = VarValue;
 
+	 
+	 	
+	};
 	FileParser.prototype.AddBangSetup = function(bangSetup)
 	{
 		var exists = false;
