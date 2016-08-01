@@ -10,6 +10,20 @@
         "DefaultConditionalValue": false,
         "DefaultAutoValue": true
     },
+    "Modules":
+    {
+        "StartXCoord": 1,
+        "StartYCoord": 0,
+        "StartZCoord": 1,
+        "StopXCoord": 14,
+        "StopYCoord": 10,
+        "StopZCoord": 14,
+        "RowPattern":"E E E E E E E E E E E E E U W W W W W W W W W W W W W U",
+        "RowMoveX": 0,
+        "RowMoveY": 0,
+        "RowMoveZ": 1,
+        "FinishCoords": "~14 ~10 ~14"
+    },
     "Markers": {
         "EntityType": "AreaEffectCloud",
         "SummonFileMarkers": true,
