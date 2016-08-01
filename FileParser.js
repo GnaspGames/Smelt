@@ -22,6 +22,8 @@ var FileParser = (function ()
 		this.Module = null;
 		this.CustomVariables = {};
 	}
+
+
 	
     FileParser.prototype.ProcessFile = function (filePath)
 	{
@@ -78,7 +80,7 @@ var FileParser = (function ()
 		
 		this.Commands = [];
 	
-		var content = data.toString().trim();
+		var content = this.removeComments(data.toString().trim());
 		var lines = content.split("\n");
 		var distanceOffset = 3;
 		
@@ -147,6 +149,23 @@ var FileParser = (function ()
 
 		return commandModule;
 	};
+
+	FileParser.prototype.removeComments = function(content)
+	{
+		// Remove mutliline comments (/* example */)
+		content = content.replace(new RegExp("\\/\\*[^\\*\\/]*\\*\\/", 'g'), "");
+		// Remove singleline comments (// example)
+		content = content.replace(new RegExp("\\/\\/.*$", 'gm'), "");
+
+		if(Settings.Current.Output.ShowDebugInfo)
+		{
+			console.log(chalk.bold("\n\n* REMOVING COMMENTS!"))
+			console.log(chalk.bold("\n\n  RESULT:"))
+			console.log(content);
+		}
+
+		return content.trim();
+	}
 		
     FileParser.prototype.processLine = function (line , endoffile)
 	{
