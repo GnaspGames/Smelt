@@ -16,15 +16,12 @@ var FileParser = (function ()
 	{
 		this.Commands = [];
 		this.BangSetups = [];
-		this.PreviousLine = "";
 		this.PreviousTrigger ="";
 		this.FinalCommand = "";
 		this.Module = null;
 		this.CustomVariables = {};
 	}
 
-
-	
     FileParser.prototype.ProcessFile = function (filePath)
 	{
 		var data = fs.readFileSync(filePath).toString().trim();
@@ -100,12 +97,11 @@ var FileParser = (function ()
 			else console.log("   -> " + "No file marker summoned");
 		}
 
-		for(i=0; i < lines.length; i++)
+		var process = function(line, endoffile)
 		{
-			var line = lines[i].trim();
 			try
 			{
-				this.processLine(line,false);
+				this.processLine(line, endoffile);
 			}
 			catch(err)
 			{
@@ -114,7 +110,16 @@ var FileParser = (function ()
 				throw err;
 			}
 		}
-		this.processLine("",true);
+
+		// Loop through each line in the file.
+		for(i=0; i < lines.length; i++)
+		{
+			var line = lines[i].trim();
+			process(line, false);
+		}
+
+		// One final call to processLine to complete the last trigger
+		process("", true);
 		
 		var gamerule = "gamerule commandBlockOutput false";
 		var summonRebuildEntity = "summon ArmorStand ~ ~-1 ~ {Tags:[\"oc_rebuild\",\"oc_marker\"]}"
@@ -169,36 +174,36 @@ var FileParser = (function ()
 		
     FileParser.prototype.processLine = function (line , endoffile)
 	{
-		
-		
-		if (line[0]=="#" || line[0]==">" || line[0]=="/" || line[0]=="!" || line[0]=="$" || endoffile==true)
+		if(line[0] == "#" || line[0] == ">" || line[0] == "/" || line[0] == "!" || line[0] == "$" || endoffile == true) 
 		{
-				switch(this.PreviousTrigger){
-			case "#":
-				this.processRowLine(this.FinalCommand.trim());
-				break;
-			case ">":
-				this.processJsonLine(this.FinalCommand.trim());
-				break;
-			case "/":
-				this.processCommandBlockLine(this.FinalCommand.trim());
-				break;
-			case "!":
-				this.processBangLine(this.FinalCommand.trim());
-				break;
-			case "$":
-				this.processVariableLine(this.FinalCommand.trim());
-				break;
-				}
+			switch (this.PreviousTrigger)
+			{
+				case "#":
+					this.processRowLine(this.FinalCommand.trim());
+					break;
+				case ">":
+					this.processJsonLine(this.FinalCommand.trim());
+					break;
+				case "/":
+					this.processCommandBlockLine(this.FinalCommand.trim());
+					break;
+				case "!":
+					this.processBangLine(this.FinalCommand.trim());
+					break;
+				case "$":
+					this.processVariableLine(this.FinalCommand.trim());
+					break;
+			}
+			this.PreviousTrigger = line[0];
+			this.PreviousCommand = "";
+		}
 
-			this.PreviousTrigger=line[0];	
-			this.FinalCommand="";
-			
-		}
-		if (line[0]+line[1]!="--"){
-			for (var Vars in this.CustomVariables){
-			line = line.replace(new RegExp("\\"+Vars,'g'), this.CustomVariables[Vars]);
-		}
+		if(line[0]+line[1]!="--")
+		{
+			for (var varName in this.CustomVariables)
+			{
+				line = line.replace(new RegExp("\\"+varName,'g'), this.CustomVariables[varName]);
+			}
 			this.FinalCommand += " " + line;
 		}
     };
