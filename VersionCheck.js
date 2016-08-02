@@ -39,6 +39,7 @@ var VersionCheck =
                 {
                     console.log(chalk.red.bold("\n  [WARNING]: Your verion of Smelt (" + cv + ") is out of date. Please update to version " + uv + ".")); 
                     console.log("  Command to update: " + chalk.bold("npm install smelt-cli -g")); 
+                    console.log("  Check for more information: " + chalk.bold("http://smelt.gnasp.com/changenotes.html")); 
                 }
             });
         } 
