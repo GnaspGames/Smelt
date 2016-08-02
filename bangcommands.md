@@ -39,7 +39,7 @@ will only execute if `!start_loop` has been called in the previous tick.
 
 
 	!loop GameRunning
-		{"type":"chain", "conditional":false}
+		>{"type":"chain", "conditional":false}
 		/scoreboard players tag @a remove HasSpeed
 		/scoreboard players tag @a add HasSpeed {ActiveEffects:[{Id:1b}]}
 		/effect @a[tag=!HasSpeed] minecraft:speed 1 3 true
@@ -54,9 +54,9 @@ When started, the loop will continue until `!stop_loop` is called.
 
 
 	# TURN ON PAINT
-	{"type":"impulse", "auto":false}
+	>{"type":"impulse", "auto":false}
 		!start_loop Paint
-		{"type":"chain", "auto":true}
+		>{"type":"chain", "auto":true}
 			/say TURNED ON PAINT
 
 
@@ -69,9 +69,9 @@ This command is used to stop a loop (defined using `!loop`) in the next tick.
 
 
 	# TURN ON PAINT
-	{"type":"impulse", "auto":false}
+	>{"type":"impulse", "auto":false}
 		!stop_loop Paint
-		{"type":"chain", "auto":true}
+		>{"type":"chain", "auto":true}
 			/say TURNED OFF PAINT
 
 ----
@@ -86,7 +86,7 @@ will only execute if `!start_event` has been called in the previous tick.
 
 	# CYCLE POWERUPS
 	!event CyclePowerups
-		{"type":"chain", "conditional":false}
+		>{"type":"chain", "conditional":false}
 		/scoreboard players set @e[name=SYSTEM] countdown 600
 		/execute @r[tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:1b}
 		/execute @e[tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:0b}
@@ -101,9 +101,9 @@ This command is used to start an event (defined using `!event`) in the next tick
 
 
 	# TURN ON POWERUPS
-	{"type":"impulse", "auto":false}
+	>{"type":"impulse", "auto":false}
 		!start_event CyclePowerups
-		{"type":"chain", "auto":true}
+		>{"type":"chain", "auto":true}
 		!start_loop Powerups
 			/say TURNED ON PAINT
 
