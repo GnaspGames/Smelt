@@ -278,26 +278,44 @@ var FileParser = (function ()
 	};
 	FileParser.prototype.processVariableLine = function(line)
 	{
-    	var parts = line.split('=', 2);
-   	 	var varName = parts[0].trim();
-  		var varValue =this.CheckforVariables(parts[1].trim());
+		// varName; everything up to the first =
+		var varName = line.substr(0,line.indexOf('='));
+		// varValue; averything after the first =
+		var varValue = line.substr(line.indexOf('=')+1);
+		varValue = this.CheckforVariables(varValue);
     
 		if(Settings.Current.Output.ShowDebugInfo)
 		{
-			console.log("\n* VARIABLE ASSIGNED:");
+			console.log(chalk.bold("\n* VARIABLE ASSIGNED!"));
 			console.log("  " + varName + " = " + varValue);
 		}
 		
 		this.CustomVariables[varName] = varValue;
-
-	 
-	 	
 	};
 	FileParser.prototype.CheckforVariables = function(line)
 	{
-		for(var varName in this.CustomVariables)
+		var varNames = Object.keys(this.CustomVariables);
+
+		// We must sort the variable names by longest first, 
+		// so that longer ones are replaced before shorter ones.
+		// E.g. $NameAndTitle should be replaced before $Name
+		// otherwise $NameAndTitle will not work, the $Name-part 
+		// would be replaced, leaving "AndTitle" behind.
+		var sortNamesLongestFirst = function(a, b)
 		{
-			line = line.replace(new RegExp("\\" + varName, 'g'), this.CustomVariables[varName]);
+			if(a.length < b.length)
+				return 1;
+			else if(a.length > b.length)
+				return -1;
+			else
+				return 0; // a must be equal to b
+		}
+		varNames = varNames.sort(sortNamesLongestFirst);
+
+		// Loop through the sorted keys
+		for(var i in varNames)
+		{
+			line = line.replace(new RegExp("\\" + varNames[i], 'g'), this.CustomVariables[varNames[i]]);
 		}
 		return line;
 	};
