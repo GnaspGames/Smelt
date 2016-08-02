@@ -7,6 +7,20 @@
   <link rel="shortcut icon" href="/favicon.ico" />
   <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
 
+  <!-- open graph data -->
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}"/>
+  <meta property="og:title" content="{% if page.title %}{{ page.title }}{% endif %}"/>
+  {% if page.excerpt %} <meta property="og:description" content="{{ page.excerpt | strip_html }}"/> {% endif %}
+  <meta property="og:site_name" content="Smelt (beta)"/>
+  {% if page.image %} <meta property=”og:image" content="{{ site.url }}{{ page.image }}"/> {% endif %}
+  
+  <!-- twitter data -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@GnaspGames">
+  <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% endif %}">
+  <meta name="twitter:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html }}{% endif %}">
+  {% if page.image %} <meta property="twitter:image" content="{{ site.url }}{{ page.image }}"/> {% endif %}
+
   <link rel="stylesheet" href="{{ "/stylesheets/main.css" | prepend: site.baseurl }}">
 
 </head>
