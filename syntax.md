@@ -136,7 +136,7 @@ Output: `[@] Good day Mr Gnasp!`
 ## **/** Minecraft commands
 
 Each of these commands is converted into the game, and the command-blocks executing them will use the properties 
-from the previous JSON tags.
+from any previous JSON properties.
 
 You can use anything on these that can be put into a command block in the game.
 
@@ -189,7 +189,7 @@ space included.
 This will create the following command-blocks:
 
 * A repeating command block, with auto set to true, running the `/testfor @e[name=repeatThing]` command. 
-* Then a conditional repeating command block, with auto also set to true (inherited from last JSON tag), running the `/say repeatThing exists!` command. 
+* Then a conditional repeating command block, with auto also set to true (inherited from the previous JSON properties), running the `/say repeatThing exists!` command. 
 * Then two non-conditional chain command blocks, with auto still set to true as before (still using the previous value, not overwritten in last set of JSON properties), running  the following commands: `/say Hi Gnasp!` and `/say repeatThing finised!`.
 * Then a new row of command blocks is started. 
 * First an impulse command block, with auto set to false, which would run the command `/say TEST` when executed. 

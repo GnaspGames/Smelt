@@ -62,7 +62,7 @@ commands that your plugin generates.
 The first parameter is the `command` string. 
 
 The second parameter is optional, and can take additional `options` for 
-that command simular to the JSON options used in the `.mcc` syntax.
+that command simular to the JSON properties used in the `.mcc` syntax.
 
 
     addCommand("/testfor Gnasp", {type:"repeating",auto:true,conditional:false});
