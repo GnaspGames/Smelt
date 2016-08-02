@@ -17,7 +17,7 @@ var FileParser = (function ()
 		this.Commands = [];
 		this.BangSetups = [];
 		this.PreviousTrigger ="";
-		this.FinalCommand = "";
+		this.PreviousCommand = "";
 		this.Module = null;
 		this.CustomVariables = {};
 	}
@@ -96,12 +96,12 @@ var FileParser = (function ()
 			if(summonFilenameMarker) console.log("   -> " + summonFilenameMarker);
 			else console.log("   -> " + "No file marker summoned");
 		}
-
+		var self = this;
 		var process = function(line, endoffile)
 		{
 			try
 			{
-				this.processLine(line, endoffile);
+				self.processLine(line, endoffile);
 			}
 			catch(err)
 			{
@@ -176,34 +176,35 @@ var FileParser = (function ()
 	{
 		if(line[0] == "#" || line[0] == ">" || line[0] == "/" || line[0] == "!" || line[0] == "$" || endoffile == true) 
 		{
+			// If a new trigger is found, or this is the endoffile, process the previous line
 			switch (this.PreviousTrigger)
 			{
 				case "#":
-					this.processRowLine(this.FinalCommand.trim());
+					this.processRowLine(this.PreviousCommand.trim());
 					break;
 				case ">":
-					this.processJsonLine(this.FinalCommand.trim());
+					this.processJsonLine(this.PreviousCommand.trim());
 					break;
 				case "/":
-					this.processCommandBlockLine(this.FinalCommand.trim());
+					this.processCommandBlockLine(this.PreviousCommand.trim());
 					break;
 				case "!":
-					this.processBangLine(this.FinalCommand.trim());
+					this.processBangLine(this.PreviousCommand.trim());
 					break;
 				case "$":
-					this.processVariableLine(this.FinalCommand.trim());
+					this.processVariableLine(this.PreviousCommand.trim());
 					break;
 			}
 			this.PreviousTrigger = line[0];
 			this.PreviousCommand = "";
 		}
-		if (line[0]+line[1]!="--"){
-			this.FinalCommand += " " + line;
-		}
+
+		this.PreviousCommand += " " + line;
     };
 	
 	FileParser.prototype.processRowLine = function(line)
 	{
+		line=this.CheckforVariables(line);
 		var summon = CommandCreator.startNewLine(line);
 		if(summon) this.Commands.unshift(summon);
 		
@@ -281,9 +282,11 @@ var FileParser = (function ()
    	 	var varName = parts[0].trim();
   		var varValue =this.CheckforVariables(parts[1].trim());
     
-		if(Settings.Current.Output.ShowDebugInfo){
-	 	console.log("\n* VARIABLE ASSIGNED:"); 
-	 	console.log("  " + varName + " = "+ varValue);}
+		if(Settings.Current.Output.ShowDebugInfo)
+		{
+			console.log("\n* VARIABLE ASSIGNED:");
+			console.log("  " + varName + " = " + varValue);
+		}
 		
 		this.CustomVariables[varName] = varValue;
 
@@ -292,9 +295,9 @@ var FileParser = (function ()
 	};
 	FileParser.prototype.CheckforVariables = function(line)
 	{
-			for (var Vars in this.CustomVariables)
-			{
-			line = line.replace(new RegExp("\\"+Vars,'g'), this.CustomVariables[Vars]); 
+		for(var varName in this.CustomVariables)
+		{
+			line = line.replace(new RegExp("\\" + varName, 'g'), this.CustomVariables[varName]);
 		}
 		return line;
 	};
