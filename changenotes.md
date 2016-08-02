@@ -47,6 +47,9 @@ Output:
     [@] Hello Johann
     [@] Goodbye Mr Johann
 
+
+Many thanks to [Johann/Skaran](https://twitter.com/SkaranYT) for is contributions towards these features!
+
 Version 0.7.5
 -------------
 
