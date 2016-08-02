@@ -1,6 +1,6 @@
 ---
 layout: default
-title: README
+title: Home
 weight: 1
 nav: top
 ---
