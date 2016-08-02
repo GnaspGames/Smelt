@@ -8,6 +8,45 @@ nav: top
 Smelt Change Notes
 ==================
 
+Version 0.8.0
+-------------
+
+* Introducing Variables!
+    * Documentation doesn't exist yet. See example below.
+* Multiline commands supported. 
+    * **BREAKING CHANGE**: Backslash (`\`) feature removed.
+    * **BREAKING CHANGE**: Now JSON blocks need a `>` character preceding them. 
+      You MCC code will need to be updated.
+    * JSON, Minecraft commands, and Bang commands can now span multiple lines.
+        * Any new line starting with a trigger character (`#`,`>`,`/`,`!`,`$`) 
+          will finalise the previous line.
+* C-style and C++-style commenting now supported. See example below.
+
+Example:
+
+    // Declare variables - single line comment
+    $Name=Johann
+    $NameAndTitle=Mr $Name
+    $Message=Hello $Name
+
+    #Start
+    >{"type":"impulse",
+      "auto":true}
+    /say $Name
+        >{"type":"chain"}
+        /say $Message
+        /*
+            Example of a multiline comment
+        */ 
+        $Message=Goodbye $NameAndTitle
+        /say $Message // The message has changed!
+
+Output:
+
+    [@] Johann
+    [@] Hello Johann
+    [@] Goodbye Mr Johann
+
 Version 0.7.5
 -------------
 
