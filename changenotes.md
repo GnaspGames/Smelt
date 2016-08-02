@@ -12,7 +12,7 @@ Version 0.8.0
 -------------
 
 * Introducing Variables!
-    * Documentation doesn't exist yet. See example below.
+    * See the [syntax#variables documentation](http://smelt.gnasp.com/syntax.html#variables) for more info.
 * Multiline commands supported. 
     * **BREAKING CHANGE**: Backslash (`\`) feature removed.
     * **BREAKING CHANGE**: Now JSON blocks need a `>` character preceding them. 
