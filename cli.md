@@ -64,6 +64,8 @@ Create/modify user and project level configurations.
     -l, --change-local   Change (or create) the local config file to customise behaviour in this project.
     -g, --change-global  Change (or create) the global config file to customise behaviour for all projects.
 
+**Note:** See the [Configuration docs](configuration.html) for more information.
+
 $ smelt help plugins
 --------------------
 
