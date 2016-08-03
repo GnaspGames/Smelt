@@ -120,12 +120,14 @@ This command is used to destroy and re-create a scoreboard objective in one comm
 
 	!reset_objective lobbyStatus dummy LOBBY STATUS
 	
-	
+---	
+
 Mathematical expressions
 ------------------------
 
 ### The `!math` command
 Usage: `!math <objective>.<selector> <operator> <expression`
+
 This command can be used to create complex mathematical expressions. Normal mathematical operator precendence applies. e.g. `3 + 4 * 5` is `23` but `(3 + 4) * 5` is `35`.
 
 	/scoreboard objectives add money dummy
