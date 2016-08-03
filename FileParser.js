@@ -262,7 +262,11 @@ var FileParser = (function ()
 	
 	FileParser.prototype.processCommandBlockLine = function(line)
 	{
+		// replace TABS
+		line=line.replace(/\t/g,'    ');
+		// replace variables
 		line=this.CheckforVariables(line);
+
 		var summon = CommandCreator.addNewCmdMarker();
 		if(summon) this.Commands.unshift(summon);
 		
