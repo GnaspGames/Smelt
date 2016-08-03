@@ -157,10 +157,35 @@ var FileParser = (function ()
 
 	FileParser.prototype.removeComments = function(content)
 	{
-		// Remove mutliline comments (/* example */)
-		content = content.replace(new RegExp("\\/\\*[^\\*\\/]*\\*\\/", 'g'), "");
-		// Remove singleline comments (// example)
-		content = content.replace(new RegExp("\\/\\/.*$", 'gm'), "");
+		var blockComments = String.raw`\/\*(.|[\r\n])*?\*\/`;
+		var lineComments = String.raw`\/\/(.*?)\r?\n`;
+		var strings = String.raw`"((\\[^\n]|[^"\n])*)"`;
+
+		var expression = new RegExp(blockComments + "|" + lineComments + "|" + strings, 'g');
+
+		content = content.replace(expression, function(match, offset, str)
+		{
+			if(match.startsWith("//"))
+			{
+				// It's a line comment, replace with new line.
+				return "\n"
+			}
+			else if(match.startsWith("/*"))
+			{
+				// It's a block comment, remove it all.
+				return '';
+			}
+			else if(match[0] == `"`)
+			{
+				// It a string; keep it.
+				return match;
+			}
+			else
+			{
+				// It's none of the above. Keep just in case.
+				return match;
+			}
+		});
 
 		if(Settings.Current.Output.ShowDebugInfo)
 		{
