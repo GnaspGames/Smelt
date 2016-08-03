@@ -279,15 +279,15 @@ var FileParser = (function ()
 	FileParser.prototype.processVariableLine = function(line)
 	{
 		// varName; everything up to the first =
-		var varName = line.substr(0,line.indexOf('='));
+		var varName = line.substr(0,line.indexOf('=')).trim();
 		// varValue; averything after the first =
-		var varValue = line.substr(line.indexOf('=')+1);
+		var varValue = line.substr(line.indexOf('=')+1).trim();
 		varValue = this.CheckforVariables(varValue);
     
 		if(Settings.Current.Output.ShowDebugInfo)
 		{
 			console.log(chalk.bold("\n* VARIABLE ASSIGNED!"));
-			console.log("  " + varName + " = " + varValue);
+			console.log("  '" + varName + "' = '" + varValue + "'");
 		}
 		
 		this.CustomVariables[varName] = varValue;
