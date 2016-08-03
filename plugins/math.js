@@ -129,7 +129,8 @@ module.exports = function(smelt)
 	if(valstack.length > 1)
 		throw new Error("Invalid math expression: " + JSON.stringify(formula));
 	
-	placeOp(resultOp[0], result, valstack[0]);
+	valstack[1] = result;
+	op(resultOp[0]);
 	smelt.addCommandBlock("scoreboard objectives add math dummy");
 	
 	statics.forEach(function(val, i)

@@ -157,10 +157,35 @@ var FileParser = (function ()
 
 	FileParser.prototype.removeComments = function(content)
 	{
-		// Remove mutliline comments (/* example */)
-		content = content.replace(new RegExp("\\/\\*[^\\*\\/]*\\*\\/", 'g'), "");
-		// Remove singleline comments (// example)
-		content = content.replace(new RegExp("\\/\\/.*$", 'gm'), "");
+		var blockComments = String.raw`\/\*(.|[\r\n])*?\*\/`;
+		var lineComments = String.raw`\/\/(.*?)\r?\n`;
+		var strings = String.raw`"((\\[^\n]|[^"\n])*)"`;
+
+		var expression = new RegExp(blockComments + "|" + lineComments + "|" + strings, 'g');
+
+		content = content.replace(expression, function(match, offset, str)
+		{
+			if(match.startsWith("//"))
+			{
+				// It's a line comment, replace with new line.
+				return "\n"
+			}
+			else if(match.startsWith("/*"))
+			{
+				// It's a block comment, remove it all.
+				return '';
+			}
+			else if(match[0] == `"`)
+			{
+				// It a string; keep it.
+				return match;
+			}
+			else
+			{
+				// It's none of the above. Keep just in case.
+				return match;
+			}
+		});
 
 		if(Settings.Current.Output.ShowDebugInfo)
 		{
@@ -237,7 +262,11 @@ var FileParser = (function ()
 	
 	FileParser.prototype.processCommandBlockLine = function(line)
 	{
+		// replace TABS
+		line=line.replace(/\t/g,'    ');
+		// replace variables
 		line=this.CheckforVariables(line);
+
 		var summon = CommandCreator.addNewCmdMarker();
 		if(summon) this.Commands.unshift(summon);
 		
@@ -279,15 +308,15 @@ var FileParser = (function ()
 	FileParser.prototype.processVariableLine = function(line)
 	{
 		// varName; everything up to the first =
-		var varName = line.substr(0,line.indexOf('='));
+		var varName = line.substr(0,line.indexOf('=')).trim();
 		// varValue; averything after the first =
-		var varValue = line.substr(line.indexOf('=')+1);
+		var varValue = line.substr(line.indexOf('=')+1).trim();
 		varValue = this.CheckforVariables(varValue);
     
 		if(Settings.Current.Output.ShowDebugInfo)
 		{
 			console.log(chalk.bold("\n* VARIABLE ASSIGNED!"));
-			console.log("  " + varName + " = " + varValue);
+			console.log("  '" + varName + "' = '" + varValue + "'");
 		}
 		
 		this.CustomVariables[varName] = varValue;
