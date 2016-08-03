@@ -1,6 +1,6 @@
 {
   "name": "one_command",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "preferGlobal": true,
   "description": "No longer maintained: please use www.npmjs.com/package/smelt-cli",
   "bin": {
