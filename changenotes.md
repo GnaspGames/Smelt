@@ -8,6 +8,11 @@ nav: top
 Smelt Change Notes
 ==================
 
+Version 0.8.3
+-------------
+
+* Fixed: [Issue #41](https://github.com/GnaspGames/Smelt/issues/41) - Parsing Indentations with “Tab” working incorrectly
+
 Version 0.8.2
 -------------
 
