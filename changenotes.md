@@ -8,6 +8,18 @@ nav: top
 Smelt Change Notes
 ==================
 
+
+Version 0.9.0
+-------------
+
+* **BREAKING CHANGE:** Variables are used differently now:
+    * To use a variable, it must be referenced like this: `/say Hello ${name}`
+    * Defining the variable is still the same: `$name = Gnasp`
+* Added two new possible `type` values that can used in JSON properties:
+    * `repeating-chain` will cause the next command block to be a repeating one, and then after that chain command blocks.
+    * `impulse-chain` likewise means one impulse command block, then chain command blocks.
+    * *Note:* this feature will not work when passing an options object in plugins.
+
 Version 0.8.3
 -------------
 
