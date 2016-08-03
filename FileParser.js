@@ -12,7 +12,7 @@ var readlineSync = require('readline-sync');
 
 var FileParser = (function () 
 {
-    function FileParser() 
+	function FileParser() 
 	{
 		this.Commands = [];
 		this.BangSetups = [];
@@ -22,7 +22,7 @@ var FileParser = (function ()
 		this.CustomVariables = {};
 	}
 
-    FileParser.prototype.ProcessFile = function (filePath)
+	FileParser.prototype.ProcessFile = function (filePath)
 	{
 		var data = fs.readFileSync(filePath).toString().trim();
 		
@@ -43,7 +43,7 @@ var FileParser = (function ()
 
 		console.log(chalk.yellow(util.format("\nProcessing of %s is complete.", this.Module.SourceName)));
 		this.OutputCompiledModule(this.Module, true);
-    };
+	};
 
 	FileParser.prototype.OutputCompiledModule = function(commandModule, isLast)
 	{
