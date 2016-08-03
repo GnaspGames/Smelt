@@ -118,18 +118,18 @@ Variables can be declared, one per line, like so:
 
     $name=Gnasp
 
-Then any instance of that variable after other triggers will be replaced with the value assigned.
+Then variables can use *used* in other areas, using the `${VARIABLE_NAME}` syntax. For example:
 
-    /say Hello $name! Good to see you.
+    /say Hello ${name}! Good to see you.
 
 Output: `[@] Hello Gnasp! Good to see you.`
 
 You can even add variables values to other definitions:
 
     $name=Gnasp
-    $nameAndTitle=Mr $name
+    $nameAndTitle=Mr ${name}
     
-    /say Good day $nameAndTitle!
+    /say Good day ${nameAndTitle}!
 
 Output: `[@] Good day Mr Gnasp!`
 
