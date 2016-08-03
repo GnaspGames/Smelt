@@ -8,6 +8,13 @@ nav: top
 Smelt Change Notes
 ==================
 
+Version 0.8.1
+-------------
+
+* Fix: [Issue #45](https://github.com/GnaspGames/Smelt/issues/45) - Lines containing a URL ignored due to //
+    * Comment removing has been improved now.
+* Fix: [Issue #46](https://github.com/GnaspGames/Smelt/issues/46) - Variables should be trimmed
+
 Version 0.8.0
 -------------
 
