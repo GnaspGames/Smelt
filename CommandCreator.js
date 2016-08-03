@@ -70,6 +70,14 @@ var CommandCreator =
 		var blockName = "";
 		switch(type)
 		{
+			case "impulse-chain":
+				blockName = CommandCreator.IMPULSE_BLOCK_NAME;
+				CommandCreator.type = "chain";
+				break;
+			case "repeating-chain":
+				blockName = CommandCreator.REPEATING_BLOCK_NAME;
+				CommandCreator.type = "chain";
+				break;
 			case "impulse":
 				blockName = CommandCreator.IMPULSE_BLOCK_NAME;
 				break;

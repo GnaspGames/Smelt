@@ -4,6 +4,7 @@ var path = require('path');
 var chalk = require('chalk');
 var ncp = require("copy-paste");
 var CommandCreator = require("./CommandCreator");
+var CommandModule = require("./CommandModule");
 var BangCommandHelper = require("./BangCommandHelper");
 var Program = require("./Program");
 var Settings = require("./Settings");
@@ -325,28 +326,30 @@ var FileParser = (function ()
 	};
 	FileParser.prototype.CheckforVariables = function(line)
 	{
-		var varNames = Object.keys(this.CustomVariables);
+		// var varNames = Object.keys(this.CustomVariables);
 
-		// We must sort the variable names by longest first, 
-		// so that longer ones are replaced before shorter ones.
-		// E.g. $NameAndTitle should be replaced before $Name
-		// otherwise $NameAndTitle will not work, the $Name-part 
-		// would be replaced, leaving "AndTitle" behind.
-		var sortNamesLongestFirst = function(a, b)
-		{
-			if(a.length < b.length)
-				return 1;
-			else if(a.length > b.length)
-				return -1;
-			else
-				return 0; // a must be equal to b
-		}
-		varNames = varNames.sort(sortNamesLongestFirst);
+		// // We must sort the variable names by longest first, 
+		// // so that longer ones are replaced before shorter ones.
+		// // E.g. $NameAndTitle should be replaced before $Name
+		// // otherwise $NameAndTitle will not work, the $Name-part 
+		// // would be replaced, leaving "AndTitle" behind.
+		// var sortNamesLongestFirst = function(a, b)
+		// {
+		// 	if(a.length < b.length)
+		// 		return 1;
+		// 	else if(a.length > b.length)
+		// 		return -1;
+		// 	else
+		// 		return 0; // a must be equal to b
+		// }
+		// varNames = varNames.sort(sortNamesLongestFirst);
 
 		// Loop through the sorted keys
-		for(var i in varNames)
+		for(var varName in this.CustomVariables)
 		{
-			line = line.replace(new RegExp("\\" + varNames[i], 'g'), this.CustomVariables[varNames[i]]);
+			var varNameUsed = "\\${" + varName.substr(1) + "}";
+			// var varNameDefined = varNames[i];
+			line = line.replace(new RegExp(varNameUsed, 'g'), this.CustomVariables[varName]);
 		}
 		return line;
 	};
