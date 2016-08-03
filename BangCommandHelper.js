@@ -40,8 +40,15 @@ var BangCommandHelper =
 			var setupData = self.readPluginFile(name, fileName).toString().trim();
 			fileParser.AddBangSetup({bangName:name, fileName: fileName, setupData: setupData});
 		};
+
+		var smeltObj = 
+		{
+			args: args.slice(1),
+			addCommandBlock: commandCallback,
+			addSupportModule: setupCallback,
+		};
 		
-		plugin(args.slice(1), commandCallback, setupCallback);
+		plugin(smeltObj);
 		
 		return commands;
 	},

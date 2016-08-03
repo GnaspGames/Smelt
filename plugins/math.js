@@ -26,11 +26,11 @@ var compileTimeOps = {
 	"%": function(a, b) { return a % b; },
 }
 
-module.exports = function(args, command)
+module.exports = function(smelt)
 {
-	var result = args[0];
-	var resultOp = args[1];
-	var formula = args.slice(2).join(" ");
+	var result = smelt.args[0];
+	var resultOp = smelt.args[1];
+	var formula = smelt.args.slice(2).join(" ");
 	
 	if(result.indexOf(".") < 1 || !/^[\+\-\*\/%]?=$/.test(resultOp))
 		throw new Error("Usage: !math <objective>.<selector> <operator> <expression>\n\te.g. !math money.@r += lottery.pot / 2 + 42");
@@ -130,13 +130,13 @@ module.exports = function(args, command)
 		throw new Error("Invalid math expression: " + JSON.stringify(formula));
 	
 	placeOp(resultOp[0], result, valstack[0]);
-	command("scoreboard objectives add math dummy");
+	smelt.addCommandBlock("scoreboard objectives add math dummy");
 	
 	statics.forEach(function(val, i)
 	{
 		if(statics.indexOf(val) != i)
 			return;
-		command([
+		smelt.addCommandBlock([
 			"scoreboard players set",
 			"const" + statics[i],
 			"math",
@@ -146,7 +146,7 @@ module.exports = function(args, command)
 	
 	cmds.forEach(function(cmd)
 	{
-		command(cmd);
+		smelt.addCommandBlock(cmd);
 	});
 	
 	function op(operator)

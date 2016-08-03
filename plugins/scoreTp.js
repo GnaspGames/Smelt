@@ -1,10 +1,10 @@
 var util = require("util");
 
-module.exports = function(args, command)
+module.exports = function(smelt)
 {
-	var entityTag = args[0];
-	var objective = args[1];
-	var axis = args[2];
+	var entityTag = smelt.args[0];
+	var objective = smelt.args[1];
+	var axis = smelt.args[2];
 	var max = parseInt(args[3]) || 32;
 		
 	var axisFormat = "~%d ~ ~";
@@ -18,7 +18,7 @@ module.exports = function(args, command)
 	{
 		i = Math.ceil(i);
 		
-		command(util.format("tp @e[tag=%s,score_%s_min=%d] " + axisFormat, entityTag, objective, i, i));
-		command(util.format("scoreboard players remove @e[tag=%s,score_%s_min=%d] %s %d", entityTag, objective, i, objective, i));
+		smelt.addCommandBlock(util.format("tp @e[tag=%s,score_%s_min=%d] " + axisFormat, entityTag, objective, i, i));
+		smelt.addCommandBlock(util.format("scoreboard players remove @e[tag=%s,score_%s_min=%d] %s %d", entityTag, objective, i, objective, i));
 	}
 };

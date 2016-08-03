@@ -1,9 +1,9 @@
 var util = require("util");
 
-module.exports = function(args, addCommand, addSetup)
+module.exports = function(smelt)
 {			
-	var message = args.join(" ");
+	var message = smelt.args.join(" ");
 	var command = "/tellraw @a [{\"text\":\"%s\",\"color\":\"red\"}]";
-	addCommand(util.format(command, message));
-	addSetup("sayred-setup.mcc");
+	smelt.addCommandBlock(util.format(command, message));
+	smelt.addSupportModule("sayred-setup.mcc");
 }
