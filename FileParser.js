@@ -12,7 +12,7 @@ var readlineSync = require('readline-sync');
 
 var FileParser = (function () 
 {
-    function FileParser() 
+	function FileParser() 
 	{
 		this.Commands = [];
 		this.BangSetups = [];
@@ -22,7 +22,7 @@ var FileParser = (function ()
 		this.CustomVariables = {};
 	}
 
-    FileParser.prototype.ProcessFile = function (filePath)
+	FileParser.prototype.ProcessFile = function (filePath)
 	{
 		var data = fs.readFileSync(filePath).toString().trim();
 		
@@ -43,7 +43,7 @@ var FileParser = (function ()
 
 		console.log(chalk.yellow(util.format("\nProcessing of %s is complete.", this.Module.SourceName)));
 		this.OutputCompiledModule(this.Module, true);
-    };
+	};
 
 	FileParser.prototype.OutputCompiledModule = function(commandModule, isLast)
 	{
@@ -157,10 +157,35 @@ var FileParser = (function ()
 
 	FileParser.prototype.removeComments = function(content)
 	{
-		// Remove mutliline comments (/* example */)
-		content = content.replace(new RegExp("\\/\\*[^\\*\\/]*\\*\\/", 'g'), "");
-		// Remove singleline comments (// example)
-		content = content.replace(new RegExp("\\/\\/.*$", 'gm'), "");
+		var blockComments = String.raw`\/\*(.|[\r\n])*?\*\/`;
+		var lineComments = String.raw`\/\/(.*?)\r?\n`;
+		var strings = String.raw`"((\\[^\n]|[^"\n])*)"`;
+
+		var expression = new RegExp(blockComments + "|" + lineComments + "|" + strings, 'g');
+
+		content = content.replace(expression, function(match, offset, str)
+		{
+			if(match.startsWith("//"))
+			{
+				// It's a line comment, replace with new line.
+				return "\n"
+			}
+			else if(match.startsWith("/*"))
+			{
+				// It's a block comment, remove it all.
+				return '';
+			}
+			else if(match[0] == `"`)
+			{
+				// It a string; keep it.
+				return match;
+			}
+			else
+			{
+				// It's none of the above. Keep just in case.
+				return match;
+			}
+		});
 
 		if(Settings.Current.Output.ShowDebugInfo)
 		{
@@ -237,7 +262,13 @@ var FileParser = (function ()
 	
 	FileParser.prototype.processCommandBlockLine = function(line)
 	{
+		// Replace TABS
+		line=line.replace(/\t/g,'    ');
+		// Remove starting /
+		line=line.substr(1);
+		// Replace variables
 		line=this.CheckforVariables(line);
+
 		var summon = CommandCreator.addNewCmdMarker();
 		if(summon) this.Commands.unshift(summon);
 		
@@ -278,26 +309,44 @@ var FileParser = (function ()
 	};
 	FileParser.prototype.processVariableLine = function(line)
 	{
-    	var parts = line.split('=', 2);
-   	 	var varName = parts[0].trim();
-  		var varValue =this.CheckforVariables(parts[1].trim());
+		// varName; everything up to the first =
+		var varName = line.substr(0,line.indexOf('=')).trim();
+		// varValue; averything after the first =
+		var varValue = line.substr(line.indexOf('=')+1).trim();
+		varValue = this.CheckforVariables(varValue);
     
 		if(Settings.Current.Output.ShowDebugInfo)
 		{
-			console.log("\n* VARIABLE ASSIGNED:");
-			console.log("  " + varName + " = " + varValue);
+			console.log(chalk.bold("\n* VARIABLE ASSIGNED!"));
+			console.log("  '" + varName + "' = '" + varValue + "'");
 		}
 		
 		this.CustomVariables[varName] = varValue;
-
-	 
-	 	
 	};
 	FileParser.prototype.CheckforVariables = function(line)
 	{
-		for(var varName in this.CustomVariables)
+		var varNames = Object.keys(this.CustomVariables);
+
+		// We must sort the variable names by longest first, 
+		// so that longer ones are replaced before shorter ones.
+		// E.g. $NameAndTitle should be replaced before $Name
+		// otherwise $NameAndTitle will not work, the $Name-part 
+		// would be replaced, leaving "AndTitle" behind.
+		var sortNamesLongestFirst = function(a, b)
 		{
-			line = line.replace(new RegExp("\\" + varName, 'g'), this.CustomVariables[varName]);
+			if(a.length < b.length)
+				return 1;
+			else if(a.length > b.length)
+				return -1;
+			else
+				return 0; // a must be equal to b
+		}
+		varNames = varNames.sort(sortNamesLongestFirst);
+
+		// Loop through the sorted keys
+		for(var i in varNames)
+		{
+			line = line.replace(new RegExp("\\" + varNames[i], 'g'), this.CustomVariables[varNames[i]]);
 		}
 		return line;
 	};
