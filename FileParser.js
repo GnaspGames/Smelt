@@ -326,25 +326,7 @@ var FileParser = (function ()
 	};
 	FileParser.prototype.CheckforVariables = function(line)
 	{
-		// var varNames = Object.keys(this.CustomVariables);
-
-		// // We must sort the variable names by longest first, 
-		// // so that longer ones are replaced before shorter ones.
-		// // E.g. $NameAndTitle should be replaced before $Name
-		// // otherwise $NameAndTitle will not work, the $Name-part 
-		// // would be replaced, leaving "AndTitle" behind.
-		// var sortNamesLongestFirst = function(a, b)
-		// {
-		// 	if(a.length < b.length)
-		// 		return 1;
-		// 	else if(a.length > b.length)
-		// 		return -1;
-		// 	else
-		// 		return 0; // a must be equal to b
-		// }
-		// varNames = varNames.sort(sortNamesLongestFirst);
-
-		// Loop through the sorted keys
+		// Loop through the keys
 		for(var varName in this.CustomVariables)
 		{
 			var varNameUsed = "\\${" + varName.substr(1) + "}";
