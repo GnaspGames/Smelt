@@ -8,6 +8,10 @@ nav: top
 Smelt Change Notes
 ==================
 
+Version 0.9.1
+-------------
+
+* Fix issue with "bang-commands-setup.mcc" not using latest syntax changes.
 
 Version 0.9.0
 -------------
