@@ -26,7 +26,9 @@ var compileTimeOps = {
 	"%": function(a, b) { return a % b; },
 }
 
-module.exports = function(smelt)
+var Math = {};
+
+Math.Execute = function(smelt)
 {
 	var result = smelt.args[0];
 	var resultOp = smelt.args[1];
@@ -231,3 +233,5 @@ module.exports = function(smelt)
 		].join(" "));
 	}
 }
+
+module.exports = Math;
