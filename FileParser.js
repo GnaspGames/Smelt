@@ -230,7 +230,7 @@ var FileParser = (function ()
 	
 	FileParser.prototype.processRowLine = function(line)
 	{
-		line=this.CheckforVariables(line);
+		line=this.checkForVariables(line);
 		var summon = CommandCreator.startNewLine(line);
 		if(summon) this.Commands.unshift(summon);
 		
@@ -245,7 +245,7 @@ var FileParser = (function ()
 	
 	FileParser.prototype.processJsonLine = function(line)
 	{
-		line=this.CheckforVariables(line);
+		line=this.checkForVariables(line);
 		var json = JSON.parse(line.replace(">",""));
 		CommandCreator.processJSONLine(json);
 		
@@ -268,7 +268,7 @@ var FileParser = (function ()
 		// Remove starting /
 		line=line.substr(1);
 		// Replace variables
-		line=this.CheckforVariables(line);
+		line=this.checkForVariables(line);
 
 		var summon = CommandCreator.addNewCmdMarker();
 		if(summon) this.Commands.unshift(summon);
@@ -287,7 +287,7 @@ var FileParser = (function ()
 	
 	FileParser.prototype.processBangLine = function(line)
 	{
-		line=this.CheckforVariables(line);
+		line=this.checkForVariables(line);
 		if(Settings.Current.Output.ShowDebugInfo)
 		{
 			console.log(chalk.bold("\n* PROCESS BANG COMMAND"));
@@ -315,7 +315,7 @@ var FileParser = (function ()
 		var varName = line.substr(0,line.indexOf('=')).trim();
 		// varValue; averything after the first =
 		var varValue = line.substr(line.indexOf('=')+1).trim();
-		varValue = this.CheckforVariables(varValue);
+		varValue = this.checkForVariables(varValue);
     
 		if(Settings.Current.Output.ShowDebugInfo)
 		{
@@ -323,15 +323,15 @@ var FileParser = (function ()
 			console.log("  '" + varName + "' = '" + varValue + "'");
 		}
 		
-		this.addVariable(varName, varValue);
+		this.setVariable(varName, varValue);
 	};
 
-	FileParser.prototype.addVariable = function(varName, varValue)
+	FileParser.prototype.setVariable = function(varName, varValue)
 	{
 		this.CustomVariables[varName] = varValue;
 	};
 
-	FileParser.prototype.CheckforVariables = function(line)
+	FileParser.prototype.checkForVariables = function(line)
 	{
 		// Loop through the keys
 		for(var varName in this.CustomVariables)
@@ -342,6 +342,12 @@ var FileParser = (function ()
 		}
 		return line;
 	};
+
+	FileParser.prototype.getVariable = function(varName)
+	{
+		return this.CustomVariables[varName];
+	}
+
 	FileParser.prototype.AddBangSetup = function(bangSetup)
 	{
 		var exists = false;

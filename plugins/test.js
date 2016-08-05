@@ -15,8 +15,25 @@ Test.Execute = function(smelt)
 	var input = smelt.args.join(" ");
 	smelt.addCommandBlock("say Hello World", { type:"impulse", auto:true, conditional:false });
 	smelt.addCommandBlock("say " + input, { type:"chain", auto:true, conditional:false });
-	
-	smelt.addVariable("$TestVariable", input);
+
+	var testInputVar = smelt.getVariable("$testInputVar");
+	if(testInputVar)
+	{
+		if(smelt.settings.Output.ShowDebugInfo)
+		{
+			console.log("FOUND testInputVar!");
+		}
+		smelt.addCommandBlock("say testInputVar = " + testInputVar);
+	}
+	else
+	{
+		if(smelt.settings.Output.ShowDebugInfo)
+		{
+			console.log("DIDN'T FIND testInputVar! Value:" + testInputVar);
+		}
+	}
+
+	smelt.setVariable("$testOutputVar", input);
 };
 
 /*

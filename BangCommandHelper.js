@@ -41,17 +41,24 @@ var BangCommandHelper =
 			fileParser.AddBangSetup({bangName:name, fileName: fileName, setupData: setupData});
 		};
 
-		var callback_addVariable = function(varName, varValue)
+		var callback_setVariable = function(varName, varValue)
 		{
-			fileParser.addVariable(varName, varValue);
+			fileParser.setVariable(varName, varValue);
+		}
+
+		var callback_getVariable = function(varName)
+		{
+			return fileParser.getVariable(varName);
 		}
 
 		var smeltObj = 
 		{
+			settings : Settings.Current,
 			args: args.slice(1),
 			addCommandBlock: callback_addCommandBlock,
 			addSupportModule: callback_addSupportModule,
-			addVariable: callback_addVariable
+			setVariable: callback_setVariable,
+			getVariable: callback_getVariable
 		};
 		
 		if(plugin.Install) plugin.Install(smeltObj);
@@ -63,7 +70,7 @@ var BangCommandHelper =
 		else
 		{
 			// For backwards compatibility:
-			plugin(smelt.args, smelt.addCommandBlock, smelt.addSupportModule)
+			plugin(smeltObj.args, smeltObj.addCommandBlock, smeltObj.addSupportModule);
 		}
 		
 		return commands;
