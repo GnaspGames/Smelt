@@ -16,6 +16,6 @@ StartLoop.Execute = function(smelt)
 	{
 		smelt.addCommandBlock("/scoreboard players tag @e[type=ArmorStand,name=OC-SYSTEM] add loop_" + name);
 	}
-}
+};
 
 module.exports = StartLoop;

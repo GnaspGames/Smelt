@@ -8,7 +8,7 @@ var Test = {};
 Test.Install = function(smelt)
 {
 	smelt.addSupportModule("bang-commands-setup.mcc");
-}
+};
 
 Test.Execute = function(smelt)
 {
@@ -17,7 +17,7 @@ Test.Execute = function(smelt)
 	smelt.addCommandBlock("say " + input, { type:"chain", auto:true, conditional:false });
 	
 	smelt.addVariable("$TestVariable", input);
-}
+};
 
 /*
 

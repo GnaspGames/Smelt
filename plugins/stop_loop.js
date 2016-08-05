@@ -16,6 +16,6 @@ StopLoop.Execute = function(smelt)
 	{
 		smelt.addCommandBlock("/scoreboard players tag @e[type=ArmorStand,name=OC-SYSTEM] remove loop_" + name);
 	}
-}
+};
 
 module.exports = StopLoop;

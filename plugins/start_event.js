@@ -16,6 +16,6 @@ StartEvent.Execute = function(smelt)
 	{
 		smelt.addCommandBlock("/scoreboard players tag @e[type=ArmorStand,name=OC-SYSTEM] add event_" + name);
 	}
-}
+};
 
 module.exports = StartEvent;

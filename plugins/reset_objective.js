@@ -8,7 +8,7 @@ var ResetObjective = {}
 ResetObjective.Install = function(smelt)
 {
 	// Nothing to install
-}
+};
 
 ResetObjective.Execute = function(smelt)
 {
@@ -22,6 +22,6 @@ ResetObjective.Execute = function(smelt)
 		smelt.addCommandBlock("/scoreboard objectives remove " + name);
 		smelt.addCommandBlock("/scoreboard objectives add " + name + " " + criteria + " " + displayName);
 	}
-}
+};
 
 module.exports = ResetObjective;
