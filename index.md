@@ -32,7 +32,7 @@ The main command is `smelt compile`, used to compile your MCC files into Minecra
 
 Try to demo to see how it works:
 
-* Install Smelt first.
+* Install Smelt first (see above).
 * [Download and unzip](https://github.com/GnaspGames/Smelt-Demo/archive/master.zip) or [`git clone`](https://github.com/GnaspGames/Smelt-Demo) the Smelt-Demo project.
 * Using a command line terminal, navigate to the directory you saved/cloned Smelt-Demo into.
 * Run `smelt compile demo.mcc` and then see the `demo.oc` file that is created.
