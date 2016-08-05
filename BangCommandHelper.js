@@ -17,7 +17,7 @@ var BangCommandHelper =
 		var plugin = this.loadPlugin(name);
 		var self = this;
 		
-		var commandCallback = function(cmd, jsonOptions)
+		var callback_addCommandBlock = function(cmd, jsonOptions)
 		{
 			var _type = CommandCreator.type;
 			var _conditional = CommandCreator.conditional;
@@ -35,20 +35,36 @@ var BangCommandHelper =
 			CommandCreator.executeAs = _executeAs;
 		};
 		
-		var setupCallback = function(fileName)
+		var callback_addSupportModule = function(fileName)
 		{
 			var setupData = self.readPluginFile(name, fileName).toString().trim();
 			fileParser.AddBangSetup({bangName:name, fileName: fileName, setupData: setupData});
 		};
 
+		var callback_addVariable = function(varName, varValue)
+		{
+			fileParser.addVariable(varName, varValue);
+		}
+
 		var smeltObj = 
 		{
 			args: args.slice(1),
-			addCommandBlock: commandCallback,
-			addSupportModule: setupCallback,
+			addCommandBlock: callback_addCommandBlock,
+			addSupportModule: callback_addSupportModule,
+			addVariable: callback_addVariable
 		};
 		
-		plugin(smeltObj);
+		if(plugin.Install) plugin.Install(smeltObj);
+		
+		if(plugin.Execute)
+		{
+			plugin.Execute(smeltObj);
+		}
+		else
+		{
+			// For backwards compatibility:
+			plugin(smelt.args, smelt.addCommandBlock, smelt.addSupportModule)
+		}
 		
 		return commands;
 	},

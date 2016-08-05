@@ -3,8 +3,14 @@
 // -----------------------------
 // Usage: !reset_objective <objective> <criteria>
 
+var ResetObjective = {}
 
-module.exports = function(smelt)
+ResetObjective.Install = function(smelt)
+{
+	// Nothing to install
+}
+
+ResetObjective.Execute = function(smelt)
 {
 	var name = smelt.args[0];
 	var criteria = smelt.args[1];
@@ -17,3 +23,5 @@ module.exports = function(smelt)
 		smelt.addCommandBlock("/scoreboard objectives add " + name + " " + criteria + " " + displayName);
 	}
 }
+
+module.exports = ResetObjective;

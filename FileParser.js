@@ -308,6 +308,7 @@ var FileParser = (function ()
 			});
 		}
 	};
+
 	FileParser.prototype.processVariableLine = function(line)
 	{
 		// varName; everything up to the first =
@@ -322,8 +323,14 @@ var FileParser = (function ()
 			console.log("  '" + varName + "' = '" + varValue + "'");
 		}
 		
+		this.addVariable(varName, varValue);
+	};
+
+	FileParser.prototype.addVariable = function(varName, varValue)
+	{
 		this.CustomVariables[varName] = varValue;
 	};
+
 	FileParser.prototype.CheckforVariables = function(line)
 	{
 		// Loop through the keys
