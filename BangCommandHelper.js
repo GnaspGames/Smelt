@@ -38,6 +38,11 @@ var BangCommandHelper =
 			CommandCreator.executeAs = _executeAs;
 		};
 		
+		var callback_addInitCommand = function(cmd)
+		{
+			commands.push(cmd);
+		};
+		
 		var callback_addSupportModule = function(fileName)
 		{
 			var setupData = self.readPluginFile(name, fileName).toString().trim();
@@ -59,6 +64,7 @@ var BangCommandHelper =
 			settings : Settings.Current,
 			args: args.slice(1),
 			addCommandBlock: callback_addCommandBlock,
+			addInitCommand: callback_addInitCommand,
 			addSupportModule: callback_addSupportModule,
 			setVariable: callback_setVariable,
 			getVariable: callback_getVariable
