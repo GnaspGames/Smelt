@@ -336,8 +336,9 @@ var FileParser = (function ()
 		// Loop through the keys
 		for(var varName in this.CustomVariables)
 		{
-			var varNameUsed = "\\${" + varName.substr(1) + "}";
-			// var varNameDefined = varNames[i];
+			var name = varName.substr(1);
+			var varNameUsed = "(\\${" + name + "})|(\\$" + name + "\\b)";
+
 			line = line.replace(new RegExp(varNameUsed, 'g'), this.CustomVariables[varName]);
 		}
 		return line;
