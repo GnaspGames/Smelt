@@ -1,5 +1,6 @@
 *.oc
 workspace.xml
-create-html-files.sh
+build.sh
+release.sh
 HTML
 demo
