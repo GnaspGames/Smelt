@@ -29,10 +29,18 @@ var BangCommandHelper =
 			var command = CommandCreator.addSetblockCommand(cmd);
 			commands.push(command);
 			
+			if(_type == "impulse-chain" || _type == "repeating-chain")
+				_type = "chain";
+			
 			CommandCreator.type = _type;
 			CommandCreator.conditional = _conditional;
 			CommandCreator.auto = _auto;
 			CommandCreator.executeAs = _executeAs;
+		};
+		
+		var callback_addInitCommand = function(cmd)
+		{
+			commands.push(cmd);
 		};
 		
 		var callback_addSupportModule = function(fileName)
@@ -56,6 +64,7 @@ var BangCommandHelper =
 			settings : Settings.Current,
 			args: args.slice(1),
 			addCommandBlock: callback_addCommandBlock,
+			addInitCommand: callback_addInitCommand,
 			addSupportModule: callback_addSupportModule,
 			setVariable: callback_setVariable,
 			getVariable: callback_getVariable

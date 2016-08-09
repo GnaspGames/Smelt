@@ -27,6 +27,7 @@ var compileTimeOps = {
 }
 
 var Math = {};
+var statics;
 
 Math.Execute = function(smelt)
 {
@@ -115,7 +116,7 @@ Math.Execute = function(smelt)
 		postfix.push(opstack[i]);
 		
 	var cmds = [];
-	var statics = [];
+	var currStatics = [];
 	var valstack = [];
 	var nextMutable = 0;
 	
@@ -133,17 +134,24 @@ Math.Execute = function(smelt)
 	
 	valstack[1] = result;
 	op(resultOp[0]);
-	smelt.addCommandBlock("scoreboard objectives add math dummy");
 	
-	statics.forEach(function(val, i)
+	if(!statics)
 	{
-		if(statics.indexOf(val) != i)
+		statics = [];
+		smelt.addInitCommand("scoreboard objectives add math dummy");
+	}
+	
+	currStatics.forEach(function(val, i)
+	{
+		if(statics.indexOf(val) != -1 || currStatics.indexOf(val) != i)
 			return;
-		smelt.addCommandBlock([
+		statics.push(val);
+			
+		smelt.addInitCommand([
 			"scoreboard players set",
-			"const" + statics[i],
+			"const" + val,
 			"math",
-			statics[i]
+			val
 		].join(" "));
 	});
 	
@@ -212,7 +220,7 @@ Math.Execute = function(smelt)
 	}
 	function toScore(val)
 	{
-		statics.push(val);
+		currStatics.push(val);
 		return {
 			objective: "math",
 			name: "const" + val,
