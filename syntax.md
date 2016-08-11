@@ -118,7 +118,7 @@ Variables can be declared, one per line, like so:
 
     $name=Gnasp
 
-Then variables can use *used* in other areas, using the `${VARIABLE_NAME}` syntax. For example:
+Then variables can use *used* in other commands with either the `$VARIABLE_NAME` or `${VARIABLE_NAME}` syntax.
 
     /say Hello ${name}! Good to see you.
 
@@ -127,11 +127,14 @@ Output: `[@] Hello Gnasp! Good to see you.`
 You can even add variables values to other definitions:
 
     $name=Gnasp
-    $nameAndTitle=Mr ${name}
+    $nameAndTitle=Mr $name
     
     /say Good day ${nameAndTitle}!
 
 Output: `[@] Good day Mr Gnasp!`
+
+> **Note:** The syntax without brackets can only be used with the variable is **not** being used as part of a word. 
+   For example: `/say $nameIsCool` will not work for the `$name` variable, using `/say ${name}IsCool` will work.
 
 ## **/** Minecraft commands
 

@@ -39,24 +39,53 @@ A basic plugin called `!sayred` would be written in a file called `sayred.js`. T
 
     var util = require("util");
 
-    var sayred = function(args, addCommand, addSetup)
-    {			
-        var message = args.join(" ");
+    var SayRed = {}
+
+    SayRed.Install = function(smelt)
+    {
+        smelt.addSupportModule("sayred-setup.mcc");
+    }
+
+    SayRed.Execute = function(smelt)
+    {
+        var message = smelt.args.join(" ");
         
         var command = "/tellraw @a [{\"text\":\"%s\",\"color\":\"red\"}]";
         
-        addCommand(util.format(command, message));
-
-        addSetup("sayred-setup.mcc");
+        smelt.addCommandBlock(util.format(command, message));
     }
 
-    module.exports = sayred;
+    module.exports = SayRed;
 
-Notice that the plugin calls two callback methods, `addCommand` and `addSetup`.
+Notice that the plugin receives a `smelt` object, receives command arguments via `smelt.args`, 
+and uses two callback functions, `smelt.addCommandBlock()` and `smelt.addSupportModule()`.
 
-### addCommand(command, options)
+Here are the properties and functions available via the `smelt` object.
 
-The `addCommand` method can be used many times to create the Minecraft 
+### smelt.args
+
+This property is used to access the 'arguments' sent to the plugin bang command. For example:
+
+    !start_event StartGame 20
+
+In this above example, `smelt.args[0]` would equal "StartGame", `smelt.args[1]` would equal "20".
+
+> Note; this is just an example, the built in `!start_event` bang command only uses 1 argument.
+
+### smelt.settings
+
+This property gives plugins a window into the current Smelt configuration settings. This allows plugins to use
+those settings to change behavious. For example; to know if the user wants additional debug information a plugins can 
+do the following:
+
+    if(smelt.settings.Output.ShowDebugInfo)
+    {
+        console.log("Additional Debug Info Goes Here");
+    }
+
+### smelt.addCommandBlock(command, options)
+
+The `addCommandBlock` function can be used many times to create the Minecraft 
 commands that your plugin generates. 
 
 The first parameter is the `command` string. 
@@ -65,16 +94,35 @@ The second parameter is optional, and can take additional `options` for
 that command simular to the JSON properties used in the `.mcc` syntax.
 
 
-    addCommand("/testfor Gnasp", {type:"repeating",auto:true,conditional:false});
+    smelt.addCommandBlock("/testfor Gnasp", {type:"repeating",auto:true,conditional:false});
 
 
-### addSetup(filename)
+### smelt.addSupportModule(filename)
 
-The `addSetup` method is used to also tell *Smelt* that for this plugin to work, 
+The `addSupportModule` function is used to also tell *Smelt* that for this plugin to work, 
 another command module needs to be installed into the map. 
 
 The file referenced has to be included alongside your JavaScript file.
 
+    smelt.addSupportModule("sayred-setup.mcc");
 
-    addSetup("sayred-setup.mcc");
+### smelt.addInitCommand(command)
+
+This can be used to add a Minecraft command that is to be executed when the combined-command is run 
+(when the MCC module is rebuild). This allows for simple support commands to be run that don't really require
+a full support module (see `smelt.addSupportModule()`).
+
+For example; This could be used to make sure that a scoreboard objective exists.
+
+### smelt.setVariable(varName, varValue)
+
+This is used to set variables that can be access by the MCC code after the plugin command is called. 
+
+For example; the plugin may take a variable names as an arguments, and then by setting the value of those variables
+it can be used to return multiple 'out' values without generating any command blocks.
+
+### smelt.getVariable(varName)
+
+This can be used to get the current value of a variable. This can be used as an alternative to accepting arguments, 
+or simply to make changes to a predefined variable for some purpose.
 

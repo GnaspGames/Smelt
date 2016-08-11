@@ -8,6 +8,16 @@ nav: top
 Smelt Change Notes
 ==================
 
+Version 0.9.2
+-------------
+
+* Major changes to how plugins work. The [plugins](plugins.html) documentation has been updated
+  to reflect the changes.
+    * **Note:** This has been done to be backwards compatible with old plugins. In time that compatibility will be removed.
+* Variables can now be 'used' like `/say Hello $name` **in addition to** being used like `/say Hello ${name}`
+    * The syntax without brackets can only be used with the variable is **not** being used as part of a word.
+      `/say $nameIsCool` will not work for the `$name` variable, using `/say ${name}IsCool` will work.
+
 Version 0.9.1
 -------------
 
