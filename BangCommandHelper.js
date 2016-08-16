@@ -26,6 +26,16 @@ var BangCommandHelper =
 			
 			if(jsonOptions) CommandCreator.processJSONLine(jsonOptions);
 			
+			var cornerCommands = CommandCreator.fixConditionalCorners();
+			if(cornerCommands.length > 0)
+			{
+				for(var i in cornerCommands)
+				{	
+					var cornerCmd = cornerCommands[i];
+					commands.push(cornerCmd);
+				}
+			}
+
 			var command = CommandCreator.addSetblockCommand(cmd);
 			commands.push(command);
 			

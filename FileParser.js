@@ -270,6 +270,20 @@ var FileParser = (function ()
 		// Replace variables
 		line=this.checkForVariables(line);
 
+		var cornerCommands = CommandCreator.fixConditionalCorners();
+		if(cornerCommands.length > 0)
+		{
+			if(Settings.Current.Output.ShowDebugInfo)
+				console.log(chalk.bold("\n* CONDITIONAL CORNER FIX:"));
+			for(var i in cornerCommands)
+			{	
+				var cornerCmd = cornerCommands[i];
+				this.Commands.unshift(cornerCmd);
+				if(Settings.Current.Output.ShowDebugInfo)
+					console.log("   -> " + cornerCmd);
+			}
+		}
+
 		var summon = CommandCreator.addNewCmdMarker();
 		if(summon) this.Commands.unshift(summon);
 		
@@ -278,10 +292,10 @@ var FileParser = (function ()
 		
 		if(Settings.Current.Output.ShowDebugInfo)
 		{
-			console.log(chalk.bold("\n* CREATE COMMAND BLOCK"));
-			console.log("  " + line);
-			console.log("   -> " + command);
-			if(summon) console.log("   -> " + summon);
+				console.log(chalk.bold("\n* CREATE COMMAND BLOCK"));
+				console.log("  " + line);
+				console.log("   -> " + command);
+				if(summon) console.log("   -> " + summon);
 		}
 	};
 	

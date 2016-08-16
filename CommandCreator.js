@@ -6,6 +6,7 @@ var CommandCreator =
 	IMPULSE_BLOCK_NAME : "command_block",
 	REPEATING_BLOCK_NAME : "repeating_command_block",
 	CHAIN_BLOCK_NAME : "chain_command_block",
+	TESTFORBLOCK_COMMAND_FORMAT: "testforblock ~%d ~%d ~%d minecraft:%s -1 {SuccessCount:1}",
 	SETBLOCK_COMMAND_FORMAT : "setblock ~%d ~%d ~%d %s %d replace {Command:%s%s}",
 	SUMMON_ARMORSTAND_DISPLAY_MARKER_FORMAT : "summon ArmorStand ~ ~ ~%d {CustomName:%s, Tags:[\"oc_marker\"], Marker:1b, CustomNameVisible:1b, Invulnerable:1b, NoGravity:1b, Invisible:1b}",
 	SUMMON_ARMORSTAND_CMD_MARKER_FORMAT : "summon ArmorStand ~%d ~%d ~%d {Tags:[\"oc_marker\",\"%s\"], Marker:1b, Invulnerable:1b, NoGravity:1b}",	
@@ -18,15 +19,54 @@ var CommandCreator =
 	STARTING_X : 1,
 	STARTING_Y : -1,
 	STARTING_Z : 0,
+	previousX : 0,
+	previousY : 0,
+	previousZ : 0,
 	currentX : 1,
 	currentY : -1,
 	currentZ : 0,
 	currentDirection : "east",
+	currentDirectionChanged: false,
+	previousType: "",
 	type : "",
 	conditional : false,
 	auto : false,
 	executeAs : "",
 	markerTag : "",
+
+	fixConditionalCorners : function()
+	{
+		var commands = [];
+		while(CommandCreator.currentDirectionChanged && CommandCreator.conditional)
+		{
+			var blockName = CommandCreator.getBlockNameForType(CommandCreator.previousType);
+
+			var testforblockCmd = util.format(
+				CommandCreator.TESTFORBLOCK_COMMAND_FORMAT, 
+				(CommandCreator.previousX - CommandCreator.currentX),
+				(CommandCreator.previousY - CommandCreator.currentY),
+				(CommandCreator.previousZ - CommandCreator.currentZ),
+				blockName
+			);
+
+			var setblockCmd = CommandCreator.buildSetblockCommand(
+				CommandCreator.currentX, 
+				CommandCreator.currentY,
+				CommandCreator.currentZ,
+				CommandCreator.currentDirection,
+				CommandCreator.type,
+				false, 
+				CommandCreator.auto, 
+				CommandCreator.executeAs,
+				testforblockCmd
+			);
+
+			commands.push(setblockCmd);
+
+			CommandCreator.incrementSetblockVars();
+		}
+		return commands;
+	},
 	
 	addSetblockCommand : function(command)
 	{
@@ -41,53 +81,61 @@ var CommandCreator =
 			CommandCreator.executeAs,
 			command);
 		
-		// Set details for NEXT commandblock
+		CommandCreator.incrementSetblockVars();
+		
+		return command;
+	},
+
+
+	incrementSetblockVars : function()
+	{
+		// Set details for next commandblock
+		
+		CommandCreator.previousType = CommandCreator.type;
+		CommandCreator.previousX = CommandCreator.currentX;
+		CommandCreator.previousY = CommandCreator.currentY;
+		CommandCreator.previousZ = CommandCreator.currentZ;
+
+		CommandCreator.currentDirectionChanged = false;
 		switch(CommandCreator.currentDirection)
 		{
 			case "east":
 				CommandCreator.currentX++;
 				if(CommandCreator.currentX == 14)
+				{
 					CommandCreator.currentDirection = "up";
+					CommandCreator.currentDirectionChanged = true;
+				}
 			break;
 			case "west":
 				CommandCreator.currentX--;
 				if(CommandCreator.currentX == 1)
+				{
 					CommandCreator.currentDirection = "up";
+					CommandCreator.currentDirectionChanged = true;
+				}
 			break;
 			case "up":
 				CommandCreator.currentY++;
 				if(CommandCreator.currentX == 14)
+				{
 					CommandCreator.currentDirection = "west";
+					CommandCreator.currentDirectionChanged = true;
+				}
 				else if(CommandCreator.currentX == 1)
+				{
 					CommandCreator.currentDirection = "east";
+					CommandCreator.currentDirectionChanged = true;
+				}
 			break;
 		}
-		
-		return command;
+
+
 	},
+
 	buildSetblockCommand : function(x, y, z, direction, type, conditional, auto, executeAs, command)
 	{
-		var blockName = "";
-		switch(type)
-		{
-			case "impulse-chain":
-				blockName = CommandCreator.IMPULSE_BLOCK_NAME;
-				CommandCreator.type = "chain";
-				break;
-			case "repeating-chain":
-				blockName = CommandCreator.REPEATING_BLOCK_NAME;
-				CommandCreator.type = "chain";
-				break;
-			case "impulse":
-				blockName = CommandCreator.IMPULSE_BLOCK_NAME;
-				break;
-			case "repeating":
-				blockName = CommandCreator.REPEATING_BLOCK_NAME;
-				break;
-			case "chain":
-				blockName = CommandCreator.CHAIN_BLOCK_NAME;
-				break;
-		}
+		var blockName = CommandCreator.getBlockNameForType(type, true);
 		
 		var dataValue = 100;
 		switch(direction)
@@ -118,6 +166,33 @@ var CommandCreator =
 								   
 		return setblock;
 	},
+
+	getBlockNameForType : function(type, allowSwitchToChain)
+	{
+		var blockName = "";
+		switch(type)
+		{
+			case "impulse-chain":
+				blockName = CommandCreator.IMPULSE_BLOCK_NAME;
+				if(allowSwitchToChain) CommandCreator.type = "chain";
+				break;
+			case "repeating-chain":
+				blockName = CommandCreator.REPEATING_BLOCK_NAME;
+				if(allowSwitchToChain) CommandCreator.type = "chain";
+				break;
+			case "impulse":
+				blockName = CommandCreator.IMPULSE_BLOCK_NAME;
+				break;
+			case "repeating":
+				blockName = CommandCreator.REPEATING_BLOCK_NAME;
+				break;
+			case "chain":
+				blockName = CommandCreator.CHAIN_BLOCK_NAME;
+				break;
+		}
+		return blockName;
+	},
+
 	addNewCmdMarker : function()
 	{ 
 		var summon;
