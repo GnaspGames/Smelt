@@ -264,7 +264,7 @@ var FileParser = (function ()
 	FileParser.prototype.processCommandBlockLine = function(line)
 	{
 		// Replace TABS
-		line=line.replace(/\t/g,'    ');
+		line=line.replace(/\t/g,' ');
 		// Remove starting /
 		line=line.substr(1);
 		// Replace variables
