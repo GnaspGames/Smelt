@@ -39,6 +39,7 @@ var FileParser = (function ()
 				console.log(chalk.yellow(util.format("\nTo use the \"!%s\" command you will need to also install the following module into your map: %s", setup.bangName, setup.fileName)));
 				var compiledSetupModule = self.ProcessData(setup.setupData, setup.fileName);
 				self.OutputCompiledModule(compiledSetupModule, false);
+				BangCommandHelper.AddSupportModuleToCache(setup);
 			});
 		}
 
@@ -68,7 +69,7 @@ var FileParser = (function ()
 			console.log(chalk.green("\n * The compiled command has been copied into your clipboard."));
 
 			// Give the user time to use the clipboard before moving on.
-			if(!isLast) readlineSync.keyIn(chalk.green("   You'll probably want to paste it before moving on. Type 'c' to continue. "), {limit: 'c'});
+			if(!isLast) readlineSync.keyIn(chalk.green("   Install into your world before you continue. Type 'c' to continue. "), {limit: 'c'});
 		}
 	};
 	
@@ -330,7 +331,7 @@ var FileParser = (function ()
 		// varValue; averything after the first =
 		var varValue = line.substr(line.indexOf('=')+1).trim();
 		varValue = this.checkForVariables(varValue);
-    
+
 		if(Settings.Current.Output.ShowDebugInfo)
 		{
 			console.log(chalk.bold("\n* VARIABLE ASSIGNED!"));
@@ -366,16 +367,23 @@ var FileParser = (function ()
 	FileParser.prototype.AddBangSetup = function(bangSetup)
 	{
 		var exists = false;
-		this.BangSetups.forEach(function(existingSetup)
+
+		if(BangCommandHelper.IsSupportModuleInCache(bangSetup))
+			exists = true;
+		else
 		{
-			if(bangSetup.setupData == existingSetup.setupData)
-				exists = true;
-		});
+			this.BangSetups.forEach(function(existingSetup)
+			{
+				if(bangSetup.setupData == existingSetup.setupData)
+					exists = true;
+			});
+		}
+
 		if(!exists)
 			this.BangSetups.push(bangSetup);
 	}
 	
-    return FileParser;
+	return FileParser;
 	
 })();
 
