@@ -8,6 +8,18 @@ nav: top
 Smelt Change Notes
 ==================
 
+Version 0.9.3
+-------------
+
+* Re-Fixed: [Issue #41](https://github.com/GnaspGames/Smelt/issues/41) - Parsing Indentations with “Tab” working incorrectly
+    * Tab characters are now replaced with 1 space. 
+* Fixed: [Issue #35](https://github.com/GnaspGames/Smelt/issues/35) - Issue with conditional command blocks when changing direction
+    * If a conditional command block comes up while the chain of commands is changing direction, Smelt will pad out the commands
+      with `testforblock ... {SuccessCount:1}` commands until the conditional command block can be set in a place where it will work. 
+      This preserves the conditional logic.
+* [Issue #31](https://github.com/GnaspGames/Smelt/issues/31) - Bangs/Plugins: Remember when a setup module has been installed
+    * Smelt will now remember when a setup module has been given to the user and won't prompt them to install it again.
+
 Version 0.9.2
 -------------
 
