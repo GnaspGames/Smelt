@@ -9,7 +9,7 @@ var Settings = require("./Settings");
 
 var BangCommandHelper = 
 {
-	ProcessBang : function(bang, fileParser)
+	ProcessBang : function(commandModule, bang, fileParser)
 	{
 		var commands = []
 		
@@ -74,6 +74,7 @@ var BangCommandHelper =
 		{
 			settings : Settings.Current,
 			args: args.slice(1),
+			module: commandModule,
 			addCommandBlock: callback_addCommandBlock,
 			addInitCommand: callback_addInitCommand,
 			addSupportModule: callback_addSupportModule,
