@@ -67,7 +67,6 @@ var CommandCreator =
 		}
 		return commands;
 	},
-	
 	addSetblockCommand : function(command)
 	{
 		var command = CommandCreator.buildSetblockCommand(
@@ -85,8 +84,6 @@ var CommandCreator =
 		
 		return command;
 	},
-
-
 	incrementSetblockVars : function()
 	{
 		// Set details for next commandblock
@@ -132,7 +129,6 @@ var CommandCreator =
 
 
 	},
-
 	buildSetblockCommand : function(x, y, z, direction, type, conditional, auto, executeAs, command)
 	{
 		var blockName = CommandCreator.getBlockNameForType(type, true);
@@ -166,7 +162,6 @@ var CommandCreator =
 								   
 		return setblock;
 	},
-
 	getBlockNameForType : function(type, allowSwitchToChain)
 	{
 		var blockName = "";
@@ -192,7 +187,6 @@ var CommandCreator =
 		}
 		return blockName;
 	},
-
 	addNewCmdMarker : function()
 	{ 
 		var summon;
