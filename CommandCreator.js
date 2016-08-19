@@ -28,7 +28,7 @@ var CommandCreator =
 	currentDirection : "east",
 	currentDirectionChanged: false,
 	previousType: "",
-	type : "",
+	currentType : "",
 	conditional : false,
 	auto : false,
 	executeAs : "",
@@ -54,7 +54,7 @@ var CommandCreator =
 				CommandCreator.currentY,
 				CommandCreator.currentZ,
 				CommandCreator.currentDirection,
-				CommandCreator.type,
+				CommandCreator.currentType,
 				false, 
 				CommandCreator.auto, 
 				CommandCreator.executeAs,
@@ -74,7 +74,7 @@ var CommandCreator =
 			CommandCreator.currentY,
 			CommandCreator.currentZ,
 			CommandCreator.currentDirection,
-			CommandCreator.type,
+			CommandCreator.currentType,
 			CommandCreator.conditional, 
 			CommandCreator.auto, 
 			CommandCreator.executeAs,
@@ -88,7 +88,7 @@ var CommandCreator =
 	{
 		// Set details for next commandblock
 		
-		CommandCreator.previousType = CommandCreator.type;
+		CommandCreator.previousType = CommandCreator.currentType;
 		CommandCreator.previousX = CommandCreator.currentX;
 		CommandCreator.previousY = CommandCreator.currentY;
 		CommandCreator.previousZ = CommandCreator.currentZ;
@@ -169,11 +169,11 @@ var CommandCreator =
 		{
 			case "impulse-chain":
 				blockName = CommandCreator.IMPULSE_BLOCK_NAME;
-				if(allowSwitchToChain) CommandCreator.type = "chain";
+				if(allowSwitchToChain) CommandCreator.currentType = "chain";
 				break;
 			case "repeating-chain":
 				blockName = CommandCreator.REPEATING_BLOCK_NAME;
-				if(allowSwitchToChain) CommandCreator.type = "chain";
+				if(allowSwitchToChain) CommandCreator.currentType = "chain";
 				break;
 			case "impulse":
 				blockName = CommandCreator.IMPULSE_BLOCK_NAME;
@@ -266,7 +266,7 @@ var CommandCreator =
 		CommandCreator.currentX = CommandCreator.STARTING_X;
 		CommandCreator.currentY = CommandCreator.STARTING_Y;
 		CommandCreator.currentZ = CommandCreator.STARTING_Z;
-		CommandCreator.type = Settings.Current.Commands.DefaultCommandBlockType;
+		CommandCreator.currentType = Settings.Current.Commands.DefaultCommandBlockType;
 		CommandCreator.conditional = Settings.Current.Commands.DefaultConditionalValue;
 		CommandCreator.auto = Settings.Current.Commands.DefaultAutoValue;
 		CommandCreator.executeAs = "";
@@ -274,7 +274,7 @@ var CommandCreator =
 	processJSONLine : function(json)
 	{
 		if(json.type != null)
-			CommandCreator.type = json.type; 
+			CommandCreator.currentType = json.type; 
 		if(json.conditional != null)
 			CommandCreator.conditional = json.conditional; 
 		if(json.auto != null)

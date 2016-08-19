@@ -77,7 +77,7 @@ var FileParser = (function ()
 
 		var commandModule = new CommandModule();
 		commandModule.SourceName = sourceName;
-		
+
 		var content = this.removeComments(data.toString().trim());
 		var lines = content.split("\n");
 		var distanceOffset = 3;
@@ -251,7 +251,7 @@ var FileParser = (function ()
 		{
 			console.log(chalk.bold("\n* PROCESS JSON OPTIONS"));
 			console.log("  " + JSON.stringify(json));
-			console.log("   -> type = " + CommandCreator.type);
+			console.log("   -> type = " + CommandCreator.currentType);
 			console.log("   -> conditional = " + CommandCreator.conditional);
 			console.log("   -> auto = " + CommandCreator.auto);
 			console.log("   -> executeAs = " + CommandCreator.executeAs);

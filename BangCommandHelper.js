@@ -20,7 +20,7 @@ var BangCommandHelper =
 		
 		var callback_addCommandBlock = function(cmd, jsonOptions)
 		{
-			var _type = CommandCreator.type;
+			var _type = CommandCreator.currentType;
 			var _conditional = CommandCreator.conditional;
 			var _auto = CommandCreator.auto;
 			var _executeAs = CommandCreator.executeAs;
@@ -43,7 +43,7 @@ var BangCommandHelper =
 			if(_type == "impulse-chain" || _type == "repeating-chain")
 				_type = "chain";
 			
-			CommandCreator.type = _type;
+			CommandCreator.currentType = _type;
 			CommandCreator.conditional = _conditional;
 			CommandCreator.auto = _auto;
 			CommandCreator.executeAs = _executeAs;
