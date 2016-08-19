@@ -1,26 +1,8 @@
-var Settings = require("./Settings");
-
-
-var getCurrent = function()
-{
-	var current = Templates.MC_1_9; //Default value
-	switch (Settings.Current.Output.MinecraftVersion) 
-	{
-		case "1.9":
-		case "1.10":
-			current = Templates.MC_1_9;
-			break;
-		case "1.11":
-		default:
-			current = Templates.MC_1_11;
-			break;
-	}
-	return current;
-}
+var Settings = require("../Settings");
 
 var Templates = 
 {
-	Current : getCurrent(),
+	Current : null,
 	MC_1_9 : 
 	{
 		IMPULSE_BLOCK_NAME : "command_block",
@@ -59,8 +41,23 @@ var Templates =
 	}
 }
 
+var getCurrent = function()
+{
+	var current = Templates.MC_1_9; //Default value
+	switch (Settings.Current.Output.MinecraftVersion) 
+	{
+		case "1.9":
+		case "1.10":
+			current = Templates.MC_1_9;
+			break;
+		case "1.11":
+		default:
+			current = Templates.MC_1_11;
+			break;
+	}
+	return current;
+}
 
-
-
+Templates.Current = getCurrent();
 
 module.exports = Templates;
