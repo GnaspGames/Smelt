@@ -150,7 +150,7 @@ var FileParser = (function ()
 		
 		var minecartsString = minecarts.join(",");
 
-		var compiledCommands = until.format(Templates.Current.SUMMON_FALLING_RAIL_FORMAT, minecartsString);
+		var compiledCommands = util.format(Templates.Current.SUMMON_FALLING_RAIL_FORMAT, minecartsString);
 
 		var commandModule = new CommandModule();
 		commandModule.SourceName = sourceName;
