@@ -97,6 +97,7 @@ var FileParser = (function ()
 			if(summonFilenameMarker) console.log("   -> " + summonFilenameMarker);
 			else console.log("   -> " + "No file marker summoned");
 		}
+		
 		var self = this;
 		var process = function(line, endoffile)
 		{
@@ -252,8 +253,8 @@ var FileParser = (function ()
 			console.log(chalk.bold("\n* PROCESS JSON OPTIONS"));
 			console.log("  " + JSON.stringify(json));
 			console.log("   -> type = " + CommandCreator.currentType);
-			console.log("   -> conditional = " + CommandCreator.conditional);
-			console.log("   -> auto = " + CommandCreator.auto);
+			console.log("   -> conditional = " + CommandCreator.currentConditional);
+			console.log("   -> auto = " + CommandCreator.currentAuto);
 			console.log("   -> executeAs = " + CommandCreator.executeAs);
 			console.log("   -> markerTag = " + CommandCreator.markerTag);
 		}

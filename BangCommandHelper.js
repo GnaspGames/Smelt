@@ -21,8 +21,8 @@ var BangCommandHelper =
 		var callback_addCommandBlock = function(cmd, jsonOptions)
 		{
 			var _type = CommandCreator.currentType;
-			var _conditional = CommandCreator.conditional;
-			var _auto = CommandCreator.auto;
+			var _conditional = CommandCreator.currentConditional;
+			var _auto = CommandCreator.currentAuto;
 			var _executeAs = CommandCreator.executeAs;
 			
 			if(jsonOptions) CommandCreator.processJSONLine(jsonOptions);
@@ -44,8 +44,8 @@ var BangCommandHelper =
 				_type = "chain";
 			
 			CommandCreator.currentType = _type;
-			CommandCreator.conditional = _conditional;
-			CommandCreator.auto = _auto;
+			CommandCreator.currentConditional = _conditional;
+			CommandCreator.currentAuto = _auto;
 			CommandCreator.executeAs = _executeAs;
 		};
 		
@@ -70,11 +70,26 @@ var BangCommandHelper =
 			return fileParser.getVariable(varName);
 		}
 
+		var callback_getCurrentCommandBlock = function()
+		{
+			var cmdBlock = new CommandBlock(
+				CommandCreator.currentX,
+				CommandCreator.currentY,
+				CommandCreator.currentZ,
+				CommandCreator.currentDirection,
+				CommandCreator.currentType,
+				CommandCreator.currentConditional,
+				CommandCreator.currentAuto
+			);
+			return cmdBlock;
+		}
+
 		var smeltObj = 
 		{
 			settings : Settings.Current,
 			args: args.slice(1),
-			module: commandModule,
+			getPreviousCommandBlock : function(){ return CommandCreator.previousCommandBlock; },
+			getCurrentCommandBlock : callback_getCurrentCommandBlock,
 			addCommandBlock: callback_addCommandBlock,
 			addInitCommand: callback_addInitCommand,
 			addSupportModule: callback_addSupportModule,

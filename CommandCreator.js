@@ -19,33 +19,33 @@ var CommandCreator =
 	STARTING_X : 1,
 	STARTING_Y : -1,
 	STARTING_Z : 0,
-	previousX : 0,
-	previousY : 0,
-	previousZ : 0,
+
+	previousCommandBlock : null,
+
 	currentX : 1,
 	currentY : -1,
 	currentZ : 0,
 	currentDirection : "east",
 	currentDirectionChanged: false,
-	previousType: "",
+
 	currentType : "",
-	conditional : false,
-	auto : false,
+	currentConditional : false,
+	currentAuto : false,
 	executeAs : "",
 	markerTag : "",
 
 	fixConditionalCorners : function()
 	{
 		var commands = [];
-		while(CommandCreator.currentDirectionChanged && CommandCreator.conditional)
+		while(CommandCreator.currentDirectionChanged && CommandCreator.currentConditional)
 		{
-			var blockName = CommandCreator.getBlockNameForType(CommandCreator.previousType);
+			var blockName = CommandCreator.getBlockNameForType(CommandCreator.previousCommandBlock.type);
 
 			var testforblockCmd = util.format(
 				CommandCreator.TESTFORBLOCK_COMMAND_FORMAT, 
-				(CommandCreator.previousX - CommandCreator.currentX),
-				(CommandCreator.previousY - CommandCreator.currentY),
-				(CommandCreator.previousZ - CommandCreator.currentZ),
+				CommandCreator.previousCommandBlock.getRelativeX(),
+				CommandCreator.previousCommandBlock.getRelativeY(),
+				CommandCreator.previousCommandBlock.getRelativeZ(),
 				blockName
 			);
 
@@ -56,7 +56,7 @@ var CommandCreator =
 				CommandCreator.currentDirection,
 				CommandCreator.currentType,
 				false, 
-				CommandCreator.auto, 
+				CommandCreator.currentAuto, 
 				CommandCreator.executeAs,
 				testforblockCmd
 			);
@@ -75,8 +75,8 @@ var CommandCreator =
 			CommandCreator.currentZ,
 			CommandCreator.currentDirection,
 			CommandCreator.currentType,
-			CommandCreator.conditional, 
-			CommandCreator.auto, 
+			CommandCreator.currentConditional, 
+			CommandCreator.currentAuto, 
 			CommandCreator.executeAs,
 			command);
 		
@@ -86,12 +86,21 @@ var CommandCreator =
 	},
 	incrementSetblockVars : function()
 	{
-		// Set details for next commandblock
 		
-		CommandCreator.previousType = CommandCreator.currentType;
-		CommandCreator.previousX = CommandCreator.currentX;
-		CommandCreator.previousY = CommandCreator.currentY;
-		CommandCreator.previousZ = CommandCreator.currentZ;
+		// Replace previous command block details
+		CommandCreator.previousCommandBlock = new CommandBlock
+		(
+			CommandCreator.currentX,
+			CommandCreator.currentY,
+			CommandCreator.currentZ,
+			CommandCreator.currentDirection,
+			CommandCreator.currentType,
+			CommandCreator.currentConditional,
+			CommandCreator.currentAuto
+		);
+
+
+		// Set details for next commandblock
 
 		CommandCreator.currentDirectionChanged = false;
 		switch(CommandCreator.currentDirection)
@@ -267,8 +276,8 @@ var CommandCreator =
 		CommandCreator.currentY = CommandCreator.STARTING_Y;
 		CommandCreator.currentZ = CommandCreator.STARTING_Z;
 		CommandCreator.currentType = Settings.Current.Commands.DefaultCommandBlockType;
-		CommandCreator.conditional = Settings.Current.Commands.DefaultConditionalValue;
-		CommandCreator.auto = Settings.Current.Commands.DefaultAutoValue;
+		CommandCreator.currentConditional = Settings.Current.Commands.DefaultConditionalValue;
+		CommandCreator.currentAuto = Settings.Current.Commands.DefaultAutoValue;
 		CommandCreator.executeAs = "";
 	},
 	processJSONLine : function(json)
@@ -276,9 +285,9 @@ var CommandCreator =
 		if(json.type != null)
 			CommandCreator.currentType = json.type; 
 		if(json.conditional != null)
-			CommandCreator.conditional = json.conditional; 
+			CommandCreator.currentConditional = json.conditional; 
 		if(json.auto != null)
-			CommandCreator.auto = json.auto;
+			CommandCreator.currentAuto = json.auto;
 		if(json.executeAs != null)
 			CommandCreator.executeAs = json.executeAs;
 		if(json.markerTag != null)
