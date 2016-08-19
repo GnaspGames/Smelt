@@ -15,8 +15,8 @@ var Templates =
 		SUMMON_AEC_DISPLAY_MARKER_FORMAT : "summon AreaEffectCloud ~ ~ ~%d {CustomName:%s, CustomNameVisible:1b, Tags:[\"oc_marker\"], Duration:2147483647}",
 		SUMMON_AEC_CMD_MARKER_FORMAT : "summon AreaEffectCloud ~%d ~%d ~%d {Tags:[\"oc_marker\",\"%s\"], Duration:2147483647}",
 		SUMMON_REBUILD_ENTITY : "summon ArmorStand ~ ~-1 ~ {Tags:[\"oc_rebuild\",\"oc_marker\"]}",
-		CLEAR_AREA_FORMAT: "/execute @e[tag=oc_rebuild] ~ ~ ~ fill ~%d ~%d ~%d ~%d ~%d ~%d air 0",
-		CLEAR_MARKERS_FORMAT: "/execute @e[tag=oc_rebuild] ~ ~ ~ kill @e[tag=oc_marker,dx=%d,dy=%d,dz=%d]",
+		CLEAR_AREA_FORMAT: "execute @e[tag=oc_rebuild] ~ ~ ~ fill ~%d ~%d ~%d ~%d ~%d ~%d air 0",
+		CLEAR_MARKERS_FORMAT: "execute @e[tag=oc_rebuild] ~ ~ ~ kill @e[tag=oc_marker,dx=%d,dy=%d,dz=%d]",
 		CLEAR_MINECARTS: "kill @e[type=MinecartCommandBlock,r=0]",
 		COMMAND_BLOCK_MINECART_NBT_FORMAT: "{id:MinecartCommandBlock,Command:%s}",
 		SUMMON_FALLING_RAIL_FORMAT: "summon FallingSand ~ ~5 ~ {Block:activator_rail,Time:1,Passengers:[%s]}"
@@ -33,8 +33,8 @@ var Templates =
 		SUMMON_AEC_DISPLAY_MARKER_FORMAT : "summon minecraft:area_effect_cloud ~ ~ ~%d {CustomName:%s, CustomNameVisible:1b, Tags:[\"oc_marker\"], Duration:2147483647}",
 		SUMMON_AEC_CMD_MARKER_FORMAT : "summon minecraft:area_effect_cloud ~%d ~%d ~%d {Tags:[\"oc_marker\",\"%s\"], Duration:2147483647}",
 		SUMMON_REBUILD_ENTITY : "summon minecraft:armor_stand ~ ~-1 ~ {Tags:[\"oc_rebuild\",\"oc_marker\"]}",
-		CLEAR_AREA_FORMAT: "/execute @e[tag=oc_rebuild] ~ ~ ~ fill ~%d ~%d ~%d ~%d ~%d ~%d air 0",
-		CLEAR_MARKERS_FORMAT: "/execute @e[tag=oc_rebuild] ~ ~ ~ kill @e[tag=oc_marker,dx=%d,dy=%d,dz=%d]",
+		CLEAR_AREA_FORMAT: "execute @e[tag=oc_rebuild] ~ ~ ~ fill ~%d ~%d ~%d ~%d ~%d ~%d air 0",
+		CLEAR_MARKERS_FORMAT: "execute @e[tag=oc_rebuild] ~ ~ ~ kill @e[tag=oc_marker,dx=%d,dy=%d,dz=%d]",
 		CLEAR_MINECARTS: "kill @e[type=commandblock_minecart,r=0]",
 		COMMAND_BLOCK_MINECART_NBT_FORMAT: "{id:commandblock_minecart,Command:%s}",
 		SUMMON_FALLING_RAIL_FORMAT: "summon minecraft:falling_block ~ ~5 ~ {Block:activator_rail,Time:1,Passengers:[%s]}"
