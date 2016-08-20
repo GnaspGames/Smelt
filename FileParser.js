@@ -252,9 +252,9 @@ var FileParser = (function ()
 		{
 			console.log(chalk.bold("\n* PROCESS JSON OPTIONS"));
 			console.log("  " + JSON.stringify(json));
-			console.log("   -> type = " + CommandCreator.currentType);
-			console.log("   -> conditional = " + CommandCreator.currentConditional);
-			console.log("   -> auto = " + CommandCreator.currentAuto);
+			console.log("   -> type = " + CommandCreator.currentCommandBlock.type);
+			console.log("   -> conditional = " + CommandCreator.currentCommandBlock.conditional);
+			console.log("   -> auto = " + CommandCreator.currentCommandBlock.auto);
 			console.log("   -> executeAs = " + CommandCreator.executeAs);
 			console.log("   -> markerTag = " + CommandCreator.markerTag);
 		}

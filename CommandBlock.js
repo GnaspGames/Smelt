@@ -15,23 +15,17 @@ var CommandBlock = (function ()
 
 	CommandBlock.prototype.getRelativeX = function()
 	{
-		console.log("this.x = " + this.x);
-		console.log("CommandCreator.currentX = " + CommandCreator.currentX);
-		return (this.x - CommandCreator.currentX);
+		return (this.x - CommandCreator.currentCommandBlock.x);
 	}
 
 	CommandBlock.prototype.getRelativeY = function()
 	{
-		console.log("this.y = " + this.y);
-		console.log("CommandCreator.currentY = " + CommandCreator.currentY);
-		return (this.y - CommandCreator.currentY);
+		return (this.y - CommandCreator.currentCommandBlock.y);
 	}
 
 	CommandBlock.prototype.getRelativeZ = function()
 	{
-		console.log("this.z = " + this.z);
-		console.log("CommandCreator.currentZ = " + CommandCreator.currentZ);
-		return (this.z - CommandCreator.currentZ);
+		return (this.z - CommandCreator.currentCommandBlock.z);
 	}
 
 	return CommandBlock;
