@@ -8,6 +8,15 @@ nav: top
 Smelt Change Notes
 ==================
 
+Version 0.9.4
+-------------
+
+* [Issue 12](https://github.com/GnaspGames/Smelt/issues/12) - Plugins: allow access to more context data *(see comments)*.
+    * Plugins now have access to previous and current command block data, such as:
+        * Coordinates relative to current command block.
+        * The command block `type`, or `conditional` boolean. 
+        * See [Plugins](plugins.html) for more information. 
+
 Version 0.9.3
 -------------
 
