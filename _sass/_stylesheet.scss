@@ -155,9 +155,15 @@ ul li:before {
 }
 
 blockquote {
-  color: #aaa;
+  color: #ddd;
+  background-color: #000;
   padding-left: 10px;
-  border-left: 1px dotted #666;
+  border-left: 1px dotted #FFA300;
+}
+
+blockquote p
+{
+  padding: 5px 0 5px 0;
 }
 
 pre {
