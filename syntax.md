@@ -47,9 +47,13 @@ Properties available to use are:
 
 This defines the type of command block that will be used for the following commands.
 
-Possible values are `"impulse"`, `"repeating"` or `"chain"`.
+Possible values are; `"impulse"`, `"repeating"`, `"chain"`, `"impulse-chain"` or `"repeating-chain"`.
 
 Example: `>{"type":"repeating"}`
+
+> **Note:** The `impulse-chain` and `repeating-chain` types will result in the first command block being
+either an `impulse` or `repeating` type (respectively) and then all other command blocks after that will
+be `chain` command blocks until a new type is specified.
 
 **"auto"**
 
