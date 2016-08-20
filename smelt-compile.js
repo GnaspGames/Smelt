@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
-var util = require('util');
 FileParser = require("./FileParser");
+CommandBlock = require("./CommandBlock");
+
+var util = require('util');
 var commander = require('commander');
 var chalk = require('chalk');
 var Program = require("./Program");

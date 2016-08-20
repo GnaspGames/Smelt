@@ -16,11 +16,9 @@ var FileParser = (function ()
 {
 	function FileParser() 
 	{
-		this.Commands = [];
 		this.BangSetups = [];
 		this.PreviousTrigger ="";
 		this.PreviousCommand = "";
-		this.Module = null;
 		this.CustomVariables = {};
 	}
 
@@ -29,8 +27,8 @@ var FileParser = (function ()
 		var data = fs.readFileSync(filePath).toString().trim();
 		
 		console.log(chalk.yellow(util.format("\nProcessing %s", filePath)));
-		
-		this.Module = this.ProcessData(data, path.basename(filePath));
+
+		var commandModule = this.ProcessData(data, path.basename(filePath));
 		
 		if(this.BangSetups.length)
 		{
@@ -38,14 +36,14 @@ var FileParser = (function ()
 			this.BangSetups.forEach(function(setup)
 			{
 				console.log(chalk.yellow(util.format("\nTo use the \"!%s\" command you will need to also install the following module into your map: %s", setup.bangName, setup.fileName)));
-				var compiledSetupModule = self.ProcessData(setup.setupData, setup.fileName);
-				self.OutputCompiledModule(compiledSetupModule, false);
+				var supportModule = self.ProcessData(setup.setupData, setup.fileName);
+				self.OutputCompiledModule(supportModule, false);
 				BangCommandHelper.AddSupportModuleToCache(setup);
 			});
 		}
 
-		console.log(chalk.yellow(util.format("\nProcessing of %s is complete.", this.Module.SourceName)));
-		this.OutputCompiledModule(this.Module, true);
+		console.log(chalk.yellow(util.format("\nProcessing of %s is complete.", commandModule.SourceName)));
+		this.OutputCompiledModule(commandModule, true);
 	};
 
 	FileParser.prototype.OutputCompiledModule = function(commandModule, isLast)
@@ -77,9 +75,10 @@ var FileParser = (function ()
 	FileParser.prototype.ProcessData = function (data, sourceName)
 	{
 		CommandCreator.startNewFile();
-		
-		this.Commands = [];
-	
+
+		var commandModule = new CommandModule();
+		commandModule.SourceName = sourceName;
+
 		var content = this.removeComments(data.toString().trim());
 		var lines = content.split("\n");
 		var distanceOffset = 3;
@@ -99,12 +98,13 @@ var FileParser = (function ()
 			if(summonFilenameMarker) console.log("   -> " + summonFilenameMarker);
 			else console.log("   -> " + "No file marker summoned");
 		}
+		
 		var self = this;
 		var process = function(line, endoffile)
 		{
 			try
 			{
-				self.processLine(line, endoffile);
+				self.processLine(commandModule, line, endoffile);
 			}
 			catch(err)
 			{
@@ -124,7 +124,7 @@ var FileParser = (function ()
 		// One final call to processLine to complete the last trigger
 		process("", true);
 		
-		this.Commands.unshift(
+		commandModule.Commands.unshift(
 			Templates.Current.SUMMON_REBUILD_ENTITY, 
 			util.format(Templates.Current.CLEAR_AREA_FORMAT, 1, 0, 1, 14, 10, 14), // TODO replace with config numbers
 			util.format(Templates.Current.CLEAR_MARKERS_FORMAT, 15, 20, 15), // TODO replace with config numbers
@@ -132,7 +132,7 @@ var FileParser = (function ()
 		);
 		
 		var removeBlocksNextTick = CommandCreator.buildSetblockCommand(0, 1, 0, "up", "impulse", false, true, "", "/fill ~ ~-1 ~ ~ ~ ~ air");
-		this.Commands.push(
+		commandModule.Commands.push(
 			removeBlocksNextTick, 
 			Templates.Current.CLEAR_MINECARTS
 		);
@@ -141,9 +141,9 @@ var FileParser = (function ()
 		// when summoned as passengers on an activator rail
 		
 		var minecarts = []
-		for(i=0; i < this.Commands.length; i++)
+		for(i=0; i < commandModule.Commands.length; i++)
 		{
-			var command = this.Commands[i];
+			var command = commandModule.Commands[i];
 			var minecart = util.format(Templates.Current.COMMAND_BLOCK_MINECART_NBT_FORMAT, JSON.stringify(command)); 
 			minecarts.push(minecart);
 		}
@@ -152,8 +152,6 @@ var FileParser = (function ()
 
 		var compiledCommands = util.format(Templates.Current.SUMMON_FALLING_RAIL_FORMAT, minecartsString);
 
-		var commandModule = new CommandModule();
-		commandModule.SourceName = sourceName;
 		commandModule.CompiledCommand = compiledCommands;
 
 		return commandModule;
@@ -201,7 +199,7 @@ var FileParser = (function ()
 		return content.trim();
 	}
 		
-    FileParser.prototype.processLine = function (line , endoffile)
+	FileParser.prototype.processLine = function (commandModule, line , endoffile)
 	{
 		if(line[0] == "#" || line[0] == ">" || line[0] == "/" || line[0] == "!" || line[0] == "$" || endoffile == true) 
 		{
@@ -209,16 +207,16 @@ var FileParser = (function ()
 			switch (this.PreviousTrigger)
 			{
 				case "#":
-					this.processRowLine(this.PreviousCommand.trim());
+					this.processRowLine(commandModule, this.PreviousCommand.trim());
 					break;
 				case ">":
 					this.processJsonLine(this.PreviousCommand.trim());
 					break;
 				case "/":
-					this.processCommandBlockLine(this.PreviousCommand.trim());
+					this.processCommandBlockLine(commandModule, this.PreviousCommand.trim());
 					break;
 				case "!":
-					this.processBangLine(this.PreviousCommand.trim());
+					this.processBangLine(commandModule, this.PreviousCommand.trim());
 					break;
 				case "$":
 					this.processVariableLine(this.PreviousCommand.trim());
@@ -229,13 +227,13 @@ var FileParser = (function ()
 		}
 
 		this.PreviousCommand += " " + line;
-    };
+	};
 	
-	FileParser.prototype.processRowLine = function(line)
+	FileParser.prototype.processRowLine = function(commandModule, line)
 	{
 		line=this.checkForVariables(line);
 		var summon = CommandCreator.startNewLine(line);
-		if(summon) this.Commands.unshift(summon);
+		if(summon) commandModule.Commands.unshift(summon);
 		
 		if(Settings.Current.Output.ShowDebugInfo)
 		{
@@ -256,15 +254,15 @@ var FileParser = (function ()
 		{
 			console.log(chalk.bold("\n* PROCESS JSON OPTIONS"));
 			console.log("  " + JSON.stringify(json));
-			console.log("   -> type = " + CommandCreator.type);
-			console.log("   -> conditional = " + CommandCreator.conditional);
-			console.log("   -> auto = " + CommandCreator.auto);
+			console.log("   -> type = " + CommandCreator.currentCommandBlock.type);
+			console.log("   -> conditional = " + CommandCreator.currentCommandBlock.conditional);
+			console.log("   -> auto = " + CommandCreator.currentCommandBlock.auto);
 			console.log("   -> executeAs = " + CommandCreator.executeAs);
 			console.log("   -> markerTag = " + CommandCreator.markerTag);
 		}
 	};
 	
-	FileParser.prototype.processCommandBlockLine = function(line)
+	FileParser.prototype.processCommandBlockLine = function(commandModule, line)
 	{
 		// Replace TABS
 		line=line.replace(/\t/g,' ');
@@ -281,17 +279,17 @@ var FileParser = (function ()
 			for(var i in cornerCommands)
 			{	
 				var cornerCmd = cornerCommands[i];
-				this.Commands.unshift(cornerCmd);
+				commandModule.Commands.unshift(cornerCmd);
 				if(Settings.Current.Output.ShowDebugInfo)
 					console.log("   -> " + cornerCmd);
 			}
 		}
 
 		var summon = CommandCreator.addNewCmdMarker();
-		if(summon) this.Commands.unshift(summon);
+		if(summon) commandModule.Commands.unshift(summon);
 		
 		var command = CommandCreator.addSetblockCommand(line);
-		this.Commands.unshift(command);
+		commandModule.Commands.unshift(command);
 		
 		if(Settings.Current.Output.ShowDebugInfo)
 		{
@@ -302,7 +300,7 @@ var FileParser = (function ()
 		}
 	};
 	
-	FileParser.prototype.processBangLine = function(line)
+	FileParser.prototype.processBangLine = function(commandModule, line)
 	{
 		line=this.checkForVariables(line);
 		if(Settings.Current.Output.ShowDebugInfo)
@@ -310,18 +308,17 @@ var FileParser = (function ()
 			console.log(chalk.bold("\n* PROCESS BANG COMMAND"));
 			console.log("  " + line);
 		}
-		var commands = BangCommandHelper.ProcessBang(line, this);
+		var commands = BangCommandHelper.ProcessBang(commandModule, line, this);
 		if(Settings.Current.Output.ShowDebugInfo)
 		{
 			console.log("  Commands generated:");
 		}
 		if(commands.length > 0)
 		{
-			var self = this;
 			commands.forEach(function(command)
 			{
 				if(Settings.Current.Output.ShowDebugInfo) console.log("   -> " + command);
-				self.Commands.unshift(command);
+				commandModule.Commands.unshift(command);
 			});
 		}
 	};

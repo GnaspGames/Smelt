@@ -9,7 +9,7 @@ var Settings = require("./Settings");
 
 var BangCommandHelper = 
 {
-	ProcessBang : function(bang, fileParser)
+	ProcessBang : function(commandModule, bang, fileParser)
 	{
 		var commands = []
 		
@@ -20,9 +20,9 @@ var BangCommandHelper =
 		
 		var callback_addCommandBlock = function(cmd, jsonOptions)
 		{
-			var _type = CommandCreator.type;
-			var _conditional = CommandCreator.conditional;
-			var _auto = CommandCreator.auto;
+			var _type = CommandCreator.currentCommandBlock.type;
+			var _conditional = CommandCreator.currentCommandBlock.conditional;
+			var _auto = CommandCreator.currentCommandBlock.auto;
 			var _executeAs = CommandCreator.executeAs;
 			
 			if(jsonOptions) CommandCreator.processJSONLine(jsonOptions);
@@ -43,9 +43,9 @@ var BangCommandHelper =
 			if(_type == "impulse-chain" || _type == "repeating-chain")
 				_type = "chain";
 			
-			CommandCreator.type = _type;
-			CommandCreator.conditional = _conditional;
-			CommandCreator.auto = _auto;
+			CommandCreator.currentCommandBlock.type = _type;
+			CommandCreator.currentCommandBlock.conditional = _conditional;
+			CommandCreator.currentCommandBlock.auto = _auto;
 			CommandCreator.executeAs = _executeAs;
 		};
 		
@@ -74,6 +74,8 @@ var BangCommandHelper =
 		{
 			settings : Settings.Current,
 			args: args.slice(1),
+			getPreviousCommandBlock : function(){ return CommandCreator.previousCommandBlock; },
+			getCurrentCommandBlock : function(){ return CommandCreator.currentCommandBlock; },
 			addCommandBlock: callback_addCommandBlock,
 			addInitCommand: callback_addInitCommand,
 			addSupportModule: callback_addSupportModule,

@@ -11,44 +11,38 @@ var CommandCreator =
 	STARTING_X : 1,
 	STARTING_Y : -1,
 	STARTING_Z : 0,
-	previousX : 0,
-	previousY : 0,
-	previousZ : 0,
-	currentX : 1,
-	currentY : -1,
-	currentZ : 0,
-	currentDirection : "east",
+	STARTING_DIRECTION: "east",
+	previousCommandBlock : null,
+	currentCommandBlock : null,
 	currentDirectionChanged: false,
-	previousType: "",
-	type : "",
-	conditional : false,
-	auto : false,
 	executeAs : "",
 	markerTag : "",
 
 	fixConditionalCorners : function()
 	{
 		var commands = [];
-		while(CommandCreator.currentDirectionChanged && CommandCreator.conditional)
+		while(CommandCreator.currentDirectionChanged && CommandCreator.currentCommandBlock.conditional)
 		{
-			var blockName = CommandCreator.getBlockNameForType(CommandCreator.previousType);
+			var blockName = CommandCreator.getBlockNameForType(CommandCreator.previousCommandBlock.type);
 
-			var testforblockCmd = util.format(
+			var testforblockCmd = util.format
+			(
 				Templates.Current.TESTFORBLOCK_COMMAND_FORMAT, 
-				(CommandCreator.previousX - CommandCreator.currentX),
-				(CommandCreator.previousY - CommandCreator.currentY),
-				(CommandCreator.previousZ - CommandCreator.currentZ),
+				CommandCreator.previousCommandBlock.getRelativeX(),
+				CommandCreator.previousCommandBlock.getRelativeY(),
+				CommandCreator.previousCommandBlock.getRelativeZ(),
 				blockName
 			);
 
-			var setblockCmd = CommandCreator.buildSetblockCommand(
-				CommandCreator.currentX, 
-				CommandCreator.currentY,
-				CommandCreator.currentZ,
-				CommandCreator.currentDirection,
-				CommandCreator.type,
+			var setblockCmd = CommandCreator.buildSetblockCommand
+			(
+				CommandCreator.currentCommandBlock.x, 
+				CommandCreator.currentCommandBlock.y,
+				CommandCreator.currentCommandBlock.z,
+				CommandCreator.currentCommandBlock.direction,
+				CommandCreator.currentCommandBlock.type,
 				false, 
-				CommandCreator.auto, 
+				CommandCreator.currentCommandBlock.auto, 
 				CommandCreator.executeAs,
 				testforblockCmd
 			);
@@ -59,64 +53,71 @@ var CommandCreator =
 		}
 		return commands;
 	},
-	
 	addSetblockCommand : function(command)
 	{
-		var command = CommandCreator.buildSetblockCommand(
-			CommandCreator.currentX, 
-			CommandCreator.currentY,
-			CommandCreator.currentZ,
-			CommandCreator.currentDirection,
-			CommandCreator.type,
-			CommandCreator.conditional, 
-			CommandCreator.auto, 
+		var command = CommandCreator.buildSetblockCommand
+		(
+			CommandCreator.currentCommandBlock.x, 
+			CommandCreator.currentCommandBlock.y,
+			CommandCreator.currentCommandBlock.z,
+			CommandCreator.currentCommandBlock.direction,
+			CommandCreator.currentCommandBlock.type,
+			CommandCreator.currentCommandBlock.conditional, 
+			CommandCreator.currentCommandBlock.auto, 
 			CommandCreator.executeAs,
-			command);
+			command
+		);
 		
 		CommandCreator.incrementSetblockVars();
 		
 		return command;
 	},
-
-
 	incrementSetblockVars : function()
 	{
+		
+		// Replace previous command block details
+		CommandCreator.previousCommandBlock = new CommandBlock
+		(
+			CommandCreator.currentCommandBlock.x,
+			CommandCreator.currentCommandBlock.y,
+			CommandCreator.currentCommandBlock.z,
+			CommandCreator.currentCommandBlock.direction,
+			CommandCreator.currentCommandBlock.type,
+			CommandCreator.currentCommandBlock.conditional,
+			CommandCreator.currentCommandBlock.auto
+		);
+		
 		// Set details for next commandblock
 		
-		CommandCreator.previousType = CommandCreator.type;
-		CommandCreator.previousX = CommandCreator.currentX;
-		CommandCreator.previousY = CommandCreator.currentY;
-		CommandCreator.previousZ = CommandCreator.currentZ;
-
 		CommandCreator.currentDirectionChanged = false;
-		switch(CommandCreator.currentDirection)
+		switch(CommandCreator.currentCommandBlock.direction)
 		{
 			case "east":
-				CommandCreator.currentX++;
-				if(CommandCreator.currentX == 14)
+				CommandCreator.currentCommandBlock.x++;
+				if(CommandCreator.currentCommandBlock.x == 14)
 				{
-					CommandCreator.currentDirection = "up";
+					CommandCreator.currentCommandBlock.direction = "up";
 					CommandCreator.currentDirectionChanged = true;
 				}
 			break;
 			case "west":
-				CommandCreator.currentX--;
-				if(CommandCreator.currentX == 1)
+				CommandCreator.currentCommandBlock.x--;
+				if(CommandCreator.currentCommandBlock.x == 1)
 				{
-					CommandCreator.currentDirection = "up";
+					CommandCreator.currentCommandBlock.direction = "up";
 					CommandCreator.currentDirectionChanged = true;
 				}
 			break;
 			case "up":
-				CommandCreator.currentY++;
-				if(CommandCreator.currentX == 14)
+				CommandCreator.currentCommandBlock.y++;
+				if(CommandCreator.currentCommandBlock.x == 14)
 				{
-					CommandCreator.currentDirection = "west";
+					CommandCreator.currentCommandBlock.direction = "west";
 					CommandCreator.currentDirectionChanged = true;
 				}
-				else if(CommandCreator.currentX == 1)
+				else if(CommandCreator.currentCommandBlock.x == 1)
 				{
-					CommandCreator.currentDirection = "east";
+					CommandCreator.currentCommandBlock.direction = "east";
 					CommandCreator.currentDirectionChanged = true;
 				}
 			break;
@@ -124,7 +125,6 @@ var CommandCreator =
 
 
 	},
-
 	buildSetblockCommand : function(x, y, z, direction, type, conditional, auto, executeAs, command)
 	{
 		var blockName = CommandCreator.getBlockNameForType(type, true);
@@ -158,7 +158,6 @@ var CommandCreator =
 								   
 		return setblock;
 	},
-
 	getBlockNameForType : function(type, allowSwitchToChain)
 	{
 		var blockName = "";
@@ -166,11 +165,11 @@ var CommandCreator =
 		{
 			case "impulse-chain":
 				blockName = Templates.Current.IMPULSE_BLOCK_NAME;
-				if(allowSwitchToChain) CommandCreator.type = "chain";
+				if(allowSwitchToChain) CommandCreator.currentCommandBlock.type = "chain";
 				break;
 			case "repeating-chain":
 				blockName = Templates.Current.REPEATING_BLOCK_NAME;
-				if(allowSwitchToChain) CommandCreator.type = "chain";
+				if(allowSwitchToChain) CommandCreator.currentCommandBlock.type = "chain";
 				break;
 			case "impulse":
 				blockName = Templates.Current.IMPULSE_BLOCK_NAME;
@@ -184,7 +183,6 @@ var CommandCreator =
 		}
 		return blockName;
 	},
-
 	addNewCmdMarker : function()
 	{ 
 		var summon;
@@ -203,11 +201,14 @@ var CommandCreator =
 					break;
 			}
 
-			summon = util.format(format, 
-				CommandCreator.currentX,
-				CommandCreator.currentY, 
-				CommandCreator.currentZ, 
-				CommandCreator.markerTag);
+			summon = util.format
+			(
+				format, 
+				CommandCreator.currentCommandBlock.x,
+				CommandCreator.currentCommandBlock.y, 
+				CommandCreator.currentCommandBlock.z, 
+				CommandCreator.markerTag
+			);
 		}
 		return summon;
 	},
@@ -243,40 +244,49 @@ var CommandCreator =
 					format = Templates.Current.SUMMON_ARMORSTAND_DISPLAY_MARKER_FORMAT;
 					break;
 			}
-			summon = util.format(format, CommandCreator.currentZ, customName);
+			summon = util.format(format, CommandCreator.currentCommandBlock.z, customName);
 		}
 		return summon;
 	},
 	startNewLine : function(line)
 	{
-		CommandCreator.currentDirection = "east";
-		CommandCreator.currentX = CommandCreator.STARTING_X;
-		CommandCreator.currentY = CommandCreator.STARTING_Y;
-		CommandCreator.currentZ++;
-		// CommandCreator.currentZ == 15)
+		CommandCreator.previousCommandBlock = null;
+
+		CommandCreator.currentCommandBlock.direction = "east";
+		CommandCreator.currentCommandBlock.x = CommandCreator.STARTING_X;
+		CommandCreator.currentCommandBlock.y = CommandCreator.STARTING_Y;
+		CommandCreator.currentCommandBlock.z++;
+		// CommandCreator.currentCommandBlock.z == 15)
 		//	console.error("TOO MANY LINES!");
 		
 		return CommandCreator.addNewLineMarker(line);
 	},
 	startNewFile : function()
 	{
-		CommandCreator.currentDirection = "east";
-		CommandCreator.currentX = CommandCreator.STARTING_X;
-		CommandCreator.currentY = CommandCreator.STARTING_Y;
-		CommandCreator.currentZ = CommandCreator.STARTING_Z;
-		CommandCreator.type = Settings.Current.Commands.DefaultCommandBlockType;
-		CommandCreator.conditional = Settings.Current.Commands.DefaultConditionalValue;
-		CommandCreator.auto = Settings.Current.Commands.DefaultAutoValue;
+		CommandCreator.previousCommandBlock = null;
+		
+		CommandCreator.currentCommandBlock = new CommandBlock
+		(
+			CommandCreator.STARTING_X,
+			CommandCreator.STARTING_Y,
+			CommandCreator.STARTING_Z,
+			CommandCreator.STARTING_DIRECTION,
+			Settings.Current.Commands.DefaultCommandBlockType,
+			Settings.Current.Commands.DefaultConditionalValue,
+			Settings.Current.Commands.DefaultAutoValue
+		);
+
 		CommandCreator.executeAs = "";
+		CommandCreator.markerTag = "";
 	},
 	processJSONLine : function(json)
 	{
 		if(json.type != null)
-			CommandCreator.type = json.type; 
+			CommandCreator.currentCommandBlock.type = json.type; 
 		if(json.conditional != null)
-			CommandCreator.conditional = json.conditional; 
+			CommandCreator.currentCommandBlock.conditional = json.conditional; 
 		if(json.auto != null)
-			CommandCreator.auto = json.auto;
+			CommandCreator.currentCommandBlock.auto = json.auto;
 		if(json.executeAs != null)
 			CommandCreator.executeAs = json.executeAs;
 		if(json.markerTag != null)

@@ -4,8 +4,11 @@ var CommandModule = (function ()
 	{
 		this.SourceName = "";
 		this.CompiledCommand = "";
+		this.Commands = [];
 	}
-})
+
+	return CommandModule;
+})();
 
 module.exports = CommandModule;
 
