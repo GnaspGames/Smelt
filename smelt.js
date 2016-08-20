@@ -3,7 +3,6 @@
 var util = require('util');
 var commander = require('commander');
 var chalk = require('chalk');
-var Program = require("./Program");
 var Settings = require("./Settings");
 var pjson = require('./package.json');
 

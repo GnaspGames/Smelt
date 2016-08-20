@@ -1,6 +1,6 @@
 var util = require("util");
 
-module.exports = function(args, command)
+module.exports = function(args, addCommandBlock)
 {
 	var entityTag = args[0];
 	var objective = args[1];
@@ -18,7 +18,7 @@ module.exports = function(args, command)
 	{
 		i = Math.ceil(i);
 		
-		command(util.format("tp @e[tag=%s,score_%s_min=%d] " + axisFormat, entityTag, objective, i, i));
-		command(util.format("scoreboard players remove @e[tag=%s,score_%s_min=%d] %s %d", entityTag, objective, i, objective, i));
+		addCommandBlock(util.format("tp @e[tag=%s,score_%s_min=%d] " + axisFormat, entityTag, objective, i, i));
+		addCommandBlock(util.format("scoreboard players remove @e[tag=%s,score_%s_min=%d] %s %d", entityTag, objective, i, objective, i));
 	}
 };

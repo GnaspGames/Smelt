@@ -3,12 +3,19 @@
 // ------------------------
 // Usage: !start_event <eventName>
 
-module.exports = function(args, addCommand, addSetup)
+var Event = require("./event.js");
+
+var StartEvent = {}
+
+StartEvent.Install = Event.Install;
+
+StartEvent.Execute = function(smelt)
 {
-	var name = args[0];
+	var name = smelt.args[0];
 	if(name)
 	{
-		addSetup("bang-commands-setup.mcc");
-		addCommand("/scoreboard players tag @e[type=ArmorStand,name=OC-SYSTEM] add event_" + name);
+		smelt.addCommandBlock("/scoreboard players tag @e[type=ArmorStand,name=OC-SYSTEM] add event_" + name);
 	}
-}
+};
+
+module.exports = StartEvent;

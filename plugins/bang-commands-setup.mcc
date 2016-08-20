@@ -1,17 +1,16 @@
------------------------------
---        Bang Setup       --
------------------------------
--- This module is used to setup required entities 
--- for some of the Smelt plugins to work
+/*
+    -----------------------------
+    --  Bang Commands Setup    --
+    -----------------------------
+    -- This module is used to setup required entities 
+    -- for some of the Smelt plugins to work
+*/
 
 # Bang Commands Setup
-{"type":"impulse","auto":true}
-    
+>{"type":"impulse","auto":true}
     /tellraw @a [{"text":"Running Bang Commands Setup.","color":"red"}]
-    {"type":"chain", "conditional":false}
-    
+    >{"type":"chain", "conditional":false}
     /say Recreate OC-SYSTEM entity
 	/kill @e[type=ArmorStand,name=OC-SYSTEM]
 	/summon ArmorStand ~ ~1 ~ { NoGravity : 1b, Invulnerable : 1b, CustomName : "OC-SYSTEM", CustomNameVisible : 1b }
-	
-    /tellraw @a [{"text":"Running Plugins Setup finished.","color":"green"}]
+    /tellraw @a [{"text":"Bang Commands Setup finished.","color":"green"}]

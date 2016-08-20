@@ -26,11 +26,14 @@ var compileTimeOps = {
 	"%": function(a, b) { return a % b; },
 }
 
-module.exports = function(args, command)
+var Math = {};
+var statics;
+
+Math.Execute = function(smelt)
 {
-	var result = args[0];
-	var resultOp = args[1];
-	var formula = args.slice(2).join(" ");
+	var result = smelt.args[0];
+	var resultOp = smelt.args[1];
+	var formula = smelt.args.slice(2).join(" ");
 	
 	if(result.indexOf(".") < 1 || !/^[\+\-\*\/%]?=$/.test(resultOp))
 		throw new Error("Usage: !math <objective>.<selector> <operator> <expression>\n\te.g. !math money.@r += lottery.pot / 2 + 42");
@@ -113,7 +116,7 @@ module.exports = function(args, command)
 		postfix.push(opstack[i]);
 		
 	var cmds = [];
-	var statics = [];
+	var currStatics = [];
 	var valstack = [];
 	var nextMutable = 0;
 	
@@ -129,24 +132,32 @@ module.exports = function(args, command)
 	if(valstack.length > 1)
 		throw new Error("Invalid math expression: " + JSON.stringify(formula));
 	
-	placeOp(resultOp[0], result, valstack[0]);
-	command("scoreboard objectives add math dummy");
+	valstack[1] = result;
+	op(resultOp[0]);
 	
-	statics.forEach(function(val, i)
+	if(!statics)
 	{
-		if(statics.indexOf(val) != i)
+		statics = [];
+		smelt.addInitCommand("scoreboard objectives add math dummy");
+	}
+	
+	currStatics.forEach(function(val, i)
+	{
+		if(statics.indexOf(val) != -1 || currStatics.indexOf(val) != i)
 			return;
-		command([
+		statics.push(val);
+			
+		smelt.addInitCommand([
 			"scoreboard players set",
-			"const" + statics[i],
+			"const" + val,
 			"math",
-			statics[i]
+			val
 		].join(" "));
 	});
 	
 	cmds.forEach(function(cmd)
 	{
-		command(cmd);
+		smelt.addCommandBlock(cmd);
 	});
 	
 	function op(operator)
@@ -209,7 +220,7 @@ module.exports = function(args, command)
 	}
 	function toScore(val)
 	{
-		statics.push(val);
+		currStatics.push(val);
 		return {
 			objective: "math",
 			name: "const" + val,
@@ -230,3 +241,5 @@ module.exports = function(args, command)
 		].join(" "));
 	}
 }
+
+module.exports = Math;

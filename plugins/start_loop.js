@@ -3,13 +3,19 @@
 // ----------------------
 // Usage: !start_loop <loopName>
 
+var Loop = require("./loop.js");
 
-module.exports = function(args, addCommand, addSetup)
+var StartLoop = {}
+
+StartLoop.Install = Loop.Install;
+
+StartLoop.Execute = function(smelt)
 {
-	var name = args[0];
+	var name = smelt.args[0];
 	if(name)
 	{
-		addSetup("bang-commands-setup.mcc");
-		addCommand("/scoreboard players tag @e[type=ArmorStand,name=OC-SYSTEM] add loop_" + name);
+		smelt.addCommandBlock("/scoreboard players tag @e[type=ArmorStand,name=OC-SYSTEM] add loop_" + name);
 	}
-}
+};
+
+module.exports = StartLoop;
