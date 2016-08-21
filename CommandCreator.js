@@ -16,9 +16,6 @@ var CommandCreator =
 	EAST_DIRECTION_VALUE : 5,
 	WEST_DIRECTION_VALUE : 4,
 	CONDITIONAL_DIFF_VALUE : 8,
-	STARTING_X : 1,
-	STARTING_Y : -1,
-	STARTING_Z : 0,
 	STARTING_DIRECTION: "east",
 	previousCommandBlock : null,
 	currentCommandBlock : null,
@@ -63,6 +60,13 @@ var CommandCreator =
 	},
 	addSetblockCommand : function(command)
 	{
+		// Check if roof has been reached
+		if(CommandCreator.currentCommandBlock.y > Settings.Current.Modules.StopY)
+			throw Error("The maximum y position has been met! You need to either decrease the size of the row, split up your row, or increase the allowed size of your modules.");
+
+		if(CommandCreator.currentCommandBlock.z > Settings.Current.Modules.StopZ)
+			throw Error("The maximum z position has been met! You need to either decrease the number of rows, split up your module, or increase the allowed size of your modules.");
+
 		var command = CommandCreator.buildSetblockCommand
 		(
 			CommandCreator.currentCommandBlock.x, 
@@ -102,7 +106,7 @@ var CommandCreator =
 		{
 			case "east":
 				CommandCreator.currentCommandBlock.x++;
-				if(CommandCreator.currentCommandBlock.x == 14)
+				if(CommandCreator.currentCommandBlock.x == Settings.Current.Modules.StopX)
 				{
 					CommandCreator.currentCommandBlock.direction = "up";
 					CommandCreator.currentDirectionChanged = true;
@@ -110,24 +114,29 @@ var CommandCreator =
 			break;
 			case "west":
 				CommandCreator.currentCommandBlock.x--;
-				if(CommandCreator.currentCommandBlock.x == 1)
+				if(CommandCreator.currentCommandBlock.x == Settings.Current.Modules.StartX)
 				{
 					CommandCreator.currentCommandBlock.direction = "up";
 					CommandCreator.currentDirectionChanged = true;
 				}
 			break;
 			case "up":
+
+				// Increment z position to move up 1 block
 				CommandCreator.currentCommandBlock.y++;
-				if(CommandCreator.currentCommandBlock.x == 14)
+				
+				// Set new direction depending on which end of the row we're on
+				if(CommandCreator.currentCommandBlock.x == Settings.Current.Modules.StopX)
 				{
 					CommandCreator.currentCommandBlock.direction = "west";
 					CommandCreator.currentDirectionChanged = true;
 				}
-				else if(CommandCreator.currentCommandBlock.x == 1)
+				else if(CommandCreator.currentCommandBlock.x == Settings.Current.Modules.StartX)
 				{
 					CommandCreator.currentCommandBlock.direction = "east";
 					CommandCreator.currentDirectionChanged = true;
 				}
+
 			break;
 		}
 
@@ -160,6 +169,9 @@ var CommandCreator =
 		if(executeAs != "")
 			command = util.format("/execute %s ~ ~ ~ %s", executeAs, command);
 		
+		// lower y by 1 because minecarts execute 1 block up
+		y = (y - 1);
+
 		var setblock = util.format(CommandCreator.SETBLOCK_COMMAND_FORMAT, 
 		                           x, y, z,
 								   blockName, dataValue, JSON.stringify(command), autoString);
@@ -225,7 +237,7 @@ var CommandCreator =
 		var customName = line.replace("#", "").trim();
 		var summon;
 		if(Settings.Current.Markers.SummonRowMarkers)
-			summon = CommandCreator.addNewDisplayMarker(customName);
+			summon = CommandCreator.addNewDisplayMarker(customName, CommandCreator.currentCommandBlock.z);
 		return summon;
 	},
 	addNewFileMarker : function(fileName)
@@ -233,10 +245,10 @@ var CommandCreator =
 		var customName = fileName.trim();
 		var summon;
 		if(Settings.Current.Markers.SummonFileMarkers)
-			summon = CommandCreator.addNewDisplayMarker(customName);
+			summon = CommandCreator.addNewDisplayMarker(customName, 0);
 		return summon;
 	},
-	addNewDisplayMarker : function(customName)
+	addNewDisplayMarker : function(customName, positionZ)
 	{
 		var summon;
 		if(customName.length != 0)
@@ -252,20 +264,23 @@ var CommandCreator =
 					format = CommandCreator.SUMMON_ARMORSTAND_DISPLAY_MARKER_FORMAT;
 					break;
 			}
-			summon = util.format(format, CommandCreator.currentCommandBlock.z, customName);
+			summon = util.format(format, positionZ, customName);
 		}
 		return summon;
 	},
-	startNewLine : function(line)
+	firstRowCreated : false,
+	startNewRow : function(line)
 	{
 		CommandCreator.previousCommandBlock = null;
 
-		CommandCreator.currentCommandBlock.direction = "east";
-		CommandCreator.currentCommandBlock.x = CommandCreator.STARTING_X;
-		CommandCreator.currentCommandBlock.y = CommandCreator.STARTING_Y;
-		CommandCreator.currentCommandBlock.z++;
-		// CommandCreator.currentCommandBlock.z == 15)
-		//	console.error("TOO MANY LINES!");
+		CommandCreator.currentCommandBlock.direction = CommandCreator.STARTING_DIRECTION;
+		CommandCreator.currentCommandBlock.x = Settings.Current.Modules.StartX;
+		CommandCreator.currentCommandBlock.y = Settings.Current.Modules.StartY;
+
+		if(CommandCreator.firstRowCreated)
+			CommandCreator.currentCommandBlock.z++;
+		else
+			CommandCreator.firstRowCreated = true;
 		
 		return CommandCreator.addNewLineMarker(line);
 	},
@@ -275,9 +290,9 @@ var CommandCreator =
 		
 		CommandCreator.currentCommandBlock = new CommandBlock
 		(
-			CommandCreator.STARTING_X,
-			CommandCreator.STARTING_Y,
-			CommandCreator.STARTING_Z,
+			Settings.Current.Modules.StartX,
+			Settings.Current.Modules.StartY,
+			Settings.Current.Modules.StartZ,
 			CommandCreator.STARTING_DIRECTION,
 			Settings.Current.Commands.DefaultCommandBlockType,
 			Settings.Current.Commands.DefaultConditionalValue,

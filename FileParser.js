@@ -130,7 +130,7 @@ var FileParser = (function ()
 		var clearlineMarkers_old = "kill @e[tag=lineMarker,dx=15,dy=20,dz=15]"; // keep for backwards compatibility
 		commandModule.Commands.unshift(gamerule, summonRebuildEntity, clearArea, clearlineMarkers, clearlineMarkers_old, summonFilenameMarker);
 		
-		var removeBlocks = CommandCreator.buildSetblockCommand(0, 1, 0, "up", "impulse", false, true, "", "/fill ~ ~-1 ~ ~ ~ ~ air");
+		var removeBlocks = CommandCreator.buildSetblockCommand(0, 2, 0, "up", "impulse", false, true, "", "/fill ~ ~-1 ~ ~ ~ ~ air");
 		
 		var removeMinecarts = "kill @e[type=MinecartCommandBlock,r=0]";
 		commandModule.Commands.push(removeBlocks, removeMinecarts);
@@ -230,7 +230,7 @@ var FileParser = (function ()
 	FileParser.prototype.processRowLine = function(commandModule, line)
 	{
 		line=this.checkForVariables(line);
-		var summon = CommandCreator.startNewLine(line);
+		var summon = CommandCreator.startNewRow(line);
 		if(summon) commandModule.Commands.unshift(summon);
 		
 		if(Settings.Current.Output.ShowDebugInfo)

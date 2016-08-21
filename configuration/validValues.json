@@ -5,6 +5,15 @@
         "CopyCompiledCommands":  [true, false],
         "WriteCompiledCommandsToFile":  [true, false]
     },
+    "Modules":
+    {
+        "StartX": "integer",
+        "StartY": "integer",
+        "StartZ": "integer",
+        "StopX": "integer",
+        "StopY": "integer",
+        "StopZ": "integer"
+    },
     "Commands": {
         "DefaultCommandBlockType": ["impulse", "repeating", "chain"],
         "DefaultConditionalValue": [true, false],

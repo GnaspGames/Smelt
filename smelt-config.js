@@ -102,12 +102,24 @@ if(commander.changeLocal || commander.changeGlobal)
                     var changedValue = (inputValue != "");
                     if(changedValue)
                     {   
-                        // Convert to boolean
-                        if(inputValue == "true") inputValue = true;
-                        if(inputValue == "false") inputValue = false;
-                    
+                        // Try converting to boolean
+                        if(inputValue == "true") 
+                            inputValue = true;
+                        else if(inputValue == "false") 
+                            inputValue = false;
+                        else if(!isNaN(inputValue))
+                        {
+                            // Convert to integer
+                            try
+                            {
+                                var intValue = parseInt(inputValue);
+                                inputValue = intValue;
+                            } 
+                            catch(ex){}
+                        }
+
                         // Check valid values
-                        if(validValues.indexOf(inputValue) > -1)
+                        if(Settings.CheckValueIsValid(section, key, inputValue))
                         {
                             // If the inputValue matches one of the valid values, great! 
                             newValue = inputValue;
@@ -116,7 +128,11 @@ if(commander.changeLocal || commander.changeGlobal)
                         else
                         {
                             // Otherwise, ask them to try again.
-                            console.log(chalk.yellow("    Sorry, valid values are: " + validValues.join(", ")));
+                            if(Array.isArray(validValues))
+                                console.log(chalk.yellow("    Sorry, valid values are: " + validValues.join(", ")));
+                            else
+                                console.log(chalk.yellow("    Sorry, value must be: " + validValues));
+
                             console.log("    Please try again.");
                         }
                     }
