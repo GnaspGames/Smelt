@@ -12,11 +12,17 @@ ResetObjective.Install = function(smelt)
 
 ResetObjective.Execute = function(smelt)
 {
+	// Get name and criteria
 	var name = smelt.args[0];
 	var criteria = smelt.args[1];
+	
+	// Remove name and criteria from args.
 	args.shift();
 	args.shift();
+	
+	// Join the rest of args to get displayName
 	var displayName = smelt.args.join(" ");
+
 	if(name)
 	{
 		smelt.addCommandBlock("/scoreboard objectives remove " + name);
