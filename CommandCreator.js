@@ -1,17 +1,9 @@
 var util = require('util');
 var Settings = require("./Settings");
+var Templates = require("./Compiler/CommandTemplates");
 
 var CommandCreator = 
 {
-	IMPULSE_BLOCK_NAME : "command_block",
-	REPEATING_BLOCK_NAME : "repeating_command_block",
-	CHAIN_BLOCK_NAME : "chain_command_block",
-	TESTFORBLOCK_COMMAND_FORMAT: "testforblock ~%d ~%d ~%d minecraft:%s -1 {SuccessCount:1}",
-	SETBLOCK_COMMAND_FORMAT : "setblock ~%d ~%d ~%d %s %d replace {Command:%s%s}",
-	SUMMON_ARMORSTAND_DISPLAY_MARKER_FORMAT : "summon ArmorStand ~ ~ ~%d {CustomName:%s, Tags:[\"oc_marker\"], Marker:1b, CustomNameVisible:1b, Invulnerable:1b, NoGravity:1b, Invisible:1b}",
-	SUMMON_ARMORSTAND_CMD_MARKER_FORMAT : "summon ArmorStand ~%d ~%d ~%d {Tags:[\"oc_marker\",\"%s\"], Marker:1b, Invulnerable:1b, NoGravity:1b}",	
-	SUMMON_AEC_DISPLAY_MARKER_FORMAT : "summon AreaEffectCloud ~ ~ ~%d {CustomName:%s, CustomNameVisible:1b, Tags:[\"oc_marker\"], Duration:2147483647}",
-	SUMMON_AEC_CMD_MARKER_FORMAT : "summon AreaEffectCloud ~%d ~%d ~%d {Tags:[\"oc_marker\",\"%s\"], Duration:2147483647}",
 	UP_DIRECTION_VALUE : 1,
 	EAST_DIRECTION_VALUE : 5,
 	WEST_DIRECTION_VALUE : 4,
@@ -32,7 +24,7 @@ var CommandCreator =
 
 			var testforblockCmd = util.format
 			(
-				CommandCreator.TESTFORBLOCK_COMMAND_FORMAT, 
+				Templates.Current.TESTFORBLOCK_COMMAND_FORMAT, 
 				CommandCreator.previousCommandBlock.getRelativeX(),
 				CommandCreator.previousCommandBlock.getRelativeY(),
 				CommandCreator.previousCommandBlock.getRelativeZ(),
@@ -172,7 +164,7 @@ var CommandCreator =
 		// lower y by 1 because minecarts execute 1 block up
 		y = (y - 1);
 
-		var setblock = util.format(CommandCreator.SETBLOCK_COMMAND_FORMAT, 
+		var setblock = util.format(Templates.Current.SETBLOCK_COMMAND_FORMAT, 
 		                           x, y, z,
 								   blockName, dataValue, JSON.stringify(command), autoString);
 								   
@@ -184,21 +176,21 @@ var CommandCreator =
 		switch(type)
 		{
 			case "impulse-chain":
-				blockName = CommandCreator.IMPULSE_BLOCK_NAME;
+				blockName = Templates.Current.IMPULSE_BLOCK_NAME;
 				if(allowSwitchToChain) CommandCreator.currentCommandBlock.type = "chain";
 				break;
 			case "repeating-chain":
-				blockName = CommandCreator.REPEATING_BLOCK_NAME;
+				blockName = Templates.Current.REPEATING_BLOCK_NAME;
 				if(allowSwitchToChain) CommandCreator.currentCommandBlock.type = "chain";
 				break;
 			case "impulse":
-				blockName = CommandCreator.IMPULSE_BLOCK_NAME;
+				blockName = Templates.Current.IMPULSE_BLOCK_NAME;
 				break;
 			case "repeating":
-				blockName = CommandCreator.REPEATING_BLOCK_NAME;
+				blockName = Templates.Current.REPEATING_BLOCK_NAME;
 				break;
 			case "chain":
-				blockName = CommandCreator.CHAIN_BLOCK_NAME;
+				blockName = Templates.Current.CHAIN_BLOCK_NAME;
 				break;
 		}
 		return blockName;
@@ -213,11 +205,11 @@ var CommandCreator =
 			switch (Settings.Current.Markers.EntityType) 
 			{
 				case "AreaEffectCloud":
-					format = CommandCreator.SUMMON_AEC_CMD_MARKER_FORMAT;
+					format = Templates.Current.SUMMON_AEC_CMD_MARKER_FORMAT;
 					break;
 				case "ArmorStand":
 				default:
-					format = CommandCreator.SUMMON_ARMORSTAND_CMD_MARKER_FORMAT;
+					format = Templates.Current.SUMMON_ARMORSTAND_CMD_MARKER_FORMAT;
 					break;
 			}
 
@@ -257,11 +249,11 @@ var CommandCreator =
 			switch (Settings.Current.Markers.EntityType) 
 			{
 				case "AreaEffectCloud":
-					format = CommandCreator.SUMMON_AEC_DISPLAY_MARKER_FORMAT;
+					format = Templates.Current.SUMMON_AEC_DISPLAY_MARKER_FORMAT;
 					break;
 				case "ArmorStand":
 				default:
-					format = CommandCreator.SUMMON_ARMORSTAND_DISPLAY_MARKER_FORMAT;
+					format = Templates.Current.SUMMON_ARMORSTAND_DISPLAY_MARKER_FORMAT;
 					break;
 			}
 			summon = util.format(format, positionZ, customName);

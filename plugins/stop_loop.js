@@ -3,6 +3,8 @@
 // ----------------------
 // Usage: !stop_loop <loopName>
 
+var util = require("util");
+
 var Loop = require("./loop.js");
 
 var StopLoop = {}
@@ -14,7 +16,9 @@ StopLoop.Execute = function(smelt)
 	var name = smelt.args[0];
 	if(name)
 	{
-		smelt.addCommandBlock("/scoreboard players tag @e[type=ArmorStand,name=OC-SYSTEM] remove loop_" + name);
+		smelt.addCommandBlock(
+				util.format("scoreboard players tag @e[tag=Smelt_SYSTEM] remove loop_%s", name)
+			);
 	}
 };
 

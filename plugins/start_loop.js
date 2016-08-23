@@ -3,6 +3,8 @@
 // ----------------------
 // Usage: !start_loop <loopName>
 
+var util = require("util");
+
 var Loop = require("./loop.js");
 
 var StartLoop = {}
@@ -14,7 +16,9 @@ StartLoop.Execute = function(smelt)
 	var name = smelt.args[0];
 	if(name)
 	{
-		smelt.addCommandBlock("/scoreboard players tag @e[type=ArmorStand,name=OC-SYSTEM] add loop_" + name);
+		smelt.addCommandBlock(
+			util.format("/scoreboard players tag @e[tag=Smelt_SYSTEM] add loop_%s", name)
+		);
 	}
 };
 

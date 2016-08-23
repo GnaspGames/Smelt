@@ -128,4 +128,6 @@ var Settings =
     }
 }
 
+Settings.ReadConfigs();
+
 module.exports = Settings;

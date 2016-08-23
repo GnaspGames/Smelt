@@ -3,7 +3,8 @@
         "ShowDebugInfo" : false,
         "ShowCompiledCommands" : false,
         "CopyCompiledCommands": false,
-        "WriteCompiledCommandsToFile": true
+        "WriteCompiledCommandsToFile": true,
+        "MinecraftVersion" : "1.10"
     },
     "Modules":
     {

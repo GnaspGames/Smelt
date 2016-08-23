@@ -7,7 +7,17 @@ var Test = {};
 
 Test.Install = function(smelt)
 {
-	smelt.addSupportModule("bang-commands-setup.mcc");
+	switch(smelt.settings.Output.MinecraftVersion) 
+	{
+		case "1.9":
+		case "1.10":
+			smelt.addSupportModule("smelt-for-1.9.mcc");
+			break;
+		case "1.11":
+		default:
+			smelt.addSupportModule("smelt-for-1.11.mcc");
+			break;
+	}
 };
 
 Test.Execute = function(smelt)

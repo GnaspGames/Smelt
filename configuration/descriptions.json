@@ -3,7 +3,8 @@
         "ShowDebugInfo" : "Output additional debug information to the console.",
         "ShowCompiledCommands" : "Output compiled commands to the console.",
         "CopyCompiledCommands": "Copy compiled commands to the clipboard to be pasted elsewhere.",
-        "WriteCompiledCommandsToFile": "Write compiled commands to files (example.mcc writes to example.oc)."
+        "WriteCompiledCommandsToFile": "Write compiled commands to files (example.mcc writes to example.oc).",
+        "MinecraftVersion" : "Specify the Minecraft version compiled commands should target."
     },
     "Modules":
     {

@@ -8,6 +8,7 @@ var CommandModule = require("./CommandModule");
 var BangCommandHelper = require("./BangCommandHelper");
 var Program = require("./Program");
 var Settings = require("./Settings");
+var Templates = require("./Compiler/CommandTemplates");
 var readlineSync = require('readline-sync');
 
 
@@ -123,34 +124,35 @@ var FileParser = (function ()
 		// One final call to processLine to complete the last trigger
 		process("", true);
 		
-		var gamerule = "gamerule commandBlockOutput false";
-		var summonRebuildEntity = "summon ArmorStand ~ ~-1 ~ {Tags:[\"oc_rebuild\",\"oc_marker\"]}"
-		var clearArea = "/execute @e[tag=oc_rebuild] ~ ~ ~ fill ~1 ~ ~1 ~14 ~10 ~14 air 0";
-		var clearlineMarkers = "/execute @e[tag=oc_rebuild] ~ ~ ~ kill @e[tag=oc_marker,dx=15,dy=20,dz=15]";
-		var clearlineMarkers_old = "kill @e[tag=lineMarker,dx=15,dy=20,dz=15]"; // keep for backwards compatibility
-		commandModule.Commands.unshift(gamerule, summonRebuildEntity, clearArea, clearlineMarkers, clearlineMarkers_old, summonFilenameMarker);
+		commandModule.Commands.unshift(
+			Templates.Current.SUMMON_REBUILD_ENTITY, 
+			util.format(Templates.Current.CLEAR_AREA_FORMAT, 1, 0, 1, 14, 10, 14), // TODO replace with config numbers
+			util.format(Templates.Current.CLEAR_MARKERS_FORMAT, 15, 20, 15), // TODO replace with config numbers
+			summonFilenameMarker
+		);
 		
-		var removeBlocks = CommandCreator.buildSetblockCommand(0, 2, 0, "up", "impulse", false, true, "", "/fill ~ ~-1 ~ ~ ~ ~ air");
+		var removeBlocksNextTick = CommandCreator.buildSetblockCommand(0, 2, 0, "up", "impulse", false, true, "", "/fill ~ ~-1 ~ ~ ~ ~ air");
+		commandModule.Commands.push(
+			removeBlocksNextTick, 
+			Templates.Current.CLEAR_MINECARTS
+		);
+
+		// Now take all in this.Commands and put into commandblock minecarts to be executed
+		// when summoned as passengers on an activator rail
 		
-		var removeMinecarts = "kill @e[type=MinecartCommandBlock,r=0]";
-		commandModule.Commands.push(removeBlocks, removeMinecarts);
-		
-		//if(Settings.Current.Output.ShowDebugInfo) console.log("\n\nCREATE IN THIS ORDER:\n");
 		var minecarts = []
 		for(i=0; i < commandModule.Commands.length; i++)
 		{
 			var command = commandModule.Commands[i];
-			var minecart = util.format("{id:MinecartCommandBlock,Command:%s}", JSON.stringify(command)); 
+			var minecart = util.format(Templates.Current.COMMAND_BLOCK_MINECART_NBT_FORMAT, JSON.stringify(command)); 
 			minecarts.push(minecart);
-			//if(Settings.Current.Output.ShowDebugInfo) console.log(minecart);
 		}
 		
 		var minecartsString = minecarts.join(",");
 
-		var compiledCommand = "summon FallingSand ~ ~1 ~ {Block:activator_rail,Time:1,Passengers:[%s]}"
-		compiledCommand = util.format(compiledCommand, minecartsString);
+		var compiledCommands = util.format(Templates.Current.SUMMON_FALLING_RAIL_FORMAT, minecartsString);
 
-		commandModule.CompiledCommand = compiledCommand;
+		commandModule.CompiledCommand = compiledCommands;
 
 		return commandModule;
 	};

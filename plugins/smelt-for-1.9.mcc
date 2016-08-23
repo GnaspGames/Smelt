@@ -1,0 +1,25 @@
+/*
+    -----------------------------
+    --   Smelt Support Module  --
+    -----------------------------
+    -- This module is used to setup required entities 
+    -- for some of the Smelt bang commands to work
+*/
+
+# Setup
+>{"type":"impulse","auto":true}
+    /tellraw @a [{"text":"Installing Smelt support module:","color":"red"}]
+    >{"type":"chain", "conditional":false}
+    /say Recreating the Smelt SYSTEM entity...
+    // Remmove old entity from older version of Smelt
+    /kill @e[name=OC-SYSTEM]
+    // Remove and recreate Smelt_SYSTEM
+    /kill @e[type=AreaEffectCloud,tag=Smelt_SYSTEM]
+    /summon AreaEffectCloud ~ ~1 ~ {CustomName:"Smelt_SYSTEM", Tags:["Smelt_SYSTEM"], CustomNameVisible:1b, Duration:2147483647}
+    /tellraw @a [{"text":"Smelt support module installed!","color":"green"}]
+
+# Delay Control 
+>{"type":"repeating-chain","auto":true}
+    /scoreboard players tag @e[type=AreaEffectCloud,tag=aecDelay] add aecRun {Age:-1}
+    /execute @e[type=AreaEffectCloud,tag=aecRun] ~ ~ ~ /blockdata ~ ~-1 ~ {auto:1b}
+    /execute @e[type=AreaEffectCloud,tag=aecRun] ~ ~ ~ /blockdata ~ ~-1 ~ {auto:0b}
