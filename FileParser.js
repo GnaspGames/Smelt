@@ -123,11 +123,26 @@ var FileParser = (function ()
 
 		// One final call to processLine to complete the last trigger
 		process("", true);
+
+		var moduleSettings = Settings.Current.Modules;
 		
 		commandModule.Commands.unshift(
 			Templates.Current.SUMMON_REBUILD_ENTITY, 
-			util.format(Templates.Current.CLEAR_AREA_FORMAT, 1, 0, 1, 14, 10, 14), // TODO replace with config numbers
-			util.format(Templates.Current.CLEAR_MARKERS_FORMAT, 15, 20, 15), // TODO replace with config numbers
+			util.format(
+				Templates.Current.CLEAR_AREA_FORMAT, 
+				moduleSettings.StartX,
+				moduleSettings.StartY,
+				moduleSettings.StartZ,
+				moduleSettings.StopX,
+				moduleSettings.StopY,
+				moduleSettings.StopZ
+			), 
+			util.format(
+				Templates.Current.CLEAR_MARKERS_FORMAT,
+				(moduleSettings.StopX + 1),
+				moduleSettings.StopY,
+				(moduleSettings.StopZ + 1)
+			), // TODO replace with config numbers
 			summonFilenameMarker
 		);
 		
