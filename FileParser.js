@@ -135,22 +135,42 @@ var FileParser = (function ()
 		var removeMinecarts = "kill @e[type=MinecartCommandBlock,r=0]";
 		commandModule.Commands.push(removeBlocks, removeMinecarts);
 		
+		var compiledCommand = "summon FallingSand ~ ~1 ~ {Block:activator_rail,Time:1,Passengers:[%s]}";
+		var commandLength = compiledCommand.length - 2;
+		var multiCommands = [];
+		
 		//if(Settings.Current.Output.ShowDebugInfo) console.log("\n\nCREATE IN THIS ORDER:\n");
 		var minecarts = []
 		for(i=0; i < commandModule.Commands.length; i++)
 		{
 			var command = commandModule.Commands[i];
 			var minecart = util.format("{id:MinecartCommandBlock,Command:%s}", JSON.stringify(command)); 
+			commandLength += minecart.length + 1;
+			if(commandLength >= 32000)
+			{
+				minecarts.push(util.format("{id:MinecartCommandBlock,Command:%s}", JSON.stringify(removeBlocks)));
+				minecarts.push(util.format("{id:MinecartCommandBlock,Command:%s}", JSON.stringify(removeMinecarts)));
+				multiCommands.push(minecarts);
+				
+				commandLength = compiledCommand.length - 2;
+				minecarts = [];
+			}
 			minecarts.push(minecart);
 			//if(Settings.Current.Output.ShowDebugInfo) console.log(minecart);
 		}
+		multiCommands.push(minecarts);
 		
-		var minecartsString = minecarts.join(",");
+		var combinedCommands = [];
+		for(var i = 0; i < multiCommands.length; i++)
+		{
+			var minecartsString = multiCommands[i].join(",");
+			combinedCommands[i] = util.format(compiledCommand, minecartsString);
+		}
+		
+		if(combinedCommands.length > 1)
+			console.log(chalk.yellow("\n * The output command was too long and had to be split into multiple commands."));
 
-		var compiledCommand = "summon FallingSand ~ ~1 ~ {Block:activator_rail,Time:1,Passengers:[%s]}"
-		compiledCommand = util.format(compiledCommand, minecartsString);
-
-		commandModule.CompiledCommand = compiledCommand;
+		commandModule.CompiledCommand = combinedCommands.join("\n\n");
 
 		return commandModule;
 	};
