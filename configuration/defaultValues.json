@@ -8,12 +8,13 @@
     },
     "Modules":
     {
-        "StartX": 1,
+        "StartX": 0,
         "StartY": 0,
-        "StartZ": 1,
-        "StopX": 14,
-        "StopY": 13,
-        "StopZ": 14
+        "StartZ": 0,
+        "StopX": 15,
+        "StopY": 15,
+        "StopZ": 15,
+        "Border": 1
     },
     "Commands": {
         "DefaultCommandBlockType": "impulse",
