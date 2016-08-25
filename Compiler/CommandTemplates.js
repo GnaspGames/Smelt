@@ -48,10 +48,10 @@ var getCurrent = function()
 	{
 		case "1.9":
 		case "1.10":
+		default:
 			current = Templates.MC_1_9;
 			break;
 		case "1.11":
-		default:
 			current = Templates.MC_1_11;
 			break;
 	}
