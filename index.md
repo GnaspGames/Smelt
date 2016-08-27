@@ -4,22 +4,34 @@ title: Home
 weight: 1
 nav: top
 ---
-Smelt (beta)
-==================
 
-Install
--------
-* Install [Node](https://nodejs.org).
-* Run `npm install smelt-cli -g` so that the `smelt` command can be used anywhere.
+Smelt <strike>(beta)</strike> [Version 1.0.0 released](changenotes.html)!
+====================================================================================
+
+How to install
+--------------
+
+Smelt is a command line interface (CLI) tool, so you need to use command line on your computer.
+
+* First, install [Node](https://nodejs.org) on your computer.
+* Then, in a command line prompt run `npm install smelt-cli -g` so that the `smelt` command can be used.
+
+### Installation statistics
 
 [![NPM](https://nodei.co/npm/smelt-cli.png?downloads=true)](https://nodei.co/npm/smelt-cli/)
 
-[Chat online using Discord](https://discord.gg/aDFs2pB)
+### Need more help?
 
-How it works
-------------
+* [Ask for help on the Discord channel](https://discord.gg/aDFs2pB)
+
+How it works (animated gif)
+---------------------------
+
+A visual example of how Smelt works:
 
 ![How it works](./images/smelt-demo.gif)
+
+**Please note** the animated gif above shows an old version; the `smelt events.mcc` command would now be `smelt compile events.mcc`.
 
 The Command Line Interface (CLI)
 --------------------------------
