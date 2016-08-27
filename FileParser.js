@@ -74,10 +74,21 @@ var FileParser = (function ()
 	
 	FileParser.prototype.ProcessData = function (data, sourceName)
 	{
-		CommandCreator.startNewFile();
-
+		// Create a new module instance
 		var commandModule = new CommandModule();
 		commandModule.SourceName = sourceName;
+		commandModule.setCoordinates(
+			Settings.Current.Modules.StartX,
+			Settings.Current.Modules.StartY,
+			Settings.Current.Modules.StartZ,
+			Settings.Current.Modules.StopX,
+			Settings.Current.Modules.StopY,
+			Settings.Current.Modules.StopZ,
+			Settings.Current.Modules.Border
+		);
+
+		// Pass module to CommandCreator to start new vars
+		CommandCreator.startNewFile(commandModule);
 
 		var content = this.removeComments(data.toString().trim());
 		var lines = content.split("\n");
@@ -89,13 +100,13 @@ var FileParser = (function ()
 		
 		var commands = [];
 
-		var summonFilenameMarker = CommandCreator.addNewFileMarker(path.basename(sourceName));
+		var summonModuleDisplayMarker = CommandCreator.addNewModuleDisplayMarker(path.basename(sourceName));
 
 		if(Settings.Current.Output.ShowDebugInfo)
 		{
 			console.log(chalk.bold("\n\n* START NEW FILE!"))
 			console.log("  " + sourceName);
-			if(summonFilenameMarker) console.log("   -> " + summonFilenameMarker);
+			if(summonModuleDisplayMarker) console.log("   -> " + summonModuleDisplayMarker);
 			else console.log("   -> " + "No file marker summoned");
 		}
 		
@@ -123,32 +134,37 @@ var FileParser = (function ()
 
 		// One final call to processLine to complete the last trigger
 		process("", true);
-
-		var moduleSettings = Settings.Current.Modules;
 		
 		commandModule.Commands.unshift(
-			Templates.Current.SUMMON_REBUILD_ENTITY, 
+			Templates.Current.CLEAR_MODULE_DISPLAY_MARKER,
+			util.format(
+				Templates.Current.SUMMON_REBUILD_ENTITY,
+				commandModule.lowX,
+				(commandModule.lowY - 1), // lower y by 1 because minecarts execute 1 block up
+				commandModule.lowZ
+			), 
 			util.format(
 				Templates.Current.CLEAR_AREA_FORMAT, 
-				moduleSettings.StartX,
-				moduleSettings.StartY,
-				moduleSettings.StartZ,
-				moduleSettings.StopX,
-				moduleSettings.StopY,
-				moduleSettings.StopZ
+				commandModule.border,
+				commandModule.lowY,
+				commandModule.border,
+				(commandModule.diffX - commandModule.border),
+				commandModule.diffY,
+				(commandModule.diffZ - commandModule.border)
 			), 
 			util.format(
 				Templates.Current.CLEAR_MARKERS_FORMAT,
-				(moduleSettings.StopX + 1),
-				moduleSettings.StopY,
-				(moduleSettings.StopZ + 1)
+				commandModule.diffX,
+				commandModule.diffY,
+				commandModule.diffZ
 			), // TODO replace with config numbers
-			summonFilenameMarker
+			summonModuleDisplayMarker
 		);
 		
 		var removeBlocksNextTick = CommandCreator.buildSetblockCommand(0, 2, 0, "up", "impulse", false, true, "", "/fill ~ ~-1 ~ ~ ~ ~ air");
 		commandModule.Commands.push(
 			removeBlocksNextTick, 
+			Templates.Current.CLEAR_REBUILD_ENTITY,
 			Templates.Current.CLEAR_MINECARTS
 		);
 

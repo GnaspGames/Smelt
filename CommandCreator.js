@@ -9,6 +9,7 @@ var CommandCreator =
 	WEST_DIRECTION_VALUE : 4,
 	CONDITIONAL_DIFF_VALUE : 8,
 	STARTING_DIRECTION: "east",
+	currentCommandModule: null,
 	previousCommandBlock : null,
 	currentCommandBlock : null,
 	currentDirectionChanged: false,
@@ -53,10 +54,10 @@ var CommandCreator =
 	addSetblockCommand : function(command)
 	{
 		// Check if roof has been reached
-		if(CommandCreator.currentCommandBlock.y > Settings.Current.Modules.StopY)
+		if(CommandCreator.currentCommandBlock.y > CommandCreator.currentCommandModule.highY)
 			throw Error("The maximum y position has been met! You need to either decrease the size of the row, split up your row, or increase the allowed size of your modules.");
 
-		if(CommandCreator.currentCommandBlock.z > Settings.Current.Modules.StopZ)
+		if(CommandCreator.currentCommandBlock.z > CommandCreator.currentCommandModule.innerHighZ)
 			throw Error("The maximum z position has been met! You need to either decrease the number of rows, split up your module, or increase the allowed size of your modules.");
 
 		var command = CommandCreator.buildSetblockCommand
@@ -98,7 +99,7 @@ var CommandCreator =
 		{
 			case "east":
 				CommandCreator.currentCommandBlock.x++;
-				if(CommandCreator.currentCommandBlock.x == Settings.Current.Modules.StopX)
+				if(CommandCreator.currentCommandBlock.x == CommandCreator.currentCommandModule.innerHighX)
 				{
 					CommandCreator.currentCommandBlock.direction = "up";
 					CommandCreator.currentDirectionChanged = true;
@@ -106,7 +107,7 @@ var CommandCreator =
 			break;
 			case "west":
 				CommandCreator.currentCommandBlock.x--;
-				if(CommandCreator.currentCommandBlock.x == Settings.Current.Modules.StartX)
+				if(CommandCreator.currentCommandBlock.x == CommandCreator.currentCommandModule.innerLowX)
 				{
 					CommandCreator.currentCommandBlock.direction = "up";
 					CommandCreator.currentDirectionChanged = true;
@@ -118,12 +119,12 @@ var CommandCreator =
 				CommandCreator.currentCommandBlock.y++;
 				
 				// Set new direction depending on which end of the row we're on
-				if(CommandCreator.currentCommandBlock.x == Settings.Current.Modules.StopX)
+				if(CommandCreator.currentCommandBlock.x == CommandCreator.currentCommandModule.innerHighX)
 				{
 					CommandCreator.currentCommandBlock.direction = "west";
 					CommandCreator.currentDirectionChanged = true;
 				}
-				else if(CommandCreator.currentCommandBlock.x == Settings.Current.Modules.StartX)
+				else if(CommandCreator.currentCommandBlock.x == CommandCreator.currentCommandModule.innerLowX)
 				{
 					CommandCreator.currentCommandBlock.direction = "east";
 					CommandCreator.currentDirectionChanged = true;
@@ -224,23 +225,28 @@ var CommandCreator =
 		}
 		return summon;
 	},
-	addNewLineMarker : function(line)
+	addNewRowDisplayMarker : function(line)
 	{
 		var customName = line.replace("#", "").trim();
 		var summon;
 		if(Settings.Current.Markers.SummonRowMarkers)
-			summon = CommandCreator.addNewDisplayMarker(customName, CommandCreator.currentCommandBlock.z);
+			summon = CommandCreator.addNewDisplayMarker(
+				customName,
+				CommandCreator.currentCommandModule.lowX,
+				CommandCreator.currentCommandModule.lowY,
+				CommandCreator.currentCommandBlock.z
+			);
 		return summon;
 	},
-	addNewFileMarker : function(fileName)
+	addNewModuleDisplayMarker : function(fileName)
 	{
 		var customName = fileName.trim();
 		var summon;
 		if(Settings.Current.Markers.SummonFileMarkers)
-			summon = CommandCreator.addNewDisplayMarker(customName, 0);
+			summon = CommandCreator.addNewDisplayMarker(customName, 0, 0, 0);
 		return summon;
 	},
-	addNewDisplayMarker : function(customName, positionZ)
+	addNewDisplayMarker : function(customName, x, y, z)
 	{
 		var summon;
 		if(customName.length != 0)
@@ -256,7 +262,7 @@ var CommandCreator =
 					format = Templates.Current.SUMMON_ARMORSTAND_DISPLAY_MARKER_FORMAT;
 					break;
 			}
-			summon = util.format(format, positionZ, customName);
+			summon = util.format(format, x, y, z, customName);
 		}
 		return summon;
 	},
@@ -266,25 +272,27 @@ var CommandCreator =
 		CommandCreator.previousCommandBlock = null;
 
 		CommandCreator.currentCommandBlock.direction = CommandCreator.STARTING_DIRECTION;
-		CommandCreator.currentCommandBlock.x = Settings.Current.Modules.StartX;
-		CommandCreator.currentCommandBlock.y = Settings.Current.Modules.StartY;
+		CommandCreator.currentCommandBlock.x = CommandCreator.currentCommandModule.innerStartX;
+		CommandCreator.currentCommandBlock.y = CommandCreator.currentCommandModule.startY;
 
 		if(CommandCreator.firstRowCreated)
 			CommandCreator.currentCommandBlock.z++;
 		else
 			CommandCreator.firstRowCreated = true;
 		
-		return CommandCreator.addNewLineMarker(line);
+		return CommandCreator.addNewRowDisplayMarker(line);
 	},
-	startNewFile : function()
+	startNewFile : function(commandModule)
 	{
+		CommandCreator.currentCommandModule = commandModule;
+
 		CommandCreator.previousCommandBlock = null;
 		
 		CommandCreator.currentCommandBlock = new CommandBlock
 		(
-			Settings.Current.Modules.StartX,
-			Settings.Current.Modules.StartY,
-			Settings.Current.Modules.StartZ,
+			CommandCreator.currentCommandModule.innerStartX,
+			CommandCreator.currentCommandModule.startY,
+			CommandCreator.currentCommandModule.innerStartZ,
 			CommandCreator.STARTING_DIRECTION,
 			Settings.Current.Commands.DefaultCommandBlockType,
 			Settings.Current.Commands.DefaultConditionalValue,
