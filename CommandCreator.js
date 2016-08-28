@@ -49,9 +49,9 @@ var CommandCreator =
 				CommandCreator.currentCommandBlock.z,
 				CommandCreator.currentCommandBlock.direction,
 				CommandCreator.currentCommandBlock.type,
-				false, 
+				false, // conditional not used here
 				CommandCreator.currentCommandBlock.auto, 
-				CommandCreator.executeAs,
+				"", // executeAs not used here
 				testforblockCmd
 			);
 
