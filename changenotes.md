@@ -8,10 +8,11 @@ nav: top
 Smelt Change Notes
 ==================
 
-Version 1.0.0 
--------------
+### Version 1.0.1
 
-### *27th August 2016*: First stable release! 
+* Fix [Issue #59](https://github.com/GnaspGames/Smelt/issues/59) - Conditional Corners fix breaks with "executeAs"
+
+### Version 1.0.0 (*27th August 2016*: First stable release!) 
 
 After a period of time has passed, the 0.9.4 release has had no bugs reported. 
 Since [all of the bugs and features listed for the 1.0.0 milestone](https://github.com/GnaspGames/Smelt/milestone/1?closed=1)
@@ -19,7 +20,7 @@ have been fixed or released, I am now glad to announce that Smelt version 1.0.0 
 
 There are no changes from version 0.9.4 and version 1.0.0 except for the version number. Smelt is no longer in *beta*! 
 
-### 1.1.0 Pre-Releases
+**1.1.0 Pre-Releases:**
 
 Work has already begun on version 1.1.0, the main features are going to be: (1) Added support for 1.11 snapshot command
 changes. (2) More configuration options to allow map makers to change the size or their command block modules. (3) A 'clear module'
