@@ -17,8 +17,8 @@ ResetObjective.Execute = function(smelt)
 	var criteria = smelt.args[1];
 	
 	// Remove name and criteria from args.
-	args.shift();
-	args.shift();
+	smelt.args.shift();
+	smelt.args.shift();
 	
 	// Join the rest of args to get displayName
 	var displayName = smelt.args.join(" ");
