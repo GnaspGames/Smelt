@@ -8,6 +8,10 @@ nav: top
 Smelt Change Notes
 ==================
 
+### Version 1.0.2
+
+* Fix [Issue #61](https://github.com/GnaspGames/Smelt/issues/61) - !reset_objective is broken
+
 ### Version 1.0.1
 
 * Fix [Issue #59](https://github.com/GnaspGames/Smelt/issues/59) - Conditional Corners fix breaks with "executeAs"
