@@ -1,4 +1,6 @@
 var chalk = require('chalk');
+var semver = require('semver');
+
 
 var VersionCheck = 
 {
@@ -32,16 +34,27 @@ var VersionCheck =
         /*Version check*/
         try {
             cv = require('./package.json').version;
+            var usingPreRelease = cv.includes("pre");
             req('get', "https://registry.npmjs.org/smelt-cli", function(err, res) {
                 if (err) return;
-                try { uv = res.body['dist-tags'].latest; } catch(e) {return;}
-                if (cv !== uv)
+                var latestVersion, preVersion = null;
+                try { latestVersion = res.body['dist-tags'].latest; } catch(e) {return;}
+                try { preVersion = res.body['dist-tags'].pre; } catch(e) {return;}
+                
+                // IF using is using a pre-release and the latestVersion is old that newest pre-release, 
+                // then check against newest pre-release.
+                if(usingPreRelease && semver.lt(latestVersion, preVersion))
+                    latestVersion = preVersion;
+
+                // If the current version is less than (lt) the latest version
+                if(semver.lt(cv, latestVersion))
                 {
-                    console.log(chalk.red.bold("\n  [WARNING]: Your verion of Smelt (" + cv + ") is out of date. Please update to version " + uv + ".")); 
+                    console.log(chalk.red.bold("\n  [WARNING]: Your verion of Smelt (" + cv + ") is out of date. Please update to version " + latestVersion + ".")); 
                     console.log("  Command to update: " + chalk.bold("npm install smelt-cli -g")); 
                     console.log("  Check for more information: " + chalk.bold("http://smelt.gnasp.com/changenotes.html")); 
                 }
             });
+            
         } 
         catch(e) 
         {
