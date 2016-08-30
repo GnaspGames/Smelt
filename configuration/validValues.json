@@ -6,6 +6,16 @@
         "WriteCompiledCommandsToFile":  [true, false],
         "MinecraftVersion" : ["1.9","1.10","1.11"]
     },
+    "Modules":
+    {
+        "StartX": "integer",
+        "StartY": "integer",
+        "StartZ": "integer",
+        "StopX": "integer",
+        "StopY": "integer",
+        "StopZ": "integer",
+        "Border": "integer"
+    },
     "Commands": {
         "DefaultCommandBlockType": ["impulse", "repeating", "chain"],
         "DefaultConditionalValue": [true, false],

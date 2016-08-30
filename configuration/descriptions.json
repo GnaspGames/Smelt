@@ -6,6 +6,16 @@
         "WriteCompiledCommandsToFile": "Write compiled commands to files (example.mcc writes to example.oc).",
         "MinecraftVersion" : "Specify the Minecraft version compiled commands should target."
     },
+    "Modules":
+    {
+        "StartX": "The starting x coordinate for each module, relative to the source command block.",
+        "StartY": "The starting y coordinate for each module, relative to the source command block.",
+        "StartZ": "The starting z coordinate for each module, relative to the source command block.",
+        "StopX": "The finishing x coordinate for each module, relative to the source command block.",
+        "StopY": "The finishing y coordinate for each module, relative to the source command block.",
+        "StopZ": "The finishing z coordinate for each module, relative to the source command block.",
+        "Border": "A border of this size is applied around the sides of the command blocks, allowing space to stop modules touching and for display markers."
+    },
     "Commands": {
         "DefaultCommandBlockType": "The default command block type. Value used until changed using a JSON line.",
         "DefaultConditionalValue": "The default value for whether command blocks are conditional or not. Value used until changed using a JSON line.",

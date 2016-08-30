@@ -51,6 +51,30 @@ var Settings =
         var filepath = path.resolve(Program.OcDirectory + "/configuration/validValues.json");
         return Settings.ReadJsonFile(filepath);
     },
+    CheckValueIsValid : function(section, key, value)
+    {
+        isValid = false;
+        var allValidValues = Settings.GetValidValues();
+        var validValuesData = allValidValues[section][key];
+
+        if(Array.isArray(validValuesData))
+        {
+            var validValuesArray = validValuesData;
+            if(validValuesArray.indexOf(value) > -1)
+                isValid = true;
+        }
+        else
+        {
+            switch (validValuesData) 
+            {
+                case "integer":
+                    if(Number.isInteger(value))
+                        isValid = true;
+                    break;
+            }
+        }
+        return isValid;
+    },
     ReadJsonFile : function(filePath)
     {
         var json = null;
