@@ -101,23 +101,9 @@ if(commander.changeLocal || commander.changeGlobal)
                     var inputValue = readlineSync.question("    [" + currentValue.toString() + "] ");
                     var changedValue = (inputValue != "");
                     if(changedValue)
-                    {   
-                        // Try converting to boolean
-                        if(inputValue == "true") 
-                            inputValue = true;
-                        else if(inputValue == "false") 
-                            inputValue = false;
-                        else if(!isNaN(inputValue))
-                        {
-                            // Convert to integer
-                            try
-                            {
-                                var intValue = parseInt(inputValue);
-                                inputValue = intValue;
-                            } 
-                            catch(ex){}
-                        }
-
+                    {
+                        // Convert valud depending on allowed values
+                        inputValue = Settings.ConvertInputValue(section, key, inputValue)
                         // Check valid values
                         if(Settings.CheckValueIsValid(section, key, inputValue))
                         {

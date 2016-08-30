@@ -67,13 +67,43 @@ var Settings =
         {
             switch (validValuesData) 
             {
+                case "boolean":
+                    if(typeof(value) === "boolean")
+                        isValid = true;
+                    break;
                 case "integer":
                     if(Number.isInteger(value))
                         isValid = true;
                     break;
             }
         }
+
         return isValid;
+    },
+    ConvertInputValue : function(section, key, value)
+    {
+        var validValuesData = Settings.GetValidValues()[section][key];
+        if (!Array.isArray(validValuesData))
+        {
+            switch (validValuesData) 
+            {
+                case "boolean":
+                    // Convert to boolean type
+                    if(value == "true") 
+                        value = true;
+                    else if(value == "false") 
+                        value = false;
+                    break;
+                case "integer":
+                    if (!isNaN(value))
+                    {
+                        // Convert to a number for validation.
+                        var value = parseFloat(value);
+                    }
+                    break;
+            }
+        }
+        return value;
     },
     ReadJsonFile : function(filePath)
     {

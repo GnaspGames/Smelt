@@ -1,9 +1,9 @@
 {
     "Output": {
-        "ShowDebugInfo" : [true, false],
-        "ShowCompiledCommands" :  [true, false],
-        "CopyCompiledCommands":  [true, false],
-        "WriteCompiledCommandsToFile":  [true, false],
+        "ShowDebugInfo" : "boolean",
+        "ShowCompiledCommands" :  "boolean",
+        "CopyCompiledCommands":  "boolean",
+        "WriteCompiledCommandsToFile":  "boolean",
         "MinecraftVersion" : ["1.9","1.10","1.11"]
     },
     "Modules":
@@ -18,12 +18,12 @@
     },
     "Commands": {
         "DefaultCommandBlockType": ["impulse", "repeating", "chain"],
-        "DefaultConditionalValue": [true, false],
-        "DefaultAutoValue": [true, false]
+        "DefaultConditionalValue": "boolean",
+        "DefaultAutoValue": "boolean"
     },
     "Markers": {
         "EntityType": ["AreaEffectCloud", "ArmorStand"],
-        "SummonFileMarkers":  [true, false],
-        "SummonRowMarkers": [true, false]
+        "SummonFileMarkers":  "boolean",
+        "SummonRowMarkers": "boolean"
     }
 }
