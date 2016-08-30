@@ -3,7 +3,7 @@ var crypto = require('crypto');
 var fs = require('fs');
 var path = require('path');
 var chalk = require('chalk');
-var Program = require("./Program");
+var Program = require("../Program");
 
 var BangCommandHelper = 
 {
@@ -104,7 +104,7 @@ var BangCommandHelper =
 		var paths = [
 			path.resolve(Program.LocalDirectory + "/.smelt/plugins/" + name + ".js"),
 			path.resolve(Program.HomeDirectory + "/plugins/" + name + ".js"),
-			path.resolve(Program.OcDirectory + "/plugins/" + name + ".js")
+			path.resolve(Program.OcDirectory + "/BangCommands/Included/" + name + ".js")
 		];
 		
 		if(Settings.Current.Output.ShowDebugInfo) console.log("  Checking for plugins:");
@@ -142,7 +142,7 @@ var BangCommandHelper =
 		var paths = [
 			path.resolve(Program.LocalDirectory + "/.smelt/plugins/" + filename),
 			path.resolve(Program.HomeDirectory + "/plugins/" + filename),
-			path.resolve(Program.OcDirectory + "/plugins/" + filename)
+			path.resolve(Program.OcDirectory + "/BangCommands/Included/" + filename)
 		];
 		
 		paths.forEach(function(path)
@@ -168,7 +168,7 @@ var BangCommandHelper =
 		var plugins = [];
 		
 		var paths = [
-			// path.resolve(Program.OcDirectory + "/plugins/"), - Don't include built in plugins
+			// path.resolve(Program.OcDirectory + "/BangCommands/Included/"), - Don't include built in plugins
 			path.resolve(Program.HomeDirectory + "/plugins/"),
 			path.resolve(".smelt/plugins/")
 		];

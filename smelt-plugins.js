@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
 Settings = require("./Configuration/Settings");
+BangCommandHelper = require("./BangCommands/Helper");
 
 var util = require('util');
 var commander = require('commander');
 var chalk = require('chalk');
 var pjson = require('./package.json');
-var BangCommandHelper = require("./BangCommandHelper");
 
 commander
   .description(chalk.yellow("Manage plugins."))
