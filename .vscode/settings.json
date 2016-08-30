@@ -1,5 +1,9 @@
 // Place your settings in this file to overwrite default and user settings.
 {
     "javascript.format.placeOpenBraceOnNewLineForFunctions": true,
-    "javascript.format.placeOpenBraceOnNewLineForControlBlocks": true
+    "javascript.format.placeOpenBraceOnNewLineForControlBlocks": true,
+    // Configure glob patterns for excluding files and folders.
+	"files.exclude": {
+		"**/node_modules": true
+	}
 }
