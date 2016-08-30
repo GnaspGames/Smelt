@@ -1,7 +1,7 @@
 Smelt (beta)
 ==================
 
-![Logo](./logo.png)
+![Logo](./Docs/logo.png)
 
 Install
 -------
@@ -13,7 +13,7 @@ Install
 How it works
 ------------
 
-![How it works](./demo/smelt-demo.gif)
+![How it works](./Docs/smelt-demo.gif)
 
 
 The Command Line Interface (CLI)
