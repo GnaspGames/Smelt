@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+StartCompiler = require("./Compiler/StartCompiler");
 FileParser = require("./Compiler/FileParser");
 CommandBlock = require("./Compiler/CommandBlock");
 CommandModule = require("./Compiler/CommandModule");
@@ -21,7 +22,7 @@ commander
   .arguments("<path>")
   .action(function(path)
   {
-	  Program.PathArg = path
+	  StartCompiler.PathArg = path
   })
   .option('-s, --show', 
           'Show any combined-commands in the console.')
@@ -54,12 +55,12 @@ if(commander.write)
 
 Settings.OutputDebugInfo();
 
-if(Program.PathArg)
+if(StartCompiler.PathArg)
 {
-	Program.ProcessPath();
+  StartCompiler.ProcessPath();
 }
 
-if(!Program.PathFound)
+if(!StartCompiler.PathFound)
 {
   console.log(chalk.red.bold("\n  [WARNING] Please enter the path to a .mcc file or directory containing .mcc files as the first argument."));
   commander.outputHelp();
