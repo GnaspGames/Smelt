@@ -4,7 +4,7 @@ FileParser = require("./Compiler/FileParser");
 CommandBlock = require("./Compiler/CommandBlock");
 CommandModule = require("./Compiler/CommandModule");
 CommandCreator = require("./Compiler/CommandCreator");
-Settings = require("./Settings");
+Settings = require("./Configuration/Settings");
 
 var util = require('util');
 var commander = require('commander');

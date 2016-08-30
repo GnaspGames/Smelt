@@ -1,4 +1,4 @@
-var Settings = require("../Settings");
+var Settings = require("../Configuration/Settings");
 
 var Templates = 
 {

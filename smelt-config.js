@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-Settings = require("./Settings");
+Settings = require("./Configuration/Settings");
 
 var util = require('util');
 var fs = require('fs');

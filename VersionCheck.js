@@ -1,7 +1,6 @@
 var chalk = require('chalk');
 var semver = require('semver');
 
-
 var VersionCheck = 
 {
     Query : function()
@@ -64,5 +63,3 @@ var VersionCheck =
 };
 
 module.exports = VersionCheck;
-	
-    
