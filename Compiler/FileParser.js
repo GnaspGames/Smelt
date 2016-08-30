@@ -3,12 +3,9 @@ var fs = require('fs');
 var path = require('path');
 var chalk = require('chalk');
 var ncp = require("copy-paste");
-var CommandCreator = require("./CommandCreator");
-var CommandModule = require("./CommandModule");
-var BangCommandHelper = require("./BangCommandHelper");
-var Program = require("./Program");
-var Settings = require("./Settings");
-var Templates = require("./Compiler/CommandTemplates");
+var BangCommandHelper = require("../BangCommandHelper");
+var Program = require("../Program");
+var Templates = require("./CommandTemplates");
 var readlineSync = require('readline-sync');
 
 

@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 
-var util = require('util');
 var commander = require('commander');
 var chalk = require('chalk');
-var Settings = require("./Settings");
 var pjson = require('./package.json');
 
 commander

@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 
-FileParser = require("./FileParser");
-CommandBlock = require("./CommandBlock");
+FileParser = require("./Compiler/FileParser");
+CommandBlock = require("./Compiler/CommandBlock");
+CommandModule = require("./Compiler/CommandModule");
+CommandCreator = require("./Compiler/CommandCreator");
+Settings = require("./Settings");
 
 var util = require('util');
 var commander = require('commander');
 var chalk = require('chalk');
 var Program = require("./Program");
-var Settings = require("./Settings");
 var pjson = require('./package.json');
 
 commander

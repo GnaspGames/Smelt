@@ -1,6 +1,5 @@
 var util = require('util');
-var Settings = require("./Settings");
-var Templates = require("./Compiler/CommandTemplates");
+var Templates = require("./CommandTemplates");
 
 var CommandCreator = 
 {

@@ -3,9 +3,7 @@ var crypto = require('crypto');
 var fs = require('fs');
 var path = require('path');
 var chalk = require('chalk');
-var CommandCreator = require("./CommandCreator");
 var Program = require("./Program");
-var Settings = require("./Settings");
 
 var BangCommandHelper = 
 {

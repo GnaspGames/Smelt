@@ -1,4 +1,3 @@
-var Settings = require("./Settings");
 var chalk = require('chalk');
 
 

@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
+Settings = require("./Settings");
+
 var util = require('util');
 var fs = require('fs');
 var path = require('path');
 var commander = require('commander');
 var chalk = require('chalk');
-var Settings = require("./Settings");
 var pjson = require('./package.json');
 var readlineSync = require('readline-sync');
 

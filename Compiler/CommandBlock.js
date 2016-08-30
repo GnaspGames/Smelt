@@ -1,4 +1,4 @@
-var CommandCreator = require("./CommandCreator");
+
 
 var CommandBlock = (function () 
 {
