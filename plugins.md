@@ -152,7 +152,7 @@ Here are the properties and functions available on the `CommandBlock` object.
 The `x`, `y` and `z` properties represent the coordinates of the resulting command block
 *relative to the module executor*. 
 
-> **Note:** The module executor is current;y 1 block above the command block used to run the 
+> **Note:** The module executor is currently 1 block above the command block used to run the 
 combined command. In most cases these coordinates won't be very useful. These properties will quite probably
 change in a future version of Smelt. 
 
