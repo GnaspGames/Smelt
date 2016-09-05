@@ -167,4 +167,4 @@ if(!doSomething)
     commander.outputHelp();
 }
 
-require("./VersionCheck").Query();
+require("./Tools/VersionCheck").Query();

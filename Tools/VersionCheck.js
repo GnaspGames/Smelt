@@ -32,7 +32,7 @@ var VersionCheck =
         
         /*Version check*/
         try {
-            cv = require('./package.json').version;
+            cv = require('../package.json').version;
             var usingPreRelease = cv.includes("pre");
             req('get', "https://registry.npmjs.org/smelt-cli", function(err, res) {
                 if (err) return;
