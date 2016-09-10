@@ -106,11 +106,7 @@ Math.Execute = function(smelt)
 					curr = formula[i];
 				}
 				
-				if(/^-?[0-9]+$/.test(str))
-				{
-					postfix.push(parseInt(str));
-				}
-				else if(str.indexOf(".") > 0)
+				if(str.indexOf(".") > 0)
 				{
 					var split = str.split(".");
 					postfix.push({
@@ -118,6 +114,10 @@ Math.Execute = function(smelt)
 						name: split[1],
 						dontChange: true
 					});
+				}
+				else if(!isNaN(str))
+				{
+					postfix.push(parseInt(str));
 				}
 				else
 				{
