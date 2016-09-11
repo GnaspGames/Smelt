@@ -85,14 +85,12 @@ Mathcmd.Execute = function(smelt)
 			if(curr == "-")
 			{
 				opstack.push("negate");
-				curr = formula[++i];
+				i++;
 			}
-			
-			if(curr == "(")
+			else if(curr == "(")
 			{
 				opstack.unshift("(");
 				i++;
-				expectsOperator = false;
 			}
 			else if(curr == ")")
 			{
@@ -140,7 +138,6 @@ Mathcmd.Execute = function(smelt)
 	
 	for(var i = 0; i < opstack.length; i++)
 		postfix.push(opstack[i]);
-	console.dir(postfix);
 		
 	var cmds = [];
 	var currStatics = [];
@@ -184,7 +181,6 @@ Mathcmd.Execute = function(smelt)
 	
 	cmds.forEach(function(cmd)
 	{
-		console.log(cmd);
 		smelt.addCommandBlock(cmd);
 	});
 	
