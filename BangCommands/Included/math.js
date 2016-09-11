@@ -84,7 +84,7 @@ Mathcmd.Execute = function(smelt)
 		{
 			if(curr == "-")
 			{
-				opstack.push("negate");
+				opstack.unshift("negate");
 				i++;
 			}
 			else if(curr == "(")
@@ -96,8 +96,7 @@ Mathcmd.Execute = function(smelt)
 			{
 				while(opstack[0] && opstack[0] != "(")
 				{
-					postfix.push(opstack[0]);
-					opstack.splice(0, 1);
+					postfix.push(opstack.shift());
 				}
 				opstack.splice(0, 1);
 				i++;
@@ -181,6 +180,7 @@ Mathcmd.Execute = function(smelt)
 	
 	cmds.forEach(function(cmd)
 	{
+		console.log(cmd);
 		smelt.addCommandBlock(cmd);
 	});
 	
@@ -189,13 +189,21 @@ Mathcmd.Execute = function(smelt)
 		if(operator == "negate")
 		{
 			var val = valstack.shift();
-			if(val.dontChange)
-				val = toMutable(val);
-				
-			var right = toScore(-1);
-			placeOp("*", val, right);
-			valstack.unshift(val);
 			
+			if(typeof val == "number")
+			{
+				val = -val;
+			}
+			else
+			{
+				if(val.dontChange)
+					val = toMutable(val);
+					
+				var right = toScore(-1);
+				placeOp("*", val, right);
+			}
+
+			valstack.unshift(val);
 			return;
 		}
 		
@@ -217,7 +225,7 @@ Mathcmd.Execute = function(smelt)
 				throw new Error("Exponent is not a constant in expression " + JSON.stringify(formula));
 
 			var mutable = toMutable(left);
-			for(var i = 0; i < right; i++)
+			for(var i = 1; i < right; i++)
 			{
 				placeOp("*", mutable, left);
 			}
