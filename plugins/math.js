@@ -15,7 +15,11 @@ var precendence = {
 	
 	"*": 3,
 	"/": 3,
-	"%": 3
+	"%": 3,
+	
+	"^": 4,
+	
+	"negate": 5
 };
 
 var compileTimeOps = {
@@ -24,12 +28,13 @@ var compileTimeOps = {
 	"*": function(a, b) { return a * b; },
 	"/": function(a, b) { return a / b; },
 	"%": function(a, b) { return a % b; },
+	"^": function(a, b) { return parseInt(Math.pow(a, b)); }
 }
 
-var Math = {};
+var Mathcmd = {};
 var statics;
 
-Math.Execute = function(smelt)
+Mathcmd.Execute = function(smelt)
 {
 	var result = smelt.args[0];
 	var resultOp = smelt.args[1];
@@ -63,8 +68,7 @@ Math.Execute = function(smelt)
 				var prec = precendence[curr];
 				while(precendence[opstack[0]] >= prec)
 				{
-					postfix.push(opstack[0]);
-					opstack.splice(0, 1);
+					postfix.push(opstack.shift());
 				}
 				opstack.unshift(curr);
 				i++;
@@ -78,6 +82,12 @@ Math.Execute = function(smelt)
 		}
 		else
 		{
+			if(curr == "-")
+			{
+				opstack.push("negate");
+				curr = formula[++i];
+			}
+			
 			if(curr == "(")
 			{
 				opstack.unshift("(");
@@ -97,8 +107,7 @@ Math.Execute = function(smelt)
 			}
 			else
 			{
-				var str = curr;
-				curr = formula[++i];
+				var str = "";
 				while(curr && !/\s/.test(curr) && !precendence[curr])
 				{
 					str += curr;
@@ -131,6 +140,7 @@ Math.Execute = function(smelt)
 	
 	for(var i = 0; i < opstack.length; i++)
 		postfix.push(opstack[i]);
+	console.dir(postfix);
 		
 	var cmds = [];
 	var currStatics = [];
@@ -174,11 +184,25 @@ Math.Execute = function(smelt)
 	
 	cmds.forEach(function(cmd)
 	{
+		console.log(cmd);
 		smelt.addCommandBlock(cmd);
 	});
 	
 	function op(operator)
 	{
+		if(operator == "negate")
+		{
+			var val = valstack.shift();
+			if(val.dontChange)
+				val = toMutable(val);
+				
+			var right = toScore(-1);
+			placeOp("*", val, right);
+			valstack.unshift(val);
+			
+			return;
+		}
+		
 		if(valstack.length < 2)
 			throw new Error("Invalid math expression " + JSON.stringify(formula));
 		
@@ -190,6 +214,19 @@ Math.Execute = function(smelt)
 		{
 			var result = compileTimeOps[operator](left, right);
 			valstack.unshift(result);
+		}
+		else if(operator == "^")
+		{
+			if(typeof right != "number")
+				throw new Error("Exponent is not a constant in expression " + JSON.stringify(formula));
+
+			var mutable = toMutable(left);
+			for(var i = 0; i < right; i++)
+			{
+				placeOp("*", mutable, left);
+			}
+
+			valstack.unshift(mutable);
 		}
 		else if((operator == "+" || operator == "-") && typeof right == "number")
 		{
@@ -262,4 +299,4 @@ Math.Execute = function(smelt)
 	}
 }
 
-module.exports = Math;
+module.exports = Mathcmd;
