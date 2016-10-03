@@ -60,4 +60,4 @@ Try to demo to see how it works:
 Documentation
 -------------
 
-See the [Docs](documentation.html) for more information on *Smelt*'s MCC syntax, bang commands, plugins and configuration.
+See the [Docs](docs.html) for more information on *Smelt*'s MCC syntax, bang commands, plugins and configuration.
