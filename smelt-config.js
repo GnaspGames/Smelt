@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 Settings = require("./Configuration/Settings");
+// Paths = require("./Tools/Paths");
 
 var util = require('util');
 var fs = require('fs');

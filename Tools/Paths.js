@@ -1,11 +1,11 @@
 var _path = require('path');
 var os = require('os');
 
-var Program = 
+var Paths = 
 {
 	LocalDirectory : "",
 	HomeDirectory: os.homedir() + "/.smelt",
-	OcDirectory: __dirname
+	OcDirectory: _path.dirname(__dirname)
 }
 
-module.exports = Program;
+module.exports = Paths;

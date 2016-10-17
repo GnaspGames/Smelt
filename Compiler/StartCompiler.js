@@ -2,7 +2,7 @@ var fs = require('fs');
 var _path = require('path');
 var os = require('os');
 
-var Program = require("../Program");
+var Paths = require("../Tools/Paths");
 
 var StartCompiler = 
 {
@@ -18,12 +18,12 @@ var StartCompiler =
 		
 		if(stats.isFile())
 		{
-			Program.LocalDirectory = _path.dirname(StartCompiler.Path);
+			Paths.LocalDirectory = _path.dirname(StartCompiler.Path);
 			files.push(StartCompiler.Path);
 		}
 		else if(stats.isDirectory())
 		{
-			Program.LocalDirectory = StartCompiler.Path;
+			Paths.LocalDirectory = StartCompiler.Path;
 			var fileNames = fs.readdirSync(StartCompiler.Path);
 			fileNames.forEach(function(fileName)
 			{

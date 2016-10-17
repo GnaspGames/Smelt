@@ -3,7 +3,7 @@ var crypto = require('crypto');
 var fs = require('fs');
 var path = require('path');
 var chalk = require('chalk');
-var Program = require("../Program");
+var Paths = require("../Tools/Paths");
 
 var BangCommandHelper = 
 {
@@ -102,9 +102,9 @@ var BangCommandHelper =
 		var foundPath = "";
 
 		var paths = [
-			path.resolve(Program.LocalDirectory + "/.smelt/plugins/" + name + ".js"),
-			path.resolve(Program.HomeDirectory + "/plugins/" + name + ".js"),
-			path.resolve(Program.OcDirectory + "/BangCommands/Included/" + name + ".js")
+			path.resolve(Paths.LocalDirectory + "/.smelt/plugins/" + name + ".js"),
+			path.resolve(Paths.HomeDirectory + "/plugins/" + name + ".js"),
+			path.resolve(Paths.OcDirectory + "/BangCommands/Included/" + name + ".js")
 		];
 		
 		if(Settings.Current.Output.ShowDebugInfo) console.log("  Checking for plugins:");
@@ -140,9 +140,9 @@ var BangCommandHelper =
 		var fileData = undefined;
 
 		var paths = [
-			path.resolve(Program.LocalDirectory + "/.smelt/plugins/" + filename),
-			path.resolve(Program.HomeDirectory + "/plugins/" + filename),
-			path.resolve(Program.OcDirectory + "/BangCommands/Included/" + filename)
+			path.resolve(Paths.LocalDirectory + "/.smelt/plugins/" + filename),
+			path.resolve(Paths.HomeDirectory + "/plugins/" + filename),
+			path.resolve(Paths.OcDirectory + "/BangCommands/Included/" + filename)
 		];
 		
 		paths.forEach(function(path)
@@ -168,8 +168,8 @@ var BangCommandHelper =
 		var plugins = [];
 		
 		var paths = [
-			// path.resolve(Program.OcDirectory + "/BangCommands/Included/"), - Don't include built in plugins
-			path.resolve(Program.HomeDirectory + "/plugins/"),
+			// path.resolve(Paths.OcDirectory + "/BangCommands/Included/"), - Don't include built in plugins
+			path.resolve(Paths.HomeDirectory + "/plugins/"),
 			path.resolve(".smelt/plugins/")
 		];
 
@@ -194,7 +194,7 @@ var BangCommandHelper =
 		// assume false by default.
 		var inCache = false;
 		// Path to the cache file
-		var cacheFile = path.resolve(Program.LocalDirectory + "/.smelt/cache/support-modules.txt");
+		var cacheFile = path.resolve(Paths.LocalDirectory + "/.smelt/cache/support-modules.txt");
 
 		// Only continue of the cache file exists
 		if(fs.existsSync(cacheFile))
@@ -224,7 +224,7 @@ var BangCommandHelper =
 	AddSupportModuleToCache : function(supportModule)
 	{
 		// Path to the cache file
-		var cacheFile = path.resolve(Program.LocalDirectory + "/.smelt/cache/support-modules.txt");
+		var cacheFile = path.resolve(Paths.LocalDirectory + "/.smelt/cache/support-modules.txt");
 
 		// Hash the support module data to add to cache
 		var md5sum = crypto.createHash('md5');

@@ -4,7 +4,7 @@ var path = require('path');
 var chalk = require('chalk');
 var jsonOverride = require('json-override');
 
-var Program = require("../Program");
+var Paths = require("../Tools/Paths");
 
 var Settings = 
 {
@@ -19,11 +19,11 @@ var Settings =
 
     ReadConfigs : function()
     {
-        Settings.GlobalPath = Program.HomeDirectory + "/config.json";
+        Settings.GlobalPath = Paths.HomeDirectory + "/config.json";
         Settings.LocalPath = path.resolve(".smelt/config.json");
         
         // First, use the default config.json packaged with program.
-        var defaultsFile = path.resolve(Program.OcDirectory + "/Configuration/Files/defaultValues.json");
+        var defaultsFile = path.resolve(Paths.OcDirectory + "/Configuration/Files/defaultValues.json");
         Settings.Default = Settings.ReadJsonFile(defaultsFile);
         
         // Second, look for a GLOBAL config file to override above.
@@ -43,12 +43,12 @@ var Settings =
     },
     GetDescriptions : function()
     {
-        var filepath = path.resolve(Program.OcDirectory + "/Configuration/Files/descriptions.json");
+        var filepath = path.resolve(Paths.OcDirectory + "/Configuration/Files/descriptions.json");
         return Settings.ReadJsonFile(filepath);
     },
     GetValidValues : function()
     {
-        var filepath = path.resolve(Program.OcDirectory + "/Configuration/Files/validValues.json");
+        var filepath = path.resolve(Paths.OcDirectory + "/Configuration/Files/validValues.json");
         return Settings.ReadJsonFile(filepath);
     },
     CheckValueIsValid : function(section, key, value)

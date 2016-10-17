@@ -2,6 +2,7 @@
 
 Settings = require("./Configuration/Settings");
 BangCommandHelper = require("./BangCommands/Helper");
+//Paths = require("./Tools/Paths");
 
 var util = require('util');
 var commander = require('commander');

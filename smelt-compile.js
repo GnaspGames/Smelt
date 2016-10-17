@@ -12,7 +12,7 @@ Settings = require("./Configuration/Settings");
 var util = require('util');
 var commander = require('commander');
 var chalk = require('chalk');
-var Program = require("./Program");
+var Paths = require("./Tools/Paths");
 var pjson = require('./package.json');
 
 commander

@@ -3,9 +3,11 @@ var fs = require('fs');
 var path = require('path');
 var chalk = require('chalk');
 var ncp = require("copy-paste");
-var Program = require("../Program");
+
 var Templates = require("./CommandTemplates");
 var readlineSync = require('readline-sync');
+
+var Paths = require("../Tools/Paths");
 
 
 var FileParser = (function () 
@@ -46,7 +48,7 @@ var FileParser = (function ()
 	{
 		if(Settings.Current.Output.WriteCompiledCommandsToFile)
 		{
-			var outputFileName = path.resolve(Program.LocalDirectory + "/" + commandModule.SourceName.replace(".mcc", ".oc"));
+			var outputFileName = path.resolve(Paths.LocalDirectory + "/" + commandModule.SourceName.replace(".mcc", ".oc"));
 			fs.writeFileSync(outputFileName, commandModule.CompiledCommand);
 			console.log(chalk.green("\n * The compiled command has been saved to " + outputFileName));
 		}
@@ -73,6 +75,7 @@ var FileParser = (function ()
 		// Create a new module instance
 		var commandModule = new CommandModule();
 		commandModule.SourceName = sourceName;
+
 		commandModule.setCoordinates(
 			Settings.Current.Modules.StartX,
 			Settings.Current.Modules.StartY,
