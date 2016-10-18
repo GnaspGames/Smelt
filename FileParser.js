@@ -349,8 +349,8 @@ var FileParser = (function ()
 		for(var varName in this.CustomVariables)
 		{
 			var name = varName.substr(1);
-			var varNameUsed = "(\\${" + name + "})|(\\$" + name + "\\b)";
-
+			var varNameUsed = "(\\$\\{" + name + "})|(\\$" + name + "\\b)";
+			
 			line = line.replace(new RegExp(varNameUsed, 'g'), this.CustomVariables[varName]);
 		}
 		return line;
