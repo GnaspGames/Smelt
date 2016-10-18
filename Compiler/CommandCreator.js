@@ -300,7 +300,8 @@ var CommandCreator =
 			CommandCreator.STARTING_DIRECTION,
 			Settings.Current.Commands.DefaultCommandBlockType,
 			Settings.Current.Commands.DefaultConditionalValue,
-			Settings.Current.Commands.DefaultAutoValue
+			Settings.Current.Commands.DefaultAutoValue,
+			Settings.Current.Commands.DefaultTrackOutput
 		);
 
 		CommandCreator.executeAs = "";
