@@ -8,6 +8,13 @@ nav: top
 Smelt Change Notes
 ==================
 
+### Version 1.0.3
+
+* Changes to the `!math` bang command
+    * fix negative immediates
+    * better parsing (disallowing stuff like `3 + * 5` or `7 * 6 (7 42)`)
+    * better error messages
+
 ### Version 1.0.2
 
 * Fix [Issue #61](https://github.com/GnaspGames/Smelt/issues/61) - !reset_objective is broken
