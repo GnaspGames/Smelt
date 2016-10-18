@@ -165,9 +165,9 @@ var CommandCreator =
 		y = (y - 1);
 
 		var setblock = util.format(Templates.Current.SETBLOCK_COMMAND_FORMAT, 
-		                           x, y, z,
+								   x, y, z,
 								   blockName, dataValue, JSON.stringify(command), autoString);
-								   
+		
 		return setblock;
 	},
 	getBlockNameForType : function(type, allowSwitchToChain)
@@ -217,7 +217,7 @@ var CommandCreator =
 			(
 				format, 
 				CommandCreator.currentCommandBlock.x,
-				CommandCreator.currentCommandBlock.y, 
+				(CommandCreator.currentCommandBlock.y - 1), // lower y by 1 because minecarts execute 1 block up
 				CommandCreator.currentCommandBlock.z, 
 				CommandCreator.markerTag
 			);
@@ -232,7 +232,7 @@ var CommandCreator =
 			summon = CommandCreator.addNewDisplayMarker(
 				customName,
 				CommandCreator.currentCommandModule.lowX,
-				CommandCreator.currentCommandModule.lowY,
+				(CommandCreator.currentCommandModule.lowY - 1), // lower y by 1 because minecarts execute 1 block up
 				CommandCreator.currentCommandBlock.z
 			);
 		return summon;
