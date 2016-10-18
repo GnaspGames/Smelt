@@ -5,8 +5,8 @@ weight: 1
 nav: top
 ---
 
-Smelt <strike>(beta)</strike> [Version 1.0.0 released](changenotes.html)!
-====================================================================================
+Smelt
+=====
 
 How to install
 --------------
