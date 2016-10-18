@@ -5,6 +5,8 @@ weight: 6
 nav: top
 ---
 
+> Looking for pre-releases? Try the [super-secret pre-releases page](prereleases.html).
+
 Smelt Change Notes
 ==================
 
