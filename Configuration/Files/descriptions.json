@@ -21,7 +21,8 @@
 	{
 		"DefaultCommandBlockType": "The default command block type. Value used until changed using a JSON line.",
 		"DefaultConditionalValue": "The default value for whether command blocks are conditional or not. Value used until changed using a JSON line.",
-		"DefaultAutoValue": "The default value for whether commands blocks are 'always powered' (true) or 'require redstone' (false). Value used until changed using a JSON line."
+		"DefaultAutoValue": "The default value for whether commands blocks are 'always powered' (true) or 'require redstone' (false). Value used until changed using a JSON line.",
+		"DefaultTrackOutput": "The default value for whether command blocks have LastOutput stored (true) or not (false). Value used until changed using a JSON line."
 	},
 	"Markers":
 	{

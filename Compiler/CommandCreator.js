@@ -40,6 +40,7 @@ var CommandCreator =
 				CommandCreator.currentCommandBlock.type,
 				false, // conditional not used here
 				CommandCreator.currentCommandBlock.auto, 
+				CommandCreator.currentCommandBlock.trackOutput, 
 				"", // executeAs not used here
 				testforblockCmd
 			);
@@ -68,6 +69,7 @@ var CommandCreator =
 			CommandCreator.currentCommandBlock.type,
 			CommandCreator.currentCommandBlock.conditional, 
 			CommandCreator.currentCommandBlock.auto, 
+			CommandCreator.currentCommandBlock.trackOutput,
 			CommandCreator.executeAs,
 			command
 		);
@@ -134,7 +136,7 @@ var CommandCreator =
 
 
 	},
-	buildSetblockCommand : function(x, y, z, direction, type, conditional, auto, executeAs, command)
+	buildSetblockCommand : function(x, y, z, direction, type, conditional, auto, trackOutput, executeAs, command)
 	{
 		var blockName = CommandCreator.getBlockNameForType(type, true);
 		
@@ -157,6 +159,9 @@ var CommandCreator =
 		
 		var autoString = "";
 		if(auto == true) autoString = ",auto:1b";
+
+		var trackOutputString = "";
+		if(trackOutput == false) trackOutputString = ",TrackOutput:0b";
 		
 		if(executeAs != "")
 			command = util.format("/execute %s ~ ~ ~ %s", executeAs, command);
@@ -166,7 +171,7 @@ var CommandCreator =
 
 		var setblock = util.format(Templates.Current.SETBLOCK_COMMAND_FORMAT, 
 								   x, y, z,
-								   blockName, dataValue, JSON.stringify(command), autoString);
+								   blockName, dataValue, JSON.stringify(command), autoString, trackOutputString);
 		
 		return setblock;
 	},
@@ -309,6 +314,8 @@ var CommandCreator =
 			CommandCreator.currentCommandBlock.conditional = json.conditional; 
 		if(json.auto != null)
 			CommandCreator.currentCommandBlock.auto = json.auto;
+		if(json.trackOutput != null)
+			CommandCreator.currentCommandBlock.trackOutput = json.trackOutput;
 		if(json.executeAs != null)
 			CommandCreator.executeAs = json.executeAs;
 		if(json.markerTag != null)

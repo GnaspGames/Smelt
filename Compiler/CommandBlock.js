@@ -2,7 +2,7 @@
 
 var CommandBlock = (function () 
 {
-	function CommandBlock(inputX, inputY, inputZ, direction, type, conditional, auto) 
+	function CommandBlock(inputX, inputY, inputZ, direction, type, conditional, auto, trackOutput) 
 	{
 		this.x = inputX;
 		this.y = inputY;
@@ -11,6 +11,7 @@ var CommandBlock = (function ()
 		this.type = type;
 		this.conditional= conditional;
 		this.auto= auto;
+		this.trackOutput = trackOutput;
 	}
 
 	CommandBlock.prototype.getRelativeX = function()

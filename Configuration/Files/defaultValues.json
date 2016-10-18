@@ -21,7 +21,8 @@
 	{
 		"DefaultCommandBlockType": "impulse",
 		"DefaultConditionalValue": false,
-		"DefaultAutoValue": true
+		"DefaultAutoValue": true,
+		"DefaultTrackOutput": false
 	},
 	"Markers":
 	{
