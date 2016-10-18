@@ -2,7 +2,7 @@
 
 echo Making sure files use correct line endings
 
-dos2unix *.js
+find . -type f -name "*.js" -exec dos2unix {} \;
 
 echo Installing locally
 
