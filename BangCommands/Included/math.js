@@ -15,7 +15,11 @@ var precendence = {
 	
 	"*": 3,
 	"/": 3,
-	"%": 3
+	"%": 3,
+	
+	"^": 4,
+	
+	"negate": 5
 };
 
 var compileTimeOps = {
@@ -24,12 +28,13 @@ var compileTimeOps = {
 	"*": function(a, b) { return a * b; },
 	"/": function(a, b) { return a / b; },
 	"%": function(a, b) { return a % b; },
+	"^": function(a, b) { return parseInt(Math.pow(a, b)); }
 }
 
-var Math = {};
+var Mathcmd = {};
 var statics;
 
-Math.Execute = function(smelt)
+Mathcmd.Execute = function(smelt)
 {
 	var result = smelt.args[0];
 	var resultOp = smelt.args[1];
@@ -46,6 +51,7 @@ Math.Execute = function(smelt)
 	
 	var opstack = [];
 	var postfix = [];
+	var expectsOperator = false;
 	
 	var i = 0;
 	while(i < formula.length)
@@ -55,59 +61,76 @@ Math.Execute = function(smelt)
 		{
 			i++;
 		}
-		else if(curr == "(")
+		else if(expectsOperator && curr != ")")
 		{
-			opstack.unshift("(");
-			i++;
-		}
-		else if(curr == ")")
-		{
-			while(opstack[0] && opstack[0] != "(")
+			if(precendence[curr])
 			{
-				postfix.push(opstack[0]);
-				opstack.splice(0, 1);
-			}
-			opstack.splice(0, 1);
-			i++;
-		}
-		else if(precendence[curr])
-		{
-			var prec = precendence[curr];
-			while(precendence[opstack[0]] >= prec)
-			{
-				postfix.push(opstack[0]);
-				opstack.splice(0, 1);
-			}
-			opstack.unshift(curr);
-			i++;
-		}
-		else
-		{
-			var str = [];
-			while(curr && !/\s/.test(curr) && !precendence[curr])
-			{
-				str.push(curr);
+				var prec = precendence[curr];
+				while(precendence[opstack[0]] >= prec)
+				{
+					postfix.push(opstack.shift());
+				}
+				opstack.unshift(curr);
 				i++;
-				curr = formula[i];
-			}
-			str = str.join("");
-			
-			if(/^[0-9]+$/.test(str))
-			{
-				postfix.push(parseInt(str));
-			}
-			else if(str.indexOf(".") > 0)
-			{
-				var split = str.split(".");
-				postfix.push({
-					objective: split[0],
-					name: split[1],
-					dontChange: true
-				});
+				
+				expectsOperator = false;
 			}
 			else
 			{
-				throw new Error("unexpected " + JSON.stringify(str) + " in math expression");
+				throw new Error("Unknown operator " + curr + " in math expression");
+			}
+		}
+		else
+		{
+			if(curr == "-")
+			{
+				opstack.unshift("negate");
+				i++;
+			}
+			else if(curr == "(")
+			{
+				opstack.unshift("(");
+				i++;
+			}
+			else if(curr == ")")
+			{
+				while(opstack[0] && opstack[0] != "(")
+				{
+					postfix.push(opstack.shift());
+				}
+				opstack.splice(0, 1);
+				i++;
+				expectsOperator = true;
+			}
+			else
+			{
+				var str = "";
+				while(curr && !/\s/.test(curr) && !precendence[curr])
+				{
+					str += curr;
+					i++;
+					curr = formula[i];
+				}
+				
+				if(str.indexOf(".") > 0)
+				{
+					var split = str.split(".");
+					postfix.push({
+						objective: split[0],
+						name: split[1],
+						dontChange: true
+					});
+				}
+				else if(!isNaN(str))
+				{
+					postfix.push(parseInt(str));
+				}
+				else
+				{
+					throw new Error("unexpected " + JSON.stringify(str) + " in math expression");
+				}
+				
+				expectsOperator = true;
 			}
 		}
 	}
@@ -162,6 +185,30 @@ Math.Execute = function(smelt)
 	
 	function op(operator)
 	{
+		if(operator == "negate")
+		{
+			var val = valstack.shift();
+			
+			if(typeof val == "number")
+			{
+				val = -val;
+			}
+			else
+			{
+				if(val.dontChange)
+					val = toMutable(val);
+					
+				var right = toScore(-1);
+				placeOp("*", val, right);
+			}
+
+			valstack.unshift(val);
+			return;
+		}
+		
+		if(valstack.length < 2)
+			throw new Error("Invalid math expression " + JSON.stringify(formula));
+		
 		var left = valstack[1];
 		var right = valstack[0];
 		valstack.splice(0, 2);
@@ -170,6 +217,19 @@ Math.Execute = function(smelt)
 		{
 			var result = compileTimeOps[operator](left, right);
 			valstack.unshift(result);
+		}
+		else if(operator == "^")
+		{
+			if(typeof right != "number")
+				throw new Error("Exponent is not a constant in expression " + JSON.stringify(formula));
+
+			var mutable = toMutable(left);
+			for(var i = 1; i < right; i++)
+			{
+				placeOp("*", mutable, left);
+			}
+
+			valstack.unshift(mutable);
 		}
 		else if((operator == "+" || operator == "-") && typeof right == "number")
 		{
@@ -242,4 +302,4 @@ Math.Execute = function(smelt)
 	}
 }
 
-module.exports = Math;
+module.exports = Mathcmd;
