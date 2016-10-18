@@ -35,17 +35,26 @@ var FileParser = (function ()
 			{
 				console.log(chalk.yellow(util.format("\nTo use the \"!%s\" command you will need to also install the following module into your map: %s", setup.bangName, setup.fileName)));
 				var supportModule = self.ProcessData(setup.setupData, setup.fileName);
+				self.PrintCompiledModuleSize(commandModule);
 				self.OutputCompiledModule(supportModule, false);
 				BangCommandHelper.AddSupportModuleToCache(setup);
 			});
 		}
 
 		console.log(chalk.yellow(util.format("\nProcessing of %s is complete.", commandModule.SourceName)));
+		this.PrintCompiledModuleSize(commandModule);
 		this.OutputCompiledModule(commandModule, true);
 	};
 
-	FileParser.prototype.OutputCompiledModule = function(commandModule, isLast)
+	FileParser.prototype.PrintCompiledModuleSize = function(commandModule)
 	{
+		var length = commandModule.CompiledCommand.length;
+		var percentage = Math.round(((length / 32500) * 10000), 2) / 100;
+		console.log(chalk.yellow(util.format("Command length: %s (%s%)", length.toLocaleString(), percentage)));
+	}
+
+	FileParser.prototype.OutputCompiledModule = function(commandModule, isLast)
+	{	
 		if(Settings.Current.Output.WriteCompiledCommandsToFile)
 		{
 			var outputFileName = path.resolve(Paths.LocalDirectory + "/" + commandModule.SourceName.replace(".mcc", ".oc"));
@@ -160,7 +169,7 @@ var FileParser = (function ()
 			summonModuleDisplayMarker
 		);
 		
-		var removeBlocksNextTick = CommandCreator.buildSetblockCommand(0, 2, 0, "up", "impulse", false, true, "", "/fill ~ ~-1 ~ ~ ~ ~ air");
+		var removeBlocksNextTick = CommandCreator.buildSetblockCommand(0, 2, 0, "up", "impulse", false, true, false, "", "/fill ~ ~-1 ~ ~ ~ ~ air");
 		commandModule.Commands.push(
 			removeBlocksNextTick, 
 			Templates.Current.CLEAR_REBUILD_ENTITY,
@@ -287,6 +296,7 @@ var FileParser = (function ()
 			console.log("   -> type = " + CommandCreator.currentCommandBlock.type);
 			console.log("   -> conditional = " + CommandCreator.currentCommandBlock.conditional);
 			console.log("   -> auto = " + CommandCreator.currentCommandBlock.auto);
+			console.log("   -> trackOutput = " + CommandCreator.currentCommandBlock.trackOutput);
 			console.log("   -> executeAs = " + CommandCreator.executeAs);
 			console.log("   -> markerTag = " + CommandCreator.markerTag);
 		}
