@@ -1,29 +1,32 @@
 {
-    "Output": {
-        "ShowDebugInfo" : false,
-        "ShowCompiledCommands" : false,
-        "CopyCompiledCommands": false,
-        "WriteCompiledCommandsToFile": true,
-        "MinecraftVersion" : "1.10"
-    },
-    "Modules":
-    {
-        "StartX": 0,
-        "StartY": 0,
-        "StartZ": 0,
-        "StopX": 15,
-        "StopY": 15,
-        "StopZ": 15,
-        "Border": 1
-    },
-    "Commands": {
-        "DefaultCommandBlockType": "impulse",
-        "DefaultConditionalValue": false,
-        "DefaultAutoValue": true
-    },
-    "Markers": {
-        "EntityType": "AreaEffectCloud",
-        "SummonFileMarkers": true,
-        "SummonRowMarkers": true
-    }
+	"Output":
+	{
+		"ShowDebugInfo": false,
+		"ShowCompiledCommands": false,
+		"CopyCompiledCommands": false,
+		"WriteCompiledCommandsToFile": true,
+		"MinecraftVersion": "1.10"
+	},
+	"Modules":
+	{
+		"StartX": 0,
+		"StartY": 0,
+		"StartZ": 0,
+		"StopX": 15,
+		"StopY": 15,
+		"StopZ": 15,
+		"Border": 1
+	},
+	"Commands":
+	{
+		"DefaultCommandBlockType": "impulse",
+		"DefaultConditionalValue": false,
+		"DefaultAutoValue": true
+	},
+	"Markers":
+	{
+		"EntityType": "AreaEffectCloud",
+		"SummonFileMarkers": true,
+		"SummonRowMarkers": true
+	}
 }

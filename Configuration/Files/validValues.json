@@ -1,29 +1,32 @@
 {
-    "Output": {
-        "ShowDebugInfo" : "boolean",
-        "ShowCompiledCommands" :  "boolean",
-        "CopyCompiledCommands":  "boolean",
-        "WriteCompiledCommandsToFile":  "boolean",
-        "MinecraftVersion" : ["1.9","1.10","1.11"]
-    },
-    "Modules":
-    {
-        "StartX": "integer",
-        "StartY": "integer",
-        "StartZ": "integer",
-        "StopX": "integer",
-        "StopY": "integer",
-        "StopZ": "integer",
-        "Border": "integer"
-    },
-    "Commands": {
-        "DefaultCommandBlockType": ["impulse", "repeating", "chain"],
-        "DefaultConditionalValue": "boolean",
-        "DefaultAutoValue": "boolean"
-    },
-    "Markers": {
-        "EntityType": ["AreaEffectCloud", "ArmorStand"],
-        "SummonFileMarkers":  "boolean",
-        "SummonRowMarkers": "boolean"
-    }
+	"Output":
+	{
+		"ShowDebugInfo": "boolean",
+		"ShowCompiledCommands": "boolean",
+		"CopyCompiledCommands": "boolean",
+		"WriteCompiledCommandsToFile": "boolean",
+		"MinecraftVersion": ["1.9","1.10","1.11"]
+	},
+	"Modules":
+	{
+		"StartX": "integer",
+		"StartY": "integer",
+		"StartZ": "integer",
+		"StopX": "integer",
+		"StopY": "integer",
+		"StopZ": "integer",
+		"Border": "integer"
+	},
+	"Commands":
+	{
+		"DefaultCommandBlockType": ["impulse","repeating","chain"],
+		"DefaultConditionalValue": "boolean",
+		"DefaultAutoValue": "boolean"
+	},
+	"Markers":
+	{
+		"EntityType": ["AreaEffectCloud","ArmorStand"],
+		"SummonFileMarkers": "boolean",
+		"SummonRowMarkers": "boolean"
+	}
 }
