@@ -8,6 +8,10 @@ nav: top
 Smelt Change Notes
 ==================
 
+### Version 1.0.4
+
+* Fix [Issue #66](https://github.com/GnaspGames/Smelt/issues/66) - Numbers as variable names not working
+
 ### Version 1.0.3
 
 * Changes to the `!math` bang command
