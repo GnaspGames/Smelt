@@ -1,6 +1,8 @@
 var fs = require('fs');
 var _path = require('path');
+var chalk = require('chalk');
 var os = require('os');
+var watch = require('node-watch');
 
 var Paths = require("../Tools/Paths");
 
@@ -9,6 +11,8 @@ var StartCompiler =
 	PathArg : "",
 	Path : "",
 	PathFound : false,
+	Watch: false,
+	Watcher: null,
 	ProcessPath : function()
 	{
 		StartCompiler.Path = _path.resolve(StartCompiler.PathArg);
@@ -38,6 +42,39 @@ var StartCompiler =
 			fileParser.ProcessFile(filePath);
 			StartCompiler.PathFound = true;
 		});
+
+		if(StartCompiler.Watch)
+		{
+			var rl = require("readline").createInterface(
+			{
+				input: process.stdin,
+				output: process.stdout
+			});
+			
+			console.log(chalk.white("\nWatching: " + StartCompiler.Path));
+			console.log(chalk.grey("Use <ctrl>-C to stop watching."));
+			
+			StartCompiler.Watcher = watch(StartCompiler.Path);
+
+			StartCompiler.Watcher.on('change', function(file)
+			{
+				if(file.endsWith(".mcc")) 
+				{
+					file = _path.resolve(file);
+					console.log(chalk.white('\nChanged: ' + file + " at " + new Date().toLocaleTimeString()));
+					var fileParser = new FileParser();
+					fileParser.ProcessFile(file);
+				}
+			});
+
+			rl.on("SIGINT", function()
+			{
+				console.log(chalk.grey("\nExiting...\n"));
+				StartCompiler.Watcher.close();
+				process.exit();
+			});
+		}
+
 	}
 }
 
