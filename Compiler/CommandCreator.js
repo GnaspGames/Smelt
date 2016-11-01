@@ -182,11 +182,19 @@ var CommandCreator =
 		{
 			case "impulse-chain":
 				blockName = Templates.Current.IMPULSE_BLOCK_NAME;
-				if(allowSwitchToChain) CommandCreator.currentCommandBlock.type = "chain";
+				if(allowSwitchToChain) 
+				{
+					CommandCreator.currentCommandBlock.type = "chain";
+					CommandCreator.currentCommandBlock.auto = true;
+				}
 				break;
 			case "repeating-chain":
 				blockName = Templates.Current.REPEATING_BLOCK_NAME;
-				if(allowSwitchToChain) CommandCreator.currentCommandBlock.type = "chain";
+				if(allowSwitchToChain) 
+				{
+					CommandCreator.currentCommandBlock.type = "chain";
+					CommandCreator.currentCommandBlock.auto = true;
+				}
 				break;
 			case "impulse":
 				blockName = Templates.Current.IMPULSE_BLOCK_NAME;

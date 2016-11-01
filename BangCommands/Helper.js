@@ -39,7 +39,9 @@ var BangCommandHelper =
 			commands.push(command);
 			
 			if(_type == "impulse-chain" || _type == "repeating-chain")
+			{
 				_type = "chain";
+			}
 			
 			CommandCreator.currentCommandBlock.type = _type;
 			CommandCreator.currentCommandBlock.conditional = _conditional;
