@@ -19,7 +19,8 @@ To install a pre-release use the following command: `npm install smelt-cli@pre -
 ### Version 1.1.0-pre6
 
 * First version of watch feature
-    * The `smelt compile YOURFILE.mcc --watch` command will automatically compile the watch file(s) when they change.
+    * The `smelt compile YOURFILE.mcc --watch` command will automatically compile the watched file(s) when they change.
+	* This has only beed tested on Windows so far.
 * Chain behaviour of `impulse-chain` and `repeating-chain`
     * In addition to automatically switching to chain blocks, Smelt will also automatically change to `auto:true`. 
 
