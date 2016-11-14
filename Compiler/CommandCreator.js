@@ -317,6 +317,7 @@ var CommandCreator =
 	},
 	processJSONLine : function(json)
 	{
+		// Command Block Settings
 		if(json.type != null)
 			CommandCreator.currentCommandBlock.type = json.type; 
 		if(json.conditional != null)
@@ -329,6 +330,46 @@ var CommandCreator =
 			CommandCreator.executeAs = json.executeAs;
 		if(json.markerTag != null)
 			CommandCreator.markerTag = json.markerTag;
+		
+		// Module Settings
+		var resetModuleSize = false;
+
+		var startX = Settings.Current.Modules.StartX;
+		var startY = Settings.Current.Modules.StartY;
+		var startZ = Settings.Current.Modules.StartZ;
+		var stopX = Settings.Current.Modules.StopX;
+		var stopY = Settings.Current.Modules.StopY;
+		var stopZ = Settings.Current.Modules.StopZ;
+		var border = Settings.Current.Modules.Border;
+
+		if(json.moduleStartX != null)
+		{ startX = json.moduleStartX; resetModuleSize = true; }
+
+		if(json.moduleStartY != null)
+		{ startY = json.moduleStartY; resetModuleSize = true; }
+
+		if(json.moduleStartZ != null)
+		{ startZ = json.moduleStartZ; resetModuleSize = true; }
+
+		if(json.moduleStopX != null)
+		{ stopX = json.moduleStopX; resetModuleSize = true; }
+
+		if(json.moduleStopY != null)
+		{ stopY = json.moduleStopY; resetModuleSize = true; }
+
+		if(json.moduleStopZ != null)
+		{ stopZ = json.moduleStopZ; resetModuleSize = true; }
+
+		if(json.moduleBorder != null)
+		{ border = json.moduleBorder; resetModuleSize = true; }
+
+		if(resetModuleSize)
+		{
+			this.currentCommandModule.setCoordinates(
+				startX, startZ, startY, stopX, stopY, stopZ, border
+			);
+		}
+
 	}
 }
 
