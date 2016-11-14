@@ -16,6 +16,25 @@ To install a pre-release use the following command: `npm install smelt-cli@pre -
 
 ## Pre-release change notes
 
+### Version 1.1.0-pre7
+
+* Minecraft 1.11 output is now the default output, since that's the current version of Minecraft. 
+    * Use the `smelt config --change-local` command to switch to 1.9/1.10 output on a specific project.
+* The physical size of a module (.mcc file) in Minecraft can now be changed **within each .mcc file**. 
+    * This overrides any `Modules` settings in `config.json` files.
+	* Use the following JSON properties at the start of the file:
+		```
+		>{
+			"moduleStartX": 0,
+			"moduleStartY": 0,
+			"moduleStartZ": 0,
+			"moduleStopX": 15,
+			"moduleStopY": 15,
+			"moduleStopZ": 15,
+			"moduleBorder": 1
+		}
+		```
+
 ### Version 1.1.0-pre6
 
 * First version of watch feature
