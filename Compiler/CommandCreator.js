@@ -14,11 +14,29 @@ var CommandCreator =
 	currentDirectionChanged: false,
 	executeAs : "",
 	markerTag : "",
+	conditionalCornerBlockCount: 0, // Used to make sure that fixConditionalCorners() always uses an even number of cmd blocks. 
 
 	fixConditionalCorners : function()
 	{
 		var commands = [];
-		while(CommandCreator.currentDirectionChanged && CommandCreator.currentCommandBlock.conditional)
+
+		var checkIfFillBlockNeeded = function()
+		{
+			var isNeeded = false;
+			if(Math.abs(CommandCreator.conditionalCornerBlockCount % 2) == 1) // if ODD
+			{
+				// The number of cmd blocks used to fill out a conditional corner must ALWAYS be EVEN.
+				// IF the number of blocks used is ODD, another one is needed.
+				isNeeded = true;
+			}
+			else if(CommandCreator.currentDirectionChanged && CommandCreator.currentCommandBlock.conditional)
+			{
+				isNeeded = true;
+			}
+			return isNeeded;
+		}
+
+		while(checkIfFillBlockNeeded())
 		{
 			var blockName = CommandCreator.getBlockNameForType(CommandCreator.previousCommandBlock.type);
 
@@ -45,10 +63,17 @@ var CommandCreator =
 				testforblockCmd
 			);
 
+			// Increment the number of cmd blocks used (so that we can make sure an even number is used).
+			CommandCreator.conditionalCornerBlockCount++;
+
 			commands.push(setblockCmd);
 
 			CommandCreator.incrementSetblockVars();
 		}
+
+		// Reset the number of cmd blocks used to zero for next time.
+		CommandCreator.conditionalCornerBlockCount = 0;
+
 		return commands;
 	},
 	addSetblockCommand : function(command)
