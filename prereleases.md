@@ -16,6 +16,11 @@ To install a pre-release use the following command: `npm install smelt-cli@pre -
 
 ## Pre-release change notes
 
+### Version 1.1.0-pre8
+
+* Additional fix for the conditional corners bug. ([see #68](https://github.com/GnaspGames/Smelt/issues/68)).
+    * This should also be considered the long term fix since it will now work for future layout changes.
+
 ### Version 1.1.0-pre7
 
 * Minecraft 1.11 output is now the default output, since that's the current version of Minecraft. 
@@ -51,7 +56,7 @@ To install a pre-release use the following command: `npm install smelt-cli@pre -
 * Output command length and percentage into terminal for easy reference.
 * Fix marker entites being 1 block too high (introduced during pre-releases only)
 * Change the conditional corners feature to use `SuccessCount:0b`.
-    * A long term fix is required. ([see #68](https://github.com/GnaspGames/Smelt/issues/66)).
+    * A long term fix is required. ([see #68](https://github.com/GnaspGames/Smelt/issues/68)).
 * Large refactoring of some code. Bugs may have been added.
 
 ### Versions 1.1.0-pre1 to 1.1.0-pre4
