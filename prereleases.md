@@ -16,6 +16,10 @@ To install a pre-release use the following command: `npm install smelt-cli@pre -
 
 ## Pre-release change notes
 
+### Version 1.1.0-pre9
+
+* Fix for bug with `moduleStartY` and `moduleStartZ`. ([see #82](https://github.com/GnaspGames/Smelt/issues/82)).
+
 ### Version 1.1.0-pre8
 
 * Additional fix for the conditional corners bug. ([see #68](https://github.com/GnaspGames/Smelt/issues/68)).
