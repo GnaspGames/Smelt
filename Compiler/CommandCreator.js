@@ -391,7 +391,7 @@ var CommandCreator =
 		if(resetModuleSize)
 		{
 			this.currentCommandModule.setCoordinates(
-				startX, startZ, startY, stopX, stopY, stopZ, border
+				startX, startY, startZ, stopX, stopY, stopZ, border
 			);
 		}
 
