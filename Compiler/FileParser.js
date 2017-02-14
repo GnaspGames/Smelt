@@ -96,7 +96,7 @@ var FileParser = (function ()
 		);
 
 		// Pass module to CommandCreator to start new vars
-		CommandCreator.startNewFile(commandModule);
+		CommandCreator.reset(commandModule);
 
 		var content = this.removeComments(data.toString().trim());
 		var lines = content.split("\n");
@@ -286,9 +286,10 @@ var FileParser = (function ()
 	FileParser.prototype.processJsonLine = function(line)
 	{
 		line=this.checkForVariables(line);
+
 		var json = JSON.parse(line.replace(">",""));
-		CommandCreator.processJSONLine(json);
 		
+
 		if(Settings.Current.Output.ShowDebugInfo)
 		{
 			console.log(chalk.bold("\n* PROCESS JSON OPTIONS"));
@@ -300,6 +301,8 @@ var FileParser = (function ()
 			console.log("   -> executeAs = " + CommandCreator.executeAs);
 			console.log("   -> markerTag = " + CommandCreator.markerTag);
 		}
+
+		CommandCreator.processJSONLine(json);
 	};
 	
 	FileParser.prototype.processCommandBlockLine = function(commandModule, line)

@@ -319,7 +319,7 @@ var CommandCreator =
 		
 		return CommandCreator.addNewRowDisplayMarker(line);
 	},
-	startNewFile : function(commandModule)
+	reset : function(commandModule)
 	{
 		CommandCreator.currentCommandModule = commandModule;
 
@@ -393,6 +393,7 @@ var CommandCreator =
 			this.currentCommandModule.setCoordinates(
 				startX, startY, startZ, stopX, stopY, stopZ, border
 			);
+			this.reset(this.currentCommandModule);
 		}
 
 	}
