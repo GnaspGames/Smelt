@@ -10,6 +10,31 @@ nav: top
 Smelt Change Notes
 ==================
 
+### Version 1.1.0 (*27th February 2017*) 
+
+The [1.1.0 pre-release](prereleases.html) has been around for a while, and really, this shouldn't have taken so long. 
+
+So, finally, all of this is now available in version 1.1.0:
+
+* New configuration `MinecraftVersion` setting to support 1.9, 1.10 and 1.11 commands. 1.11 is the new default!
+    * Use the `smelt config --change-local` command to switch to 1.9/1.10 output on a specific project.
+* Modules can now been resized using (1) the Smelt config file, or (2) JSON properties inside an MCC module.
+    * (1) There is a new configuration `Modules` settings (`StartX`, `StopX` etc) for specifying module sizes 
+         (see [configuration](configuration.html)).
+    * (2) There are new JSON properties (`moduleStartX`, `moduleStopX` etc) that will override both the default values and config values. 
+         (see "JSON properties" under [syntax](syntax.html)).
+* `DefaultTrackOutput` setting and new `trackOutput` JSON property support. 
+    * A `false` value adds `TrackOutput:0b` to command blocks and `true` doesn't add anything to save characters.
+* Output command length and percentage into terminal for easy reference.
+* Fix for a bug with the conditional corners work-around. ([see #68](https://github.com/GnaspGames/Smelt/issues/68)).
+    * This work-around will now use `SuccessCount:0b` and the number of blocks created will always be even, 
+      to pass the correct value around the corner.
+* A new "watch" feature
+    * The `smelt compile YOURFILE.mcc --watch` command will automatically compile the watched file(s) when they change.
+    * Warning: there may be bugs on non-windows systems. Please report them if so!
+* Chain behaviour of `impulse-chain` and `repeating-chain`
+    * In addition to automatically switching to chain blocks, Smelt will also automatically change to `auto:true`. 
+
 ### Version 1.0.4
 
 * Fix [Issue #66](https://github.com/GnaspGames/Smelt/issues/66) - Numbers as variable names not working

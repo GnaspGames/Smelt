@@ -115,6 +115,44 @@ Example use case:
         /execute @e[tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:0b}
         /execute @r[tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:1b}
 
+**"module" properties**
+
+There are a number of properties used to change the layout of a module, as showing in this example:
+
+    ```
+    >{
+        "moduleStartX": 0,
+        "moduleStartY": 0,
+        "moduleStartZ": 0,
+        "moduleStopX": 15,
+        "moduleStopY": 15,
+        "moduleStopZ": 15,
+        "moduleBorder": 1
+    }
+    ```
+
+The `moduleStart` and `moduleStop` properties are used to specify the starting and stopping coordinates (X, Y and Z)
+of the module, relative to the source command block. This effectively allows you to change the size and 
+location of each module.
+
+The `moduleBorder` property is used to change the border of empty blocks that surrounds the module, 
+allowing space to stop modules touching and for display markers. This border only applies on the x 
+and z axis, not on the y axis. When the "start" coordinates are 0, this border should be at least 1.
+
+For example, the settings below will produce the same output as above by reducing the border but 
+changing the start and stop coordinates:
+
+    ```
+    >{
+        "moduleStartX": 1,
+        "moduleStartY": 1,
+        "moduleStartZ": 1,
+        "moduleStopX": 14,
+        "moduleStopY": 14,
+        "moduleStopZ": 14,
+        "moduleBorder": 0
+    }
+    ```
 
 ## **$** Variables
 

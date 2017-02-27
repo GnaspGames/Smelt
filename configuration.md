@@ -30,18 +30,33 @@ The file format
 Here's what the default `config.json` looks like:
 
     {
-        "Output": {
-            "ShowDebugInfo" : false,
-            "ShowCompiledCommands" : false,
+        "Output":
+        {
+            "ShowDebugInfo": false,
+            "ShowCompiledCommands": false,
             "CopyCompiledCommands": false,
-            "WriteCompiledCommandsToFile": true
+            "WriteCompiledCommandsToFile": true,
+            "MinecraftVersion": "1.11"
         },
-        "Commands": {
+        "Modules":
+        {
+            "StartX": 0,
+            "StartY": 0,
+            "StartZ": 0,
+            "StopX": 15,
+            "StopY": 15,
+            "StopZ": 15,
+            "Border": 1
+        },
+        "Commands":
+        {
             "DefaultCommandBlockType": "impulse",
             "DefaultConditionalValue": false,
-            "DefaultAutoValue": true
+            "DefaultAutoValue": true,
+            "DefaultTrackOutput": false
         },
-        "Markers": {
+        "Markers":
+        {
             "EntityType": "AreaEffectCloud",
             "SummonFileMarkers": true,
             "SummonRowMarkers": true
