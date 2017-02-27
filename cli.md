@@ -8,10 +8,10 @@ nav: docs
 The Command Line Interface (CLI)
 ================================
 
-* [smelt help](#smelt-help)
-* [smelt help compile](#smelt-help-compile)
-* [smelt help config](#smelt-help-config)
-* [smelt help plugins](#smelt-help-plugins)
+* [smelt help](#-smelt-help)
+* [smelt help compile](#-smelt-help-compile)
+* [smelt help config](#-smelt-help-config)
+* [smelt help plugins](#-smelt-help-plugins)
 
 $ smelt help
 ------------
