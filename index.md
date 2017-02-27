@@ -16,6 +16,8 @@ Smelt is a command line interface (CLI) tool, so you need to use command line on
 * First, install [Node](https://nodejs.org) on your computer.
 * Then, in a command line prompt run `npm install smelt-cli -g` so that the `smelt` command can be used.
 
+> Want to live on the *cutting edge*? Try the [pre-release version](prereleases.html).
+
 ### Installation statistics
 
 [![NPM](https://nodei.co/npm/smelt-cli.png?downloads=true)](https://nodei.co/npm/smelt-cli/)
