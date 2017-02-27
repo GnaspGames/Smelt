@@ -6,15 +6,19 @@ title: Pre-releases
 Smelt Pre-releases
 ==================
 
-## 1.1.0 Pre-Releases
+To install the latest pre-release use the following command: `npm install smelt-cli@pre -g`
 
-Work has begun on version 1.1.0.
+**Warning;** there will be bugs! The pre-release version of Smelt is used to test out new features 
+that may contain bugs, and may change in the future. Please report any issues on 
+[the Smelt Github project](https://github.com/GnaspGames/Smelt/issues/new).
 
-To install a pre-release use the following command: `npm install smelt-cli@pre -g`
+## 1.2.0 Pre-releases
 
-**Warning;** there will be bugs!
+Version 1.1.0 has now been released, and so the pre-releases listed below are now redundant. 
 
-## Pre-release change notes
+Soon work will begin on version 1.2.0 and new features will be released first as a pre-release.
+
+## 1.1.0 pre-release change notes
 
 ### Version 1.1.0-pre10
 
