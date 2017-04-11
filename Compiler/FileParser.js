@@ -199,7 +199,7 @@ var FileParser = (function ()
 	FileParser.prototype.removeComments = function(content)
 	{
 		var blockComments = String.raw`\/\*(.|[\r\n])*?\*\/`;
-		var lineComments = String.raw`\/\/(.*?)\r?\n`;
+		var lineComments = String.raw`\/\/(.*?)\r?($|\n)`;
 		var strings = String.raw`"((\\[^\n]|[^"\n])*)"`;
 
 		var expression = new RegExp(blockComments + "|" + lineComments + "|" + strings, 'g');
