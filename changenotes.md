@@ -10,6 +10,19 @@ nav: top
 Smelt Change Notes
 ==================
 
+### Version 1.1.1 
+
+Mostly bug fixes, and one interesting new feature; this is what you'll fine in version 1.1.1:
+
+* [Issue #91](https://github.com/GnaspGames/Smelt/issues/91): New config setting; `Commands.CreateInOrderProvided`
+    * The default value is `false`, but this will be changed to `true` in a later version.
+      When `true` command blocks will be set in the same order as they are written in the `.mcc` files.
+* [Issue #88](https://github.com/GnaspGames/Smelt/issues/88): `!init` command
+    * An `!init` command has been added. This previously existed as `!pre` but wasn't documented.
+    * It's recommended that this is used with `Commands.CreateInOrderProvided` set to `true`.
+* Fix for [bug #85](https://github.com/GnaspGames/Smelt/issues/85): Last comment doesn't count as a comment
+* Fix for [bug #89](https://github.com/GnaspGames/Smelt/issues/89): You can `smelt compile` files that aren't MCC files
+
 ### Version 1.1.0 (*27th February 2017*) 
 
 The [1.1.0 pre-release](prereleases.html) has been around for a while, and really, this shouldn't have taken so long. 
