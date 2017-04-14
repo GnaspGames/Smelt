@@ -1,4 +1,5 @@
 var chalk = require('chalk');
+var Settings = require("../Configuration/Settings");
 
 
 var CommandModule = (function () 
@@ -86,6 +87,14 @@ var CommandModule = (function ()
 			console.log("  innerDiffZ: " + this.innerDiffZ);
 		}
 	};
+
+	 CommandModule.prototype.addCommand = function(command)
+	 {
+		if(Settings.Current.Commands.CreateInOrderProvided)
+			this.Commands.push(command);
+		else
+			this.Commands.unshift(command);
+	 };
 
 	return CommandModule;
 })();

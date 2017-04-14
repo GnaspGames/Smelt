@@ -22,7 +22,8 @@
 		"DefaultCommandBlockType": ["impulse","repeating","chain"],
 		"DefaultConditionalValue": "boolean",
 		"DefaultAutoValue": "boolean",
-		"DefaultTrackOutput": "boolean"
+		"DefaultTrackOutput": "boolean",
+		"CreateInOrderProvided": "boolean"
 	},
 	"Markers":
 	{

@@ -142,16 +142,17 @@ var FileParser = (function ()
 
 		// One final call to processLine to complete the last trigger
 		process("", true);
+
 		
-		commandModule.Commands.unshift(
-			Templates.Current.CLEAR_MODULE_DISPLAY_MARKER,
-			util.format(
+
+		var summonRebuildEntityCommand = util.format(
 				Templates.Current.SUMMON_REBUILD_ENTITY,
 				commandModule.lowX,
 				(commandModule.lowY - 1), // lower y by 1 because minecarts execute 1 block up
 				commandModule.lowZ
-			), 
-			util.format(
+			);
+
+		var clearAreacommand = util.format(
 				Templates.Current.CLEAR_AREA_FORMAT, 
 				commandModule.border,
 				commandModule.lowY,
@@ -159,19 +160,30 @@ var FileParser = (function ()
 				(commandModule.diffX - commandModule.border),
 				commandModule.diffY,
 				(commandModule.diffZ - commandModule.border)
-			), 
-			util.format(
+			);
+
+		var clearMarkersCommand = util.format(
 				Templates.Current.CLEAR_MARKERS_FORMAT,
 				commandModule.diffX,
 				commandModule.diffY,
 				commandModule.diffZ
-			), // TODO replace with config numbers
+			);
+
+		// Add commands to start of combined command
+		commandModule.Commands.unshift(
+			Templates.Current.CLEAR_MODULE_DISPLAY_MARKER,
+			summonRebuildEntityCommand, 
+			clearAreacommand, 
+			clearMarkersCommand,
 			summonModuleDisplayMarker
 		);
 		
-		var removeBlocksNextTick = CommandCreator.buildSetblockCommand(0, 2, 0, "up", "impulse", false, true, false, "", "/fill ~ ~-1 ~ ~ ~ ~ air");
+		
+		var removeBlocksNextTickCommand = CommandCreator.buildSetblockCommand(0, 2, 0, "up", "impulse", false, true, false, "", "/fill ~ ~-1 ~ ~ ~ ~ air");
+		
+		// Add commands to end of combined command
 		commandModule.Commands.push(
-			removeBlocksNextTick, 
+			removeBlocksNextTickCommand, 
 			Templates.Current.CLEAR_REBUILD_ENTITY,
 			Templates.Current.CLEAR_MINECARTS
 		);
@@ -272,7 +284,7 @@ var FileParser = (function ()
 	{
 		line=this.checkForVariables(line);
 		var summon = CommandCreator.startNewRow(line);
-		if(summon) commandModule.Commands.unshift(summon);
+		if(summon) commandModule.addCommand(summon);
 		
 		if(Settings.Current.Output.ShowDebugInfo)
 		{
@@ -322,17 +334,17 @@ var FileParser = (function ()
 			for(var i in cornerCommands)
 			{	
 				var cornerCmd = cornerCommands[i];
-				commandModule.Commands.unshift(cornerCmd);
+				commandModule.addCommand(cornerCmd);
 				if(Settings.Current.Output.ShowDebugInfo)
 					console.log("   -> " + cornerCmd);
 			}
 		}
 
 		var summon = CommandCreator.addNewCmdMarker();
-		if(summon) commandModule.Commands.unshift(summon);
+		if(summon) commandModule.addCommand(summon);
 		
 		var command = CommandCreator.addSetblockCommand(line);
-		commandModule.Commands.unshift(command);
+		commandModule.addCommand(command);
 		
 		if(Settings.Current.Output.ShowDebugInfo)
 		{
@@ -361,7 +373,7 @@ var FileParser = (function ()
 			commands.forEach(function(command)
 			{
 				if(Settings.Current.Output.ShowDebugInfo) console.log("   -> " + command);
-				commandModule.Commands.unshift(command);
+				commandModule.addCommand(command);
 			});
 		}
 	};
