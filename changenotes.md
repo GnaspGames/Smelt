@@ -12,7 +12,7 @@ Smelt Change Notes
 
 ### Version 1.1.1 
 
-Mostly bug fixes, and one interesting new feature; this is what you'll fine in version 1.1.1:
+Some bug fixes, and two interesting new features; this is what you'll find in version 1.1.1:
 
 * [Issue #91](https://github.com/GnaspGames/Smelt/issues/91): New config setting; `Commands.CreateInOrderProvided`
     * The default value is `false`, but this will be changed to `true` in a later version.
