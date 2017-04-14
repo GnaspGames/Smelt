@@ -23,7 +23,9 @@ var StartCompiler =
 		if(stats.isFile())
 		{
 			Paths.LocalDirectory = _path.dirname(StartCompiler.Path);
-			files.push(StartCompiler.Path);
+			var fileName = StartCompiler.Path;
+			if(fileName.endsWith(".mcc")) 
+				files.push(fileName);
 		}
 		else if(stats.isDirectory())
 		{
