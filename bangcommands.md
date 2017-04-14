@@ -14,6 +14,18 @@ the plugins feature.
 Built in commands
 =================
 
+Initial command
+---------------
+
+### The `!init` command
+Usage: `!init <command>`
+
+This command it used to define commands that should be executes when a module it installed, but don't need to be included in the command blocks or executed again later. To reexecute the commands, the module would have to be reinstalled.
+
+	!init say Installing Module
+
+**Note:** The `<command>` parameter must be a vanilla Minecraft command and cannot (yet) be a nested bang command. The leading slash "/" on the Minecraft command should not be included.
+
 Loops and events
 ----------------
 
