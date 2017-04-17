@@ -88,14 +88,14 @@ var CommandModule = (function ()
 		}
 	};
 
-	 CommandModule.prototype.addCommand = function(command)
-	 {
+	CommandModule.prototype.addCommand = function(command)
+	{
 		if(Settings.Current.Commands.CreateInOrderProvided)
 			this.Commands.push(command);
 		else
 			this.Commands.unshift(command);
-	 };
-
+	};
+	
 	return CommandModule;
 })();
 
