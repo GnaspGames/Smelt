@@ -11,6 +11,13 @@ Smelt's MCC Syntax
 * [Introduction](#introduction)
 * [New command block row](#new-command-block-row)
 * [JSON properties](#json-properties)
+    * [type](#type)
+    * [auto](#auto)
+    * [conditional](#conditional)
+    * [trackOutput](#trackoutput)
+    * [executeAs](#executeas)
+    * [markerTag](#markertag)
+    * [module…](#module)
 * [Variables](#variables)
 * [Minecraft commands](#minecraft-commands)
 * [Bang commands](#bang-commands)
@@ -53,7 +60,7 @@ This is used to set the properties of all command blocks following until a tag i
 
 Properties available to use are: 
 
-**"type"**
+### **"type"**
 
 This defines the type of command block that will be used for the following commands.
 
@@ -65,7 +72,7 @@ Example: `>{"type":"repeating"}`
 either an `impulse` or `repeating` type (respectively) and then all other command blocks after that will
 be `chain` command blocks until a new type is specified.
 
-**"auto"**
+### **"auto"**
 
 This defines whether the following command blocks with be "Always active" (true), or "Require redstone" (false).
 
@@ -73,7 +80,7 @@ Possible values are `true` or `false`. Double quotes should not be used around v
 
 Example: `>{"auto":false}`
 
-**"conditional"**
+### **"conditional"**
 
 This defines whether the following command blocks will be "Conditional", meaning that they will only execute 
 if the previous command block executes successfully. 
@@ -82,7 +89,17 @@ Possible values are `true` or `false`. Double quotes should not be used around v
 
 Example: `>{"conditional":true}`
 
-**"executeAs"**
+### **"trackOutput"**
+
+This defined whether the "TrackOutput" feature will be turned on or off on following command blocks.
+
+Possible values are `true` or `false`. Double quotes should not be used around values on this property.
+
+When used in an module, this will override the `Commands.DefaultTrackOutput` configuration setting for that module.
+
+Example: `>{"trackOutput":true}`
+
+### **"executeAs"**
 
 This defines the executing entity for all following command blocks. 
 
@@ -94,7 +111,7 @@ This will be inserted before any following commands as `/execute @a[score_lives=
 
 Use `>{"executeAs":""}` to reset this option.
 
-**"markerTag"**
+### **"markerTag"**
 
 This is used to define a 'marker' entity (either an ArmorStand or AreaEffectCloud according to the config) to be summoned at the same location as each command block to follow. 
 Each marker entity will have the tag provided as the value of `markerTag`. 
@@ -125,7 +142,7 @@ Example use case:
         /execute @e[tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:0b}
         /execute @r[tag=randomPowerUp] ~ ~ ~ blockdata ~ ~ ~ {auto:1b}
 
-**"module" properties**
+### **module...**
 
 There are a number of properties used to change the layout of a module, as showing in this example:
 
