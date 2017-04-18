@@ -9,8 +9,8 @@ Smelt's MCC Syntax
 ==================
 
 * [Introduction](#introduction)
-* [New command block row](#new-command-block-row)
-* [JSON properties](#json-properties)
+* [New command block row](#-new-command-block-row)
+* [JSON properties](#-json-properties)
     * [type](#type)
     * [auto](#auto)
     * [conditional](#conditional)
@@ -18,9 +18,9 @@ Smelt's MCC Syntax
     * [executeAs](#executeas)
     * [markerTag](#markertag)
     * [module…](#module)
-* [Variables](#variables)
-* [Minecraft commands](#minecraft-commands)
-* [Bang commands](#bang-commands)
+* [Variables](#-variables)
+* [Minecraft commands](#-minecraft-commands)
+* [Bang commands](#-bang-commands)
 * [Wrapping Lines](#wrapping-lines)
 
 ## Introduction
