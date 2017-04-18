@@ -8,6 +8,16 @@ nav: docs
 Smelt's MCC Syntax
 ==================
 
+* [Introduction](#introduction)
+* [New command block row](#new-command-block-row)
+* [JSON properties](#json-properties)
+* [Variables](#variables)
+* [Minecraft commands](#minecraft-commands)
+* [Bang commands](#bang-commands)
+* [Wrapping Lines](#wrapping-lines)
+
+## Introduction
+
 There are 5 different *triggers* used in the Smelt MCC syntax. 
 A trigger is used to specify what will be in the following lines.
 
