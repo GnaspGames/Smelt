@@ -8,17 +8,29 @@ Smelt Pre-releases
 
 To install the latest pre-release use the following command: `npm install smelt-cli@pre -g`
 
-**Warning;** there will be bugs! The pre-release version of Smelt is used to test out new features 
-that may contain bugs, and may change in the future. Please report any issues on 
+**Warning;** there will be bugs! Pre-release versions of Smelt are used to test out new features 
+that may break things, and may change in the future. Please report any issues on 
 [the Smelt Github project](https://github.com/GnaspGames/Smelt/issues/new).
 
 ## 1.2.0 Pre-releases
 
-Version 1.1.0 has now been released, and so the pre-releases listed below are now redundant. 
+### Version 1.2.0-pre1
 
-Soon work will begin on version 1.2.0 and new features will be released first as a pre-release.
+* Adding an experimental `!stats` command. See usage below.
+* Adding experiment RCON support. Use `smelt config` to setup your RCON config.
+    * NOTE: There will be bugs, can crash servers!
 
-## 1.1.0 pre-release change notes
+**!stats usage**
+
+```
+   Usage: !stats <entity|block>
+   For entity:  !stats entity <selector> <clear|set> <mode> <selector> <objective>
+   For block:  	!stats block <clear|set> <mode> <selector> <objective>
+
+   Mode selections: AffectedBlocks | AffectedEntities | AffectedItems | QueryResult | SuccessCount
+```
+
+## 1.1.0 Pre-releases
 
 ### Version 1.1.0-pre10
 
