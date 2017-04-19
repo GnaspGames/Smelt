@@ -14,17 +14,33 @@ that may break things, and may change in the future. Please report any issues on
 
 ## 1.2.0 Pre-releases
 
+### Version 1.2.0-pre2
+
+* The RCON client will now output additional debug information 
+  when `Output.ShowDebugInfo` is true, or when using the `--debug` switch.
+* RCON: Slash removed from the start of commands as this causes command 
+  not recognised on some servers (Spigot).
+
 ### Version 1.2.0-pre1
 
 * Adding an experimental `!stats` command. See usage below.
 * Adding experiment RCON support. 
+    * When using RCON, all other compile modes (copy to clipboard, write to file etc) are ignored.
     * Use `smelt config` to setup your RCON settings:
+        * `Output.UseRCON` should be true.
         * `RCON.IpAddress`
         * `RCON.PortNumber`
         * `RCON.Password`
         * `RCON.Selector`
-	* `RCON.Selector` can remain empty and the default selector will be `rcon_FILENAME.mcc`
-	* `>{"rconSelector":"MYSELECTOR"}` can be used in `.mcc` files to override the default/config selector per module.
+    * About the **"selector"**:
+        * The "selector" is used by Smelt to identity an entity to execute commands from. 
+		* Use the [normal Minecraft selector syntax](http://minecraft.gamepedia.com/Commands#Target_selectors).
+        * This is needed to set the location of the command blocks.
+        * This entity replaces the source command block used by Smelt when installing as a combined-command. 
+        * The location of the entity identified in the selector should be in the same place you would normally put a source command block.
+        * Only 1 entity matching the selector should exist. 
+        * `RCON.Selector` can remain empty and the default selector will be `rcon_FILENAME.mcc`
+        * `>{"rconSelector":"MYSELECTOR"}` can be used in `.mcc` files to override the default/config selector per module.
     * NOTE: There will be bugs, can crash servers!
 
 **!stats usage**
