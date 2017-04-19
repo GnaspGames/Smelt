@@ -19,19 +19,17 @@ var RconClient = (function ()
 			this.client.on("response", r => { this.onResponse(r); });
 			this.client.on('error', function(err)
 			{
-				console.log("Got error: " + err);
+				console.log("RCON Error: " + err);
 			});
 
 			this.commandModule = commandModule;
 			this.commandIndex = 0;
 
-			// raise y by 1 because minecarts usually execute 1 block up (no Minecarts here)
-
 			this.selector = this.commandModule.RconSelector;
 			if(this.selector == "") this.selector = "rcon_" + this.commandModule.SourceName;
 
-
-			this.executeAsCommand = '/execute ' + this.selector + ' ~ ~1 ~ '; 
+			// raise y by 1 because minecarts usually execute 1 block up (no Minecarts here)
+			this.executeAsCommand = 'execute ' + this.selector + ' ~ ~1 ~ '; 
 		}
 	}
 
@@ -41,8 +39,30 @@ var RconClient = (function ()
 		this.startProcess();
 	}
 
+	RconClient.prototype.clientSend = function(command)
+	{
+		if(Settings.Current.Output.ShowDebugInfo)
+		{ 
+			console.log(chalk.bold(" * SENDING\n"));
+			console.log("   -> " + command + "\n");
+		}
+		this.client.send(command);
+	}
+
+	RconClient.prototype.clientDisconnect = function()
+	{
+		this.client.disconnect();
+		console.log(chalk.green("   Disconnected.\n"));
+	}
+
 	RconClient.prototype.onResponse = function(response)
 	{
+		if(Settings.Current.Output.ShowDebugInfo)
+		{
+			console.log(chalk.bold(" * RESPONSE\n"));
+			console.log("   -> " + response + "\n");
+		}
+
 		if(this.runStartProcess) this.testForEntity();
 		else if(this.runTestForEntity) this.handleTestForEntityResponse(response);
 		else if(this.runSendCommand) this.sendCommandHandler(response);
@@ -51,14 +71,14 @@ var RconClient = (function ()
 	RconClient.prototype.startProcess = function()
 	{
 		this.runStartProcess = true;
-		this.client.send('/tellraw @a [{"text":"[Smelt] Installing with RCON...","color":"green"}]');
+		this.clientSend('tellraw @a [{"text":"[Smelt] Installing with RCON...","color":"green"}]');
 	}
 
 	RconClient.prototype.testForEntity = function()
 	{
 		this.runStartProcess = false;
 		this.runTestForEntity = true;
-		this.client.send("/testfor " + this.selector);
+		this.clientSend("testfor " + this.selector);
 	}
 
 	RconClient.prototype.handleTestForEntityResponse = function(response)
@@ -74,18 +94,18 @@ var RconClient = (function ()
 		else if(finds && finds.length > 1)
 		{
 			var message = util.format("The selector (%s) matches MULTIPLE entities", this.selector);
-			this.client.send('/tellraw @a [{"text":"[Smelt] ERROR: ' + message + '.","color":"red"}]');
+			this.clientSend('tellraw @a [{"text":"[Smelt] ERROR: ' + message + '.","color":"red"}]');
 			console.log(chalk.red.bold("   RCON ERROR!\n"));
 			console.log(chalk.red.bold("   " + message + ".\n"));
-			this.client.disconnect();
+			this.clientDisconnect();
 		}
 		else
 		{
 			var message = util.format("The selector (%s) entity does not exist", this.selector);
-			this.client.send('/tellraw @a [{"text":"[Smelt] ERROR: ' + message + '.","color":"red"}]');
+			this.clientSend('tellraw @a [{"text":"[Smelt] ERROR: ' + message + '.","color":"red"}]');
 			console.log(chalk.red.bold("   RCON ERROR!\n"));
 			console.log(chalk.red.bold("   " + message + ".\n"));
-			this.client.disconnect();
+			this.clientDisconnect();
 		}
 	}
 
@@ -117,14 +137,7 @@ var RconClient = (function ()
 	{
 		this.runSendCommand = true;
 		var command = this.executeAsCommand + this.commandModule.Commands[this.commandIndex];
-		
-		if(Settings.Current.Output.ShowDebugInfo)
-		{ 
-			console.log(chalk.bold("\n * SENDING"));
-			console.log("   -> " + command);
-		}
-		
-		this.client.send(command);
+		this.clientSend(command);
 	}
 
 	RconClient.prototype.sendCommandHandler = function(response)
@@ -132,20 +145,14 @@ var RconClient = (function ()
 		this.runSendCommand = false;
 		this.commandIndex++;
 
-		if(Settings.Current.Output.ShowDebugInfo)
-		{
-			console.log(chalk.bold("\n * RESPONSE"));
-			console.log("   -> " + response);
-		}
-
 		if(this.commandIndex < this.commandModule.Commands.length)
 		{
 			this.sendCommand();
 		}
 		else
 		{
-			this.client.send('/tellraw @a [{"text":"[Smelt] Done.","color":"green"}]');
-			this.client.disconnect();
+			this.clientSend('tellraw @a [{"text":"[Smelt] Done.","color":"green"}]');
+			this.clientDisconnect();
 			console.log(chalk.green("   Done.\n"));
 		}
 	}
@@ -162,7 +169,7 @@ var RconClient = (function ()
 				console.log("   -> Settings.Current.RCON.IpAddress = " + Settings.Current.RCON.IpAddress);
 				console.log("   -> Settings.Current.RCON.PortNumber = " + Settings.Current.RCON.PortNumber);
 				console.log("   -> Settings.Current.RCON.Password = " + Settings.Current.RCON.Password);
-				console.log("   -> Selector = " + this.selector);
+				console.log("   -> Selector = " + this.selector + "\n");
 			}
 			
 			this.client.connect();
