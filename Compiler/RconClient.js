@@ -1,4 +1,5 @@
 var chalk = require('chalk');
+var util = require('util');
 var Settings = require("../Configuration/Settings");
 
 var Rcon = require('rcon');
@@ -25,7 +26,12 @@ var RconClient = (function ()
 			this.commandIndex = 0;
 
 			// raise y by 1 because minecarts usually execute 1 block up (no Minecarts here)
-			this.executeAsCommand = '/execute ' + Settings.Current.RCON.Selector + ' ~ ~1 ~ '; 
+
+			this.selector = this.commandModule.RconSelector;
+			if(this.selector == "") this.selector = "rcon_" + this.commandModule.SourceName;
+
+
+			this.executeAsCommand = '/execute ' + this.selector + ' ~ ~1 ~ '; 
 		}
 	}
 
@@ -52,7 +58,7 @@ var RconClient = (function ()
 	{
 		this.runStartProcess = false;
 		this.runTestForEntity = true;
-		this.client.send("/testfor " + Settings.Current.RCON.Selector);
+		this.client.send("/testfor " + this.selector);
 	}
 
 	RconClient.prototype.handleTestForEntityResponse = function(response)
@@ -67,16 +73,18 @@ var RconClient = (function ()
 		}
 		else if(finds && finds.length > 1)
 		{
-			this.client.send('/tellraw @a [{"text":"[Smelt] ERROR: The selector matches MULTIPLE entities.","color":"red"}]');
+			var message = util.format("The selector (%s) matches MULTIPLE entities", this.selector);
+			this.client.send('/tellraw @a [{"text":"[Smelt] ERROR: ' + message + '.","color":"red"}]');
 			console.log(chalk.red.bold("   RCON ERROR!\n"));
-			console.log(chalk.red.bold("   The selector matches MULTIPLE entities.\n"));
+			console.log(chalk.red.bold("   " + message + ".\n"));
 			this.client.disconnect();
 		}
 		else
 		{
-			this.client.send('/tellraw @a [{"text":"[Smelt] ERROR: The selector entity does not exist.","color":"red"}]');
+			var message = util.format("The selector (%s) entity does not exist", this.selector);
+			this.client.send('/tellraw @a [{"text":"[Smelt] ERROR: ' + message + '.","color":"red"}]');
 			console.log(chalk.red.bold("   RCON ERROR!\n"));
-			console.log(chalk.red.bold("   The selector entity does not exist.\n"));
+			console.log(chalk.red.bold("   " + message + ".\n"));
 			this.client.disconnect();
 		}
 	}
@@ -87,8 +95,7 @@ var RconClient = (function ()
 		if(Settings.Current.Output.UseRCON
 		&& Settings.Current.RCON.IpAddress != ""
 		&& Settings.Current.RCON.PortNumber != 0
-		&& Settings.Current.RCON.Password != ""
-		&& Settings.Current.RCON.Selector != "")
+		&& Settings.Current.RCON.Password != "")
 		{
 			okay = true;
 		}
@@ -155,7 +162,7 @@ var RconClient = (function ()
 				console.log("   -> Settings.Current.RCON.IpAddress = " + Settings.Current.RCON.IpAddress);
 				console.log("   -> Settings.Current.RCON.PortNumber = " + Settings.Current.RCON.PortNumber);
 				console.log("   -> Settings.Current.RCON.Password = " + Settings.Current.RCON.Password);
-				console.log("   -> Settings.Current.RCON.Selector = " + Settings.Current.RCON.Selector);
+				console.log("   -> Selector = " + this.selector);
 			}
 			
 			this.client.connect();

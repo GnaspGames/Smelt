@@ -9,6 +9,7 @@ var CommandModule = (function ()
 		this.SourceName = "";
 		this.CompiledCommand = "";
 		this.Commands = [];
+		this.RconSelector = Settings.Current.RCON.Selector;
 
 		this.startX, this.startY, this.startZ, this.stopX, this.stopY, this.stopZ = 0;
 		this.border = 0;
