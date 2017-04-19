@@ -75,6 +75,9 @@ var Settings =
                     if(Number.isInteger(value))
                         isValid = true;
                     break;
+                case "string":
+                    if(typeof(value) === "string") isValid= true;
+                    break;
             }
         }
 

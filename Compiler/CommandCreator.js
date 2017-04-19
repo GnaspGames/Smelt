@@ -355,6 +355,8 @@ var CommandCreator =
 			CommandCreator.executeAs = json.executeAs;
 		if(json.markerTag != null)
 			CommandCreator.markerTag = json.markerTag;
+		if(json.rconSelector != null)
+			this.currentCommandModule.RconSelector = json.rconSelector;
 		
 		// Module Settings
 		var resetModuleSize = false;

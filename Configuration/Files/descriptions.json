@@ -5,7 +5,15 @@
 		"ShowCompiledCommands": "Output compiled commands to the console.",
 		"CopyCompiledCommands": "Copy compiled commands to the clipboard to be pasted elsewhere.",
 		"WriteCompiledCommandsToFile": "Write compiled commands to files (example.mcc writes to example.oc).",
+		"UseRCON": "Create command blocks directly on a server using RCON",
 		"MinecraftVersion": "Specify the Minecraft version compiled commands should target."
+	},
+	"RCON":
+	{
+		"IpAddress": "The I.P. address used to connect to the RCON server.",
+		"PortNumber": "The port number used to connect to the RCON server.",
+		"Password": "The password used to connect to the RCON server.",
+		"Selector": "The entity selector to use as a reference for creating command blocks via RCON."
 	},
 	"Modules":
 	{

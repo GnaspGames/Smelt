@@ -5,7 +5,15 @@
 		"ShowCompiledCommands": "boolean",
 		"CopyCompiledCommands": "boolean",
 		"WriteCompiledCommandsToFile": "boolean",
+		"UseRCON": "boolean",
 		"MinecraftVersion": ["1.9","1.10","1.11"]
+	},
+	"RCON":
+	{
+		"IpAddress": "string",
+		"PortNumber": "integer",
+		"Password": "string",
+		"Selector": "string"
 	},
 	"Modules":
 	{

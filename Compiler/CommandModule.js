@@ -9,6 +9,7 @@ var CommandModule = (function ()
 		this.SourceName = "";
 		this.CompiledCommand = "";
 		this.Commands = [];
+		this.RconSelector = Settings.Current.RCON.Selector;
 
 		this.startX, this.startY, this.startZ, this.stopX, this.stopY, this.stopZ = 0;
 		this.border = 0;
@@ -88,14 +89,14 @@ var CommandModule = (function ()
 		}
 	};
 
-	 CommandModule.prototype.addCommand = function(command)
-	 {
+	CommandModule.prototype.addCommand = function(command)
+	{
 		if(Settings.Current.Commands.CreateInOrderProvided)
 			this.Commands.push(command);
 		else
 			this.Commands.unshift(command);
-	 };
-
+	};
+	
 	return CommandModule;
 })();
 
