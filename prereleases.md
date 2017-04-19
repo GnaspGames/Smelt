@@ -17,7 +17,14 @@ that may break things, and may change in the future. Please report any issues on
 ### Version 1.2.0-pre1
 
 * Adding an experimental `!stats` command. See usage below.
-* Adding experiment RCON support. Use `smelt config` to setup your RCON config.
+* Adding experiment RCON support. 
+    * Use `smelt config` to setup your RCON settings:
+        * `RCON.IpAddress`
+        * `RCON.PortNumber`
+        * `RCON.Password`
+        * `RCON.Selector`
+	* `RCON.Selector` can remain empty and the default selector will be `rcon_FILENAME.mcc`
+	* `>{"rconSelector":"MYSELECTOR"}` can be used in `.mcc` files to override the default/config selector per module.
     * NOTE: There will be bugs, can crash servers!
 
 **!stats usage**
