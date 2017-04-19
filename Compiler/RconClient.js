@@ -14,8 +14,8 @@ var RconClient = (function ()
 									Settings.Current.RCON.PortNumber, 
 									Settings.Current.RCON.Password);
 
-			this.client.on("auth", () => { this.onAuthentication() });
-			this.client.on("response", r => { this.onResponse(r) });
+			this.client.on("auth", () => { this.onAuthentication(); });
+			this.client.on("response", r => { this.onResponse(r); });
 			this.client.on('error', function(err)
 			{
 				console.log("Got error: " + err);
@@ -23,7 +23,9 @@ var RconClient = (function ()
 
 			this.commandModule = commandModule;
 			this.commandIndex = 0;
-			this.executeAsCommand = '/execute ' + Settings.Current.RCON.Selector + ' ~ ~ ~ ';
+
+			// raise y by 1 because minecarts usually execute 1 block up (no Minecarts here)
+			this.executeAsCommand = '/execute ' + Settings.Current.RCON.Selector + ' ~ ~1 ~ '; 
 		}
 	}
 
@@ -56,10 +58,19 @@ var RconClient = (function ()
 	RconClient.prototype.handleTestForEntityResponse = function(response)
 	{
 		this.runTestForEntity = false;
-		if(response.indexOf("Found") > -1)
+		var finds = response.match(/Found/g);
+
+		if(finds && finds.length == 1)
 		{
 			console.log(chalk.green("   Selector found...\n"));
 			this.startSendingCommands();
+		}
+		else if(finds && finds.length > 1)
+		{
+			this.client.send('/tellraw @a [{"text":"[Smelt] ERROR: The selector matches MULTIPLE entities.","color":"red"}]');
+			console.log(chalk.red.bold("   RCON ERROR!\n"));
+			console.log(chalk.red.bold("   The selector matches MULTIPLE entities.\n"));
+			this.client.disconnect();
 		}
 		else
 		{
