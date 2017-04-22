@@ -20,7 +20,7 @@ Initial command
 ### The `!init` command
 Usage: `!init <command>`
 
-This command it used to define commands that should be executes when a module it installed, but don't need to be included in the command blocks or executed again later. To reexecute the commands, the module would have to be reinstalled.
+This command is used to define commands that should be executed when a module is installed, but don't need to be included in the command blocks or executed again later. To re-execute the commands, the module would have to be reinstalled.
 
 	!init say Installing Module
 
