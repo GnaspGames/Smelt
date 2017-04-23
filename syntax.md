@@ -70,11 +70,11 @@ Example: `>{"type":"repeating"}`
 
 > **Note:** The `impulse-chain` and `repeating-chain` types will result in the first command block being
 either an `impulse` or `repeating` type (respectively) and then all other command blocks after that will
-be `chain` command blocks until a new type is specified.
+be `chain` command blocks until a new type is specified. The following `chain` command blocks will be "Always active" regardless of the `auto` setting last used (explained below).
 
 ### **"auto"**
 
-This defines whether the following command blocks with be "Always active" (true), or "Require redstone" (false).
+This defines whether the following command blocks with be "Always active" (true), or "Require redstone" (false). This can be overridden in chain command blocks when a `type` value of the `impulse-chain` or `repeating-chain` is used (as explained above).
 
 Possible values are `true` or `false`. Double quotes should not be used around values on this property.
 
