@@ -11,7 +11,17 @@ var BangCommandHelper =
 	{
 		var commands = []
 		
-		var args = bang.substr(1).split(" ");
+        var args = [];
+        var args = bang.substr(1).match(/[^\s"']+|"([^"]*)"|'([^']*)'/g); //not working with escaped qoutes -mrjvs
+        var i = args.length;
+        while(i--){
+            args[i] = args[i].replace(/"/g,"");
+        }
+        
+        
+        
+        
+	//	var args = bang.substr(1).split(" ");
 		var name = args[0];
 		var plugin = this.loadPlugin(name);
 		var self = this;
@@ -34,6 +44,14 @@ var BangCommandHelper =
 					commands.push(cornerCmd);
 				}
 			}
+            
+            //adding this seemed to fix the issue of no markertags with bangcommands -mrjvs
+            if (CommandCreator.markerTag) {
+                console.log(CommandCreator.markerTag);
+                var summon = CommandCreator.addNewCmdMarker();
+                if(summon) commandModule.addCommand(summon);
+            }
+            //---
 
 			var command = CommandCreator.addSetblockCommand(cmd);
 			commands.push(command);
@@ -80,7 +98,8 @@ var BangCommandHelper =
 			addInitCommand: callback_addInitCommand,
 			addSupportModule: callback_addSupportModule,
 			setVariable: callback_setVariable,
-			getVariable: callback_getVariable
+			getVariable: callback_getVariable,
+            setJSON : function(json){ CommandCreator.processJSONLine(json); } //added this command, you can guess what it does -mrjvs
 		};
 		
 		if(plugin.Install) plugin.Install(smeltObj);
