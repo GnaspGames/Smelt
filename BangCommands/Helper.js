@@ -22,6 +22,7 @@ var BangCommandHelper =
 			var _conditional = CommandCreator.currentCommandBlock.conditional;
 			var _auto = CommandCreator.currentCommandBlock.auto;
 			var _executeAs = CommandCreator.executeAs;
+			var _markerTag = CommandCreator.markerTag;
 			
 			if(jsonOptions) CommandCreator.processJSONLine(jsonOptions);
 			
@@ -50,6 +51,7 @@ var BangCommandHelper =
 			CommandCreator.currentCommandBlock.conditional = _conditional;
 			CommandCreator.currentCommandBlock.auto = _auto;
 			CommandCreator.executeAs = _executeAs;
+			CommandCreator.markerTag = _markerTag;
 		};
 		
 		var callback_addInitCommand = function(cmd)
