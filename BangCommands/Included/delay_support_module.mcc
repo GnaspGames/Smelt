@@ -1,0 +1,7 @@
+# Delay Mechanism
+>{"type":"repeating-chain","auto":true}
+/scoreboard players tag @e[tag=comDelay] add comDelayDone {Age:-1}
+	>{"conditional":true}
+	/execute @e[tag=comDelayDone] ~ ~ ~ blockdata ~ ~ ~ {auto:1b}
+	/execute @e[tag=comDelayDone] ~ ~ ~ blockdata ~ ~ ~ {auto:0b}
+	/kill @e[tag=comDelayDone]
