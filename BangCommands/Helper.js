@@ -80,7 +80,8 @@ var BangCommandHelper =
 			addInitCommand: callback_addInitCommand,
 			addSupportModule: callback_addSupportModule,
 			setVariable: callback_setVariable,
-			getVariable: callback_getVariable
+			getVariable: callback_getVariable,
+            setJSON: function(json){ commandCreator.processJSONLine(json); }
 		};
 		
 		if(plugin.Install) plugin.Install(smeltObj);
