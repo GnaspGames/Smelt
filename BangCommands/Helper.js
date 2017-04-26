@@ -34,12 +34,10 @@ var BangCommandHelper =
 					commands.push(cornerCmd);
 				}
 			}
-            
-            if (CommandCreator.markerTag) {
-                var summon = CommandCreator.addNewCmdMarker();
-                if(summon) commandModule.addCommand(summon);
-            }
-            
+			
+			var summon = CommandCreator.addNewCmdMarker();
+			if(summon) commands.push(summon);
+			
 			var command = CommandCreator.addSetblockCommand(cmd);
 			commands.push(command);
 			
