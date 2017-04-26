@@ -7,7 +7,19 @@ var delay = {};
 
 delay.Install = function (smelt) {
     smelt.addSupportModule("delay_support_module.mcc");
+	switch(smelt.settings.Output.MinecraftVersion) 
+		{
+			case "1.9":
+			case "1.10":
+				smelt.addSupportModule("smelt-for-1.9.mcc");
+				break;
+			case "1.11":
+			default:
+				smelt.addSupportModule("smelt-for-1.11.mcc");
+				break;
+		}
 };
+
 
 delay.HowTo = function () {
     var usage = "\n  Usage:\n\n  !delay ticks conditional command\n  Ticks, int: how many ticks delay it before the command runs.\n  Conditional, boolean: if the delay chain command block needs to be conditional or not.\n  Command, string: what command to delay.\n\n  Example: !delay 20 true /say hello there\n";
@@ -37,10 +49,8 @@ delay.Execute = function(smelt) {
     options["type"] = "chain";
     options["auto"] = true;
     options["conditional"] = smelt.args[2];
-    smelt.addCommandBlock("execute @e[tag=" + markerId + ",type=area_effect_cloud,c=1] ~ ~ ~ summon minecraft:area_effect_cloud ~ ~ ~ {Tags:[\"comDelay\"],Particle:\"take\",Age:-" + smelt.args[1] + "}", options);
+    smelt.addCommandBlock("execute @e[tag=" + markerId + ",type=area_effect_cloud,c=1] ~ ~ ~ summon minecraft:area_effect_cloud ~ ~ ~ {Tags:[\"aecDelay\"],Particle:\"take\",Age:-" + smelt.args[1] + "}", options);
     smelt.addCommandBlock(command,{auto:false,type:"impulse",conditional:false,markerTag:markerId});
-    
-    smelt.setJSON({markerTag:""});
     
 }; 
 
