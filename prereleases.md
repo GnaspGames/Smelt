@@ -16,6 +16,16 @@ that may break things, and may change in the future. Please report any issues on
 
 ### Version 1.2.0-pre2
 
+* [Issue #94](https://github.com/GnaspGames/Smelt/issues/94) and [Pull Request #97](https://github.com/GnaspGames/Smelt/pull/97):
+  Marker entites can now be created inside bang commands/plugins using the `markerTag` option. 
+    * Any marker entity assigned inside a script WON'T persist afterwards, but any marker entity 
+      assigned before the script is called be used so long as it's not reset inside the script.
+* [Pull Request #95](https://github.com/GnaspGames/Smelt/pull/95) from mrjvs: A new build in `!delay` command.
+    * Usage: `!delay <ticksToWait> <useConditional> <command>`
+    * Example: `!delay 20 false /say Hello World`
+
+### Version 1.2.0-pre2
+
 * The RCON client will now output additional debug information 
   when `Output.ShowDebugInfo` is true, or when using the `--debug` switch.
 * RCON: Slash removed from the start of commands as this causes command 
@@ -34,7 +44,7 @@ that may break things, and may change in the future. Please report any issues on
         * `RCON.Selector`
     * About the **"selector"**:
         * The "selector" is used by Smelt to identity an entity to execute commands from. 
-		* Use the [normal Minecraft selector syntax](http://minecraft.gamepedia.com/Commands#Target_selectors).
+        * Use the [normal Minecraft selector syntax](http://minecraft.gamepedia.com/Commands#Target_selectors).
         * This is needed to set the location of the command blocks.
         * This entity replaces the source command block used by Smelt when installing as a combined-command. 
         * The location of the entity identified in the selector should be in the same place you would normally put a source command block.
