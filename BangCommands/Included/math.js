@@ -180,6 +180,7 @@ Mathcmd.Execute = function(smelt)
 	
 	cmds.forEach(function(cmd)
 	{
+		console.log(cmd);
 		smelt.addCommandBlock(cmd);
 	});
 	
