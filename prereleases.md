@@ -19,8 +19,8 @@ that may break things, and may change in the future. Please report any issues on
 * [Issue #94](https://github.com/GnaspGames/Smelt/issues/94) and [Pull Request #97](https://github.com/GnaspGames/Smelt/pull/97):
   Marker entites can now be created inside bang commands/plugins using the `markerTag` option. 
     * Any marker entity assigned inside a script WON'T persist afterwards, but any marker entity 
-      assigned before the script is called be used so long as it's not reset inside the script.
-* [Pull Request #95](https://github.com/GnaspGames/Smelt/pull/95) from mrjvs: A new build in `!delay` command.
+      assigned before the script is called will be used so long as it's not reset inside the script.
+* [Pull Request #95](https://github.com/GnaspGames/Smelt/pull/95) from mrjvs: A new built in `!delay` command.
     * Usage: `!delay <ticksToWait> <useConditional> <command>`
     * Example: `!delay 20 false /say Hello World`
 
