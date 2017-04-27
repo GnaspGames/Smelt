@@ -14,7 +14,7 @@ that may break things, and may change in the future. Please report any issues on
 
 ## 1.2.0 Pre-releases
 
-### Version 1.2.0-pre2
+### Version 1.2.0-pre3
 
 * [Issue #94](https://github.com/GnaspGames/Smelt/issues/94) and [Pull Request #97](https://github.com/GnaspGames/Smelt/pull/97):
   Marker entites can now be created inside bang commands/plugins using the `markerTag` option. 
