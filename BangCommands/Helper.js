@@ -109,6 +109,7 @@ var BangCommandHelper =
 		var foundPath = "";
 
 		var paths = [
+            path.resolve("/.smelt/plugins/" + name + ".js"),
 			path.resolve(Paths.LocalDirectory + "/.smelt/plugins/" + name + ".js"),
 			path.resolve(Paths.HomeDirectory + "/plugins/" + name + ".js"),
 			path.resolve(Paths.OcDirectory + "/BangCommands/Included/" + name + ".js")
