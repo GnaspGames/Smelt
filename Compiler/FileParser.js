@@ -14,7 +14,7 @@ var FileParser = (function ()
 {
 	function FileParser() 
 	{
-		this.BangSetups = [];
+		this.BangSetupModules = [];
 		this.PreviousTrigger ="";
 		this.PreviousCommand = "";
 		this.CustomVariables = {};
@@ -28,10 +28,10 @@ var FileParser = (function ()
 
 		var commandModule = this.ProcessData(data, path.basename(filePath));
 		
-		if(this.BangSetups.length)
+		if(this.BangSetupModules.length)
 		{
 			var self = this;
-			this.BangSetups.forEach(function(setup)
+			this.BangSetupModules.forEach(function(setup)
 			{
 				console.log(chalk.yellow(util.format("\nTo use the \"!%s\" command you will need to also install the following module into your map: %s", setup.bangName, setup.fileName)));
 				var supportModule = self.ProcessData(setup.setupData, setup.fileName);
@@ -105,7 +105,7 @@ var FileParser = (function ()
 			Settings.Current.Modules.Border
 		);
 
-		// Pass module to CommandCreator to start new vars
+		// Pass module to CommandCreator to start new variables
 		CommandCreator.reset(commandModule);
 
 		var content = this.removeComments(data.toString().trim());
@@ -129,11 +129,11 @@ var FileParser = (function ()
 		}
 		
 		var self = this;
-		var process = function(line, endoffile)
+		var process = function(line, endOfFile)
 		{
 			try
 			{
-				self.processLine(commandModule, line, endoffile);
+				self.processLine(commandModule, line, endOfFile);
 			}
 			catch(err)
 			{
@@ -162,7 +162,7 @@ var FileParser = (function ()
 				commandModule.lowZ
 			);
 
-		var clearAreacommand = util.format(
+		var clearAreaCommand = util.format(
 				Templates.Current.CLEAR_AREA_FORMAT, 
 				commandModule.border,
 				commandModule.lowY,
@@ -183,7 +183,7 @@ var FileParser = (function ()
 		commandModule.Commands.unshift(
 			Templates.Current.CLEAR_MODULE_DISPLAY_MARKER,
 			summonRebuildEntityCommand, 
-			clearAreacommand, 
+			clearAreaCommand, 
 			clearMarkersCommand,
 			summonModuleDisplayMarker
 		);
@@ -269,11 +269,11 @@ var FileParser = (function ()
 		return content.trim();
 	}
 		
-	FileParser.prototype.processLine = function (commandModule, line , endoffile)
+	FileParser.prototype.processLine = function (commandModule, line , endOfFile)
 	{
-		if(line[0] == "#" || line[0] == ">" || line[0] == "/" || line[0] == "!" || line[0] == "$" || endoffile == true) 
+		if(line[0] == "#" || line[0] == ">" || line[0] == "/" || line[0] == "!" || line[0] == "$" || endOfFile == true) 
 		{
-			// If a new trigger is found, or this is the endoffile, process the previous line
+			// If a new trigger is found, or this is the endOfFile, process the previous line
 			switch (this.PreviousTrigger)
 			{
 				case "#":
@@ -445,7 +445,7 @@ var FileParser = (function ()
 			exists = true;
 		else
 		{
-			this.BangSetups.forEach(function(existingSetup)
+			this.BangSetupModules.forEach(function(existingSetup)
 			{
 				if(bangSetup.setupData == existingSetup.setupData)
 					exists = true;
@@ -453,7 +453,7 @@ var FileParser = (function ()
 		}
 
 		if(!exists)
-			this.BangSetups.push(bangSetup);
+			this.BangSetupModules.push(bangSetup);
 	}
 	
 	return FileParser;
