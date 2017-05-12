@@ -62,28 +62,30 @@ var FileParser = (function ()
 		}
 		else
 		{
-			if(Settings.Current.Output.WriteCompiledCommandsToFile)
-			{
-				var outputFileName = path.resolve(Paths.LocalDirectory + "/" + commandModule.SourceName.replace(".mcc", ".oc"));
-				fs.writeFileSync(outputFileName, commandModule.CompiledCommand);
-				console.log(chalk.green("\n * The compiled command has been saved to " + outputFileName));
-			}
+			var combiner = new CommandCombiner(commandModule);
+			combiner.createOutput(isLast);
+			// if(Settings.Current.Output.WriteCompiledCommandsToFile)
+			// {
+			// 	var outputFileName = path.resolve(Paths.LocalDirectory + "/" + commandModule.SourceName.replace(".mcc", ".oc"));
+			// 	fs.writeFileSync(outputFileName, commandModule.CompiledCommand);
+			// 	console.log(chalk.green("\n * The compiled command has been saved to " + outputFileName));
+			// }
 
-			if(Settings.Current.Output.ShowCompiledCommands)
-			{
-				console.log(chalk.green("\n\ * COMPILED-COMMAND:\n"));
-				console.log(commandModule.CompiledCommand);
-			}
+			// if(Settings.Current.Output.ShowCompiledCommands)
+			// {
+			// 	console.log(chalk.green("\n\ * COMPILED-COMMAND:\n"));
+			// 	console.log(commandModule.CompiledCommand);
+			// }
 
-			if(Settings.Current.Output.CopyCompiledCommands)
-			{
-				// Copy to the clipboard
-				ncp.copy(commandModule.CompiledCommand);
-				console.log(chalk.green("\n * The compiled command has been copied into your clipboard."));
+			// if(Settings.Current.Output.CopyCompiledCommands)
+			// {
+			// 	// Copy to the clipboard
+			// 	ncp.copy(commandModule.CompiledCommand);
+			// 	console.log(chalk.green("\n * The compiled command has been copied into your clipboard."));
 
-				// Give the user time to use the clipboard before moving on.
-				if(!isLast) readlineSync.keyIn(chalk.green("   Install into your world before you continue. Type 'c' to continue. "), {limit: 'c'});
-			}
+			// 	// Give the user time to use the clipboard before moving on.
+			// 	if(!isLast) readlineSync.keyIn(chalk.green("   Install into your world before you continue. Type 'c' to continue. "), {limit: 'c'});
+			// }
 		}
 	};
 	
@@ -205,22 +207,22 @@ var FileParser = (function ()
 			);
 		}
 
-		// Now take all in this.Commands and put into commandblock minecarts to be executed
-		// when summoned as passengers on an activator rail
+		// // Now take all in this.Commands and put into commandblock minecarts to be executed
+		// // when summoned as passengers on an activator rail
 
-		var minecarts = []
-		for(i=0; i < commandModule.Commands.length; i++)
-		{
-			var command = commandModule.Commands[i];
-			var minecart = util.format(Templates.Current.COMMAND_BLOCK_MINECART_NBT_FORMAT, JSON.stringify(command)); 
-			minecarts.push(minecart);
-		}
+		// var minecarts = []
+		// for(i=0; i < commandModule.Commands.length; i++)
+		// {
+		// 	var command = commandModule.Commands[i];
+		// 	var minecart = util.format(Templates.Current.COMMAND_BLOCK_MINECART_NBT_FORMAT, JSON.stringify(command)); 
+		// 	minecarts.push(minecart);
+		// }
 		
-		var minecartsString = minecarts.join(",");
+		// var minecartsString = minecarts.join(",");
 
-		var compiledCommands = util.format(Templates.Current.SUMMON_FALLING_RAIL_FORMAT, minecartsString);
+		// var compiledCommands = util.format(Templates.Current.SUMMON_FALLING_RAIL_FORMAT, minecartsString);
 
-		commandModule.CompiledCommand = compiledCommands;
+		// commandModule.CompiledCommand = compiledCommands;
 
 		return commandModule;
 	};

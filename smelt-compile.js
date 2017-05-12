@@ -7,6 +7,7 @@ CommandModule = require("./Compiler/CommandModule");
 CommandCreator = require("./Compiler/CommandCreator");
 BangCommandHelper = require("./BangCommands/Helper");
 RconClient = require("./Compiler/RconClient");
+CommandCombiner = require("./Compiler/CommandCombiner");
 Settings = require("./Configuration/Settings");
 
 var util = require('util');
