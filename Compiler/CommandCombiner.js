@@ -15,9 +15,16 @@ var CommandCombiner = (function ()
 	{
 		this.module = commandModule;
 
+
+	}
+
+	CommandCombiner.prototype.combineAllCommands = function()
+	{
+		// First all any additional commands needed for combined command to work.
+		this.module.addAdditionalCommands();
+
 		// Take all in commandModule.Commands and put into commandblock minecarts to be executed
 		// when summoned as passengers on an activator rail
-
 		var minecarts = []
 		for(i=0; i < this.module.Commands.length; i++)
 		{
@@ -35,6 +42,9 @@ var CommandCombiner = (function ()
 
 	CommandCombiner.prototype.createOutput = function(isLast)
 	{
+		// Combine all the commands in the module before outputting
+		this.combineAllCommands();
+
 		if(Settings.Current.Output.WriteCompiledCommandsToFile)
 		{
 			var outputFileName = path.resolve(Paths.LocalDirectory + "/" + this.module.SourceName.replace(".mcc", ".oc"));

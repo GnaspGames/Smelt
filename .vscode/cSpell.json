@@ -10,7 +10,12 @@
         "minecarts",
         "Setblock",
         "commandblock",
-        "RCON"
+        "RCON",
+        "tellraw",
+        "testforblock",
+        "minecraft",
+        "armor",
+        "ARMORSTAND"
     ],
     // flagWords - list of words to be always considered incorrect
     // This is useful for offensive words and common spelling errors.

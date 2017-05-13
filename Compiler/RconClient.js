@@ -129,6 +129,9 @@ var RconClient = (function ()
 
 	RconClient.prototype.startSendingCommands = function()
 	{
+		// First add any additional commands used by smelt to clear the module area.
+		this.commandModule.addAdditionalCommands();
+
 		console.log(chalk.green("   Executing commands...\n"));
 		this.sendCommand();
 	}

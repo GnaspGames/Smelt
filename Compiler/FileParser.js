@@ -64,28 +64,6 @@ var FileParser = (function ()
 		{
 			var combiner = new CommandCombiner(commandModule);
 			combiner.createOutput(isLast);
-			// if(Settings.Current.Output.WriteCompiledCommandsToFile)
-			// {
-			// 	var outputFileName = path.resolve(Paths.LocalDirectory + "/" + commandModule.SourceName.replace(".mcc", ".oc"));
-			// 	fs.writeFileSync(outputFileName, commandModule.CompiledCommand);
-			// 	console.log(chalk.green("\n * The compiled command has been saved to " + outputFileName));
-			// }
-
-			// if(Settings.Current.Output.ShowCompiledCommands)
-			// {
-			// 	console.log(chalk.green("\n\ * COMPILED-COMMAND:\n"));
-			// 	console.log(commandModule.CompiledCommand);
-			// }
-
-			// if(Settings.Current.Output.CopyCompiledCommands)
-			// {
-			// 	// Copy to the clipboard
-			// 	ncp.copy(commandModule.CompiledCommand);
-			// 	console.log(chalk.green("\n * The compiled command has been copied into your clipboard."));
-
-			// 	// Give the user time to use the clipboard before moving on.
-			// 	if(!isLast) readlineSync.keyIn(chalk.green("   Install into your world before you continue. Type 'c' to continue. "), {limit: 'c'});
-			// }
 		}
 	};
 	
@@ -118,14 +96,10 @@ var FileParser = (function ()
 		
 		var commands = [];
 
-		var summonModuleDisplayMarker = CommandCreator.addNewModuleDisplayMarker(path.basename(sourceName));
-
 		if(Settings.Current.Output.ShowDebugInfo)
 		{
 			console.log(chalk.bold("\n\n* START NEW FILE!"))
 			console.log("  " + sourceName);
-			if(summonModuleDisplayMarker) console.log("   -> " + summonModuleDisplayMarker);
-			else console.log("   -> " + "No file marker summoned");
 		}
 		
 		var self = this;
@@ -155,74 +129,57 @@ var FileParser = (function ()
 
 		
 		
-		var summonRebuildEntityCommand = util.format(
-				Templates.Current.SUMMON_REBUILD_ENTITY,
-				commandModule.lowX,
-				(commandModule.lowY - 1), // lower y by 1 because minecarts execute 1 block up
-				commandModule.lowZ
-			);
+		// var summonRebuildEntityCommand = util.format(
+		// 		Templates.Current.SUMMON_REBUILD_ENTITY,
+		// 		commandModule.lowX,
+		// 		(commandModule.lowY - 1), // lower y by 1 because minecarts execute 1 block up
+		// 		commandModule.lowZ
+		// 	);
 
-		var clearAreaCommand = util.format(
-				Templates.Current.CLEAR_AREA_FORMAT, 
-				commandModule.border,
-				commandModule.lowY,
-				commandModule.border,
-				(commandModule.diffX - commandModule.border),
-				commandModule.diffY,
-				(commandModule.diffZ - commandModule.border)
-			);
+		// var clearAreaCommand = util.format(
+		// 		Templates.Current.CLEAR_AREA_FORMAT, 
+		// 		commandModule.border,
+		// 		commandModule.lowY,
+		// 		commandModule.border,
+		// 		(commandModule.diffX - commandModule.border),
+		// 		commandModule.diffY,
+		// 		(commandModule.diffZ - commandModule.border)
+		// 	);
 
-		var clearMarkersCommand = util.format(
-				Templates.Current.CLEAR_MARKERS_FORMAT,
-				commandModule.diffX,
-				commandModule.diffY,
-				commandModule.diffZ
-			);
+		// var clearMarkersCommand = util.format(
+		// 		Templates.Current.CLEAR_MARKERS_FORMAT,
+		// 		commandModule.diffX,
+		// 		commandModule.diffY,
+		// 		commandModule.diffZ
+		// 	);
 
-		// Add commands to start of combined command
-		commandModule.Commands.unshift(
-			Templates.Current.CLEAR_MODULE_DISPLAY_MARKER,
-			summonRebuildEntityCommand, 
-			clearAreaCommand, 
-			clearMarkersCommand,
-			summonModuleDisplayMarker
-		);
+		// // Add commands to start of combined command
+		// commandModule.Commands.unshift(
+		// 	Templates.Current.CLEAR_MODULE_DISPLAY_MARKER,
+		// 	summonRebuildEntityCommand, 
+		// 	clearAreaCommand, 
+		// 	clearMarkersCommand,
+		// 	summonModuleDisplayMarker
+		// );
 
 			
-		var removeBlocksNextTickCommand = CommandCreator.buildSetblockCommand(0, 2, 0, "up", "impulse", false, true, false, "", "/fill ~ ~-1 ~ ~ ~ ~ air");
+		// var removeBlocksNextTickCommand = CommandCreator.buildSetblockCommand(0, 2, 0, "up", "impulse", false, true, false, "", "/fill ~ ~-1 ~ ~ ~ ~ air");
 		
-		// Add commands to end of combined command
-		if(Settings.Current.Output.UseRCON)
-		{
-			commandModule.Commands.push(
-				Templates.Current.CLEAR_REBUILD_ENTITY
-			);
-		}
-		else
-		{
-			commandModule.Commands.push(
-				removeBlocksNextTickCommand, 
-				Templates.Current.CLEAR_REBUILD_ENTITY,
-				Templates.Current.CLEAR_MINECARTS
-			);
-		}
-
-		// // Now take all in this.Commands and put into commandblock minecarts to be executed
-		// // when summoned as passengers on an activator rail
-
-		// var minecarts = []
-		// for(i=0; i < commandModule.Commands.length; i++)
+		// // Add commands to end of combined command
+		// if(Settings.Current.Output.UseRCON)
 		// {
-		// 	var command = commandModule.Commands[i];
-		// 	var minecart = util.format(Templates.Current.COMMAND_BLOCK_MINECART_NBT_FORMAT, JSON.stringify(command)); 
-		// 	minecarts.push(minecart);
+		// 	commandModule.Commands.push(
+		// 		Templates.Current.CLEAR_REBUILD_ENTITY
+		// 	);
 		// }
-		
-		// var minecartsString = minecarts.join(",");
-
-		// var compiledCommands = util.format(Templates.Current.SUMMON_FALLING_RAIL_FORMAT, minecartsString);
-
-		// commandModule.CompiledCommand = compiledCommands;
+		// else
+		// {
+		// 	commandModule.Commands.push(
+		// 		removeBlocksNextTickCommand, 
+		// 		Templates.Current.CLEAR_REBUILD_ENTITY,
+		// 		Templates.Current.CLEAR_MINECARTS
+		// 	);
+		// }
 
 		return commandModule;
 	};
@@ -401,7 +358,7 @@ var FileParser = (function ()
 	{
 		// varName; everything up to the first =
 		var varName = line.substr(0,line.indexOf('=')).trim();
-		// varValue; averything after the first =
+		// varValue; everything after the first =
 		var varValue = line.substr(line.indexOf('=')+1).trim();
 		varValue = this.checkForVariables(varValue);
 

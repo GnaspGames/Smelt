@@ -1,4 +1,7 @@
+var util = require('util');
 var chalk = require('chalk');
+var path = require('path');
+var Templates = require("./CommandTemplates");
 var Settings = require("../Configuration/Settings");
 
 
@@ -88,6 +91,72 @@ var CommandModule = (function ()
 			console.log("  innerDiffZ: " + this.innerDiffZ);
 		}
 	};
+
+	CommandModule.prototype.addAdditionalCommands = function()
+	{
+		// BEFORE ALL COMMANDS: add some setup commands
+		var summonRebuildEntityCommand = util.format(
+				Templates.Current.SUMMON_REBUILD_ENTITY,
+				this.lowX,
+				(this.lowY - 1), // lower y by 1 because minecarts execute 1 block up
+				this.lowZ
+			);
+
+		var clearAreaCommand = util.format(
+				Templates.Current.CLEAR_AREA_FORMAT, 
+				this.border,
+				this.lowY,
+				this.border,
+				(this.diffX - this.border),
+				this.diffY,
+				(this.diffZ - this.border)
+			);
+
+		var clearMarkersCommand = util.format(
+				Templates.Current.CLEAR_MARKERS_FORMAT,
+				this.diffX,
+				this.diffY,
+				this.diffZ
+			);
+
+		var summonModuleDisplayMarker = CommandCreator.addNewModuleDisplayMarker(path.basename(this.SourceName));
+
+		if(Settings.Current.Output.ShowDebugInfo)
+		{
+			if(summonModuleDisplayMarker) console.log("   -> " + summonModuleDisplayMarker);
+			else console.log("   -> " + "No file marker summoned");
+		}
+
+		// Add commands to start of combined command to clear area etc
+		this.Commands.unshift(
+			Templates.Current.CLEAR_MODULE_DISPLAY_MARKER,
+			summonRebuildEntityCommand, 
+			clearAreaCommand, 
+			clearMarkersCommand,
+			summonModuleDisplayMarker
+		);
+
+		// AFTER ALL COMMANDS: add some 'clean' up commands
+		
+		if(Settings.Current.Output.UseRCON)
+		{
+			this.Commands.push(
+				Templates.Current.CLEAR_REBUILD_ENTITY
+			);
+		}
+		else
+		{
+			// Use a fill command to remove the rail above source block
+			var removeBlocksNextTickCommand = CommandCreator.buildSetblockCommand(0, 2, 0, "up", "impulse", false, true, false, "", "/fill ~ ~-1 ~ ~ ~ ~ air");
+			
+			this.Commands.push(
+				removeBlocksNextTickCommand, 
+				Templates.Current.CLEAR_REBUILD_ENTITY,
+				Templates.Current.CLEAR_MINECARTS
+			);
+		}
+
+	}
 
 	CommandModule.prototype.addCommand = function(command)
 	{
