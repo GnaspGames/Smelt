@@ -41,17 +41,10 @@ var FileParser = (function ()
 			});
 		}
 
-		console.log(chalk.yellow(util.format("\nProcessing of %s is complete.", commandModule.SourceName)));
-		this.PrintCompiledModuleSize(commandModule);
 		this.OutputCompiledModule(commandModule, true);
-	};
 
-	FileParser.prototype.PrintCompiledModuleSize = function(commandModule)
-	{
-		var length = commandModule.CompiledCommand.length;
-		var percentage = Math.round(((length / 32500) * 10000), 2) / 100;
-		console.log(chalk.yellow(util.format("Command length: %s (%s%)", length.toLocaleString(), percentage)));
-	}
+		console.log(chalk.yellow(util.format("\nProcessing of %s is complete.", commandModule.SourceName)));
+	};
 
 	FileParser.prototype.OutputCompiledModule = function(commandModule, isLast)
 	{	

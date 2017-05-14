@@ -123,8 +123,9 @@ var CommandModule = (function ()
 
 		if(Settings.Current.Output.ShowDebugInfo)
 		{
+			console.log(chalk.bold("\n\n* MODULE DISPLAY MARKER"))
 			if(summonModuleDisplayMarker) console.log("   -> " + summonModuleDisplayMarker);
-			else console.log("   -> " + "No file marker summoned");
+			else console.log("   -> " + "No module display marker summoned");
 		}
 
 		// Add commands to start of combined command to clear area etc

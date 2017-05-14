@@ -37,13 +37,25 @@ var CommandCombiner = (function ()
 
 		var compiledCommands = util.format(Templates.Current.SUMMON_FALLING_RAIL_FORMAT, minecartsString);
 
-		this.CompiledCommand = compiledCommands;
+		this.module.CompiledCommand = compiledCommands;
+	}
+
+	CommandCombiner.prototype.printCompiledModuleSize = function(commandModule)
+	{
+		var length = this.module.CompiledCommand.length;
+		var percentage = Math.round(((length / 32500) * 10000), 2) / 100;
+		console.log(chalk.yellow(util.format("\nCommand length for %s: %s (%s%)", this.module.SourceName, length.toLocaleString(), percentage)));
 	}
 
 	CommandCombiner.prototype.createOutput = function(isLast)
 	{
 		// Combine all the commands in the module before outputting
 		this.combineAllCommands();
+
+		// Show the module size so user can monitor it's too long for a command block.
+		this.printCompiledModuleSize();
+
+		// Do the required output: 
 
 		if(Settings.Current.Output.WriteCompiledCommandsToFile)
 		{
