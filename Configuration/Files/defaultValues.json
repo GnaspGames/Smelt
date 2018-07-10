@@ -6,7 +6,7 @@
 		"CopyCompiledCommands": false,
 		"WriteCompiledCommandsToFile": true,
 		"UseRCON": false,
-		"MinecraftVersion": "1.11"
+		"MinecraftVersion": "1.13"
 	},
 	"RCON":
 	{
@@ -35,7 +35,7 @@
 	},
 	"Markers":
 	{
-		"EntityType": "AreaEffectCloud",
+		"EntityType": "ArmorStand",
 		"SummonFileMarkers": true,
 		"SummonRowMarkers": true
 	}
