@@ -13,8 +13,13 @@ MC_1_9 :
    formatSetblock: function (x,y,z,blockName,dataValue,cxx,cmd,autoString,trackOutputString) {
      switch (dataValue) {
        case "up":
+         dataValue = 1;
          break;
        case "east":
+         dataValue = 5;
+         break;
+       case "west":
+         dataValue = 4;
          break;
      }
      if (cxx == "true")
