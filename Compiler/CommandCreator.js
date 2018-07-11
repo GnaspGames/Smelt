@@ -186,7 +186,7 @@ var CommandCreator =
 		if(trackOutput == false) trackOutputString = ",TrackOutput:0b";
 		
 		if(executeAs != "")
-			command = util.format("/execute as %s run %s", executeAs, command);
+			command = Templates.Current.formatExec(executeAs, command);
         var ccx = "false";
         if (conditional)
             ccx = "true";
@@ -194,7 +194,7 @@ var CommandCreator =
 		// lower y by 1 because minecarts execute 1 block up
 		y = (y - 1);
 
-		var setblock = util.format(Templates.Current.SETBLOCK_COMMAND_FORMAT, 
+		var setblock = Templates.Current.formatSetblock(
 								   x, y, z,
 								   blockName, dataValue, ccx, JSON.stringify(command), autoString, trackOutputString);
 		
