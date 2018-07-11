@@ -34,6 +34,19 @@ var Templates =
 var getCurrent = function()
 {
 	var current = Templates.MC_1_13;
+  switch (Settings.Current.Output.MinecraftVersion) {
+    case "1.9":
+    case "1.10":
+        current = Templates.MC_1_9;
+        break;
+    case "1.11":
+    case "1.12":
+       current = Templates.MC_1_11;
+       break;
+    case "1.13":
+       current = Templates.MC_1_13;
+       break;
+  }
 	return current;
 }
 
