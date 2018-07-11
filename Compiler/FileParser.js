@@ -55,7 +55,8 @@ var FileParser = (function ()
 
 	FileParser.prototype.OutputCompiledModule = function(commandModule, isLast)
 	{	
-		if(Settings.Current.Output.WriteCompiledCommandsToFile)
+	if (Settings.Current.Output.UseRCON) {
+} else {	if(Settings.Current.Output.WriteCompiledCommandsToFile)
 		{
 			var outputFileName = path.resolve(Paths.LocalDirectory + "/" + commandModule.SourceName.replace(".mcc", ".oc"));
 			fs.writeFileSync(outputFileName, commandModule.CompiledCommand);
@@ -77,6 +78,7 @@ var FileParser = (function ()
 			// Give the user time to use the clipboard before moving on.
 			if(!isLast) readlineSync.keyIn(chalk.green("   Install into your world before you continue. Type 'c' to continue. "), {limit: 'c'});
 		}
+}
 	};
 	
 	FileParser.prototype.ProcessData = function (data, sourceName)
