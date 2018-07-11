@@ -20,7 +20,7 @@ var mc9 = {
      }
      if (cxx == "true")
       dataValue += 8;
-     return util.format(this.SETBLOCK,x,y,z,blockName, dataValue,cmd,autoString, trackOutputString);
+     return util.format(this.SETBLOCK_COMMAND_FORMAT,x,y,z,blockName, dataValue,cmd,autoString, trackOutputString);
   }
 };
 
