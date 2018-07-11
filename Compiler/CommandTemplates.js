@@ -1,16 +1,12 @@
 var Settings = require("../Configuration/Settings");
 var util = require ("util");
 
-var Templates = 
-{
-	Current : null,
-MC_1_9 : 
-
-	{
-   formatExec: function (execAs,cmd) {
+var mc9 = {
+  SETBLOCK: "setblock ~%d ~%d ~%d %s %d replace {Command:%s%s%s}",
+  formatExec: function (execAs,cmd) {
      return util.format("/execute %s ~ ~ ~ %s",execAs,cmd);
    },
-   formatSetblock: function (x,y,z,blockName,dataValue,cxx,cmd,autoString,trackOutputString) {
+  formatSetblock: function (x,y,z,blockName,dataValue,cxx,cmd,autoString,trackOutputString) {
      switch (dataValue) {
        case "up":
          dataValue = 1;
@@ -25,7 +21,17 @@ MC_1_9 :
      if (cxx == "true")
       dataValue += 8;
      return util.format(this.SETBLOCK_COMMAND_FORMAT,x,y,z,blockName, dataValue,cmd,autoString, trackOutputString);
-  },
+  }
+};
+
+var Templates = 
+{
+	Current : null,
+MC_1_9 : 
+
+	{
+   formatExec: mc9.formatExec,
+   formatSetblock: mc9.formatSetblock,
 		IMPULSE_BLOCK_NAME : "command_block",
 
 		REPEATING_BLOCK_NAME : "repeating_command_block",
@@ -34,7 +40,7 @@ MC_1_9 :
 
 		TESTFORBLOCK_COMMAND_FORMAT: "testforblock ~%d ~%d ~%d minecraft:%s -1 {SuccessCount:0}",
 
-		SETBLOCK_COMMAND_FORMAT : "setblock ~%d ~%d ~%d %s %d replace {Command:%s%s%s}",
+		SETBLOCK_COMMAND_FORMAT : mc9.SETBLOCK,
 
 		SUMMON_ARMORSTAND_DISPLAY_MARKER_FORMAT : "summon ArmorStand ~%d ~%d ~%d {CustomName:%s, Tags:[\"oc_marker\"], Marker:1b, CustomNameVisible:1b, Invulnerable:1b, NoGravity:1b, Invisible:1b}",
 
