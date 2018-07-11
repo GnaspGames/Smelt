@@ -4,6 +4,12 @@ var Templates =
 {
 	Current : null,
     MC_1_13: {
+        formatExec: function (execAs,cmd) {
+            return util.format("/execute as %s run %s",execAs,cmd);
+        }
+        formatSetblock: function (x,y,z,blockName,dataValue,cxx,cmd,autoString,trackOutputString) {
+       return util.format(this.SETBLOCK_COMMAND_FORMAT,x,y,z,blockName, dataValue,cxx,cmd,autoString, trackOutputString);
+}
         IMPULSE_BLOCK_NAME : "command_block",
 		REPEATING_BLOCK_NAME : "repeating_command_block",
 		CHAIN_BLOCK_NAME : "chain_command_block",
