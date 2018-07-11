@@ -56,7 +56,8 @@ var FileParser = (function ()
 	FileParser.prototype.OutputCompiledModule = function(commandModule, isLast)
 	{	
 	if (Settings.Current.Output.UseRCON) {
-
+var rconClient = new RconClient(commandModule);
+rconClient.sendModule();
 } else {	if(Settings.Current.Output.WriteCompiledCommandsToFile)
 		{
 			var outputFileName = path.resolve(Paths.LocalDirectory + "/" + commandModule.SourceName.replace(".mcc", ".oc"));
