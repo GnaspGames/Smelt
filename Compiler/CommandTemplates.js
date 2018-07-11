@@ -11,7 +11,15 @@ MC_1_9 :
      return util.format("/execute %s ~ ~ ~ %s",execAs,cmd);
    },
    formatSetblock: function (x,y,z,blockName,dataValue,cxx,cmd,autoString,trackOutputString) {
-     
+     switch (dataValue) {
+       case "up":
+         break;
+       case "east":
+         break;
+     }
+     if (cxx == "true")
+      dataValue += 8;
+     return util.format(this.SETBLOCK_COMMAND_FORMAT,x,y,z,blockName, dataValue,cmd,autoString, trackOutputString);
   },
 		IMPULSE_BLOCK_NAME : "command_block",
 
