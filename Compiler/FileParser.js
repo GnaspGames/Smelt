@@ -186,12 +186,8 @@ rconClient.sendModule();
 		var removeBlocksNextTickCommand = CommandCreator.buildSetblockCommand(0, 2, 0, "up", "impulse", false, true, false, "", "/fill ~ ~-1 ~ ~ ~ ~ air");
 		
 		// Add commands to end of combined command
-		commandModule.Commands.push(
-			removeBlocksNextTickCommand, 
-			Templates.Current.CLEAR_REBUILD_ENTITY,
-			Templates.Current.CLEAR_MINECARTS
-		);
-
+	 
+if(Settings.Current.Output.UseRCON)	{	commandModule.Commands.push(	Templates.Current.CLEAR_REBUILD_ENTITY	);	}	else	{		commandModule.Commands.push(	removeBlocksNextTickCommand, 			Templates.Current.CLEAR_REBUILD_ENTITY,			Templates.Current.CLEAR_MINECARTS		);	}
 		// Now take all in this.Commands and put into commandblock minecarts to be executed
 		// when summoned as passengers on an activator rail
 		
