@@ -6,7 +6,7 @@
 		"CopyCompiledCommands": "boolean",
 		"WriteCompiledCommandsToFile": "boolean",
 		"UseRCON": "boolean",
-		"MinecraftVersion": ["1.9","1.10","1.11"]
+		"MinecraftVersion": ["1.9","1.10","1.11","1.12","1.13"]
 	},
 	"RCON":
 	{

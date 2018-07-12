@@ -3,9 +3,9 @@ var Templates = require("./CommandTemplates");
 
 var CommandCreator = 
 {
-	UP_DIRECTION_VALUE : 1,
-	EAST_DIRECTION_VALUE : 5,
-	WEST_DIRECTION_VALUE : 4,
+	UP_DIRECTION_VALUE : "up",
+	EAST_DIRECTION_VALUE : "east",
+	WEST_DIRECTION_VALUE : "west",
 	CONDITIONAL_DIFF_VALUE : 8,
 	STARTING_DIRECTION: "east",
 	currentCommandModule: null,
@@ -179,9 +179,6 @@ var CommandCreator =
 				break;
 		}
 		
-		if(conditional)
-			dataValue = dataValue + CommandCreator.CONDITIONAL_DIFF_VALUE;
-		
 		var autoString = "";
 		if(auto == true) autoString = ",auto:1b";
 
@@ -189,14 +186,17 @@ var CommandCreator =
 		if(trackOutput == false) trackOutputString = ",TrackOutput:0b";
 		
 		if(executeAs != "")
-			command = util.format("/execute %s ~ ~ ~ %s", executeAs, command);
+			command = Templates.Current.formatExec(executeAs, command);
+        var ccx = "false";
+        if (conditional)
+            ccx = "true";
 		
 		// lower y by 1 because minecarts execute 1 block up
 		y = (y - 1);
 
-		var setblock = util.format(Templates.Current.SETBLOCK_COMMAND_FORMAT, 
+		var setblock = Templates.Current.formatSetblock(
 								   x, y, z,
-								   blockName, dataValue, JSON.stringify(command), autoString, trackOutputString);
+								   blockName, dataValue, ccx, JSON.stringify(command), autoString, trackOutputString);
 		
 		return setblock;
 	},
@@ -355,8 +355,8 @@ var CommandCreator =
 			CommandCreator.executeAs = json.executeAs;
 		if(json.markerTag != null)
 			CommandCreator.markerTag = json.markerTag;
-		if(json.rconSelector != null)
-			this.currentCommandModule.RconSelector = json.rconSelector;
+if(json.rconSelector != null) {	this.currentCommandModule.RconSelector = json.rconSelector;
+}
 		
 		// Module Settings
 		var resetModuleSize = false;
@@ -389,6 +389,7 @@ var CommandCreator =
 
 		if(json.moduleBorder != null)
 		{ border = json.moduleBorder; resetModuleSize = true; }
+
 
 		if(resetModuleSize)
 		{

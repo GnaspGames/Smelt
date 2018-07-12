@@ -109,6 +109,7 @@ var BangCommandHelper =
 		var foundPath = "";
 
 		var paths = [
+            path.resolve("/.smelt/plugins/" + name + ".js"),
 			path.resolve(Paths.LocalDirectory + "/.smelt/plugins/" + name + ".js"),
 			path.resolve(Paths.HomeDirectory + "/plugins/" + name + ".js"),
 			path.resolve(Paths.OcDirectory + "/BangCommands/Included/" + name + ".js")
@@ -240,7 +241,13 @@ var BangCommandHelper =
 
 		// Create the directory if it doesn't exist
 		var saveDir = path.dirname(cacheFile);
-		if (!fs.existsSync(saveDir)) fs.mkdirSync(saveDir);
+		if (!fs.existsSync(saveDir)){ 
+     if (!fs.existsSync(path.resolve(Paths.LocalDirectory + "/.smelt/"))) {
+     fs.mkdirSync(path.resolve(Paths.LocalDirectory + "/.smelt/"));
+    }
+      
+     fs.mkdirSync(saveDir);
+    }
 
 		// Add digest to cache file as new line.
 		fs.appendFileSync(cacheFile, digest + "\n");
