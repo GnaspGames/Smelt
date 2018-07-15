@@ -16,8 +16,12 @@ var Event =
 				smelt.addSupportModule("smelt-for-1.9.mcc");
 				break;
 			case "1.11":
+      case "1.12":
+        smelt.addSupportModule("smelt-for-1.11.mcc");
+        break;
+      case "1.13":
 			default:
-				smelt.addSupportModule("smelt-for-1.11.mcc");
+				smelt.addSupportModule("smelt-for-1.13.mcc");
 				break;
 		}
 	},
@@ -27,7 +31,7 @@ var Event =
 		if(name)
 		{
 			smelt.addCommandBlock(
-				util.format("scoreboard players tag @e[tag=Smelt_SYSTEM] remove event_%s", name), 
+				util.format("tag @e[tag=Smelt_SYSTEM] remove event_%s", name), 
 				{type:"repeating",auto:true,conditional:false}
 			);
 			
