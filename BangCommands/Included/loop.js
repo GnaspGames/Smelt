@@ -30,10 +30,11 @@ var Loop =
 		var name = smelt.args[0];
 		if(name)
 		{
+       if (smelt.settings.Output.MinecraftVersion == "1.13") {
 			smelt.addCommandBlock(
 				util.format("execute if entity @e[tag=Smelt_SYSTEM,nbt={Tags:[\"loop_%s\"]}] run searge", name), 
 				{type:"repeating",auto:true,conditional:false}
-			);
+			); }
 		}
 	}
 }
