@@ -35,7 +35,7 @@ var Loop =
 				util.format("execute if entity @e[tag=Smelt_SYSTEM,nbt={Tags:[\"loop_%s\"]}] run searge", name), 
 				{type:"repeating",auto:true,conditional:false}
 			); } else {
-				
+				smelt.addCommandBlock(util.format("testfor @e[tag=Smelt_SYSTEM] {Tags:[\"loop_%s\"]"),{type:"repeating",auto:true, conditional:false});
 				smelt.addCommandBlock(
 				"searge", 
 				{type:"repeating",auto:true,conditional:true}
