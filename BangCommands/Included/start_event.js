@@ -17,7 +17,7 @@ StartEvent.Execute = function(smelt)
 	if(name)
 	{
 		smelt.addCommandBlock(
-			util.format("/scoreboard players tag @e[tag=Smelt_SYSTEM] add event_%s", name)
+			util.format("/tag @e[tag=Smelt_SYSTEM] add event_%s", name)
 		);
 	}
 };
