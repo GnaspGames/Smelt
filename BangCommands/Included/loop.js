@@ -27,7 +27,7 @@ var Loop =
 		if(name)
 		{
 			smelt.addCommandBlock(
-				util.format("execute if @e[tag=Smelt_SYSTEM] {Tags:[\"loop_%s\"]}", name), 
+				util.format("execute if entity @e[tag=Smelt_SYSTEM,nbt={Tags:[\"loop_%s\"]}] run searge", name), 
 				{type:"repeating",auto:true,conditional:false}
 			);
 		}
