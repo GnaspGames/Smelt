@@ -27,8 +27,11 @@ delay.Install = function (smelt)
 			smelt.addSupportModule("smelt-for-1.9.mcc");
 			break;
 		case "1.11":
+    case "1.12":
+     smelt.addSupportModule("smelt-for-1.11.mcc");
+     break;
 		default:
-			smelt.addSupportModule("smelt-for-1.11.mcc");
+			smelt.addSupportModule("smelt-for-1.13.mcc");
 			break;
 	}
 };
@@ -68,9 +71,13 @@ delay.Execute = function (smelt)
 		case "1.10":
 			summonFormat = "execute @e[tag=%s,type=AreaEffectCloud,c=1] ~ ~ ~ summon minecraft:AreaEffectCloud ~ ~ ~ {Tags:[\"aecDelay\"],Particle:\"take\",Age:-%s}";
 			break;
-		case "1.11":
+    case "1.11":
+    case "1.12":
+      summonFormat = "execute @e[tag=%s,type=area_effect_cloud,c=1] ~ ~ ~ summon minecraft:area_effect_cloud ~ ~ ~ {Tags:[\"aecDelay\"],Particle:\"take\",Age:-%s}";
+			break;
+		case "1.13":
 		default:
-			summonFormat = "execute @e[tag=%s,type=area_effect_cloud,c=1] ~ ~ ~ summon minecraft:area_effect_cloud ~ ~ ~ {Tags:[\"aecDelay\"],Particle:\"take\",Age:-%s}";
+			summonFormat = "execute as @e[tag=%s,type=area_effect_cloud,c=1] run summon minecraft:area_effect_cloud ~ ~ ~ {Tags:[\"aecDelay\"],Particle:\"take\",Age:-%s}";
 			break;
 	}
 
