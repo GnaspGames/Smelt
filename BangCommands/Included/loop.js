@@ -16,12 +16,8 @@ var Loop =
 				smelt.addSupportModule("smelt-for-1.9.mcc");
 				break;
 			case "1.11":
-      case "1.12":
-        smelt.addSupportModule("smelt-for-1.11.mcc");
-        break;
-      case "1.13":
 			default:
-				smelt.addSupportModule("smelt-for-1.13.mcc");
+				smelt.addSupportModule("smelt-for-1.11.mcc");
 				break;
 		}
 	},
@@ -31,13 +27,8 @@ var Loop =
 		if(name)
 		{
 			smelt.addCommandBlock(
-				util.format("testfor @e[tag=Smelt_SYSTEM] {Tags:[\"loop_%s\"]}", name), 
+				util.format("execute if @e[tag=Smelt_SYSTEM] {Tags:[\"loop_%s\"]}", name), 
 				{type:"repeating",auto:true,conditional:false}
-			);
-
-			smelt.addCommandBlock(
-				"searge", 
-				{type:"repeating",auto:true,conditional:true}
 			);
 		}
 	}
