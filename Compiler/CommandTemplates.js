@@ -119,7 +119,7 @@ MC_1_9 :
         IMPULSE_BLOCK_NAME : "command_block",
 		REPEATING_BLOCK_NAME : "repeating_command_block",
 		CHAIN_BLOCK_NAME : "chain_command_block",
-		TESTFORBLOCK_COMMAND_FORMAT: "testforblock ~%d ~%d ~%d minecraft:%s -1 {SuccessCount:0}",
+		TESTFORBLOCK_COMMAND_FORMAT: "execute if block ~%d ~%d ~%d minecraft:%s{SucessCount:0} run say Please wait...",
 		SETBLOCK_COMMAND_FORMAT : "setblock ~%d ~%d ~%d %s[facing=%s,conditional=%s]{Command:%s%s%s} replace",
 		SUMMON_ARMORSTAND_DISPLAY_MARKER_FORMAT : "summon minecraft:armor_stand ~%d ~%d ~%d {CustomName:\"{\\\"text\\\":\\\"%s\\\"}\", Tags:[\"oc_marker\"], Marker:1b, CustomNameVisible:1b, Invulnerable:1b, NoGravity:1b, Invisible:1b}",
 		SUMMON_ARMORSTAND_CMD_MARKER_FORMAT : "summon minecraft:armor_stand ~%d ~%d ~%d {Tags:[\"oc_marker\",\"%s\"], Marker:1b, Invulnerable:1b, NoGravity:1b}",	
