@@ -55,36 +55,32 @@ var FileParser = (function ()
 
 	FileParser.prototype.OutputCompiledModule = function(commandModule, isLast)
 	{	
-		if(Settings.Current.Output.UseRCON)
+	if (Settings.Current.Output.UseRCON) {
+var rconClient = new RconClient(commandModule);
+rconClient.sendModule();
+} else {	if(Settings.Current.Output.WriteCompiledCommandsToFile)
 		{
-			var rconClient = new RconClient(commandModule);
-			rconClient.sendModule();
+			var outputFileName = path.resolve(Paths.LocalDirectory + "/" + commandModule.SourceName.replace(".mcc", ".oc"));
+			fs.writeFileSync(outputFileName, commandModule.CompiledCommand);
+			console.log(chalk.green("\n * The compiled command has been saved to " + outputFileName));
 		}
-		else
+
+		if(Settings.Current.Output.ShowCompiledCommands)
 		{
-			if(Settings.Current.Output.WriteCompiledCommandsToFile)
-			{
-				var outputFileName = path.resolve(Paths.LocalDirectory + "/" + commandModule.SourceName.replace(".mcc", ".oc"));
-				fs.writeFileSync(outputFileName, commandModule.CompiledCommand);
-				console.log(chalk.green("\n * The compiled command has been saved to " + outputFileName));
-			}
-
-			if(Settings.Current.Output.ShowCompiledCommands)
-			{
-				console.log(chalk.green("\n\ * COMPILED-COMMAND:\n"));
-				console.log(commandModule.CompiledCommand);
-			}
-
-			if(Settings.Current.Output.CopyCompiledCommands)
-			{
-				// Copy to the clipboard
-				ncp.copy(commandModule.CompiledCommand);
-				console.log(chalk.green("\n * The compiled command has been copied into your clipboard."));
-
-				// Give the user time to use the clipboard before moving on.
-				if(!isLast) readlineSync.keyIn(chalk.green("   Install into your world before you continue. Type 'c' to continue. "), {limit: 'c'});
-			}
+			console.log(chalk.green("\n\ * COMPILED-COMMAND:\n"));
+			console.log(commandModule.CompiledCommand);
 		}
+
+		if(Settings.Current.Output.CopyCompiledCommands)
+		{
+			// Copy to the clipboard
+			ncp.copy(commandModule.CompiledCommand);
+			console.log(chalk.green("\n * The compiled command has been copied into your clipboard."));
+
+			// Give the user time to use the clipboard before moving on.
+			if(!isLast) readlineSync.keyIn(chalk.green("   Install into your world before you continue. Type 'c' to continue. "), {limit: 'c'});
+		}
+}
 	};
 	
 	FileParser.prototype.ProcessData = function (data, sourceName)
@@ -147,12 +143,12 @@ var FileParser = (function ()
 			var line = lines[i].trim();
 			process(line, false);
 		}
-		
+
 		// One final call to processLine to complete the last trigger
 		process("", true);
 
 		
-		
+
 		var summonRebuildEntityCommand = util.format(
 				Templates.Current.SUMMON_REBUILD_ENTITY,
 				commandModule.lowX,
@@ -163,7 +159,7 @@ var FileParser = (function ()
 		var clearAreacommand = util.format(
 				Templates.Current.CLEAR_AREA_FORMAT, 
 				commandModule.border,
-				commandModule.lowY,
+				commandModule.lowY-1,
 				commandModule.border,
 				(commandModule.diffX - commandModule.border),
 				commandModule.diffY,
@@ -185,29 +181,16 @@ var FileParser = (function ()
 			clearMarkersCommand,
 			summonModuleDisplayMarker
 		);
-
-			
+		
+		
 		var removeBlocksNextTickCommand = CommandCreator.buildSetblockCommand(0, 2, 0, "up", "impulse", false, true, false, "", "/fill ~ ~-1 ~ ~ ~ ~ air");
 		
 		// Add commands to end of combined command
-		if(Settings.Current.Output.UseRCON)
-		{
-			commandModule.Commands.push(
-				Templates.Current.CLEAR_REBUILD_ENTITY
-			);
-		}
-		else
-		{
-			commandModule.Commands.push(
-				removeBlocksNextTickCommand, 
-				Templates.Current.CLEAR_REBUILD_ENTITY,
-				Templates.Current.CLEAR_MINECARTS
-			);
-		}
-
+	 
+if(Settings.Current.Output.UseRCON)	{	commandModule.Commands.push(	Templates.Current.CLEAR_REBUILD_ENTITY	);	}	else	{		commandModule.Commands.push(	removeBlocksNextTickCommand, 			Templates.Current.CLEAR_REBUILD_ENTITY,			Templates.Current.CLEAR_MINECARTS		);	}
 		// Now take all in this.Commands and put into commandblock minecarts to be executed
 		// when summoned as passengers on an activator rail
-
+		
 		var minecarts = []
 		for(i=0; i < commandModule.Commands.length; i++)
 		{

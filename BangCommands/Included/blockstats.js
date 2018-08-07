@@ -14,6 +14,9 @@ var BlockStats =
 	{
 		Execute: function (smelt)
 		{
+      if (smelt.settings.Output.MinecraftVersion == "1.13") {
+         throw new Error("!blockstats is impossible in 1.13!");
+      }
 			// Get arguments
 			var operation = smelt.args[0];
 			

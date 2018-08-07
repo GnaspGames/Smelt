@@ -16,8 +16,12 @@ var Loop =
 				smelt.addSupportModule("smelt-for-1.9.mcc");
 				break;
 			case "1.11":
+      case "1.12":
+        smelt.addSupportModule("smelt-for-1.11.mcc");
+        break;
+      case "1.13":
 			default:
-				smelt.addSupportModule("smelt-for-1.11.mcc");
+				smelt.addSupportModule("smelt-for-1.13.mcc");
 				break;
 		}
 	},
@@ -26,15 +30,17 @@ var Loop =
 		var name = smelt.args[0];
 		if(name)
 		{
+       if (smelt.settings.Output.MinecraftVersion == "1.13") {
 			smelt.addCommandBlock(
-				util.format("testfor @e[tag=Smelt_SYSTEM] {Tags:[\"loop_%s\"]}", name), 
+				util.format("execute if entity @e[tag=Smelt_SYSTEM,nbt={Tags:[\"loop_%s\"]}] run searge", name), 
 				{type:"repeating",auto:true,conditional:false}
-			);
-
-			smelt.addCommandBlock(
+			); } else {
+				smelt.addCommandBlock(util.format("testfor @e[tag=Smelt_SYSTEM] {Tags:[\"loop_%s\"]"),{type:"repeating",auto:true, conditional:false});
+				smelt.addCommandBlock(
 				"searge", 
 				{type:"repeating",auto:true,conditional:true}
 			);
+				
 		}
 	}
 }

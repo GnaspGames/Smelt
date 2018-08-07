@@ -14,8 +14,12 @@ Test.Install = function(smelt)
 			smelt.addSupportModule("smelt-for-1.9.mcc");
 			break;
 		case "1.11":
+    case "1.12":
+     smelt.addSupportModule("smelt-for-1.11.mcc");
+     break;
+    case "1.13":
 		default:
-			smelt.addSupportModule("smelt-for-1.11.mcc");
+			smelt.addSupportModule("smelt-for-1.13.mcc");
 			break;
 	}
 };
